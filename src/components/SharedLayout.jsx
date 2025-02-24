@@ -98,7 +98,7 @@ const Navbar = () => {
               className={`px-5 py-2.5 rounded-lg transition-all duration-300 flex items-center gap-1.5 ${
                 isScrolled || !hasHeroBackground
                   ? "bg-blue-600 text-white hover:bg-blue-700"
-                  : "bg-white/20 backdrop-blur-sm text-white hover:bg-white/40 border border-white/30"
+                  : "bg-white/20 backdrop-blur-sm text-white  hover:bg-yellow-300/90 border border-white/30 hover:text-blue-600"
               }`}
             >
               <MessageSquare size={18} />

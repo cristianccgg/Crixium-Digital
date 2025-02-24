@@ -91,7 +91,7 @@ const LandingPage = () => {
             <div className="flex flex-wrap gap-4">
               <Link
                 to="/web-development"
-                className="bg-white text-blue-800 px-8 py-4 rounded-lg hover:bg-blue-50 transition-all duration-300 flex items-center gap-2 font-medium shadow-lg hover:shadow-xl"
+                className="bg-white text-blue-800 px-8 py-4 rounded-lg hover:bg-yellow-300 transition-all duration-300 flex items-center gap-2 font-medium shadow-lg hover:shadow-xl "
               >
                 <Globe size={20} />
                 Desarrollo Web
@@ -99,7 +99,7 @@ const LandingPage = () => {
 
               <Link
                 to="/music-production"
-                className="bg-blue-900/30 backdrop-blur-sm text-white px-8 py-4 rounded-lg border border-white/20 hover:bg-blue-800/40 transition-all duration-300 flex items-center gap-2 font-medium"
+                className="bg-white text-blue-800 px-8 py-4 rounded-lg hover:bg-yellow-300 transition-all duration-300 flex items-center gap-2 font-medium shadow-lg hover:shadow-xl"
               >
                 <Music2 size={20} />
                 Producción Musical
