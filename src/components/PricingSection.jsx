@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Check, Music, Mic, Sparkles, ArrowRight } from "lucide-react";
-import JingleCheckoutForm from "./JingleCheckOutForm";
+import JingleCheckoutForm from "./JingleCheckoutForm";
 import VoiceoverCheckoutForm from "./VoiceoverCheckoutForm";
 
 const ServiceSelector = ({ activeService, onServiceChange }) => (
@@ -412,14 +412,5 @@ const PricingSection = ({ initialService }) => {
     </section>
   );
 };
-
-// Agregamos esta animación en el CSS global o en un módulo de CSS
-// @keyframes fadeIn {
-//   from { opacity: 0; transform: translateY(10px); }
-//   to { opacity: 1; transform: translateY(0); }
-// }
-// .animate-fadeIn {
-//   animation: fadeIn 0.3s ease-in-out;
-// }
 
 export default PricingSection;
