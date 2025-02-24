@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Check, Music, Mic2 } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Check, Music, Mic, Sparkles, ArrowRight } from "lucide-react";
 import JingleCheckoutForm from "./JingleCheckOutForm";
 import VoiceoverCheckoutForm from "./VoiceoverCheckoutForm";
 
@@ -7,24 +7,30 @@ const ServiceSelector = ({ activeService, onServiceChange }) => (
   <div className="flex justify-center gap-4 mb-12">
     <button
       onClick={() => onServiceChange("jingles")}
-      className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all ${
+      className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 transform ${
         activeService === "jingles"
-          ? "bg-blue-600 text-white"
-          : "bg-gray-100 hover:bg-gray-200"
+          ? "bg-blue-600 text-white shadow-lg scale-105"
+          : "bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 hover:shadow-md border border-gray-200"
       }`}
     >
-      <Music size={20} />
-      <span>Jingles</span>
+      <Music
+        size={20}
+        className={activeService === "jingles" ? "animate-pulse" : ""}
+      />
+      <span>Jingles/Intros</span>
     </button>
     <button
       onClick={() => onServiceChange("voiceover")}
-      className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all ${
+      className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 transform ${
         activeService === "voiceover"
-          ? "bg-blue-600 text-white"
-          : "bg-gray-100 hover:bg-gray-200"
+          ? "bg-blue-600 text-white shadow-lg scale-105"
+          : "bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 hover:shadow-md border border-gray-200"
       }`}
     >
-      <Mic2 size={20} />
+      <Mic
+        size={20}
+        className={activeService === "voiceover" ? "animate-pulse" : ""}
+      />
       <span>Locución</span>
     </button>
   </div>
@@ -38,42 +44,82 @@ const PricingCard = ({
   isPopular,
   onSelect,
   id,
-}) => (
-  <div
-    className={`bg-white rounded-xl shadow-lg p-8 relative ${
-      isPopular ? "border-2 border-blue-500" : ""
-    }`}
-  >
-    {isPopular && (
-      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-        <span className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-medium">
-          Más Popular
-        </span>
-      </div>
-    )}
-    <h3 className="text-xl font-bold text-gray-900 mb-4">{title}</h3>
-    <div className="flex items-baseline mb-4">
-      <span className="text-3xl font-bold text-gray-900">US${price}</span>
-    </div>
-    <div className="bg-blue-50 text-blue-700 px-4 py-2 rounded-lg mb-6 text-sm font-medium">
-      {delivery}
-    </div>
-    <ul className="space-y-3 mb-6">
-      {features.map((feature, index) => (
-        <li key={index} className="flex items-start">
-          <Check className="h-5 w-5 text-blue-500 mr-2 flex-shrink-0 mt-0.5" />
-          <span className="text-gray-600">{feature}</span>
-        </li>
-      ))}
-    </ul>
-    <button
-      onClick={() => onSelect(id)}
-      className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors"
+}) => {
+  const [hovering, setHovering] = useState(false);
+
+  return (
+    <div
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+      className={`bg-white rounded-xl p-8 relative flex flex-col h-full transition-all duration-300 transform ${
+        isPopular
+          ? "border-2 border-blue-500 shadow-xl"
+          : "border border-gray-100 shadow-md"
+      } ${hovering ? "scale-105 shadow-xl" : ""}`}
     >
-      Seleccionar Plan
-    </button>
-  </div>
-);
+      {isPopular && (
+        <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+          <span className="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-4 py-1 rounded-full text-sm font-medium flex items-center">
+            <Sparkles size={14} className="mr-1 animate-pulse" />
+            Más Popular
+          </span>
+        </div>
+      )}
+      <div className="flex-grow">
+        <h3 className="text-xl font-bold text-gray-900 mb-4">{title}</h3>
+        <div className="flex items-baseline mb-6">
+          <span className="text-4xl font-bold text-gray-900">US${price}</span>
+          <span className="ml-1 text-gray-500">/servicio</span>
+        </div>
+        <div
+          className={`${
+            isPopular ? "bg-blue-50 text-blue-700" : "bg-gray-50 text-gray-700"
+          } px-4 py-2 rounded-lg mb-6 text-sm font-medium transition-colors duration-300`}
+        >
+          {delivery}
+        </div>
+        <ul className="space-y-3 mb-6">
+          {features.map((feature, index) => (
+            <li key={index} className="flex items-start group">
+              <div
+                className={`h-5 w-5 rounded-full mr-2 flex-shrink-0 flex items-center justify-center ${
+                  isPopular || hovering
+                    ? "bg-blue-100 text-blue-600"
+                    : "bg-gray-100 text-gray-600"
+                } transition-colors duration-300 group-hover:bg-blue-100 group-hover:text-blue-600`}
+              >
+                <Check size={12} />
+              </div>
+              <span
+                className={`text-gray-600 transition-colors duration-300 ${
+                  hovering ? "text-gray-900" : ""
+                }`}
+              >
+                {feature}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <button
+        onClick={() => onSelect(id)}
+        className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg transition-all duration-300 ${
+          isPopular || hovering
+            ? "bg-blue-600 text-white hover:bg-blue-700"
+            : "bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white"
+        }`}
+      >
+        <span>Seleccionar Plan</span>
+        <ArrowRight
+          size={16}
+          className={`transition-transform duration-300 ${
+            hovering ? "translate-x-1" : ""
+          }`}
+        />
+      </button>
+    </div>
+  );
+};
 
 const VoiceoverCard = ({
   title,
@@ -84,46 +130,88 @@ const VoiceoverCard = ({
   isPopular,
   onSelect,
   id,
-}) => (
-  <div
-    className={`bg-white rounded-xl shadow-lg p-8 relative ${
-      isPopular ? "border-2 border-blue-500" : ""
-    }`}
-  >
-    {isPopular && (
-      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-        <span className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-medium">
-          Más Popular
-        </span>
-      </div>
-    )}
-    <h3 className="text-xl font-bold text-gray-900 mb-4">{title}</h3>
-    <div className="flex items-baseline mb-4">
-      <span className="text-3xl font-bold text-gray-900">US${price}</span>
-    </div>
-    <div className="bg-blue-50 text-blue-700 px-4 py-2 rounded-lg mb-6 text-sm font-medium">
-      <div>Hasta {wordCount} palabras</div>
-      <div>{delivery}</div>
-    </div>
-    <ul className="space-y-3 mb-6">
-      {features.map((feature, index) => (
-        <li key={index} className="flex items-start">
-          <Check className="h-5 w-5 text-blue-500 mr-2 flex-shrink-0 mt-0.5" />
-          <span className="text-gray-600">{feature}</span>
-        </li>
-      ))}
-    </ul>
-    <button
-      onClick={() => onSelect(id)}
-      className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors"
-    >
-      Seleccionar Plan
-    </button>
-  </div>
-);
+}) => {
+  const [hovering, setHovering] = useState(false);
 
-const PricingSection = () => {
-  const [activeService, setActiveService] = useState("jingles");
+  return (
+    <div
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+      className={`bg-white rounded-xl p-8 relative flex flex-col h-full transition-all duration-300 transform ${
+        isPopular
+          ? "border-2 border-blue-500 shadow-xl"
+          : "border border-gray-100 shadow-md"
+      } ${hovering ? "scale-105 shadow-xl" : ""}`}
+    >
+      {isPopular && (
+        <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+          <span className="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-4 py-1 rounded-full text-sm font-medium flex items-center">
+            <Sparkles size={14} className="mr-1 animate-pulse" />
+            Más Popular
+          </span>
+        </div>
+      )}
+      <div className="flex-grow">
+        <h3 className="text-xl font-bold text-gray-900 mb-4">{title}</h3>
+        <div className="flex items-baseline mb-6">
+          <span className="text-4xl font-bold text-gray-900">US${price}</span>
+          <span className="ml-1 text-gray-500">/servicio</span>
+        </div>
+        <div
+          className={`${
+            isPopular ? "bg-blue-50 text-blue-700" : "bg-gray-50 text-gray-700"
+          } px-4 py-3 rounded-lg mb-6 text-sm font-medium transition-colors duration-300`}
+        >
+          <div className="font-bold mb-1">Hasta {wordCount} palabras</div>
+          <div>{delivery}</div>
+        </div>
+        <ul className="space-y-3 mb-6">
+          {features.map((feature, index) => (
+            <li key={index} className="flex items-start group">
+              <div
+                className={`h-5 w-5 rounded-full mr-2 flex-shrink-0 flex items-center justify-center ${
+                  isPopular || hovering
+                    ? "bg-blue-100 text-blue-600"
+                    : "bg-gray-100 text-gray-600"
+                } transition-colors duration-300 group-hover:bg-blue-100 group-hover:text-blue-600`}
+              >
+                <Check size={12} />
+              </div>
+              <span
+                className={`text-gray-600 transition-colors duration-300 ${
+                  hovering ? "text-gray-900" : ""
+                }`}
+              >
+                {feature}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <button
+        onClick={() => onSelect(id)}
+        className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg transition-all duration-300 ${
+          isPopular || hovering
+            ? "bg-blue-600 text-white hover:bg-blue-700"
+            : "bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white"
+        }`}
+      >
+        <span>Seleccionar Plan</span>
+        <ArrowRight
+          size={16}
+          className={`transition-transform duration-300 ${
+            hovering ? "translate-x-1" : ""
+          }`}
+        />
+      </button>
+    </div>
+  );
+};
+
+const PricingSection = ({ initialService }) => {
+  const [activeService, setActiveService] = useState(
+    initialService || "jingles"
+  );
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [showCheckout, setShowCheckout] = useState(false);
 
@@ -247,12 +335,21 @@ const PricingSection = () => {
     setSelectedPackage(null);
   };
 
+  useEffect(() => {
+    if (initialService) {
+      setActiveService(initialService);
+    }
+  }, [initialService]);
+
   return (
-    <section className="py-16 px-4 bg-gray-50">
+    <section className="py-16 px-4 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
+          <div className="inline-block mb-2 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+            Precios Transparentes
+          </div>
           <h2 className="text-3xl font-bold mb-4">Planes y Precios</h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Elige el servicio y plan que mejor se adapte a tus necesidades
           </p>
         </div>
@@ -285,29 +382,44 @@ const PricingSection = () => {
         )}
 
         {showCheckout && (
-          <div>
+          <div className="animate-fadeIn">
             <button
               onClick={handleCloseCheckout}
-              className="mb-6 text-gray-600 hover:text-gray-800 flex items-center gap-2"
+              className="mb-6 text-gray-600 hover:text-blue-600 flex items-center gap-2 transition-colors duration-200 group bg-white py-2 px-4 rounded-lg shadow-sm"
             >
-              ← Volver a los planes
+              <ArrowRight
+                size={16}
+                className="transform rotate-180 group-hover:-translate-x-1 transition-transform duration-200"
+              />
+              <span>Volver a los planes</span>
             </button>
-            {activeService === "jingles" ? (
-              <JingleCheckoutForm
-                selectedPackage={selectedPackage}
-                onCancel={handleCloseCheckout}
-              />
-            ) : (
-              <VoiceoverCheckoutForm
-                selectedPackage={selectedPackage}
-                onCancel={handleCloseCheckout}
-              />
-            )}
+            <div className="bg-white p-6 rounded-xl shadow-lg">
+              {activeService === "jingles" ? (
+                <JingleCheckoutForm
+                  selectedPackage={selectedPackage}
+                  onCancel={handleCloseCheckout}
+                />
+              ) : (
+                <VoiceoverCheckoutForm
+                  selectedPackage={selectedPackage}
+                  onCancel={handleCloseCheckout}
+                />
+              )}
+            </div>
           </div>
         )}
       </div>
     </section>
   );
 };
+
+// Agregamos esta animación en el CSS global o en un módulo de CSS
+// @keyframes fadeIn {
+//   from { opacity: 0; transform: translateY(10px); }
+//   to { opacity: 1; transform: translateY(0); }
+// }
+// .animate-fadeIn {
+//   animation: fadeIn 0.3s ease-in-out;
+// }
 
 export default PricingSection;

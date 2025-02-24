@@ -20,7 +20,10 @@ const ContactPage = () => {
       {/* Contact Information */}
       <section className="py-12 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
+          {/* Contact Form */}
+          <ContactForm />
+
+          <div className="grid md:grid-cols-3 gap-8 my-12">
             <div className="text-center p-6 bg-white rounded-xl shadow-sm">
               <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Phone className="text-blue-600" size={24} />
@@ -45,9 +48,6 @@ const ContactPage = () => {
               <p className="text-gray-600">Ciudad, País</p>
             </div>
           </div>
-
-          {/* Contact Form */}
-          <ContactForm />
         </div>
       </section>
     </div>

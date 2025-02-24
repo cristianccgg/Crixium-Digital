@@ -16,16 +16,10 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
 
   const extraServices = [
     {
-      id: "raw",
-      title: "Voz sin música",
-      price: 10,
-      description: "Solo la locución sin música de fondo",
-    },
-    {
       id: "rush",
       title: "Entrega Express",
       price: 15,
-      description: "Entrega en 24 horas (sujeto a disponibilidad)",
+      description: "Entrega en 48 horas (sujeto a disponibilidad)",
     },
     {
       id: "sfx",

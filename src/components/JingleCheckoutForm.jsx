@@ -19,6 +19,12 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
 
   const extraServices = [
     {
+      id: "rush",
+      title: "Entrega Express",
+      price: 15,
+      description: "Entrega en 48 horas o menos (sujeto a disponibilidad)",
+    },
+    {
       id: "instrumental",
       title: "Instrumental Track",
       price: 15,

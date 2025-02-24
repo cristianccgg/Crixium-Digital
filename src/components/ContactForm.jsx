@@ -1,15 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Mail, Send, Music2, Globe, Code } from "lucide-react";
 
-const ContactForm = ({ initialService = "" }) => {
+const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     service: initialService,
-    projectType: "",
+    projectType: initialProjectType,
     budget: "",
     description: "",
   });
+
+  useEffect(() => {
+    if (initialService) {
+      setFormData((prev) => ({
+        ...prev,
+        service: initialService,
+        projectType: initialProjectType || prev.projectType,
+      }));
+    }
+  }, [initialService, initialProjectType]);
 
   const services = [
     { id: "web", label: "Desarrollo Web", icon: Globe },
@@ -30,7 +40,11 @@ const ContactForm = ({ initialService = "" }) => {
     "Jingle Publicitario",
     "Música Corporativa",
     "Spot de Radio",
-    "Producción Musical",
+    "Música para Cine/TV",
+    "Banda Sonora",
+    "Audiolibro",
+    "Música Infantil",
+    "Proyecto Personalizado",
     "Otro",
   ];
 
@@ -58,11 +72,21 @@ const ContactForm = ({ initialService = "" }) => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-lg">
+    <div
+      className={`max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-lg ${
+        initialService ? "border-2 border-blue-200" : ""
+      }`}
+    >
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold mb-2">Contacta con Nosotros</h2>
+        <h2 className="text-2xl font-bold mb-2">
+          {initialProjectType === "Proyecto Personalizado"
+            ? "Solicitud de Cotización Personalizada"
+            : "Contacta con Nosotros"}
+        </h2>
         <p className="text-gray-600">
-          Cuéntanos sobre tu proyecto y te responderemos en menos de 24 horas
+          {initialProjectType === "Proyecto Personalizado"
+            ? "Cuéntanos los detalles de tu proyecto musical y te enviaremos una cotización personalizada"
+            : "Cuéntanos sobre tu proyecto y te responderemos en menos de 24 horas"}
         </p>
       </div>
 
@@ -192,7 +216,11 @@ const ContactForm = ({ initialService = "" }) => {
             onChange={handleChange}
             rows={4}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="Cuéntanos más sobre tu proyecto y tus objetivos..."
+            placeholder={
+              initialProjectType === "Proyecto Personalizado"
+                ? "Describe tu proyecto musical: duración estimada, estilo musical, instrumentación deseada, referencias similares, fechas límite si las hay..."
+                : "Cuéntanos más sobre tu proyecto y tus objetivos..."
+            }
             required
           />
         </div>
