@@ -161,9 +161,9 @@ const LandingPage = () => {
       <section className="py-16 px-4 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <StatCard number="50+" label="Clientes satisfechos" />
-            <StatCard number="120+" label="Proyectos completados" />
-            <StatCard number="6+" label="Años de experiencia" />
+            <StatCard number="250+" label="Clientes satisfechos" />
+            <StatCard number="600+" label="Proyectos completados" />
+            <StatCard number="8+" label="Años de experiencia" />
             <StatCard number="100%" label="Compromiso con la calidad" />
           </div>
         </div>
