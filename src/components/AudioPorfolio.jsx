@@ -605,7 +605,7 @@ const AudioPortfolio = () => {
                 <span>Nuestro Trabajo</span>
               </div>
             </div>
-            <h2 className="text-3xl font-bold mb-4">Portfolio de Audio</h2>
+            <h2 className="text-3xl font-bold mb-4">Entregas Recientes</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Explora nuestra colección de muestras de audio y descubre la
               calidad que ofrecemos en cada proyecto

@@ -1,112 +1,274 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Code, Music2, Globe, ChevronRight } from "lucide-react";
+import {
+  Code,
+  Music2,
+  Globe,
+  ChevronRight,
+  ArrowRight,
+  Sparkles,
+} from "lucide-react";
 import { Link } from "react-router-dom";
+import LandingReviewsCarousel from "./LandingReviewsCarousel";
 
-const ServiceCard = ({ icon: Icon, title, description, link }) => {
+// Componente para los servicios principales con animación en hover
+const ServiceCard = ({ icon: Icon, title, description, link, color }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-      <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-        <Icon className="text-blue-600" size={24} />
+    <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full border border-gray-100">
+      <div
+        className={`w-16 h-16 ${color} rounded-xl flex items-center justify-center mb-6`}
+      >
+        <Icon className="text-white" size={28} />
       </div>
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-gray-600">{description}</p>
+      <h3 className="text-2xl font-semibold mb-3">{title}</h3>
+      <p className="text-gray-600 mb-6 flex-grow">{description}</p>
       <button
         onClick={() => navigate(link)}
-        className="mt-4 text-blue-600 flex items-center hover:text-blue-700"
+        className="group text-blue-600 flex items-center text-sm font-medium hover:text-blue-800"
       >
-        Saber más <ChevronRight size={16} className="ml-1" />
+        Explorar servicios{" "}
+        <ChevronRight
+          size={18}
+          className="ml-1 transition-transform duration-300 group-hover:translate-x-1"
+        />
       </button>
     </div>
   );
 };
 
+// Componente para los números/estadísticas
+const StatCard = ({ number, label }) => (
+  <div className="text-center">
+    <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-2">
+      {number}
+    </div>
+    <p className="text-gray-600">{label}</p>
+  </div>
+);
+
 const LandingPage = () => {
+  const heroRef = useRef(null);
+
+  // Efecto para la animación inicial
+  useEffect(() => {
+    if (heroRef.current) {
+      heroRef.current.classList.add("animate-fade-in");
+    }
+  }, []);
+
   return (
     <>
-      {/* Hero Section */}
-      <section className="pt-24 pb-16 px-4 bg-gradient-to-br from-blue-50 to-white">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Soluciones Creativas para tu Negocio
-          </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Desarrollo web profesional y producción musical para hacer destacar
-            tu marca
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="#services"
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700"
-            >
-              Ver Servicios
-            </a>
+      {/* Hero Section con diseño más moderno */}
+      <section
+        ref={heroRef}
+        className="relative min-h-[90vh] flex items-center pt-16 px-4 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white overflow-hidden"
+      >
+        {/* Elementos decorativos */}
+        <div className="absolute top-20 right-10 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-10 left-20 w-56 h-56 bg-blue-400/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/3 left-1/3 w-40 h-40 bg-blue-300/20 rounded-full blur-3xl"></div>
 
-            <Link
-              to="/contact"
-              className="bg-white text-blue-600 px-8 py-3 rounded-lg border border-blue-600 hover:bg-blue-50"
-            >
-              Contactar
-            </Link>
+        <div className="max-w-7xl mx-auto w-full z-10">
+          <div className="max-w-3xl">
+            <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-sm font-medium backdrop-blur-sm inline-block mb-6">
+              <Sparkles size={16} className="text-yellow-300" />
+              <span>Web & Música para Profesionales</span>
+            </div>
+
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+              Eleva tu Marca con{" "}
+              <span className="text-yellow-300">Creatividad</span> y{" "}
+              <span className="text-yellow-300">Tecnología</span>
+            </h1>
+
+            <p className="text-xl md:text-2xl mb-10 text-blue-100">
+              Desarrollo web impactante y producción musical de primer nivel
+              para hacer destacar tu negocio.
+            </p>
+
+            <div className="flex flex-wrap gap-4">
+              <Link
+                to="/web-development"
+                className="bg-white text-blue-800 px-8 py-4 rounded-lg hover:bg-blue-50 transition-all duration-300 flex items-center gap-2 font-medium shadow-lg hover:shadow-xl"
+              >
+                <Globe size={20} />
+                Desarrollo Web
+              </Link>
+
+              <Link
+                to="/music-production"
+                className="bg-blue-900/30 backdrop-blur-sm text-white px-8 py-4 rounded-lg border border-white/20 hover:bg-blue-800/40 transition-all duration-300 flex items-center gap-2 font-medium"
+              >
+                <Music2 size={20} />
+                Producción Musical
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Imagen o gráfico decorativo */}
+        <div className="absolute right-0 bottom-0 w-full md:w-1/2 h-full pointer-events-none opacity-30 md:opacity-70">
+          <div className="absolute right-0 bottom-0 transform translate-x-1/4 translate-y-1/4">
+            <svg viewBox="0 0 200 200" width="500" height="500">
+              <path
+                fill="rgba(255, 255, 255, 0.1)"
+                d="M45.4,-77.1C58.2,-69.3,67.9,-56.3,74.8,-42.3C81.7,-28.4,85.8,-14.2,85.1,-0.4C84.5,13.4,79.1,26.9,70.8,38.2C62.4,49.6,51.2,59,38.8,62.4C26.3,65.8,13.2,63.3,1.7,60.7C-9.8,58.1,-19.5,55.4,-31.6,51.9C-43.6,48.3,-58,43.8,-65.8,34.4C-73.7,25,-75.1,10.6,-73.3,-3C-71.5,-16.6,-66.5,-29.5,-57.7,-38.2C-49,-46.9,-36.4,-51.3,-24.5,-59.5C-12.5,-67.8,-1.3,-80,11.4,-82.6C24.1,-85.2,32.6,-84.9,45.4,-77.1Z"
+                transform="translate(100 100)"
+              />
+            </svg>
           </div>
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="py-16 px-4 bg-gray-50">
+      {/* Sección de servicios principales */}
+      <section className="py-20 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Nuestros Servicios
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Servicios Profesionales
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Soluciones creativas y técnicas para impulsar tu presencia digital
+              y sonora
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
             <ServiceCard
               icon={Globe}
               title="Desarrollo Web"
-              description="Sitios web modernos y responsivos con React, WordPress y las últimas tecnologías."
+              description="Sitios web y tiendas online de alto impacto visual con las tecnologías más avanzadas para garantizar rendimiento óptimo y experiencias memorables."
               link="/web-development"
+              color="bg-blue-600"
             />
             <ServiceCard
               icon={Music2}
               title="Producción Musical"
-              description="Jingles publicitarios, música corporativa y producción musical profesional."
+              description="Creamos la identidad sonora de tu marca con jingles, spots publicitarios y música original que conecta emocionalmente con tu audiencia."
               link="/music-production"
-            />
-            <ServiceCard
-              icon={Code}
-              title="Soluciones Digitales"
-              description="¿Necesitas una aplicación personalizada o un proyecto digital más complejo? Evaluamos tu caso y te conectamos con las soluciones adecuadas."
-              link="/contact?service=other"
+              color="bg-blue-700"
             />
           </div>
         </div>
       </section>
 
-      {/* Portfolio Preview */}
-      <section id="portfolio" className="py-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Proyectos Destacados
+      {/* Carrusel de Reseñas */}
+      <LandingReviewsCarousel />
+
+      {/* Sección Stats/Cifras */}
+      <section className="py-16 px-4 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <StatCard number="50+" label="Clientes satisfechos" />
+            <StatCard number="120+" label="Proyectos completados" />
+            <StatCard number="6+" label="Años de experiencia" />
+            <StatCard number="100%" label="Compromiso con la calidad" />
+          </div>
+        </div>
+      </section>
+
+      {/* Sección de propuesta única de valor */}
+      <section className="py-20 px-4 bg-gradient-to-br from-blue-50 to-white relative overflow-hidden">
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                ¿Por qué elegirnos?
+              </h2>
+              <ul className="space-y-4">
+                <li className="flex items-start">
+                  <div className="mt-1 mr-3 w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <ChevronRight size={16} className="text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">
+                      Soluciones Integrales
+                    </h3>
+                    <p className="text-gray-600">
+                      Desarrollo web y producción musical bajo un mismo techo,
+                      garantizando coherencia en todos los puntos de contacto
+                      con tu audiencia.
+                    </p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <div className="mt-1 mr-3 w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <ChevronRight size={16} className="text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">Enfoque Creativo</h3>
+                    <p className="text-gray-600">
+                      Combinamos la última tecnología con un enfoque creativo
+                      original para resultados que destacan en el mercado.
+                    </p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <div className="mt-1 mr-3 w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <ChevronRight size={16} className="text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">
+                      Atención Personalizada
+                    </h3>
+                    <p className="text-gray-600">
+                      Cada proyecto es único y recibe nuestra dedicación
+                      completa, con comunicación constante y resultados a
+                      medida.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            {/* Imagen o elemento visual representativo */}
+            <div className="relative h-80 md:h-full min-h-[320px] rounded-xl overflow-hidden shadow-xl">
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-700 to-blue-500 rounded-xl overflow-hidden">
+                {/* Elementos decorativos */}
+                <div className="absolute top-10 right-10 w-20 h-20 rounded-full border-4 border-white/30"></div>
+                <div className="absolute bottom-10 left-10 w-32 h-32 rounded-full border-4 border-white/20"></div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-white/10 rounded-full"></div>
+
+                {/* Iconos representativos */}
+                <div className="absolute top-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2 text-white/80">
+                  <Globe size={32} />
+                </div>
+                <div className="absolute bottom-1/4 right-1/4 transform translate-x-1/2 translate-y-1/2 text-white/80">
+                  <Music2 size={32} />
+                </div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white">
+                  <Code size={48} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Elementos decorativos de fondo */}
+        <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-blue-200 rounded-full opacity-30"></div>
+        <div className="absolute top-10 -left-10 w-32 h-32 bg-blue-100 rounded-full opacity-40"></div>
+      </section>
+
+      {/* Call to Action */}
+      <section className="py-16 px-4 bg-blue-900 text-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            ¿Listo para iniciar tu próximo proyecto?
           </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Aquí podrías agregar previsualizaciones de tus mejores proyectos */}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-16 px-4 bg-blue-50">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6">¿Listo para empezar?</h2>
-          <p className="text-gray-600 mb-8">
+          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
             Conversemos sobre cómo podemos ayudarte a alcanzar tus objetivos
           </p>
           <Link
             to="/contact"
-            className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 inline-block"
+            className="bg-white text-blue-900 px-8 py-4 rounded-lg hover:bg-blue-50 transition-all duration-300 inline-flex items-center gap-2 font-medium shadow-lg group"
           >
-            Contactar Ahora
+            <span>Contactar Ahora</span>
+            <ArrowRight
+              size={18}
+              className="transition-transform duration-300 group-hover:translate-x-1"
+            />
           </Link>
         </div>
       </section>

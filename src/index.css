@@ -25,3 +25,88 @@
 .react-multi-carousel-track {
   padding: 16px 0;
 }
+
+/* Estilos personalizados para el carrusel */
+
+/* Animación de entrada suave */
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estilos para los puntos del carrusel */
+.custom-dot-list-style {
+  display: flex !important;
+  justify-content: center;
+  padding-top: 1rem;
+}
+
+/* Animación de escala para las tarjetas de testimonios */
+.carousel-item-padding {
+  transition: all 0.3s ease;
+}
+
+/* Estilos para las flechas de navegación del carrusel */
+.react-multi-carousel-list .react-multiple-carousel__arrow {
+  z-index: 10;
+}
+
+/* Estilo para las comillas */
+.quote-icon {
+  position: absolute;
+  top: -1rem;
+  left: -1rem;
+  z-index: 2;
+}
+
+/* Mejora en la animación de hover para las tarjetas */
+.review-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-color: #bfdbfe;
+}
+
+/* Efecto de pulso para elementos decorativos */
+.animate-pulse {
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Estilo para las estrellas */
+.star-rating {
+  display: flex;
+  align-items: center;
+}
+
+.star-rating .fill {
+  fill: #f59e0b;
+  color: #f59e0b;
+}
+
+.star-rating .empty {
+  color: #e5e7eb;
+}

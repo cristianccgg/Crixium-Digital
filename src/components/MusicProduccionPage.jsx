@@ -15,6 +15,7 @@ import {
 import ReviewsCarousel from "./ReviewsCarousel";
 import PricingSection from "./PricingSection";
 import AudioPorfolio from "./AudioPorfolio";
+import LandingReviewsCarousel from "./LandingReviewsCarousel";
 
 const ServiceCard = ({
   icon: Icon,
@@ -342,7 +343,7 @@ const MusicProductionPage = () => {
         <PricingSection initialService={selectedService} />
       </div>
 
-      <ReviewsCarousel />
+      <LandingReviewsCarousel />
 
       {/* Call to Action */}
       <section className="py-16 px-4 bg-gradient-to-br from-blue-50 to-white relative overflow-hidden">
