@@ -1,5 +1,10 @@
 import React from "react";
 import { Layout, ExternalLink } from "lucide-react";
+import automateHQ from "../assets/web_projects/automateHQ.png";
+import EvaPro from "../assets/web_projects/EvaPro.png";
+import ciom from "../assets/web_projects/ciom.png";
+import designo from "../assets/web_projects/designo.png";
+import clout from "../assets/web_projects/clout.png";
 
 const ProjectCard = ({
   title,
@@ -75,7 +80,7 @@ const FeaturedProjects = ({ ref }) => {
         "Mi sitio web personal donde muestro mis proyectos y habilidades",
       techStack: ["React", "Vite", "TailwindCSS", "Vercel"],
       deployUrl: "https://eva-pro-website.vercel.app",
-      imageUrl: "src/assets/web_projects/EvaPro.png",
+      imageUrl: EvaPro,
     },
     {
       title: "Automate HQ",
@@ -83,7 +88,7 @@ const FeaturedProjects = ({ ref }) => {
         "Panel de control para visualizar datos de negocio con gráficos interactivos",
       techStack: ["React", "NextJS", "TailwindCSS", "Chart.js", "Vercel"],
       deployUrl: "https://automate-hq-website.vercel.app",
-      imageUrl: "src/assets/web_projects/automateHQ.png",
+      imageUrl: automateHQ,
     },
     {
       title: "Ciom",
@@ -91,7 +96,7 @@ const FeaturedProjects = ({ ref }) => {
         "Aplicación para gestionar tareas diarias con funcionalidad de arrastrar y soltar",
       techStack: ["React", "TailwindCSS", "Vite", "DnD Kit", "Vercel"],
       deployUrl: "https://ciom-website-2.vercel.app",
-      imageUrl: "src/assets/web_projects/ciom.png",
+      imageUrl: ciom,
     },
     {
       title: "Designo",
@@ -99,7 +104,7 @@ const FeaturedProjects = ({ ref }) => {
         "Aplicación para gestionar tareas diarias con funcionalidad de arrastrar y soltar",
       techStack: ["React", "TailwindCSS", "Vite", "DnD Kit", "Vercel"],
       deployUrl: "https://designo-website-seven.vercel.app",
-      imageUrl: "src/assets/web_projects/designo.png",
+      imageUrl: designo,
     },
     {
       title: "Clout",
@@ -107,7 +112,7 @@ const FeaturedProjects = ({ ref }) => {
         "Aplicación para gestionar tareas diarias con funcionalidad de arrastrar y soltar",
       techStack: ["React", "TailwindCSS", "Vite", "DnD Kit", "Vercel"],
       deployUrl: "https://clout-website.vercel.app",
-      imageUrl: "src/assets/web_projects/clout.png",
+      imageUrl: clout,
     },
   ];
 
