@@ -7,7 +7,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
-  // Nuevo menú con links directos a las secciones principales
+  // Menú con links directos a las secciones principales
   const navItems = [
     { name: "Inicio", href: "/", icon: Home },
     { name: "Desarrollo Web", href: "/web-development", icon: Globe },
@@ -46,6 +46,13 @@ const Navbar = () => {
     }
   };
 
+  // Determinar si estamos en una página con hero de fondo azul
+  const hasHeroBackground = [
+    "/",
+    "/web-development",
+    "/music-production",
+  ].includes(location.pathname);
+
   return (
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
@@ -60,7 +67,7 @@ const Navbar = () => {
               className={`text-xl font-bold transition-colors duration-300 ${
                 isScrolled
                   ? "text-blue-600"
-                  : location.pathname === "/"
+                  : hasHeroBackground
                   ? "text-white"
                   : "text-blue-600"
               }`}
@@ -76,9 +83,9 @@ const Navbar = () => {
                 key={item.name}
                 to={item.href}
                 className={`flex items-center gap-1.5 transition-colors ${
-                  isScrolled || location.pathname !== "/"
+                  isScrolled || !hasHeroBackground
                     ? "text-gray-700 hover:text-blue-600"
-                    : "text-white hover:text-yellow-300" // Cambiado a amarillo para mejor contraste sobre azul
+                    : "text-white hover:text-yellow-300" // Amarillo para mejor contraste sobre azul
                 } ${location.pathname === item.href ? "font-medium" : ""}`}
                 onClick={(e) => handleNavClick(e, item.href)}
               >
@@ -89,7 +96,7 @@ const Navbar = () => {
             <Link
               to="/contact"
               className={`px-5 py-2.5 rounded-lg transition-all duration-300 flex items-center gap-1.5 ${
-                isScrolled || location.pathname !== "/"
+                isScrolled || !hasHeroBackground
                   ? "bg-blue-600 text-white hover:bg-blue-700"
                   : "bg-white/20 backdrop-blur-sm text-white hover:bg-white/40 border border-white/30"
               }`}
@@ -104,7 +111,7 @@ const Navbar = () => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={`${
-                isScrolled || location.pathname !== "/"
+                isScrolled || !hasHeroBackground
                   ? "text-gray-600"
                   : "text-white"
               } hover:text-gray-900`}
@@ -281,10 +288,15 @@ const Footer = () => (
 const Layout = ({ children }) => {
   const location = useLocation();
 
+  // Lista de rutas que no necesitan padding superior
+  // Estas son las páginas con hero sections de fondo azul
+  const fullScreenHeroPages = ["/", "/web-development", "/music-production"];
+  const hasFullScreenHero = fullScreenHeroPages.includes(location.pathname);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className={`flex-grow ${location.pathname === "/" ? "" : "pt-20"}`}>
+      <main className={`flex-grow ${hasFullScreenHero ? "" : "pt-20"}`}>
         {children}
       </main>
       <Footer />

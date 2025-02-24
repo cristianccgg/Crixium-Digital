@@ -1,14 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { Mail, Send, Music2, Globe, Code } from "lucide-react";
+import {
+  Mail,
+  Send,
+  Music2,
+  Globe,
+  Code,
+  Phone,
+  AlertCircle,
+  CheckCircle,
+} from "lucide-react";
 
 const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     service: initialService,
     projectType: initialProjectType,
     budget: "",
     description: "",
+  });
+
+  const [formStatus, setFormStatus] = useState({
+    submitted: false,
+    error: false,
+    message: "",
   });
 
   useEffect(() => {
@@ -33,6 +49,8 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
     "Landing Page",
     "Blog",
     "Aplicación Web",
+    "Rediseño Web",
+    "Mantenimiento Web",
     "Otro",
   ];
 
@@ -59,8 +77,27 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí iría la lógica de envío del formulario
+    // Simulación de envío de formulario exitoso
     console.log("Form submitted:", formData);
+
+    // Simulamos un tiempo de carga
+    setFormStatus({
+      submitted: true,
+      error: false,
+      message: "Procesando tu solicitud...",
+    });
+
+    // Después de 2 segundos, mostramos éxito
+    setTimeout(() => {
+      setFormStatus({
+        submitted: true,
+        error: false,
+        message: "¡Gracias por contactarnos! Te responderemos en breve.",
+      });
+    }, 2000);
+
+    // En un caso real, aquí iría el código para enviar el formulario a tu backend
+    // y manejar errores si los hay
   };
 
   const handleChange = (e) => {
@@ -71,14 +108,67 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
     }));
   };
 
+  // Si el formulario se envió exitosamente, mostramos un mensaje de confirmación
+  if (formStatus.submitted && !formStatus.error) {
+    return (
+      <div className="max-w-2xl mx-auto p-8 bg-white rounded-xl shadow-lg border border-gray-100">
+        <div className="text-center mb-6">
+          {formStatus.message === "Procesando tu solicitud..." ? (
+            <div className="flex flex-col items-center justify-center">
+              <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-600 mb-4"></div>
+              <h2 className="text-2xl font-bold">{formStatus.message}</h2>
+              <p className="text-gray-600 mt-2">
+                Esto solo tomará un momento...
+              </p>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                <CheckCircle className="text-green-600" size={32} />
+              </div>
+              <h2 className="text-2xl font-bold">¡Mensaje Enviado!</h2>
+              <p className="text-gray-600 mt-2 max-w-md">
+                {formStatus.message}
+              </p>
+            </div>
+          )}
+        </div>
+
+        <div className="mt-8 text-center">
+          <button
+            onClick={() => {
+              setFormStatus({
+                submitted: false,
+                error: false,
+                message: "",
+              });
+              setFormData({
+                name: "",
+                email: "",
+                phone: "",
+                service: initialService,
+                projectType: initialProjectType,
+                budget: "",
+                description: "",
+              });
+            }}
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center gap-2"
+          >
+            Enviar Otro Mensaje
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
-      className={`max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-lg ${
-        initialService ? "border-2 border-blue-200" : ""
+      className={`max-w-3xl mx-auto p-8 bg-white rounded-xl shadow-lg border ${
+        initialService ? "border-blue-200" : "border-gray-100"
       }`}
     >
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold mb-2">
+        <h2 className="text-2xl font-bold mb-3">
           {initialProjectType === "Proyecto Personalizado"
             ? "Solicitud de Cotización Personalizada"
             : "Contacta con Nosotros"}
@@ -92,9 +182,9 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Información Personal */}
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               Nombre Completo
             </label>
             <input
@@ -102,13 +192,14 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
               required
+              placeholder="Tu nombre completo"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               Email
             </label>
             <div className="relative">
@@ -117,11 +208,30 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pl-10"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pl-10 transition-all"
                 required
+                placeholder="tu@email.com"
               />
-              <Mail className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+              <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
             </div>
+          </div>
+        </div>
+
+        {/* Teléfono (opcional) */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Teléfono (opcional)
+          </label>
+          <div className="relative">
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pl-10 transition-all"
+              placeholder="+1 234 567 890"
+            />
+            <Phone className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
           </div>
         </div>
 
@@ -138,14 +248,14 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
                 onClick={() =>
                   handleChange({ target: { name: "service", value: id } })
                 }
-                className={`p-4 border rounded-lg flex flex-col items-center gap-2 transition-colors ${
+                className={`p-5 border rounded-xl flex flex-col items-center gap-3 transition-all duration-300 ${
                   formData.service === id
-                    ? "border-blue-500 bg-blue-50 text-blue-600"
-                    : "border-gray-200 hover:border-blue-200"
+                    ? "border-blue-500 bg-blue-50 text-blue-600 shadow-md"
+                    : "border-gray-200 hover:border-blue-200 hover:shadow-sm"
                 }`}
               >
-                <Icon size={24} />
-                <span className="text-sm font-medium">{label}</span>
+                <Icon size={28} />
+                <span className="font-medium">{label}</span>
               </button>
             ))}
           </div>
@@ -154,14 +264,14 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         {/* Tipo de Proyecto */}
         {formData.service && (
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               Tipo de Proyecto
             </label>
             <select
               name="projectType"
               value={formData.projectType}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
               required
             >
               <option value="">Selecciona un tipo de proyecto</option>
@@ -186,14 +296,14 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
 
         {/* Presupuesto */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
             Presupuesto Estimado
           </label>
           <select
             name="budget"
             value={formData.budget}
             onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
             required
           >
             <option value="">Selecciona un rango de presupuesto</option>
@@ -207,15 +317,15 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
 
         {/* Descripción del Proyecto */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
             Descripción del Proyecto
           </label>
           <textarea
             name="description"
             value={formData.description}
             onChange={handleChange}
-            rows={4}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            rows={5}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
             placeholder={
               initialProjectType === "Proyecto Personalizado"
                 ? "Describe tu proyecto musical: duración estimada, estilo musical, instrumentación deseada, referencias similares, fechas límite si las hay..."
@@ -228,18 +338,25 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         {/* Botón de Envío */}
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+          className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg transform hover:scale-[1.01] font-medium"
         >
           <Send size={20} />
           Enviar Solicitud
         </button>
 
         {/* Nota Informativa */}
-        <p className="text-sm text-gray-500 text-center mt-4">
-          {formData.service === "other"
-            ? "Para proyectos más complejos o personalizados, evaluaremos tu solicitud y te contactaremos con una propuesta adaptada a tus necesidades."
-            : "Te responderemos con una propuesta detallada en menos de 24 horas."}
-        </p>
+        <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
+          <div className="flex items-center gap-3">
+            <div className="flex-shrink-0">
+              <AlertCircle className="h-5 w-5 text-blue-600" />
+            </div>
+            <p className="text-sm text-gray-700">
+              {formData.service === "other"
+                ? "Para proyectos más complejos o personalizados, evaluaremos tu solicitud y te contactaremos con una propuesta adaptada a tus necesidades."
+                : "Te responderemos con una propuesta detallada en menos de 24 horas. Si necesitas asistencia inmediata, llámanos al +1 234 567 890."}
+            </p>
+          </div>
+        </div>
       </form>
     </div>
   );
