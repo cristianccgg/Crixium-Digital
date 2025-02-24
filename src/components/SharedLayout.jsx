@@ -75,10 +75,10 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className={`flex items-center gap-1.5 hover:text-blue-600 transition-colors ${
+                className={`flex items-center gap-1.5 transition-colors ${
                   isScrolled || location.pathname !== "/"
-                    ? "text-gray-700"
-                    : "text-white"
+                    ? "text-gray-700 hover:text-blue-600"
+                    : "text-white hover:text-yellow-300" // Cambiado a amarillo para mejor contraste sobre azul
                 } ${location.pathname === item.href ? "font-medium" : ""}`}
                 onClick={(e) => handleNavClick(e, item.href)}
               >
@@ -91,7 +91,7 @@ const Navbar = () => {
               className={`px-5 py-2.5 rounded-lg transition-all duration-300 flex items-center gap-1.5 ${
                 isScrolled || location.pathname !== "/"
                   ? "bg-blue-600 text-white hover:bg-blue-700"
-                  : "bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 border border-white/30"
+                  : "bg-white/20 backdrop-blur-sm text-white hover:bg-white/40 border border-white/30"
               }`}
             >
               <MessageSquare size={18} />
