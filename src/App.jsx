@@ -4,6 +4,7 @@ import LandingPage from "./components/LandingPage";
 import MusicProductionPage from "./components/MusicProduccionPage";
 import WebDevelopmentPage from "./components/WebDevelopomentPage";
 import ContactPage from "./components/ContactPage";
+import ChatbotAssistant from "./components/ChatbotAssistant";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           {/* <Route path="/web-development" element={<WebDevelopmentPage />} /> */}
           {/* <Route path="/digital-solutions" element={<DigitalSolutionsPage />} /> */}
         </Routes>
+        <ChatbotAssistant />
       </Layout>
     </Router>
   );

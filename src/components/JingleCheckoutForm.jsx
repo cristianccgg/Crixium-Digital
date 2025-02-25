@@ -1,5 +1,13 @@
-import React, { useState } from "react";
-import { Music, Mic, FileMusic, Check, Package } from "lucide-react";
+import React, { useState, useRef } from "react";
+import {
+  Music,
+  Mic,
+  FileMusic,
+  Check,
+  Package,
+  Upload,
+  File,
+} from "lucide-react";
 
 const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
   const [step, setStep] = useState(1);
@@ -12,10 +20,30 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
     voiceType: "",
     reference: "",
     briefing: "",
+    referenceFiles: [], // Add this line
     // Contact info
     name: "",
     email: "",
   });
+
+  const fileInputRef = useRef(null);
+
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setFormData((prev) => ({
+      ...prev,
+      referenceFiles: [...prev.referenceFiles, ...files],
+    }));
+  };
+
+  const removeFile = (fileName) => {
+    setFormData((prev) => ({
+      ...prev,
+      referenceFiles: prev.referenceFiles.filter(
+        (file) => file.name !== fileName
+      ),
+    }));
+  };
 
   const extraServices = [
     {
@@ -221,6 +249,66 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             required
           />
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Referencias o Documentos
+            </label>
+            <p className="text-sm text-gray-500 mb-3">
+              Adjunta letras, referencias o detalles relevantes para crear un
+              Jingle perfecto
+            </p>
+
+            <div className="mt-2 flex flex-col gap-3">
+              <div
+                onClick={() => fileInputRef.current.click()}
+                className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-blue-500 transition-colors"
+              >
+                <Upload className="text-gray-400 mb-2" size={24} />
+                <p className="text-sm text-gray-500">
+                  Haz clic para subir archivos o arrastra aquí
+                </p>
+                <p className="text-xs text-gray-400 mt-1">
+                  PDF, DOC, TXT, MP3 (máx 5MB)
+                </p>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  multiple
+                  onChange={handleFileChange}
+                  className="hidden"
+                  accept=".pdf,.doc,.docx,.txt,.mp3"
+                />
+              </div>
+
+              {formData.referenceFiles.length > 0 && (
+                <div className="mt-3 space-y-3">
+                  {formData.referenceFiles.map((file, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                    >
+                      <div className="flex items-center gap-2">
+                        <File size={16} className="text-gray-500" />
+                        <span className="text-sm truncate max-w-xs">
+                          {file.name}
+                        </span>
+                        <span className="text-xs text-gray-400">
+                          {(file.size / 1024).toFixed(1)} KB
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => removeFile(file.name)}
+                        className="text-red-500 hover:text-red-700 text-sm"
+                      >
+                        Eliminar
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>

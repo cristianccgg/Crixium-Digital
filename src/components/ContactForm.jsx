@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Mail,
   Send,
@@ -8,9 +8,19 @@ import {
   Phone,
   AlertCircle,
   CheckCircle,
+  Upload,
+  File,
+  X,
+  FileText,
+  Music,
+  // Reemplazamos iconos no disponibles por File con variaciones
+  File as FileDocument,
+  FileImage,
 } from "lucide-react";
 
 const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
+  const fileInputRef = useRef(null);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,6 +29,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
     projectType: initialProjectType,
     budget: "",
     description: "",
+    referenceFiles: [], // Campo para archivos
   });
 
   const [formStatus, setFormStatus] = useState({
@@ -75,6 +86,37 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
     "Por definir",
   ];
 
+  // Manejo de archivos
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setFormData((prev) => ({
+      ...prev,
+      referenceFiles: [...prev.referenceFiles, ...files],
+    }));
+  };
+
+  const removeFile = (fileName) => {
+    setFormData((prev) => ({
+      ...prev,
+      referenceFiles: prev.referenceFiles.filter(
+        (file) => file.name !== fileName
+      ),
+    }));
+  };
+
+  // Función para determinar el icono del archivo según su tipo
+  const getFileIcon = (fileName) => {
+    const extension = fileName.split(".").pop().toLowerCase();
+
+    if (["pdf"].includes(extension)) return FileDocument;
+    if (["doc", "docx", "txt", "rtf"].includes(extension)) return FileText;
+    if (["mp3", "wav", "ogg", "flac"].includes(extension)) return Music;
+    if (["jpg", "jpeg", "png", "gif", "svg"].includes(extension))
+      return FileImage;
+
+    return File;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Simulación de envío de formulario exitoso
@@ -106,6 +148,17 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
       ...prev,
       [name]: value,
     }));
+  };
+
+  // Personalizar el mensaje de la sección de carga según el tipo de servicio
+  const getFileUploadMessage = () => {
+    if (formData.service === "music") {
+      return "Adjunta muestras de música, letras, referencias o detalles relevantes para tu proyecto musical";
+    } else if (formData.service === "web") {
+      return "Adjunta bocetos, diseños, imágenes o cualquier material relevante para tu proyecto web";
+    } else {
+      return "Adjunta cualquier documento, imagen o archivo que nos ayude a entender mejor tu proyecto";
+    }
   };
 
   // Si el formulario se envió exitosamente, mostramos un mensaje de confirmación
@@ -150,6 +203,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
                 projectType: initialProjectType,
                 budget: "",
                 description: "",
+                referenceFiles: [],
               });
             }}
             className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center gap-2"
@@ -335,6 +389,73 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
           />
         </div>
 
+        {/* File Upload Section - Siempre visible */}
+        <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Referencias o Archivos Adicionales{" "}
+            <span className="text-gray-400 text-xs">(opcional)</span>
+          </label>
+          <p className="text-sm text-gray-500 mb-4">{getFileUploadMessage()}</p>
+
+          <div className="mt-2 flex flex-col gap-3">
+            <div
+              onClick={() => fileInputRef.current.click()}
+              className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-blue-500 transition-colors"
+            >
+              <Upload className="text-gray-400 mb-2" size={24} />
+              <p className="text-sm text-gray-500">
+                Haz clic para subir archivos o arrastra aquí
+              </p>
+              <p className="text-xs text-gray-400 mt-1">
+                PDF, DOC, TXT, MP3, JPG, PNG (máx 10MB)
+              </p>
+              <input
+                ref={fileInputRef}
+                type="file"
+                multiple
+                onChange={handleFileChange}
+                className="hidden"
+                accept=".pdf,.doc,.docx,.txt,.mp3,.jpg,.jpeg,.png"
+              />
+            </div>
+
+            {formData.referenceFiles.length > 0 && (
+              <div className="mt-3 space-y-3">
+                {formData.referenceFiles.map((file, index) => {
+                  const FileIcon = getFileIcon(file.name);
+                  return (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200"
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
+                          <FileIcon size={16} className="text-blue-500" />
+                        </div>
+                        <div>
+                          <span className="text-sm truncate max-w-xs">
+                            {file.name}
+                          </span>
+                          <span className="text-xs text-gray-400 block">
+                            {(file.size / 1024).toFixed(1)} KB
+                          </span>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => removeFile(file.name)}
+                        className="text-gray-400 hover:text-red-500 transition-colors p-1"
+                      >
+                        <X size={16} />
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+
         {/* Botón de Envío */}
         <button
           type="submit"
@@ -351,8 +472,9 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
               <AlertCircle className="h-5 w-5 text-blue-600" />
             </div>
             <p className="text-sm text-gray-700">
-              {formData.service === "other"
-                ? "Para proyectos más complejos o personalizados, evaluaremos tu solicitud y te contactaremos con una propuesta adaptada a tus necesidades."
+              {formData.service === "other" ||
+              formData.projectType === "Proyecto Personalizado"
+                ? "Para proyectos personalizados, evaluaremos tu solicitud y te contactaremos con una propuesta adaptada a tus necesidades específicas."
                 : "Te responderemos con una propuesta detallada en menos de 24 horas. Si necesitas asistencia inmediata, llámanos al +1 234 567 890."}
             </p>
           </div>
