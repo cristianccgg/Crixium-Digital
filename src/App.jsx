@@ -5,22 +5,48 @@ import MusicProductionPage from "./components/MusicProduccionPage";
 import WebDevelopmentPage from "./components/WebDevelopomentPage";
 import ContactPage from "./components/ContactPage";
 import ChatbotAssistant from "./components/ChatbotAssistant";
+import OrderTracking from "./components/OrderTracking";
+import AdminPanel from "./components/AdminPanel";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
     <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/music-production" element={<MusicProductionPage />} />
-          <Route path="/web-development" element={<WebDevelopmentPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          {/* Add more routes as needed */}
-          {/* <Route path="/web-development" element={<WebDevelopmentPage />} /> */}
-          {/* <Route path="/digital-solutions" element={<DigitalSolutionsPage />} /> */}
-        </Routes>
-        <ChatbotAssistant />
-      </Layout>
+      <Routes>
+        {/* Ruta protegida para el panel de administración */}
+        <Route
+          path="/admin/*"
+          element={
+            <PrivateRoute>
+              <AdminPanel />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Rutas públicas con layout compartido */}
+        <Route
+          path="/*"
+          element={
+            <Layout>
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route
+                  path="/music-production"
+                  element={<MusicProductionPage />}
+                />
+                <Route
+                  path="/web-development"
+                  element={<WebDevelopmentPage />}
+                />
+                <Route path="/tracking" element={<OrderTracking />} />
+                <Route path="/contact" element={<ContactPage />} />
+                {/* Add more routes as needed */}
+              </Routes>
+              <ChatbotAssistant />
+            </Layout>
+          }
+        />
+      </Routes>
     </Router>
   );
 }

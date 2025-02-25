@@ -63,7 +63,7 @@ const LandingPage = () => {
       {/* Hero Section con diseño más moderno */}
       <section
         ref={heroRef}
-        className="relative min-h-[90vh] flex items-center pt-16 px-4 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white overflow-hidden"
+        className="relative min-h-[70vh] flex items-center pt-16 px-4 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white overflow-hidden"
       >
         {/* Elementos decorativos */}
         <div className="absolute top-20 right-10 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>

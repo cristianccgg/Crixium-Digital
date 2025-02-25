@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Globe, Music2, MessageSquare, Home } from "lucide-react";
+import {
+  Menu,
+  X,
+  Globe,
+  Music2,
+  MessageSquare,
+  Home,
+  ScanSearch,
+} from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +20,7 @@ const Navbar = () => {
     { name: "Inicio", href: "/", icon: Home },
     { name: "Desarrollo Web", href: "/web-development", icon: Globe },
     { name: "Producción Musical", href: "/music-production", icon: Music2 },
+    { name: "Seguimiento de pedido", href: "/tracking", icon: ScanSearch },
   ];
 
   // Controlar el cambio de estilo al hacer scroll
@@ -51,6 +60,7 @@ const Navbar = () => {
     "/",
     "/web-development",
     "/music-production",
+    "/contact",
   ].includes(location.pathname);
 
   return (
@@ -290,7 +300,12 @@ const Layout = ({ children }) => {
 
   // Lista de rutas que no necesitan padding superior
   // Estas son las páginas con hero sections de fondo azul
-  const fullScreenHeroPages = ["/", "/web-development", "/music-production"];
+  const fullScreenHeroPages = [
+    "/",
+    "/web-development",
+    "/music-production",
+    "/contact",
+  ];
   const hasFullScreenHero = fullScreenHeroPages.includes(location.pathname);
 
   return (

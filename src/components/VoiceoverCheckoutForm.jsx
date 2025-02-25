@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Music,
   Mic,
@@ -8,20 +9,44 @@ import {
   Upload,
   File,
 } from "lucide-react";
+import { createOrder } from "./OrderManagerFirebase";
 
 const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [orderComplete, setOrderComplete] = useState(false);
+  const [orderNumber, setOrderNumber] = useState("");
+  const [currentTotal, setCurrentTotal] = useState(
+    parseInt(selectedPackage.price || 0)
+  );
+
   const [formData, setFormData] = useState({
+    // Package details
     package: selectedPackage.id,
     packageDetails: selectedPackage,
     extras: [],
+    // Project details
     voiceType: "",
     script: "",
     musicStyle: "",
-    referenceFiles: [], // Add this line
+    referenceFiles: [],
+    // Contact info
     name: "",
     email: "",
+    total: parseInt(selectedPackage.price || 0),
   });
+
+  // Actualizar el total cuando cambian los extras
+  useEffect(() => {
+    const newTotal = calculateTotal();
+    setCurrentTotal(newTotal);
+
+    setFormData((prev) => ({
+      ...prev,
+      total: newTotal,
+    }));
+  }, [formData.extras]);
 
   const fileInputRef = useRef(null);
 
@@ -39,6 +64,15 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
       referenceFiles: prev.referenceFiles.filter(
         (file) => file.name !== fileName
       ),
+    }));
+  };
+
+  // Manejador de cambio para inputs
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
     }));
   };
 
@@ -80,6 +114,20 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
       extras: prev.extras.includes(extraId)
         ? prev.extras.filter((id) => id !== extraId)
         : [...prev.extras, extraId],
+    }));
+  };
+
+  const handleVoiceSelect = (voice) => {
+    setFormData((prev) => ({
+      ...prev,
+      voiceType: voice,
+    }));
+  };
+
+  const handleMusicStyleSelect = (style) => {
+    setFormData((prev) => ({
+      ...prev,
+      musicStyle: style,
     }));
   };
 
@@ -131,7 +179,8 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
     </div>
   );
 
-  const Step1_Extras = () => (
+  // Componentes de pasos mediante funciones de renderizado
+  const renderStep1 = () => (
     <div className="space-y-6">
       <h3 className="text-xl font-semibold mb-4">Personaliza tu Paquete</h3>
       <div className="space-y-4">
@@ -171,13 +220,13 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
       <div className="mt-6 p-4 bg-gray-50 rounded-lg">
         <div className="flex items-center justify-between">
           <span className="font-medium">Total Estimado:</span>
-          <span className="text-xl font-bold">${calculateTotal()}</span>
+          <span className="text-xl font-bold">${currentTotal}</span>
         </div>
       </div>
     </div>
   );
 
-  const Step2_Details = () => (
+  const renderStep2 = () => (
     <div className="space-y-6">
       <h3 className="text-xl font-semibold mb-4">Detalles de la Locución</h3>
       <div className="space-y-4">
@@ -190,9 +239,7 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
               <button
                 key={voice}
                 type="button"
-                onClick={() =>
-                  setFormData((prev) => ({ ...prev, voiceType: voice }))
-                }
+                onClick={() => handleVoiceSelect(voice)}
                 className={`p-4 border rounded-lg flex items-center gap-2 ${
                   formData.voiceType === voice
                     ? "border-blue-500 bg-blue-50 text-blue-600"
@@ -215,9 +262,7 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
               <button
                 key={style}
                 type="button"
-                onClick={() =>
-                  setFormData((prev) => ({ ...prev, musicStyle: style }))
-                }
+                onClick={() => handleMusicStyleSelect(style)}
                 className={`p-4 border rounded-lg flex items-center gap-2 ${
                   formData.musicStyle === style
                     ? "border-blue-500 bg-blue-50 text-blue-600"
@@ -236,10 +281,9 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
             Guión / Texto a locutar
           </label>
           <textarea
+            name="script"
             value={formData.script}
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, script: e.target.value }))
-            }
+            onChange={handleInputChange}
             rows={6}
             placeholder="Ingresa el texto que deseas que sea locutado..."
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -312,7 +356,7 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
     </div>
   );
 
-  const Step3_Contact = () => (
+  const renderStep3 = () => (
     <div className="space-y-6">
       <h3 className="text-xl font-semibold mb-4">Información de Contacto</h3>
       <div className="space-y-4">
@@ -322,10 +366,9 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
           </label>
           <input
             type="text"
+            name="name"
             value={formData.name}
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, name: e.target.value }))
-            }
+            onChange={handleInputChange}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             required
           />
@@ -337,10 +380,9 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
           </label>
           <input
             type="email"
+            name="email"
             value={formData.email}
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, email: e.target.value }))
-            }
+            onChange={handleInputChange}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             required
           />
@@ -365,17 +407,92 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
           })}
           <li className="flex justify-between font-bold pt-2 border-t">
             <span>Total</span>
-            <span>${calculateTotal()}</span>
+            <span>${currentTotal}</span>
           </li>
         </ul>
       </div>
     </div>
   );
 
-  const handleSubmit = (e) => {
+  // Componente para mostrar la confirmación del pedido
+  const OrderConfirmation = () => (
+    <div className="text-center py-8">
+      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <Check className="text-green-600" size={32} />
+      </div>
+      <h2 className="text-2xl font-bold mb-2">¡Pedido Confirmado!</h2>
+      <p className="text-gray-600 mb-6">
+        Tu pedido ha sido recibido. Hemos enviado los detalles a tu correo.
+      </p>
+      <div className="p-4 bg-blue-50 rounded-lg inline-block mb-6">
+        <p className="text-sm text-gray-700 mb-1">Tu número de pedido es:</p>
+        <p className="text-xl font-mono font-bold">{orderNumber}</p>
+      </div>
+      <div className="flex flex-col gap-4 max-w-xs mx-auto">
+        <button
+          onClick={() => navigate(`/tracking?order=${orderNumber}`)}
+          className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Seguir mi Pedido
+        </button>
+        <button
+          onClick={() => navigate("/")}
+          className="text-gray-600 px-6 py-2 hover:text-blue-600 transition-colors"
+        >
+          Volver al Inicio
+        </button>
+      </div>
+    </div>
+  );
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí iría la lógica de envío del formulario
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+
+    try {
+      // Utilizar nuestro sistema de gestión para crear el pedido
+      const result = await createOrder(formData);
+
+      if (result.success) {
+        setOrderNumber(result.orderNumber);
+        setOrderComplete(true);
+
+        // En un entorno real, aquí enviarías un correo electrónico al cliente
+        console.log(
+          `Email would be sent to ${formData.email} with order number ${result.orderNumber}`
+        );
+      } else {
+        alert(
+          "Hubo un error al procesar tu pedido. Por favor, intenta de nuevo."
+        );
+      }
+    } catch (error) {
+      console.error("Error al crear el pedido:", error);
+      alert(
+        "Hubo un error al procesar tu pedido. Por favor, intenta de nuevo."
+      );
+    }
+
+    setIsSubmitting(false);
+  };
+
+  // Si el pedido está completo, mostrar la confirmación
+  if (orderComplete) {
+    return <OrderConfirmation />;
+  }
+
+  // Renderizar el paso actual
+  const renderCurrentStep = () => {
+    switch (step) {
+      case 1:
+        return renderStep1();
+      case 2:
+        return renderStep2();
+      case 3:
+        return renderStep3();
+      default:
+        return null;
+    }
   };
 
   return (
@@ -384,16 +501,15 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
       <StepIndicator />
 
       <form onSubmit={handleSubmit} className="space-y-8">
-        {step === 1 && <Step1_Extras />}
-        {step === 2 && <Step2_Details />}
-        {step === 3 && <Step3_Contact />}
+        {renderCurrentStep()}
 
         <div className="flex justify-between gap-4">
           {step > 1 && (
             <button
               type="button"
               onClick={() => setStep(step - 1)}
-              className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              disabled={isSubmitting}
+              className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
             >
               Anterior
             </button>
@@ -410,9 +526,32 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
           ) : (
             <button
               type="submit"
-              className="flex-1 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              disabled={isSubmitting}
+              className="flex-1 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center"
             >
-              Realizar Pedido
+              {isSubmitting ? "Procesando..." : "Realizar Pedido"}
+              {isSubmitting && (
+                <svg
+                  className="animate-spin ml-2 h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+              )}
             </button>
           )}
         </div>

@@ -5,6 +5,7 @@ import EvaPro from "../assets/web_projects/EvaPro.png";
 import ciom from "../assets/web_projects/ciom.png";
 import designo from "../assets/web_projects/designo.png";
 import clout from "../assets/web_projects/clout.png";
+import hoodLab from "../assets/web_projects/hoodLab.png";
 
 const ProjectCard = ({
   title,
@@ -75,42 +76,50 @@ const FeaturedProjects = ({ ref }) => {
   // Reemplaza estos datos con tus propios proyectos de Vercel
   const projects = [
     {
+      title: "The Hood Lab Store",
+      description:
+        "Ecommerce para la venta de productos de moda urbana y accesorios",
+      techStack: ["Wordpress", "CSS", "Woocomerce"],
+      deployUrl: "https://thehoodlab.com",
+      imageUrl: hoodLab,
+    },
+    {
+      title: "Designo",
+      description:
+        "Sitio Web de una agencia de diseño que ofrece servicios de diseño web, diseño gráfico y branding",
+      techStack: ["React", "TailwindCSS", "Vite"],
+      deployUrl: "https://designo-website-seven.vercel.app",
+      imageUrl: designo,
+    },
+    {
       title: "Eva Pro",
       description:
-        "Mi sitio web personal donde muestro mis proyectos y habilidades",
-      techStack: ["React", "Vite", "TailwindCSS", "Vercel"],
+        "LMS empresarial diseñado para respaldar incluso los programas de capacitación más exigentes",
+      techStack: ["HTML", "TailwindCSS", "JavaScript"],
       deployUrl: "https://eva-pro-website.vercel.app",
       imageUrl: EvaPro,
     },
     {
       title: "Automate HQ",
       description:
-        "Panel de control para visualizar datos de negocio con gráficos interactivos",
-      techStack: ["React", "NextJS", "TailwindCSS", "Chart.js", "Vercel"],
+        "Aplicación para gestionar tareas diarias con inteligencia artificial",
+      techStack: ["HTML", "TailwindCSS", "JavaScript"],
       deployUrl: "https://automate-hq-website.vercel.app",
       imageUrl: automateHQ,
     },
     {
       title: "Ciom",
       description:
-        "Aplicación para gestionar tareas diarias con funcionalidad de arrastrar y soltar",
-      techStack: ["React", "TailwindCSS", "Vite", "DnD Kit", "Vercel"],
+        "Sitio Web que proporciona una solución avanzada para la gestión de indicadores clave de desempeño (KPIs",
+      techStack: ["HTML", "CSS", "JavaScript"],
       deployUrl: "https://ciom-website-2.vercel.app",
       imageUrl: ciom,
     },
     {
-      title: "Designo",
-      description:
-        "Aplicación para gestionar tareas diarias con funcionalidad de arrastrar y soltar",
-      techStack: ["React", "TailwindCSS", "Vite", "DnD Kit", "Vercel"],
-      deployUrl: "https://designo-website-seven.vercel.app",
-      imageUrl: designo,
-    },
-    {
       title: "Clout",
       description:
-        "Aplicación para gestionar tareas diarias con funcionalidad de arrastrar y soltar",
-      techStack: ["React", "TailwindCSS", "Vite", "DnD Kit", "Vercel"],
+        "Plataforma de redes sociales para compartir y descubrir contenido",
+      techStack: ["HTML", "TailwindCSS", "JavaScript"],
       deployUrl: "https://clout-website.vercel.app",
       imageUrl: clout,
     },
