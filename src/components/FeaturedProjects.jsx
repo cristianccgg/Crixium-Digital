@@ -1,11 +1,11 @@
 import React from "react";
 import { Layout, ExternalLink } from "lucide-react";
-import automateHQ from "../assets/web_projects/automateHQ.png";
-import EvaPro from "../assets/web_projects/EvaPro.png";
-import ciom from "../assets/web_projects/ciom.png";
-import designo from "../assets/web_projects/designo.png";
-import clout from "../assets/web_projects/clout.png";
-import hoodLab from "../assets/web_projects/hoodLab.png";
+import automateHQ from "/src/assets/web_projects/automateHQ.png";
+import EvaPro from "/src/assets/web_projects/EvaPro.png";
+import ciom from "/src/assets/web_projects/ciom.png";
+import designo from "/src/assets/web_projects/designo.png";
+import clout from "/src/assets/web_projects/clout.png";
+import hoodLab from "/src/assets/web_projects/hoodLab.png";
 
 const ProjectCard = ({
   title,
