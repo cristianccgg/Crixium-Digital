@@ -8,6 +8,8 @@ import {
   Package,
   Upload,
   File,
+  X,
+  Loader,
 } from "lucide-react";
 import { createOrder } from "./OrderManagerFirebase";
 
@@ -17,6 +19,7 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
   const [orderNumber, setOrderNumber] = useState("");
+  const [error, setError] = useState("");
   const [currentTotal, setCurrentTotal] = useState(
     parseInt(selectedPackage.price || 0)
   );
@@ -29,13 +32,18 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
     // Project details
     voiceType: "",
     script: "",
-    musicStyle: "",
+    language: "",
+    tone: "",
+    voiceAge: "",
+    reference: "", // Añadimos este campo para ser consistente
+    briefing: "", // Añadimos este campo para evitar undefined
     referenceFiles: [],
     // Contact info
     name: "",
     email: "",
     total: parseInt(selectedPackage.price || 0),
   });
+  const fileInputRef = useRef(null);
 
   // Actualizar el total cuando cambian los extras
   useEffect(() => {
@@ -47,8 +55,6 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
       total: newTotal,
     }));
   }, [formData.extras]);
-
-  const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -67,7 +73,7 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
     }));
   };
 
-  // Manejador de cambio para inputs
+  // Manejadores de cambio para los inputs
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -81,30 +87,53 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
       id: "rush",
       title: "Entrega Express",
       price: 15,
-      description: "Entrega en 48 horas (sujeto a disponibilidad)",
+      description: "Entrega en 48 horas o menos (sujeto a disponibilidad)",
     },
     {
-      id: "sfx",
-      title: "Efectos de sonido premium",
+      id: "proofread",
+      title: "Revisión de Guión",
       price: 20,
-      description: "Biblioteca completa de efectos profesionales",
+      description: "Corrección profesional de texto y estilo",
+    },
+    {
+      id: "multilingual",
+      title: "Múltiples Idiomas",
+      price: 25,
+      description: "Grabación en dos idiomas adicionales",
+    },
+    {
+      id: "audioFormat",
+      title: "Múltiples Formatos",
+      price: 15,
+      description: "Entrega en MP3, WAV y otros formatos profesionales",
     },
   ];
 
-  const musicStyles = [
-    "Corporativa/Profesional",
-    "Energética/Motivacional",
-    "Relajante/Zen",
-    "Tecnológica/Moderna",
-    "Sin música",
+  const voiceAges = [
+    "Adulto Joven (18-35)",
+    "Adulto Medio (36-50)",
+    "Adulto Mayor (51-65)",
+    "Edad Avanzada (65+)",
+  ];
+
+  const voiceTones = [
+    "Profesional",
+    "Amigable",
+    "Corporativo",
+    "Persuasivo",
+    "Conversacional",
+    "Serio/Formal",
+    "Enérgico",
+    "Educativo",
   ];
 
   const calculateTotal = () => {
-    const basePrice = parseInt(selectedPackage.price);
+    const basePrice = parseInt(selectedPackage.price || 0);
     const extrasTotal = formData.extras.reduce((total, extraId) => {
       const extra = extraServices.find((e) => e.id === extraId);
       return total + (extra?.price || 0);
     }, 0);
+
     return basePrice + extrasTotal;
   };
 
@@ -124,10 +153,17 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
     }));
   };
 
-  const handleMusicStyleSelect = (style) => {
+  const handleVoiceAgeSelect = (age) => {
     setFormData((prev) => ({
       ...prev,
-      musicStyle: style,
+      voiceAge: age,
+    }));
+  };
+
+  const handleVoiceToneSelect = (tone) => {
+    setFormData((prev) => ({
+      ...prev,
+      tone: tone,
     }));
   };
 
@@ -179,7 +215,6 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
     </div>
   );
 
-  // Componentes de pasos mediante funciones de renderizado
   const renderStep1 = () => (
     <div className="space-y-6">
       <h3 className="text-xl font-semibold mb-4">Personaliza tu Paquete</h3>
@@ -255,25 +290,60 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Estilo de Música de Fondo
+            Rango de Edad de la Voz
           </label>
-          <div className="grid grid-cols-2 gap-4">
-            {musicStyles.map((style) => (
+          <div className="grid grid-cols-2 gap-3">
+            {voiceAges.map((age) => (
               <button
-                key={style}
+                key={age}
                 type="button"
-                onClick={() => handleMusicStyleSelect(style)}
-                className={`p-4 border rounded-lg flex items-center gap-2 ${
-                  formData.musicStyle === style
+                onClick={() => handleVoiceAgeSelect(age)}
+                className={`p-3 border rounded-lg text-sm ${
+                  formData.voiceAge === age
                     ? "border-blue-500 bg-blue-50 text-blue-600"
                     : "border-gray-200 hover:border-blue-300"
                 }`}
               >
-                <Music size={20} />
-                <span>{style}</span>
+                {age}
               </button>
             ))}
           </div>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Tono de Voz
+          </label>
+          <div className="grid grid-cols-2 gap-3">
+            {voiceTones.map((tone) => (
+              <button
+                key={tone}
+                type="button"
+                onClick={() => handleVoiceToneSelect(tone)}
+                className={`p-3 border rounded-lg text-sm ${
+                  formData.tone === tone
+                    ? "border-blue-500 bg-blue-50 text-blue-600"
+                    : "border-gray-200 hover:border-blue-300"
+                }`}
+              >
+                {tone}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Lenguaje / Idioma
+          </label>
+          <input
+            type="text"
+            name="language"
+            value={formData.language}
+            onChange={handleInputChange}
+            placeholder="Ej: Español (Neutro, Mexicano, Argentino, etc.)"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
         </div>
 
         <div>
@@ -292,64 +362,65 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
           <p className="mt-2 text-sm text-gray-500">
             Cantidad máxima de palabras: {selectedPackage.wordCount}
           </p>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Referencias o Archivos Adicionales
-            </label>
-            <p className="text-sm text-gray-500 mb-3">
-              Adjunta ejemplos o información relevante para tu locución
-            </p>
+        </div>
 
-            <div className="mt-2 flex flex-col gap-3">
-              <div
-                onClick={() => fileInputRef.current.click()}
-                className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-blue-500 transition-colors"
-              >
-                <Upload className="text-gray-400 mb-2" size={24} />
-                <p className="text-sm text-gray-500">
-                  Haz clic para subir archivos o arrastra aquí
-                </p>
-                <p className="text-xs text-gray-400 mt-1">
-                  PDF, DOC, TXT, MP3 (máx 5MB)
-                </p>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  multiple
-                  onChange={handleFileChange}
-                  className="hidden"
-                  accept=".pdf,.doc,.docx,.txt,.mp3"
-                />
-              </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Referencias o Archivos Adicionales
+          </label>
+          <p className="text-sm text-gray-500 mb-3">
+            Adjunta ejemplos, guiones de referencia o información relevante
+          </p>
 
-              {formData.referenceFiles.length > 0 && (
-                <div className="mt-3 space-y-3">
-                  {formData.referenceFiles.map((file, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
-                    >
-                      <div className="flex items-center gap-2">
-                        <File size={16} className="text-gray-500" />
-                        <span className="text-sm truncate max-w-xs">
-                          {file.name}
-                        </span>
-                        <span className="text-xs text-gray-400">
-                          {(file.size / 1024).toFixed(1)} KB
-                        </span>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => removeFile(file.name)}
-                        className="text-red-500 hover:text-red-700 text-sm"
-                      >
-                        Eliminar
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
+          <div className="mt-2 flex flex-col gap-3">
+            <div
+              onClick={() => fileInputRef.current.click()}
+              className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-blue-500 transition-colors"
+            >
+              <Upload className="text-gray-400 mb-2" size={24} />
+              <p className="text-sm text-gray-500">
+                Haz clic para subir archivos o arrastra aquí
+              </p>
+              <p className="text-xs text-gray-400 mt-1">
+                PDF, DOC, TXT, MP3 (máx 5MB)
+              </p>
+              <input
+                ref={fileInputRef}
+                type="file"
+                multiple
+                onChange={handleFileChange}
+                className="hidden"
+                accept=".pdf,.doc,.docx,.txt,.mp3"
+              />
             </div>
+
+            {formData.referenceFiles.length > 0 && (
+              <div className="mt-3 space-y-3">
+                {formData.referenceFiles.map((file, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                  >
+                    <div className="flex items-center gap-2">
+                      <File size={16} className="text-gray-500" />
+                      <span className="text-sm truncate max-w-xs">
+                        {file.name}
+                      </span>
+                      <span className="text-xs text-gray-400">
+                        {(file.size / 1024).toFixed(1)} KB
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => removeFile(file.name)}
+                      className="text-red-500 hover:text-red-700 text-sm"
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -448,27 +519,64 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError("");
+
+    if (
+      step === 2 &&
+      (!formData.voiceType || !formData.voiceAge || !formData.tone)
+    ) {
+      setError("Por favor, completa todos los detalles de la voz");
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (step === 3 && (!formData.name.trim() || !formData.email.trim())) {
+      setError("Por favor, completa todos los campos requeridos");
+      setIsSubmitting(false);
+      return;
+    }
+
+    const sanitizedFormData = {
+      ...formData,
+      reference: formData.reference || "",
+      briefing: formData.script || "", // Usamos script como briefing si está vacío
+      details: {
+        package: formData.packageDetails,
+        extras: formData.extras,
+        voiceType: formData.voiceType,
+        voiceAge: formData.voiceAge,
+        tone: formData.tone,
+        language: formData.language,
+        reference: formData.reference || "",
+        briefing: formData.script || "",
+      },
+    };
 
     try {
-      // Utilizar nuestro sistema de gestión para crear el pedido
-      const result = await createOrder(formData);
+      // En el paso 3, enviamos el formulario
+      if (step === 3) {
+        const result = await createOrder(sanitizedFormData);
 
-      if (result.success) {
-        setOrderNumber(result.orderNumber);
-        setOrderComplete(true);
+        if (result.success) {
+          setOrderNumber(result.orderNumber);
+          setOrderComplete(true);
 
-        // En un entorno real, aquí enviarías un correo electrónico al cliente
-        console.log(
-          `Email would be sent to ${formData.email} with order number ${result.orderNumber}`
-        );
+          console.log(
+            `Email would be sent to ${formData.email} with order number ${result.orderNumber}`
+          );
+        } else {
+          setError(
+            result.message ||
+              "Hubo un error al procesar tu pedido. Por favor, intenta de nuevo."
+          );
+        }
       } else {
-        alert(
-          "Hubo un error al procesar tu pedido. Por favor, intenta de nuevo."
-        );
+        // Si no estamos en el paso final, simplemente avanzamos al siguiente paso
+        setStep((prevStep) => prevStep + 1);
       }
     } catch (error) {
       console.error("Error al crear el pedido:", error);
-      alert(
+      setError(
         "Hubo un error al procesar tu pedido. Por favor, intenta de nuevo."
       );
     }
@@ -500,6 +608,12 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
       <SelectedPackageDisplay />
       <StepIndicator />
 
+      {error && (
+        <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
+          {error}
+        </div>
+      )}
+
       <form onSubmit={handleSubmit} className="space-y-8">
         {renderCurrentStep()}
 
@@ -515,45 +629,22 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
             </button>
           )}
 
-          {step < 3 ? (
-            <button
-              type="button"
-              onClick={() => setStep(step + 1)}
-              className="flex-1 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Siguiente
-            </button>
-          ) : (
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="flex-1 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center"
-            >
-              {isSubmitting ? "Procesando..." : "Realizar Pedido"}
-              {isSubmitting && (
-                <svg
-                  className="animate-spin ml-2 h-5 w-5 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
-              )}
-            </button>
-          )}
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="flex-1 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center"
+          >
+            {isSubmitting ? (
+              <>
+                <Loader size={20} className="animate-spin mr-2" />
+                Procesando...
+              </>
+            ) : step < 3 ? (
+              "Siguiente"
+            ) : (
+              "Realizar Pedido"
+            )}
+          </button>
         </div>
       </form>
     </div>

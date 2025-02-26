@@ -470,23 +470,25 @@ const AdminPanel = () => {
                   Información del proyecto
                 </h5>
                 <div className="p-3 bg-white rounded border border-gray-200 text-sm h-32 overflow-y-auto">
-                  {order.details?.voiceType && (
+                  {order.details?.siteType && (
                     <p>
-                      <span className="font-medium">Tipo de voz:</span>{" "}
-                      {order.details.voiceType}
+                      <span className="font-medium">Tipo de sitio:</span>{" "}
+                      {order.details.siteType}
                     </p>
                   )}
-                  {order.details?.reference && (
+                  {order.details?.designReference && (
                     <p className="mt-1">
-                      <span className="font-medium">Referencia:</span>{" "}
-                      {order.details.reference}
+                      <span className="font-medium">Referencia de diseño:</span>{" "}
+                      {order.details.designReference}
                     </p>
                   )}
-                  {order.details?.briefing && (
+                  {order.details?.projectDescription && (
                     <>
-                      <p className="mt-1 font-medium">Brief:</p>
+                      <p className="mt-1 font-medium">
+                        Descripción del proyecto:
+                      </p>
                       <p className="mt-0.5 text-gray-600">
-                        {order.details.briefing}
+                        {order.details.projectDescription}
                       </p>
                     </>
                   )}

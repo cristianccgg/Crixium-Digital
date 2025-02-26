@@ -1,18 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  ShoppingCart,
-  CreditCard,
-  User,
-  Mail,
-  Phone,
-  Check,
-  Package,
-  Layout,
-  Database,
-  AlertCircle,
-  Loader,
-} from "lucide-react";
+import { ShoppingCart, Check, Package, Database, Loader } from "lucide-react";
 import SimpleFileUploadComponent from "./web_development/SimpleFileUploadComponent";
 import { createOrder } from "./OrderManagerFirebase";
 
@@ -49,7 +37,6 @@ const EcommerceCheckoutForm = ({ selectedPackage, platform, onCancel }) => {
     // Archivos de referencia
     referenceFiles: [],
     productFiles: [],
-    paymentMethod: "paypal",
     total: parseInt(selectedPackage.price || 0),
   });
 
@@ -94,13 +81,6 @@ const EcommerceCheckoutForm = ({ selectedPackage, platform, onCancel }) => {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
-    }));
-  };
-
-  const handlePaymentMethodChange = (method) => {
-    setFormData((prev) => ({
-      ...prev,
-      paymentMethod: method,
     }));
   };
 
@@ -443,127 +423,81 @@ const EcommerceCheckoutForm = ({ selectedPackage, platform, onCancel }) => {
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Nombre Completo <span className="text-red-500">*</span>
           </label>
-          <div className="relative">
-            <div className="absolute left-3 top-3 text-gray-400">
-              <User size={18} />
-            </div>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              required
-            />
-          </div>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            required
+          />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Email <span className="text-red-500">*</span>
           </label>
-          <div className="relative">
-            <div className="absolute left-3 top-3 text-gray-400">
-              <Mail size={18} />
-            </div>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              required
-            />
-          </div>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            required
+          />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Teléfono <span className="text-red-500">*</span>
           </label>
-          <div className="relative">
-            <div className="absolute left-3 top-3 text-gray-400">
-              <Phone size={18} />
-            </div>
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleInputChange}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              required
-            />
+          <input
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            required
+          />
+        </div>
+      </div>
+
+      <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+        <h4 className="font-medium mb-2">Resumen del Pedido</h4>
+        <ul className="space-y-2 text-sm">
+          <li className="flex justify-between">
+            <span>
+              Paquete Base ({selectedPackage.title} - {platformName})
+            </span>
+            <span>${selectedPackage.price}</span>
+          </li>
+          {formData.extras.map((extraId) => {
+            const extra = extraServices.find((e) => e.id === extraId);
+            return (
+              <li key={extraId} className="flex justify-between text-gray-600">
+                <span>{extra.title}</span>
+                <span>+${extra.price}</span>
+              </li>
+            );
+          })}
+          <li className="flex justify-between font-bold pt-2 border-t">
+            <span>Total</span>
+            <span>${currentTotal}</span>
+          </li>
+        </ul>
+
+        {(formData.referenceFiles.length > 0 ||
+          formData.productFiles.length > 0) && (
+          <div className="mt-3 pt-2 border-t">
+            <p className="text-sm font-medium mb-1">
+              Archivos adjuntos:{" "}
+              {formData.referenceFiles.length + formData.productFiles.length}
+            </p>
+            <p className="text-xs text-gray-500">
+              Los archivos serán procesados al enviar el formulario
+            </p>
           </div>
-        </div>
-
-        <div className="mt-6">
-          <h4 className="font-medium mb-2">Método de pago</h4>
-          <div className="space-y-2">
-            <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-              <input
-                type="radio"
-                name="paymentMethod"
-                value="paypal"
-                checked={formData.paymentMethod === "paypal"}
-                onChange={() => handlePaymentMethodChange("paypal")}
-                className="mr-3"
-              />
-              <span>PayPal / Tarjeta de crédito</span>
-            </label>
-            <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-              <input
-                type="radio"
-                name="paymentMethod"
-                value="transfer"
-                checked={formData.paymentMethod === "transfer"}
-                onChange={() => handlePaymentMethodChange("transfer")}
-                className="mr-3"
-              />
-              <span>Transferencia bancaria</span>
-            </label>
-          </div>
-        </div>
-
-        <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-          <h4 className="font-medium mb-2">Resumen del Pedido</h4>
-          <ul className="space-y-2 text-sm">
-            <li className="flex justify-between">
-              <span>
-                Paquete Base ({selectedPackage.title} - {platformName})
-              </span>
-              <span>${selectedPackage.price}</span>
-            </li>
-            {formData.extras.map((extraId) => {
-              const extra = extraServices.find((e) => e.id === extraId);
-              return (
-                <li
-                  key={extraId}
-                  className="flex justify-between text-gray-600"
-                >
-                  <span>{extra.title}</span>
-                  <span>+${extra.price}</span>
-                </li>
-              );
-            })}
-            <li className="flex justify-between font-bold pt-2 border-t">
-              <span>Total</span>
-              <span>${currentTotal}</span>
-            </li>
-          </ul>
-
-          {(formData.referenceFiles.length > 0 ||
-            formData.productFiles.length > 0) && (
-            <div className="mt-3 pt-2 border-t">
-              <p className="text-sm font-medium mb-1">
-                Archivos adjuntos:{" "}
-                {formData.referenceFiles.length + formData.productFiles.length}
-              </p>
-              <p className="text-xs text-gray-500">
-                Los archivos serán procesados al enviar el formulario
-              </p>
-            </div>
-          )}
-        </div>
+        )}
       </div>
     </div>
   );

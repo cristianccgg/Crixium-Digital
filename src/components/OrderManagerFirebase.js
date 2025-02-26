@@ -28,7 +28,7 @@ export const generateOrderNumber = (type) => {
 export const createOrder = async (formData) => {
   try {
     // Determinar el tipo de pedido basado en la selección
-    const orderType = formData.packageDetails?.type || "jingle";
+    const orderType = formData.packageDetails?.type || "web";
 
     // Generar un número de pedido único
     const orderNumber = generateOrderNumber(orderType);
@@ -96,9 +96,11 @@ export const createOrder = async (formData) => {
       details: {
         package: formData.packageDetails,
         extras: formData.extras,
-        briefing: formData.briefing,
-        reference: formData.reference,
-        voiceType: formData.voiceType,
+        siteType: formData.siteType || "",
+        designReference: formData.designReference || "",
+        projectDescription: formData.projectDescription || "",
+        framework: formData.framework || "",
+        features: formData.features || [],
         referenceFileNames,
         referenceFileUrls,
       },

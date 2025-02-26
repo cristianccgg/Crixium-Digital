@@ -480,8 +480,19 @@ const CustomCodeCheckoutForm = ({ selectedPackage, onCancel }) => {
     setIsSubmitting(true);
 
     try {
+      // Asegurarse de que todos los campos estén definidos
+      const sanitizedFormData = {
+        ...formData,
+        siteType: formData.siteType || "",
+        designReference: formData.designReference || "",
+        projectDescription: formData.projectDescription || "",
+        framework: formData.framework || "",
+        features: formData.features || [],
+        referenceFiles: formData.referenceFiles || [],
+      };
+
       // Utilizar nuestro sistema de gestión para crear el pedido
-      const result = await createOrder(formData);
+      const result = await createOrder(sanitizedFormData);
 
       if (result.success) {
         setOrderNumber(result.orderNumber);
