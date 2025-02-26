@@ -12,12 +12,15 @@ import {
   Send,
   X,
   Loader,
+  Package,
+  Sparkles,
 } from "lucide-react";
 import {
   getOrderByNumber,
   addOrderComment,
   uploadOrderFiles,
 } from "./OrderManagerFirebase";
+import { sampleOrders } from "../utils/sampleOrders";
 
 const OrderTracking = () => {
   const navigate = useNavigate();
@@ -39,12 +42,6 @@ const OrderTracking = () => {
   const [commentSuccess, setCommentSuccess] = useState(false);
   const fileInputRef = useRef(null);
 
-  // Ejemplos para mostrar en la interfaz
-  const sampleOrders = {
-    "WEB-2025-1001": "Proyecto web en desarrollo",
-    "MUSIC-2025-2001": "Jingle en fase de revisión",
-  };
-
   // Buscar el pedido automáticamente si viene en la URL
   useEffect(() => {
     if (orderNumber) {
@@ -65,7 +62,15 @@ const OrderTracking = () => {
     }
 
     try {
-      // Buscar en Firebase usando OrderManagerFirebase
+      // Primero buscar en los ejemplos
+      if (sampleOrders[orderNumber]) {
+        setOrderDetails(sampleOrders[orderNumber]);
+        setOrderFound(true);
+        setLoading(false);
+        return;
+      }
+
+      // Si no es un ejemplo, buscar en Firebase
       const order = await getOrderByNumber(orderNumber);
 
       if (order) {
@@ -474,147 +479,179 @@ const OrderTracking = () => {
 
   // Vista principal con formulario de búsqueda
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-10">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-            Seguimiento de Pedido
-          </h1>
-          <p className="text-gray-600 max-w-lg mx-auto">
-            Consulta el estado de tu proyecto ingresando el número de pedido que
-            recibiste por correo electrónico
-          </p>
-        </div>
+    <div className=" bg-gray-50">
+      {/* Hero Section con estilo similar a LandingPage */}
+      <section className="relative py-32 px-4 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white overflow-hidden">
+        {/* Elementos decorativos */}
+        <div className="absolute top-10 right-5 w-36 h-36 bg-white/10 rounded-full blur-2xl"></div>
+        <div className="absolute bottom-5 left-10 w-28 h-28 bg-blue-400/20 rounded-full blur-2xl"></div>
 
-        {/* Formulario de búsqueda */}
-        <div className="bg-white p-6 md:p-8 rounded-xl shadow-md mb-8">
-          <form
-            onSubmit={handleSearch}
-            className="flex flex-col md:flex-row gap-4"
-          >
-            <div className="flex-grow">
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Search size={20} className="text-gray-400" />
-                </div>
-                <input
-                  type="text"
-                  className="block w-full pl-10 pr-3 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
-                  placeholder="Ej: WEB-2025-1001"
-                  value={orderNumber}
-                  onChange={(e) => setOrderNumber(e.target.value)}
-                />
-              </div>
-              {error && <p className="mt-2 text-red-600 text-sm">{error}</p>}
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="text-center">
+            <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-sm font-medium backdrop-blur-sm inline-block mb-6 mx-auto">
+              <Package size={16} className="text-yellow-300" />
+              <span>Seguimiento de Pedido</span>
             </div>
-            <button
-              type="submit"
-              disabled={loading}
-              className="bg-blue-600 text-white px-6 py-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 font-medium flex items-center justify-center"
-            >
-              {loading ? (
-                <>
-                  <Loader size={20} className="animate-spin mr-2" />
-                  Buscando...
-                </>
-              ) : (
-                "Buscar Pedido"
-              )}
-            </button>
-          </form>
-        </div>
 
-        {/* Muestra de pedidos de ejemplo */}
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              Consulta el Estado de tu Proyecto
+            </h1>
+            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+              Mantente al tanto del progreso de tu proyecto en tiempo real
+            </p>
+
+            {/* Formulario de búsqueda más compacto */}
+            <div className="max-w-xl mx-auto">
+              <form
+                onSubmit={handleSearch}
+                className="flex flex-col md:flex-row gap-3 bg-white/10 backdrop-blur-sm p-2 rounded-lg"
+              >
+                <div className="flex-grow relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Search size={20} className="text-blue-200" />
+                  </div>
+                  <input
+                    type="text"
+                    className="block w-full pl-10 pr-3 py-3 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-yellow-300 focus:border-yellow-300 text-white placeholder-blue-200"
+                    placeholder="Ingresa tu número de pedido"
+                    value={orderNumber}
+                    onChange={(e) => setOrderNumber(e.target.value)}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="bg-white text-blue-800 px-6 py-3 rounded-lg hover:bg-yellow-300 transition-all duration-300 font-medium flex items-center justify-center gap-2 min-w-[140px]"
+                >
+                  {loading ? (
+                    <>
+                      <Loader size={20} className="animate-spin" />
+                      <span>Buscando...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Search size={20} />
+                      <span>Buscar</span>
+                    </>
+                  )}
+                </button>
+              </form>
+              {error && (
+                <div className="mt-3 text-red-300 text-sm flex items-center justify-center gap-2">
+                  <AlertCircle size={16} />
+                  <span>{error}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        {/* Muestra de pedidos de ejemplo en un diseño más compacto */}
         {!orderFound && !loading && (
-          <div className="bg-blue-50 border border-blue-100 p-5 rounded-lg">
-            <h3 className="font-semibold mb-2 flex items-center">
-              <AlertCircle size={18} className="text-blue-600 mr-2" />
+          <div className="bg-white border border-gray-100 p-6 rounded-xl shadow-sm">
+            <h3 className="font-semibold mb-3 flex items-center text-gray-800">
+              <Sparkles size={18} className="text-blue-600 mr-2" />
               Ejemplos para probar
             </h3>
-            <p className="text-sm text-gray-600 mb-3">
-              Usa estos números de pedido de ejemplo para ver cómo funciona el
-              sistema:
-            </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {Object.entries(sampleOrders).map(([number, description]) => (
+              {Object.entries(sampleOrders).map(([number, order]) => (
                 <div
                   key={number}
-                  className="bg-white p-3 rounded border border-gray-200"
+                  className="bg-gray-50 p-3 rounded-lg border border-gray-100 hover:border-blue-200 transition-colors cursor-pointer"
+                  onClick={() => setOrderNumber(number)}
                 >
-                  <code className="font-mono text-sm">{number}</code>
-                  <p className="text-xs text-gray-500 mt-1">{description}</p>
+                  <code className="font-mono text-sm text-blue-700">
+                    {number}
+                  </code>
+                  <p className="text-xs text-gray-600 mt-1">
+                    {order.title} - {order.client}
+                  </p>
+                  <div
+                    className={`text-xs mt-1 inline-block px-2 py-0.5 rounded-full ${
+                      order.status === "in-progress"
+                        ? "bg-amber-100 text-amber-800"
+                        : order.status === "review"
+                        ? "bg-blue-100 text-blue-800"
+                        : "bg-gray-100 text-gray-800"
+                    }`}
+                  >
+                    {getStatusText(order.status)}
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         )}
 
-        {/* Detalles del pedido si se encontró */}
+        {/* Contenedor de detalles del pedido con animación de expansión */}
         {orderFound && orderDetails && (
-          <div className="bg-white p-8 rounded-xl shadow-md">
-            <div className="flex justify-between items-start">
-              <div>
-                <div className="flex items-center">
-                  <span
-                    className={`inline-block w-3 h-3 rounded-full mr-2 ${
+          <div className="mt-8 animate-fade-in">
+            <div className="bg-white p-8 rounded-xl shadow-md">
+              <div className="flex justify-between items-start">
+                <div>
+                  <div className="flex items-center">
+                    <span
+                      className={`inline-block w-3 h-3 rounded-full mr-2 ${
+                        orderDetails.status === "in-progress"
+                          ? "bg-amber-400"
+                          : orderDetails.status === "review"
+                          ? "bg-blue-500"
+                          : orderDetails.status === "completed"
+                          ? "bg-green-500"
+                          : "bg-gray-400"
+                      }`}
+                    ></span>
+                    <h3 className="font-semibold text-lg">
+                      Pedido #{orderNumber}
+                    </h3>
+                  </div>
+                  <h2 className="text-2xl font-bold mt-1">
+                    {orderDetails.title}
+                  </h2>
+                  <p className="text-gray-600 mt-1">
+                    Cliente: {orderDetails.client}
+                  </p>
+                </div>
+
+                <div className="text-right">
+                  <div
+                    className={`text-sm font-medium px-3 py-1 rounded-full inline-block ${
                       orderDetails.status === "in-progress"
-                        ? "bg-amber-400"
+                        ? "bg-amber-100 text-amber-800"
                         : orderDetails.status === "review"
-                        ? "bg-blue-500"
+                        ? "bg-blue-100 text-blue-800"
                         : orderDetails.status === "completed"
-                        ? "bg-green-500"
-                        : "bg-gray-400"
+                        ? "bg-green-100 text-green-800"
+                        : "bg-gray-100 text-gray-800"
                     }`}
-                  ></span>
-                  <h3 className="font-semibold text-lg">
-                    Pedido #{orderNumber}
-                  </h3>
+                  >
+                    {getStatusText(orderDetails.status)}
+                  </div>
+                  <p className="text-sm text-gray-500 mt-2">
+                    Última actualización:{" "}
+                    {orderDetails.lastUpdate && orderDetails.lastUpdate.toDate
+                      ? orderDetails.lastUpdate.toDate().toLocaleDateString()
+                      : new Date(orderDetails.lastUpdate).toLocaleDateString()}
+                  </p>
                 </div>
-                <h2 className="text-2xl font-bold mt-1">
-                  {orderDetails.title}
-                </h2>
-                <p className="text-gray-600 mt-1">
-                  Cliente: {orderDetails.client}
-                </p>
               </div>
 
-              <div className="text-right">
-                <div
-                  className={`text-sm font-medium px-3 py-1 rounded-full inline-block ${
-                    orderDetails.status === "in-progress"
-                      ? "bg-amber-100 text-amber-800"
-                      : orderDetails.status === "review"
-                      ? "bg-blue-100 text-blue-800"
-                      : orderDetails.status === "completed"
-                      ? "bg-green-100 text-green-800"
-                      : "bg-gray-100 text-gray-800"
-                  }`}
-                >
-                  {getStatusText(orderDetails.status)}
-                </div>
-                <p className="text-sm text-gray-500 mt-2">
-                  Última actualización:{" "}
-                  {orderDetails.lastUpdate && orderDetails.lastUpdate.toDate
-                    ? orderDetails.lastUpdate.toDate().toLocaleDateString()
-                    : new Date(orderDetails.lastUpdate).toLocaleDateString()}
-                </p>
-              </div>
-            </div>
+              {/* Línea de tiempo del proyecto */}
+              {renderOrderSteps(orderDetails.steps)}
 
-            {/* Línea de tiempo del proyecto */}
-            {renderOrderSteps(orderDetails.steps)}
+              {/* Archivos de entrega si están disponibles */}
+              {renderDeliveryFiles(orderDetails)}
 
-            {/* Archivos de entrega si están disponibles */}
-            {renderDeliveryFiles(orderDetails)}
+              {/* Historial de comentarios */}
+              {renderCommentHistory(orderDetails)}
 
-            {/* Historial de comentarios */}
-            {renderCommentHistory(orderDetails)}
+              {/* Formulario para enviar comentarios */}
+              {renderCommentForm()}
 
-            {/* Formulario para enviar comentarios */}
-            {renderCommentForm()}
-
-            {/* Botón para contactar */}
-            <div className="mt-10 pt-6 border-t border-gray-100">
+              {/* Botón para contactar */}
+              <div className="mt-10 pt-6 border-t border-gray-100"></div>
               <p className="text-sm text-gray-600 mb-4">
                 ¿Necesitas ponerte en contacto directo? Puedes hacerlo por
                 correo electrónico.

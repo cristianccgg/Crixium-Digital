@@ -61,6 +61,7 @@ const Navbar = () => {
     "/web-development",
     "/music-production",
     "/contact",
+    "/tracking",
   ].includes(location.pathname);
 
   return (
@@ -82,7 +83,7 @@ const Navbar = () => {
                   : "text-blue-600"
               }`}
             >
-              CreativeStudio
+              Philo Studio
             </Link>
           </div>
 
@@ -305,6 +306,7 @@ const Layout = ({ children }) => {
     "/web-development",
     "/music-production",
     "/contact",
+    "/tracking",
   ];
   const hasFullScreenHero = fullScreenHeroPages.includes(location.pathname);
 
