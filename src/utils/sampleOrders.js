@@ -105,4 +105,46 @@ export const sampleOrders = {
     ],
     lastUpdate: new Date("2025-02-10"),
   },
+  "MUSIC-2025-2002": {
+    // Agregamos un ejemplo más de música
+    orderNumber: "MUSIC-2025-2002",
+    title: "Locución Comercial",
+    client: "Radio Demo",
+    status: "received",
+    type: "music",
+    currentStep: 1,
+    steps: [
+      {
+        name: "Pedido Recibido",
+        completed: true,
+        date: "2025-02-15",
+      },
+      {
+        name: "Concepto",
+        completed: false,
+        currentStage: true,
+      },
+      {
+        name: "Producción",
+        completed: false,
+      },
+      {
+        name: "Revisión",
+        completed: false,
+      },
+      {
+        name: "Finalizado",
+        completed: false,
+      },
+    ],
+    comments: [
+      {
+        id: "1",
+        text: "Hemos recibido tu solicitud para la locución comercial.",
+        fromClient: false,
+        createdAt: "2025-02-15T09:00:00",
+      },
+    ],
+    lastUpdate: new Date("2025-02-15"),
+  },
 };

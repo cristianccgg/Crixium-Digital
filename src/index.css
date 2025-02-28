@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+@theme {
+  --color-purple-700: #5e2ca5;
+  --color-purple-800: #4c2391;
+  --color-purple-900: #3a1a6e;
+  --color-purple-100: #e9d8fd;
+  --color-purple-50: #f6effb;
+
+  --color-coral-300: #ffb3b3;
+  --color-coral-400: #ff8989;
+  --color-coral-500: #ff6b6b;
+  --color-coral-600: #ff4d4d;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

@@ -77,42 +77,42 @@ const Navbar = () => {
               to="/"
               className={`text-xl font-bold transition-colors duration-300 ${
                 isScrolled
-                  ? "text-blue-600"
+                  ? "text-purple-700"
                   : hasHeroBackground
                   ? "text-white"
-                  : "text-blue-600"
+                  : "text-purple-700"
               }`}
             >
-              Philo Studio
+              Crixium Digital
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center md:space-x-3 lg:space-x-8">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className={`flex items-center gap-1.5 transition-colors ${
+                className={`flex items-center gap-1 text-sm lg:text-base transition-colors  ${
                   isScrolled || !hasHeroBackground
-                    ? "text-gray-700 hover:text-blue-600"
-                    : "text-white hover:text-yellow-300" // Amarillo para mejor contraste sobre azul
+                    ? "text-gray-700 hover:text-purple-700 hover:scale-105 transition-transform duration-500 ease-in-out"
+                    : "text-white hover:text-coral-300 hover:scale-105 transition-transform duration-500 ease-in-out"
                 } ${location.pathname === item.href ? "font-medium" : ""}`}
                 onClick={(e) => handleNavClick(e, item.href)}
               >
-                <item.icon size={18} />
-                {item.name}
+                <item.icon size={16} className="md:mr-0.5 lg:mr-1" />
+                <span className="whitespace-nowrap">{item.name}</span>
               </Link>
             ))}
             <Link
               to="/contact"
-              className={`px-5 py-2.5 rounded-lg transition-all duration-300 flex items-center gap-1.5 ${
+              className={`px-3 lg:px-5 py-2 rounded-lg transition-all duration-300 flex items-center gap-1 text-sm lg:text-base whitespace-nowrap ${
                 isScrolled || !hasHeroBackground
-                  ? "bg-blue-600 text-white hover:bg-blue-700"
-                  : "bg-white/20 backdrop-blur-sm text-white  hover:bg-yellow-300/90 border border-white/30 hover:text-blue-600"
+                  ? "bg-coral-500 text-white hover:bg-purple-800 hover:scale-105  hover:shadow-md hover:shadow-purple-300 transition-all duration-300 ease-out"
+                  : "bg-white/20 backdrop-blur-sm text-white hover:bg-coral-500/90 border border-white/30 hover:text-white hover:scale-105 hover:shadow-coral-300/80 hover:shadow-lg hover:ring-2 hover:ring-coral-300 transition-all duration-300 ease-out"
               }`}
             >
-              <MessageSquare size={18} />
+              <MessageSquare size={16} className="md:mr-0.5 lg:mr-1" />
               Contactar
             </Link>
           </div>
@@ -176,7 +176,7 @@ const Footer = () => (
         <div className="mt-6 space-y-2">
           <Link
             to="/web-development"
-            className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
+            className="flex items-center gap-2 text-gray-300 hover:text-coral-300 transition-colors"
           >
             <Globe size={18} />
             Desarrollo Web
@@ -217,7 +217,7 @@ const Footer = () => (
           <li className="mt-4">
             <Link
               to="/contact"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg inline-block hover:bg-blue-700 transition-colors"
+              className="px-4 py-2 bg-purple-700 text-white rounded-lg inline-block hover:bg-purple-800 transition-colors"
             >
               Contáctanos
             </Link>
@@ -230,7 +230,7 @@ const Footer = () => (
           {/* Iconos de redes sociales - placeholder */}
           <a
             href="#"
-            className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all"
+            className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:bg-purple-700 hover:text-white transition-all"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -248,7 +248,7 @@ const Footer = () => (
           </a>
           <a
             href="#"
-            className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all"
+            className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:bg-purple-700 hover:text-white transition-all"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -266,7 +266,7 @@ const Footer = () => (
           </a>
           <a
             href="#"
-            className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all"
+            className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:bg-purple-700 hover:text-white transition-all"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

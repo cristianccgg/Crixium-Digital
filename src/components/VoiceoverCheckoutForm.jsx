@@ -536,26 +536,38 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
       return;
     }
 
-    const sanitizedFormData = {
-      ...formData,
-      reference: formData.reference || "",
-      briefing: formData.script || "", // Usamos script como briefing si está vacío
-      details: {
-        package: formData.packageDetails,
-        extras: formData.extras,
-        voiceType: formData.voiceType,
-        voiceAge: formData.voiceAge,
-        tone: formData.tone,
-        language: formData.language,
-        reference: formData.reference || "",
-        briefing: formData.script || "",
-      },
-    };
-
     try {
       // En el paso 3, enviamos el formulario
       if (step === 3) {
-        const result = await createOrder(sanitizedFormData);
+        // SOLUCIÓN: Creamos un nuevo objeto con propiedades explícitas type y category
+        const enhancedFormData = {
+          ...formData,
+          reference: formData.reference || "",
+          briefing: formData.script || "",
+          packageDetails: {
+            ...formData.packageDetails,
+            type: "music", // CLAVE: Forzar el tipo "music"
+            category: "locucion", // CLAVE: Forzar la categoría "locucion"
+          },
+          details: {
+            ...formData.details,
+            package: {
+              ...formData.packageDetails,
+              type: "music",
+              category: "locucion",
+            },
+            extras: formData.extras,
+            voiceType: formData.voiceType,
+            voiceAge: formData.voiceAge,
+            tone: formData.tone,
+            language: formData.language,
+            reference: formData.reference || "",
+            briefing: formData.script || "",
+          },
+        };
+
+        // Usar el objeto mejorado para crear el pedido
+        const result = await createOrder(enhancedFormData);
 
         if (result.success) {
           setOrderNumber(result.orderNumber);

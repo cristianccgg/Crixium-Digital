@@ -12,7 +12,6 @@ import {
   Sparkles,
 } from "lucide-react";
 import emplaw from "../assets/users_pictures/emplaw.webp";
-import laura from "../assets/users_pictures/laura.webp";
 import masha from "../assets/users_pictures/masha.webp";
 import q from "../assets/users_pictures/q.webp";
 
@@ -198,7 +197,7 @@ const ReviewsCarousel = () => {
       rating: 5,
       date: "Hace 3 semanas",
       comment:
-        "We asked Christian to create a short jingle we could use for our tiktok and instagram short format social media videos. Christian hit the nail on the head- absolutely perfect piece. It's serious, yet a little silly which is exactly what we wanted. 10/10 would use again.",
+        "We asked Crixium to create a short jingle we could use for our tiktok and instagram short format social media videos. Christian hit the nail on the head- absolutely perfect piece. It's serious, yet a little silly which is exactly what we wanted. 10/10 would use again.",
       projectDetails: "Jingle Publicitario - 30 segundos",
     },
     {

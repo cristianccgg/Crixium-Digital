@@ -11,7 +11,6 @@ import {
 import { Link } from "react-router-dom";
 import LandingReviewsCarousel from "./LandingReviewsCarousel";
 
-// Componente para los servicios principales con animación en hover
 const ServiceCard = ({ icon: Icon, title, description, link, color }) => {
   const navigate = useNavigate();
 
@@ -26,7 +25,7 @@ const ServiceCard = ({ icon: Icon, title, description, link, color }) => {
       <p className="text-gray-600 mb-6 flex-grow">{description}</p>
       <button
         onClick={() => navigate(link)}
-        className="group text-blue-600 flex items-center text-sm font-medium hover:text-blue-800"
+        className="group text-purple-700 flex items-center text-sm font-medium hover:text-purple-900"
       >
         Explorar servicios{" "}
         <ChevronRight
@@ -41,7 +40,7 @@ const ServiceCard = ({ icon: Icon, title, description, link, color }) => {
 // Componente para los números/estadísticas
 const StatCard = ({ number, label }) => (
   <div className="text-center">
-    <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-2">
+    <div className="text-4xl md:text-5xl font-bold text-purple-700 mb-2">
       {number}
     </div>
     <p className="text-gray-600">{label}</p>
@@ -63,7 +62,7 @@ const LandingPage = () => {
       {/* Hero Section con diseño más moderno */}
       <section
         ref={heroRef}
-        className="relative min-h-[70vh] flex items-center pt-16 px-4 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white overflow-hidden"
+        className="relative min-h-[100vh] md:min-h-[70vh] flex items-center py-16 px-4 bg-gradient-to-br from-purple-700 via-purple-800 to-purple-900 text-white overflow-hidden"
       >
         {/* Elementos decorativos */}
         <div className="absolute top-20 right-10 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
@@ -72,18 +71,13 @@ const LandingPage = () => {
 
         <div className="max-w-7xl mx-auto w-full z-10">
           <div className="max-w-3xl">
-            <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-sm font-medium backdrop-blur-sm inline-block mb-6">
-              <Sparkles size={16} className="text-yellow-300" />
-              <span>Web & Música para Profesionales</span>
-            </div>
-
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
               Eleva tu Marca con{" "}
-              <span className="text-yellow-300">Creatividad</span> y{" "}
-              <span className="text-yellow-300">Tecnología</span>
+              <span className="text-coral-400">Creatividad</span> y{" "}
+              <span className="text-coral-400">Tecnología</span>
             </h1>
 
-            <p className="text-xl md:text-2xl mb-10 text-blue-100">
+            <p className="text-xl md:text-2xl mb-10 text-purple-100">
               Desarrollo web impactante y producción musical de primer nivel
               para hacer destacar tu negocio.
             </p>
@@ -91,15 +85,14 @@ const LandingPage = () => {
             <div className="flex flex-wrap gap-4">
               <Link
                 to="/web-development"
-                className="bg-white text-blue-800 px-8 py-4 rounded-lg hover:bg-yellow-300 transition-all duration-300 flex items-center gap-2 font-medium shadow-lg hover:shadow-xl "
+                className="bg-white text-purple-900 px-8 py-4 rounded-lg hover:bg-coral-400 transition-all duration-300 flex items-center gap-2 font-medium shadow-lg hover:shadow-xl"
               >
                 <Globe size={20} />
                 Desarrollo Web
               </Link>
-
               <Link
                 to="/music-production"
-                className="bg-white text-blue-800 px-8 py-4 rounded-lg hover:bg-yellow-300 transition-all duration-300 flex items-center gap-2 font-medium shadow-lg hover:shadow-xl"
+                className="bg-white text-purple-900 px-8 py-4 rounded-lg hover:bg-coral-400 transition-all duration-300 flex items-center gap-2 font-medium shadow-lg hover:shadow-xl"
               >
                 <Music2 size={20} />
                 Producción Musical
@@ -141,14 +134,14 @@ const LandingPage = () => {
               title="Desarrollo Web"
               description="Sitios web y tiendas online de alto impacto visual con las tecnologías más avanzadas para garantizar rendimiento óptimo y experiencias memorables."
               link="/web-development"
-              color="bg-blue-600"
+              color="bg-purple-700"
             />
             <ServiceCard
               icon={Music2}
               title="Producción Musical"
               description="Creamos la identidad sonora de tu marca con jingles, spots publicitarios y música original que conecta emocionalmente con tu audiencia."
               link="/music-production"
-              color="bg-blue-700"
+              color="bg-purple-800"
             />
           </div>
         </div>
@@ -170,7 +163,7 @@ const LandingPage = () => {
       </section>
 
       {/* Sección de propuesta única de valor */}
-      <section className="py-20 px-4 bg-gradient-to-br from-blue-50 to-white relative overflow-hidden">
+      <section className="py-20 px-4 bg-gradient-to-br from-purple-50 to-white relative overflow-hidden">
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -179,8 +172,8 @@ const LandingPage = () => {
               </h2>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <div className="mt-1 mr-3 w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <ChevronRight size={16} className="text-blue-600" />
+                  <div className="mt-1 mr-3 w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <ChevronRight size={16} className="text-purple-700" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg">
@@ -194,8 +187,8 @@ const LandingPage = () => {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <div className="mt-1 mr-3 w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <ChevronRight size={16} className="text-blue-600" />
+                  <div className="mt-1 mr-3 w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <ChevronRight size={16} className="text-purple-700" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg">Enfoque Creativo</h3>
@@ -206,8 +199,8 @@ const LandingPage = () => {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <div className="mt-1 mr-3 w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <ChevronRight size={16} className="text-blue-600" />
+                  <div className="mt-1 mr-3 w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <ChevronRight size={16} className="text-purple-700" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg">
@@ -225,7 +218,7 @@ const LandingPage = () => {
 
             {/* Imagen o elemento visual representativo */}
             <div className="relative h-80 md:h-full min-h-[320px] rounded-xl overflow-hidden shadow-xl">
-              <div className="absolute inset-0 bg-gradient-to-tr from-blue-700 to-blue-500 rounded-xl overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-tr from-purple-800 to-purple-600 rounded-xl overflow-hidden">
                 {/* Elementos decorativos */}
                 <div className="absolute top-10 right-10 w-20 h-20 rounded-full border-4 border-white/30"></div>
                 <div className="absolute bottom-10 left-10 w-32 h-32 rounded-full border-4 border-white/20"></div>
@@ -247,22 +240,22 @@ const LandingPage = () => {
         </div>
 
         {/* Elementos decorativos de fondo */}
-        <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-blue-200 rounded-full opacity-30"></div>
-        <div className="absolute top-10 -left-10 w-32 h-32 bg-blue-100 rounded-full opacity-40"></div>
+        <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-purple-200 rounded-full opacity-30"></div>
+        <div className="absolute top-10 -left-10 w-32 h-32 bg-purple-100 rounded-full opacity-40"></div>
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 px-4 bg-blue-900 text-white">
+      <section className="py-16 px-4 bg-purple-900 text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             ¿Listo para iniciar tu próximo proyecto?
           </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
             Conversemos sobre cómo podemos ayudarte a alcanzar tus objetivos
           </p>
           <Link
             to="/contact"
-            className="bg-white text-blue-900 px-8 py-4 rounded-lg hover:bg-blue-50 transition-all duration-300 inline-flex items-center gap-2 font-medium shadow-lg group"
+            className="bg-coral-500 text-white px-8 py-4 rounded-lg hover:bg-coral-600 transition-all duration-300 inline-flex items-center gap-2 font-medium shadow-lg group"
           >
             <span>Contactar Ahora</span>
             <ArrowRight

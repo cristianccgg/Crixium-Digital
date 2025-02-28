@@ -1,4 +1,3 @@
-// OrderManagerFirebase.js - Sistema de gestión de pedidos con Firebase
 import { v4 as uuidv4 } from "uuid";
 import {
   collection,
@@ -15,11 +14,16 @@ import {
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "./firebase";
 
-// Función para generar un número de pedido en el formato deseado
 export const generateOrderNumber = (type) => {
-  const prefix = type === "jingle" ? "MUSIC" : "WEB";
+  // Asegurarnos de que el tipo sea el correcto
+  const prefix =
+    type.toLowerCase() === "music" ||
+    type.toLowerCase().includes("jingle") ||
+    type.toLowerCase().includes("locucion")
+      ? "MUSIC"
+      : "WEB";
+
   const year = new Date().getFullYear();
-  // Generar un número aleatorio de 4 dígitos
   const randomNum = Math.floor(1000 + Math.random() * 9000);
   return `${prefix}-${year}-${randomNum}`;
 };
@@ -27,15 +31,23 @@ export const generateOrderNumber = (type) => {
 // Función para crear un nuevo pedido basado en el formulario de checkout
 export const createOrder = async (formData) => {
   try {
-    // Determinar el tipo de pedido basado en la selección
-    const orderType = formData.packageDetails?.type || "web";
+    // Mejorar la determinación del tipo de pedido
+    const orderType =
+      formData.packageDetails?.category === "music" ||
+      formData.packageDetails?.category === "jingle" ||
+      formData.packageDetails?.category === "locucion" ||
+      formData.packageDetails?.title?.toLowerCase().includes("jingle") ||
+      formData.packageDetails?.title?.toLowerCase().includes("locucion") ||
+      formData.packageDetails?.type === "music"
+        ? "music"
+        : "web";
 
     // Generar un número de pedido único
     const orderNumber = generateOrderNumber(orderType);
 
     // Crear estructura básica de pasos para el seguimiento
     const steps =
-      orderType === "jingle"
+      orderType === "music"
         ? [
             {
               name: "Pedido Recibido",

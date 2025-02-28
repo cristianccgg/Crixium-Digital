@@ -20,7 +20,7 @@ import {
 import WebPricingSection from "./WebPricingSection";
 import EcommercePricingSection from "./EcommercePricingSection";
 import FeaturedProjects from "./FeaturedProjects";
-import WebReviewsCarousel from "./WebReviewsCarousel";
+import LandingReviewsCarousel from "./LandingReviewsCarousel";
 
 const ServiceCard = ({
   icon: Icon,
@@ -431,7 +431,7 @@ const WebDevelopmentPage = () => {
         />
       </div>
 
-      <WebReviewsCarousel />
+      <LandingReviewsCarousel />
 
       {/* Call to Action */}
       <section className="py-16 px-4 bg-blue-900 text-white relative overflow-hidden">

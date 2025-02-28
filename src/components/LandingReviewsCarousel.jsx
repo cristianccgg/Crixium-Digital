@@ -10,11 +10,9 @@ import {
   ArrowRight,
   Sparkles,
 } from "lucide-react";
-import { Link } from "react-router-dom";
 
 // Import images - asegúrate de que las rutas sean correctas
 import emplaw from "../assets/users_pictures/emplaw.webp";
-import laura from "../assets/users_pictures/laura.webp";
 import masha from "../assets/users_pictures/masha.webp";
 import q from "../assets/users_pictures/q.webp";
 
@@ -91,7 +89,7 @@ const ReviewCard = ({ review }) => {
         onMouseLeave={() => setIsHovering(false)}
       >
         {/* Icono de comillas decorativo */}
-        <div className="quote-icon absolute -top-3 -left-1 bg-blue-600 text-white p-1.5 rounded-full shadow-md">
+        <div className="quote-icon absolute -top-3 -left-1 bg-purple-700 text-white p-1.5 rounded-full shadow-md">
           <Quote size={16} className="rotate-180" />
         </div>
 
@@ -110,7 +108,7 @@ const ReviewCard = ({ review }) => {
           <div className="flex items-center mt-auto">
             <div className="mr-3">
               {review.userImage ? (
-                <div className="border-2 border-blue-100 w-12 h-12 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center shadow-sm">
+                <div className="border-2 border-purple-100 w-12 h-12 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center shadow-sm">
                   <img
                     src={review.userImage}
                     alt={review.userName}
@@ -118,8 +116,8 @@ const ReviewCard = ({ review }) => {
                   />
                 </div>
               ) : (
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center shadow-sm">
-                  <MessageCircle className="text-blue-600" size={20} />
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center shadow-sm">
+                  <MessageCircle className="text-purple-700" size={20} />
                 </div>
               )}
             </div>
@@ -172,7 +170,7 @@ const LandingReviewsCarousel = () => {
       country: "Estados Unidos",
       rating: 5,
       comment:
-        "We asked Christian to create a short jingle we could use for our social media videos. Christian hit the nail on the head- absolutely perfect piece. 10/10 would use again.",
+        "We asked Crixium to create a short jingle we could use for our social media videos. They hit the nail on the head- absolutely perfect piece. 10/10 would use again.",
       projectType: "Jingle",
     },
     {
@@ -181,7 +179,7 @@ const LandingReviewsCarousel = () => {
       country: "Estados Unidos",
       rating: 5,
       comment:
-        "Christian delivered an EXCELLENT jingle that showcased superb musicality, sound quality, and creativity. His deep understanding ensured the project was completed on time.",
+        "Crixium delivered an EXCELLENT jingle that showcased superb musicality, sound quality, and creativity. His deep understanding ensured the project was completed on time.",
       projectType: "Música Corporativa",
     },
     {
@@ -199,7 +197,7 @@ const LandingReviewsCarousel = () => {
       country: "México",
       rating: 5,
       comment:
-        "Christian delivered top-tier work with incredible attention to detail and professionalism that EXCEEDED my expectations. Working together was a breeze!",
+        "Crixium delivered top-tier work with incredible attention to detail and professionalism that EXCEEDED my expectations. Working together was a breeze!",
       projectType: "Audio Branding",
     },
   ];
@@ -210,7 +208,9 @@ const LandingReviewsCarousel = () => {
       <button
         className={`
           mx-1 h-2 transition-all duration-300 rounded-full
-          ${active ? "w-8 bg-blue-600" : "w-2 bg-gray-300 hover:bg-blue-300"}
+          ${
+            active ? "w-8 bg-purple-700" : "w-2 bg-gray-300 hover:bg-purple-300"
+          }
         `}
         onClick={() => onClick()}
       />
@@ -221,7 +221,7 @@ const LandingReviewsCarousel = () => {
     return (
       <button
         onClick={onClick}
-        className="absolute right-0 -mr-4 bg-white text-blue-600 p-2 rounded-full shadow-md hover:bg-blue-50 transition-all duration-300 z-10 flex items-center justify-center border border-gray-100 transform hover:scale-110"
+        className="absolute right-5 -mr-4 bg-white text-purple-700 p-2 rounded-full shadow-md hover:bg-purple-50 transition-all duration-300 z-10 flex items-center justify-center border border-gray-100 transform hover:scale-110"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -244,7 +244,7 @@ const LandingReviewsCarousel = () => {
     return (
       <button
         onClick={onClick}
-        className="absolute left-0 -ml-4 bg-white text-blue-600 p-2 rounded-full shadow-md hover:bg-blue-50 transition-all duration-300 z-10 flex items-center justify-center border border-gray-100 transform hover:scale-110"
+        className="absolute left-5 -ml-4 bg-white text-purple-700 p-2 rounded-full shadow-md hover:bg-purple-50 transition-all duration-300 z-10 flex items-center justify-center border border-gray-100 transform hover:scale-110"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -269,9 +269,9 @@ const LandingReviewsCarousel = () => {
       className="py-20 px-4 bg-gray-50 relative overflow-hidden"
     >
       {/* Elementos decorativos */}
-      <div className="absolute top-20 right-10 w-32 h-32 bg-blue-200 rounded-full opacity-20 animate-pulse"></div>
+      <div className="absolute top-20 right-10 w-32 h-32 bg-purple-200 rounded-full opacity-20 animate-pulse"></div>
       <div
-        className="absolute bottom-10 left-10 w-24 h-24 bg-blue-300 rounded-full opacity-20 animate-pulse"
+        className="absolute bottom-10 left-10 w-24 h-24 bg-purple-300 rounded-full opacity-20 animate-pulse"
         style={{ animationDelay: "1s" }}
       ></div>
 
@@ -281,8 +281,8 @@ const LandingReviewsCarousel = () => {
         }`}
       >
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-4">
-            <Sparkles size={16} className="text-yellow-500" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">
+            <Sparkles size={16} className="text-coral-500" />
             <span>Testimonios</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">

@@ -468,8 +468,18 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
     try {
       // En el paso 3, enviamos el formulario
       if (step === 3) {
-        // Utilizar la versión Firebase para crear el pedido
-        const result = await createOrder(formData);
+        // SOLUCIÓN: Creamos un nuevo objeto para enviar, con las propiedades type y category explícitas
+        const enhancedFormData = {
+          ...formData,
+          packageDetails: {
+            ...formData.packageDetails,
+            type: "music", // CLAVE: Establecer explícitamente para forzar MUSIC-
+            category: "jingle", // CLAVE: Establecer explícitamente para forzar MUSIC-
+          },
+        };
+
+        // Utilizar la versión Firebase para crear el pedido con el objeto mejorado
+        const result = await createOrder(enhancedFormData);
 
         if (result.success) {
           setOrderNumber(result.orderNumber);

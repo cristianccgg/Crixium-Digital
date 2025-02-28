@@ -230,6 +230,8 @@ const PricingSection = ({ initialService }) => {
         "Commercial use",
         "Unlimited Revisions",
       ],
+      type: "music", // Agregar explícitamente estas propiedades
+      category: "jingle", // Agregar explícitamente estas propiedades
     },
     {
       id: "standard",
@@ -246,6 +248,8 @@ const PricingSection = ({ initialService }) => {
         "Unlimited Revisions",
       ],
       isPopular: true,
+      type: "music", // Agregar explícitamente estas propiedades
+      category: "jingle", // Agregar explícitamente estas propiedades
     },
     {
       id: "premium",
@@ -261,6 +265,8 @@ const PricingSection = ({ initialService }) => {
         "Commercial use",
         "Unlimited Revisions",
       ],
+      type: "music", // Agregar explícitamente estas propiedades
+      category: "jingle", // Agregar explícitamente estas propiedades
     },
   ];
 
@@ -280,6 +286,8 @@ const PricingSection = ({ initialService }) => {
         "Uso comercial",
         "Calidad de estudio profesional",
       ],
+      type: "music", // Agregar explícitamente estas propiedades
+      category: "locucion", // Agregar explícitamente estas propiedades
     },
     {
       id: "vo-standard",
@@ -299,6 +307,8 @@ const PricingSection = ({ initialService }) => {
         "Multiple opciones de música",
       ],
       isPopular: true,
+      type: "music", // Agregar explícitamente estas propiedades
+      category: "locucion", // Agregar explícitamente estas propiedades
     },
     {
       id: "vo-premium",
@@ -318,6 +328,8 @@ const PricingSection = ({ initialService }) => {
         "Biblioteca completa de música",
         "Guión optimizado incluido",
       ],
+      type: "music", // Agregar explícitamente estas propiedades
+      category: "locucion", // Agregar explícitamente estas propiedades
     },
   ];
 
