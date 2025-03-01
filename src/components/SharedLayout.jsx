@@ -84,7 +84,12 @@ const Navbar = () => {
                   : "text-purple-700"
               }`}
             >
-              Crixium Digital
+              <div className="flex items-center gap-3">
+                <img src="/bombillo.PNG" alt="bombillo" className="w-12" />
+                <h1 className="text-coral-400 text-bold text-3xl">
+                  Crixium Digital
+                </h1>
+              </div>
             </Link>
           </div>
 
