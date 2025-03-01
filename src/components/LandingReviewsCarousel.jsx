@@ -86,7 +86,7 @@ const ReviewCard = ({ review }) => {
   };
 
   return (
-    <div className="p-3 mb-8">
+    <div className="p-8 mb-8">
       <div
         className="relative bg-white p-6 rounded-lg shadow-lg border border-gray-100 h-full transition-all duration-300"
         onMouseEnter={() => setIsHovering(true)}
@@ -104,7 +104,7 @@ const ReviewCard = ({ review }) => {
           </div>
 
           {/* Tipo de proyecto */}
-          <div className="flex items-center gap-2 mb-4 border border-purple-100 p-2 rounded-full w-fit content-center px-4 bg-coral-300/50">
+          <div className="inline-flex w-fit items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">
             <ArrowRight size={16} className="text-purple-700 font-semibold" />
             <span className="text-sm  text-purple-700 font-semibold">
               {review.projectType}
