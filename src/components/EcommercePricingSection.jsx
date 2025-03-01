@@ -15,8 +15,8 @@ const ServiceSelector = ({ activeService, onServiceChange }) => (
       onClick={() => onServiceChange("wordpress")}
       className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 transform ${
         activeService === "wordpress"
-          ? "bg-blue-600 text-white shadow-lg scale-105"
-          : "bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 hover:shadow-md border border-gray-200"
+          ? "bg-purple-700 text-white shadow-lg scale-105"
+          : "bg-white text-gray-700 hover:bg-purple-50 hover:text-purple-700 hover:shadow-md border border-gray-200"
       }`}
     >
       <Globe
@@ -29,8 +29,8 @@ const ServiceSelector = ({ activeService, onServiceChange }) => (
       onClick={() => onServiceChange("shopify")}
       className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 transform ${
         activeService === "shopify"
-          ? "bg-blue-600 text-white shadow-lg scale-105"
-          : "bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 hover:shadow-md border border-gray-200"
+          ? "bg-purple-700 text-white shadow-lg scale-105"
+          : "bg-white text-gray-700 hover:bg-purple-50 hover:text-purple-700 hover:shadow-md border border-gray-200"
       }`}
     >
       <ShoppingCart
@@ -59,13 +59,13 @@ const PricingCard = ({
       onMouseLeave={() => setHovering(false)}
       className={`bg-white rounded-xl p-8 relative flex flex-col h-full transition-all duration-300 transform ${
         isPopular
-          ? "border-2 border-blue-500 shadow-xl"
+          ? "border-2 border-purple-500 shadow-xl"
           : "border border-gray-100 shadow-md"
       } ${hovering ? "scale-105 shadow-xl" : ""}`}
     >
       {isPopular && (
         <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-          <span className="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-4 py-1 rounded-full text-sm font-medium flex items-center">
+          <span className="bg-gradient-to-r from-purple-700 to-purple-800 text-white px-4 py-1 rounded-full text-sm font-medium flex items-center">
             <Sparkles size={14} className="mr-1 animate-pulse" />
             Más Popular
           </span>
@@ -79,7 +79,9 @@ const PricingCard = ({
         </div>
         <div
           className={`${
-            isPopular ? "bg-blue-50 text-blue-700" : "bg-gray-50 text-gray-700"
+            isPopular
+              ? "bg-purple-50 text-purple-700"
+              : "bg-gray-50 text-gray-700"
           } px-4 py-2 rounded-lg mb-6 text-sm font-medium transition-colors duration-300`}
         >
           {delivery}
@@ -90,9 +92,9 @@ const PricingCard = ({
               <div
                 className={`h-5 w-5 rounded-full mr-2 flex-shrink-0 flex items-center justify-center ${
                   isPopular || hovering
-                    ? "bg-blue-100 text-blue-600"
+                    ? "bg-purple-100 text-purple-700"
                     : "bg-gray-100 text-gray-600"
-                } transition-colors duration-300 group-hover:bg-blue-100 group-hover:text-blue-600`}
+                } transition-colors duration-300 group-hover:bg-purple-100 group-hover:text-purple-700`}
               >
                 <Check size={12} />
               </div>
@@ -111,8 +113,8 @@ const PricingCard = ({
         onClick={() => onSelect(id)}
         className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg transition-all duration-300 ${
           isPopular || hovering
-            ? "bg-blue-600 text-white hover:bg-blue-700"
-            : "bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white"
+            ? "bg-purple-700 text-white hover:bg-coral-400"
+            : "bg-purple-50 text-purple-700 hover:bg-purple-700 hover:text-white"
         }`}
       >
         <span>Seleccionar Plan</span>
@@ -285,7 +287,7 @@ const EcommercePricingSection = ({ initialService }) => {
     <section className="py-16 px-4 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <div className="inline-block mb-2 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+          <div className="inline-block mb-2 px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
             Soluciones E-commerce
           </div>
           <h2 className="text-3xl font-bold mb-4">Tiendas Online</h2>
@@ -325,7 +327,7 @@ const EcommercePricingSection = ({ initialService }) => {
           <div className="animate-fadeIn">
             <button
               onClick={handleCloseCheckout}
-              className="mb-6 text-gray-600 hover:text-blue-600 flex items-center gap-2 transition-colors duration-200 group bg-white py-2 px-4 rounded-lg shadow-sm"
+              className="mb-6 text-gray-600 hover:text-purple-700 flex items-center gap-2 transition-colors duration-200 group bg-white py-2 px-4 rounded-lg shadow-sm"
             >
               <ArrowRight
                 size={16}
@@ -343,13 +345,13 @@ const EcommercePricingSection = ({ initialService }) => {
           </div>
         )}
 
-        <div className="mt-16 bg-blue-50 p-6 rounded-xl">
+        <div className="mt-16 bg-purple-50 p-6 rounded-xl">
           <h3 className="text-xl font-semibold mb-4">
             Consideraciones importantes
           </h3>
           <ul className="space-y-2">
             <li className="flex items-start">
-              <div className="h-5 w-5 rounded-full mr-2 flex-shrink-0 flex items-center justify-center bg-blue-100 text-blue-600">
+              <div className="h-5 w-5 rounded-full mr-2 flex-shrink-0 flex items-center justify-center bg-purple-100 text-purple-700">
                 <Check size={12} />
               </div>
               <span className="text-gray-700">
@@ -358,7 +360,7 @@ const EcommercePricingSection = ({ initialService }) => {
               </span>
             </li>
             <li className="flex items-start">
-              <div className="h-5 w-5 rounded-full mr-2 flex-shrink-0 flex items-center justify-center bg-blue-100 text-blue-600">
+              <div className="h-5 w-5 rounded-full mr-2 flex-shrink-0 flex items-center justify-center bg-purple-100 text-purple-700">
                 <Check size={12} />
               </div>
               <span className="text-gray-700">
@@ -367,7 +369,7 @@ const EcommercePricingSection = ({ initialService }) => {
               </span>
             </li>
             <li className="flex items-start">
-              <div className="h-5 w-5 rounded-full mr-2 flex-shrink-0 flex items-center justify-center bg-blue-100 text-blue-600">
+              <div className="h-5 w-5 rounded-full mr-2 flex-shrink-0 flex items-center justify-center bg-purple-100 text-purple-700">
                 <Check size={12} />
               </div>
               <span className="text-gray-700">

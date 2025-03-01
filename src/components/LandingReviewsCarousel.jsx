@@ -15,6 +15,10 @@ import {
 import emplaw from "../assets/users_pictures/emplaw.webp";
 import masha from "../assets/users_pictures/masha.webp";
 import q from "../assets/users_pictures/q.webp";
+import alison from "../assets/users_pictures/alison.webp";
+import christina from "../assets/users_pictures/christina.webp";
+import peter from "../assets/users_pictures/peter.webp";
+import fernando from "../assets/users_pictures/fernando.webp";
 
 // Configuración responsive para el carrusel
 const responsive = {
@@ -99,6 +103,14 @@ const ReviewCard = ({ review }) => {
             {renderStars(review.rating)}
           </div>
 
+          {/* Tipo de proyecto */}
+          <div className="flex items-center gap-2 mb-4 border border-purple-100 p-2 rounded-full w-fit content-center px-4 bg-coral-300/50">
+            <ArrowRight size={16} className="text-purple-700 font-semibold" />
+            <span className="text-sm  text-purple-700 font-semibold">
+              {review.projectType}
+            </span>
+          </div>
+
           {/* Comentario del cliente */}
           <p className="text-gray-600 leading-relaxed italic mb-5 flex-grow text-sm md:text-base">
             "{truncateText(review.comment)}"
@@ -165,6 +177,15 @@ const LandingReviewsCarousel = () => {
   // Array de reviews
   const reviews = [
     {
+      userName: "Allison Pitman",
+      userImage: alison,
+      country: "Estados Unidos",
+      rating: 5,
+      comment:
+        "Crixium has outstanding web developers who truly EXCELS in their field! Their professionalism and code expertise not only exceeded expectations but also made the entire process a delight. Working with Crixium was a breeze, incredibly polite, fluent in communication, and consistently went above and beyond.",
+      projectType: "Web Development",
+    },
+    {
       userName: "John W.",
       userImage: q,
       country: "Estados Unidos",
@@ -174,6 +195,16 @@ const LandingReviewsCarousel = () => {
       projectType: "Jingle",
     },
     {
+      userName: "Fernando Bravo",
+      userImage: fernando,
+      country: "Argentina",
+      rating: 5,
+      comment:
+        "He tenido el placer de trabajar con Crixium y la experiencia ha sido excepcional. Cristian es un verdadero genio: no solo demuestra una responsabilidad admirable, sino que también se preocupa por cada detalle en su trabajo. Desde el inicio, su profesionalismo y compromiso se hicieron evidentes, facilitando una comunicación fluida y efectiva. Su feedback fue sorprendentemente rápido, y su disponibilidad 24/7 permitió resolver cualquier duda o ajuste en el acto. Además, la calidad de su trabajo superó todas mis expectativas, demostrando un dominio y creatividad que realmente marcan la diferencia. Recomiendo a Cris sin ninguna duda, ya que es la opción ideal para quienes buscan un servicio impecable y altamente confiable. ¡Una experiencia de principio a fin que vale la pena destacar! ",
+      projectType: "Web Development",
+    },
+
+    {
       userName: "Tony O.",
       userImage: null,
       country: "Estados Unidos",
@@ -181,6 +212,15 @@ const LandingReviewsCarousel = () => {
       comment:
         "Crixium delivered an EXCELLENT jingle that showcased superb musicality, sound quality, and creativity. His deep understanding ensured the project was completed on time.",
       projectType: "Música Corporativa",
+    },
+    {
+      userName: "Peter Khalil",
+      userImage: peter,
+      country: "Estados Unidos",
+      rating: 5,
+      comment:
+        "This team is AWESOME! His attention to detail and professionalism exceeded our expectations, making our site exactly how we envisioned. He delivered on time, was incredibly polite, and even went the extra mile to ensure everything was perfect. HIGHLY recommended for any web development needs! 👍",
+      projectType: "Web Development",
     },
     {
       userName: "Masha H.",
@@ -192,6 +232,15 @@ const LandingReviewsCarousel = () => {
       projectType: "Spot de Radio",
     },
     {
+      userName: "Christina Waynor",
+      userImage: christina,
+      country: "Noruega",
+      rating: 5,
+      comment:
+        "Crixium excelled in both delivery quality and collaboration. His attention to detail and professionalism were outstanding, and his proactive communication and polite demeanor made working together seamless. Highly recommended for excellent service and cooperation!",
+      projectType: "Web Development",
+    },
+    {
       userName: "Luis E.",
       userImage: emplaw,
       country: "México",
@@ -199,6 +248,15 @@ const LandingReviewsCarousel = () => {
       comment:
         "Crixium delivered top-tier work with incredible attention to detail and professionalism that EXCEEDED my expectations. Working together was a breeze!",
       projectType: "Audio Branding",
+    },
+    {
+      userName: "CIOM Argentina",
+      userImage: null,
+      country: "Argentina",
+      rating: 5,
+      comment:
+        "Excelente trabajo han realizado. Muy responsables y comprometidos tanto con los tiempos de entrega como con la calidad del entregable. Presentan avances, comunicación fluida.",
+      projectType: "Web Development",
     },
   ];
 

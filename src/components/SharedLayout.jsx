@@ -8,6 +8,7 @@ import {
   MessageSquare,
   Home,
   ScanSearch,
+  ArrowRight,
 } from "lucide-react";
 
 const Navbar = () => {
@@ -95,9 +96,9 @@ const Navbar = () => {
                 to={item.href}
                 className={`flex items-center gap-1 text-sm lg:text-base transition-colors  ${
                   isScrolled || !hasHeroBackground
-                    ? "text-gray-700 hover:text-purple-700 hover:scale-105 transition-transform duration-500 ease-in-out"
-                    : "text-white hover:text-coral-300 hover:scale-105 transition-transform duration-500 ease-in-out"
-                } ${location.pathname === item.href ? "font-medium" : ""}`}
+                    ? "text-gray-700 font-semibold hover:text-purple-700 hover:scale-105 transition-transform duration-500 ease-in-out"
+                    : "text-white font-semibold hover:text-coral-400 hover:scale-105 transition-transform duration-500 ease-in-out"
+                } ${location.pathname === item.href ? "font-semibold" : ""}`}
                 onClick={(e) => handleNavClick(e, item.href)}
               >
                 <item.icon size={16} className="md:mr-0.5 lg:mr-1" />
@@ -108,8 +109,8 @@ const Navbar = () => {
               to="/contact"
               className={`px-3 lg:px-5 py-2 rounded-lg transition-all duration-300 flex items-center gap-1 text-sm lg:text-base whitespace-nowrap ${
                 isScrolled || !hasHeroBackground
-                  ? "bg-coral-500 text-white hover:bg-purple-800 hover:scale-105  hover:shadow-md hover:shadow-purple-300 transition-all duration-300 ease-out"
-                  : "bg-white/20 backdrop-blur-sm text-white hover:bg-coral-500/90 border border-white/30 hover:text-white hover:scale-105 hover:shadow-coral-300/80 hover:shadow-lg hover:ring-2 hover:ring-coral-300 transition-all duration-300 ease-out"
+                  ? "bg-coral-500 text-white font-semibold hover:bg-purple-800 hover:scale-105  hover:shadow-md hover:shadow-purple-300 transition-all duration-300 ease-out"
+                  : "bg-white/20 font-semibold backdrop-blur-sm text-white hover:bg-coral-400 border border-white/30 hover:text-white hover:scale-105 hover:shadow-coral-300/80 hover:shadow-lg hover:ring-2 hover:ring-coral-300 transition-all duration-300 ease-out"
               }`}
             >
               <MessageSquare size={16} className="md:mr-0.5 lg:mr-1" />
@@ -162,6 +163,29 @@ const Navbar = () => {
     </nav>
   );
 };
+
+const CallToAction = () => (
+  <section className="py-16 px-4 bg-purple-900 text-white">
+    <div className="max-w-4xl mx-auto text-center">
+      <h2 className="text-3xl md:text-4xl font-bold mb-6">
+        ¿Listo para iniciar tu próximo proyecto?
+      </h2>
+      <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
+        Conversemos sobre cómo podemos ayudarte a alcanzar tus objetivos
+      </p>
+      <Link
+        to="/contact"
+        className="bg-coral-500 text-white px-8 py-4 rounded-lg hover:bg-coral-600 transition-all duration-300 inline-flex items-center gap-2 font-medium shadow-lg group"
+      >
+        <span>Contactar Ahora</span>
+        <ArrowRight
+          size={18}
+          className="transition-transform duration-300 group-hover:translate-x-1"
+        />
+      </Link>
+    </div>
+  </section>
+);
 
 const Footer = () => (
   <footer className="bg-gray-900 text-white py-12 px-4">
@@ -299,8 +323,6 @@ const Footer = () => (
 const Layout = ({ children }) => {
   const location = useLocation();
 
-  // Lista de rutas que no necesitan padding superior
-  // Estas son las páginas con hero sections de fondo azul
   const fullScreenHeroPages = [
     "/",
     "/web-development",
@@ -310,12 +332,19 @@ const Layout = ({ children }) => {
   ];
   const hasFullScreenHero = fullScreenHeroPages.includes(location.pathname);
 
+  // Verificar si la página actual es la de contacto
+  const isContactPage = location.pathname === "/contact";
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className={`flex-grow ${hasFullScreenHero ? "" : "pt-20"}`}>
         {children}
       </main>
+
+      {/* Renderizar el CTA solo si NO estamos en la página de contacto */}
+      {!isContactPage && <CallToAction />}
+
       <Footer />
     </div>
   );

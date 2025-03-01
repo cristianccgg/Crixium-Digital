@@ -153,10 +153,10 @@ const EcommerceCheckoutForm = ({ selectedPackage, platform, onCancel }) => {
   };
 
   const SelectedPackageDisplay = () => (
-    <div className="mb-8 p-4 bg-blue-50 rounded-lg">
+    <div className="mb-8 p-4 bg-purple-50 rounded-lg">
       <div className="flex items-start gap-4">
-        <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-          <ShoppingCart className="text-blue-600" size={24} />
+        <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+          <Package className="text-purple-700" size={24} />
         </div>
         <div>
           <h3 className="font-semibold">{selectedPackage.title}</h3>
@@ -181,7 +181,7 @@ const EcommerceCheckoutForm = ({ selectedPackage, platform, onCancel }) => {
           <div
             className={`w-8 h-8 rounded-full flex items-center justify-center ${
               step >= num
-                ? "bg-blue-600 text-white"
+                ? "bg-purple-700 text-white"
                 : "bg-gray-200 text-gray-600"
             }`}
           >
@@ -190,7 +190,7 @@ const EcommerceCheckoutForm = ({ selectedPackage, platform, onCancel }) => {
           {num < 3 && (
             <div
               className={`w-12 h-1 ${
-                step > num ? "bg-blue-600" : "bg-gray-200"
+                step > num ? "bg-purple-700" : "bg-gray-200"
               }`}
             />
           )}
@@ -211,8 +211,8 @@ const EcommerceCheckoutForm = ({ selectedPackage, platform, onCancel }) => {
             key={extra.id}
             className={`p-4 border rounded-lg cursor-pointer transition-colors ${
               formData.extras.includes(extra.id)
-                ? "border-blue-500 bg-blue-50"
-                : "border-gray-200 hover:border-blue-300"
+                ? "border-purple-500 bg-purple-50"
+                : "border-gray-200 hover:border-purple-300"
             }`}
             onClick={() => handleExtraToggle(extra.id)}
           >
@@ -519,13 +519,13 @@ const EcommerceCheckoutForm = ({ selectedPackage, platform, onCancel }) => {
       <div className="flex flex-col gap-4 max-w-xs mx-auto">
         <button
           onClick={() => navigate(`/tracking?order=${orderNumber}`)}
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+          className="bg-purple-700 text-white px-6 py-3 rounded-lg hover:bg-coral-400 transition-colors"
         >
           Seguir mi Pedido
         </button>
         <button
           onClick={() => navigate("/")}
-          className="text-gray-600 px-6 py-2 hover:text-blue-600 transition-colors"
+          className="text-gray-600 px-6 py-2 hover:text-purple-700 transition-colors"
         >
           Volver al Inicio
         </button>
@@ -607,7 +607,7 @@ const EcommerceCheckoutForm = ({ selectedPackage, platform, onCancel }) => {
             <button
               type="button"
               onClick={() => setStep(step + 1)}
-              className="flex-1 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              className="flex-1 bg-purple-700 text-white px-6 py-2 rounded-lg hover:bg-coral-400 transition-colors"
             >
               Siguiente
             </button>
@@ -615,7 +615,7 @@ const EcommerceCheckoutForm = ({ selectedPackage, platform, onCancel }) => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center"
+              className="flex-1 bg-purple-700 text-white px-6 py-2 rounded-lg hover:bg-coral-400 transition-colors flex items-center justify-center"
             >
               {isSubmitting ? (
                 <>

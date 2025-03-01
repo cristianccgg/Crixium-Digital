@@ -39,7 +39,7 @@ const ServiceCard = ({
       <div className="flex-1">
         <div
           className={`w-16 h-16 rounded-xl flex items-center justify-center mb-6 transition-all duration-300 ${
-            hovering ? "bg-blue-600 text-white" : "bg-blue-100 text-blue-600"
+            hovering ? "bg-coral-400 text-white" : "bg-purple-700 text-white"
           }`}
         >
           <Icon size={28} />
@@ -52,9 +52,9 @@ const ServiceCard = ({
               <div
                 className={`h-5 w-5 rounded-full mr-2 flex-shrink-0 flex items-center justify-center ${
                   hovering
-                    ? "bg-blue-100 text-blue-600"
-                    : "bg-gray-100 text-gray-500"
-                } transition-colors duration-300 group-hover:bg-blue-100 group-hover:text-blue-600`}
+                    ? "bg-coral-300/40 text-purple-700"
+                    : "bg-gray-100 text-gray-800"
+                } transition-colors duration-300 group-hover:bg-purple-100 group-hover:text-purple-700`}
               >
                 <ChevronRight size={12} />
               </div>
@@ -69,8 +69,8 @@ const ServiceCard = ({
         onClick={() => onRequestQuote(serviceType)}
         className={`mt-8 px-5 py-3 rounded-lg w-full transition-all duration-300 flex items-center justify-center gap-2 ${
           isCustom
-            ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800"
-            : "bg-blue-600 text-white hover:bg-blue-700"
+            ? "bg-purple-700 text-white hover:bg-coral-400"
+            : "bg-purple-700 text-white hover:bg-coral-400"
         } group`}
       >
         <span>{isCustom ? "Solicitar Cotización" : "Ver Paquetes"}</span>
@@ -118,11 +118,11 @@ const ProcessStep = ({ icon: Icon, title, description, index }) => {
       style={{ transitionDelay: `${index * 150}ms` }}
     >
       <div className="relative">
-        <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 hover:bg-blue-600 hover:text-white group">
-          <Icon className="text-blue-600 group-hover:text-white" size={28} />
+        <div className="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 hover:bg-purple-700 hover:text-white group">
+          <Icon className="text-purple-700 group-hover:text-white" size={28} />
         </div>
         {index < 3 && (
-          <div className="absolute left-8 top-16 h-12 border-l-2 border-dashed border-blue-200 hidden lg:block"></div>
+          <div className="absolute left-8 top-16 h-12 border-l-2 border-dashed border-purple-200 hidden lg:block"></div>
         )}
       </div>
       <div>
@@ -142,8 +142,8 @@ const HeroButton = ({ children, primary = false, onClick, to }) => {
       {...props}
       className={`px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center gap-2 shadow-md group ${
         primary
-          ? "bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg"
-          : "bg-white text-blue-600 border border-blue-200 hover:bg-blue-50"
+          ? "bg-purple-700 text-white hover:bg-coral-400 hover:shadow-lg"
+          : "bg-white text-purple-700 border border-purple-200 hover:bg-purple-50"
       }`}
     >
       {children}
@@ -220,7 +220,7 @@ const MusicProductionPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex items-center pt-16 px-4 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white overflow-hidden">
+      <section className="relative min-h-[100vh] md:min-h-[60vh] flex items-center py-16 px-4 bg-gradient-to-br from-purple-700 via-purple-800 to-purple-900 text-white overflow-hidden">
         {/* Elementos decorativos */}
         <div className="absolute top-20 right-10 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-10 left-20 w-56 h-56 bg-blue-400/20 rounded-full blur-3xl"></div>
@@ -233,7 +233,7 @@ const MusicProductionPage = () => {
               <span>Producción de Audio Profesional</span>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Producción <span className="text-yellow-300">Musical</span>{" "}
+              Producción <span className="text-coral-400">Musical</span>{" "}
               Profesional
             </h1>
             <p className="text-xl md:text-2xl mb-10 text-blue-100 max-w-3xl mx-auto">
@@ -287,8 +287,8 @@ const MusicProductionPage = () => {
       <section className="py-20 px-4 relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-4">
-              <Sparkles size={16} className="text-yellow-500" />
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">
+              <Sparkles size={16} className="text-purple-700" />
               <span>Soluciones Personalizadas</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -319,7 +319,7 @@ const MusicProductionPage = () => {
       <section className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">
               <Headphones size={16} />
               <span>Cómo Trabajamos</span>
             </div>
@@ -365,38 +365,6 @@ const MusicProductionPage = () => {
       </div>
 
       <LandingReviewsCarousel />
-
-      {/* Call to Action */}
-      <section className="py-16 px-4 bg-blue-900 text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-full h-full overflow-hidden opacity-10">
-          <div className="absolute -right-40 -top-40 w-80 h-80 bg-blue-300 rounded-full"></div>
-          <div className="absolute -left-20 -bottom-20 w-60 h-60 bg-blue-400 rounded-full"></div>
-        </div>
-
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium mb-6">
-            <Sparkles size={16} className="text-yellow-300" />
-            <span>Comienza Tu Proyecto</span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            ¿Listo para dar sonido a tu marca?
-          </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Contáctanos para discutir tu proyecto musical y recibir un
-            presupuesto personalizado adaptado a tus necesidades
-          </p>
-          <Link
-            to="/contact"
-            className="inline-flex items-center gap-2 bg-white text-blue-900 px-8 py-4 rounded-lg hover:bg-blue-50 transition-all duration-300 hover:shadow-lg transform hover:scale-105 font-medium shadow-md group"
-          >
-            <span>Contactar Ahora</span>
-            <ArrowRight
-              size={18}
-              className="transition-transform duration-300 group-hover:translate-x-1"
-            />
-          </Link>
-        </div>
-      </section>
     </div>
   );
 };

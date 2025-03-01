@@ -243,28 +243,6 @@ const LandingPage = () => {
         <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-purple-200 rounded-full opacity-30"></div>
         <div className="absolute top-10 -left-10 w-32 h-32 bg-purple-100 rounded-full opacity-40"></div>
       </section>
-
-      {/* Call to Action */}
-      <section className="py-16 px-4 bg-purple-900 text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            ¿Listo para iniciar tu próximo proyecto?
-          </h2>
-          <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
-            Conversemos sobre cómo podemos ayudarte a alcanzar tus objetivos
-          </p>
-          <Link
-            to="/contact"
-            className="bg-coral-500 text-white px-8 py-4 rounded-lg hover:bg-coral-600 transition-all duration-300 inline-flex items-center gap-2 font-medium shadow-lg group"
-          >
-            <span>Contactar Ahora</span>
-            <ArrowRight
-              size={18}
-              className="transition-transform duration-300 group-hover:translate-x-1"
-            />
-          </Link>
-        </div>
-      </section>
     </>
   );
 };

@@ -428,7 +428,7 @@ const ChatbotAssistant = () => {
     return (
       <button
         onClick={toggleChat}
-        className="fixed bottom-6 right-6 w-14 h-14 bg-blue-600 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-blue-700 transition-colors z-50"
+        className="fixed bottom-6 right-6 w-14 h-14 bg-purple-700 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-coral-500 transition-colors z-50"
       >
         <MessageSquare size={24} />
       </button>
@@ -442,7 +442,7 @@ const ChatbotAssistant = () => {
       }`}
     >
       {/* Chatbot Header */}
-      <div className="bg-blue-600 text-white px-4 py-3 rounded-t-xl flex justify-between items-center">
+      <div className="bg-purple-700 text-white px-4 py-3 rounded-t-xl flex justify-between items-center">
         <div className="flex items-center gap-2">
           <MessageSquare size={20} />
           <h3 className="font-medium">Asistente Virtual</h3>
@@ -478,7 +478,7 @@ const ChatbotAssistant = () => {
                   <div
                     className={`max-w-[80%] p-3 rounded-lg ${
                       message.sender === "user"
-                        ? "bg-blue-600 text-white rounded-tr-none"
+                        ? "bg-purple-700 text-white rounded-tr-none"
                         : "bg-white text-gray-800 border border-gray-200 rounded-tl-none shadow-sm"
                     }`}
                   >
@@ -523,7 +523,7 @@ const ChatbotAssistant = () => {
                     <button
                       key={option.id}
                       onClick={() => handleQuickOption(option.id)}
-                      className="px-3 py-2 bg-blue-50 text-blue-700 rounded-md text-sm font-medium hover:bg-blue-100 transition-colors flex items-center gap-1.5"
+                      className="px-3 py-2 bg-purple-50 text-purple-700 rounded-md text-sm font-medium hover:bg-coral-300/50 transition-colors flex items-center gap-1.5"
                     >
                       <Icon size={14} />
                       <span>{option.label}</span>
@@ -548,7 +548,7 @@ const ChatbotAssistant = () => {
             />
             <button
               type="submit"
-              className="bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700"
+              className="bg-purple-700 text-white p-2 rounded-md hover:bg-coral-600"
             >
               <Send size={18} />
             </button>

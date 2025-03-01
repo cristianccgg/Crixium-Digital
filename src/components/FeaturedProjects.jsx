@@ -15,7 +15,7 @@ const ProjectCard = ({
   deployUrl,
   repoUrl,
 }) => (
-  <div className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 transform hover:shadow-xl hover:scale-105">
+  <div className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 transform hover:shadow-xl hover:scale-105 hover:border-purple-100 border border-transparent">
     <div className="h-48 bg-gray-200 relative">
       {imageUrl ? (
         <img
@@ -49,7 +49,7 @@ const ProjectCard = ({
         {techStack.map((tech, index) => (
           <span
             key={index}
-            className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm"
+            className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm"
           >
             {tech}
           </span>
@@ -61,7 +61,7 @@ const ProjectCard = ({
             href={deployUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center"
+            className="text-purple-700 hover:text-coral-400 text-sm font-medium flex items-center transition-colors duration-300"
           >
             <span>Ver proyecto</span>
             <ExternalLink size={14} className="ml-1" />
@@ -129,10 +129,12 @@ const FeaturedProjects = ({ ref }) => {
     <section ref={ref} className="py-16 px-4 bg-gray-50">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <div className="inline-block mb-2 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+          <div className="inline-block mb-2 px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
             Mis Proyectos
           </div>
-          <h2 className="text-3xl font-bold mb-4">Proyectos Recientes</h2>
+          <h2 className="text-3xl font-bold mb-4">
+            Proyectos <span className="text-coral-400">Recientes</span>
+          </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Una selección de mis mejores proyectos desplegados en Vercel
           </p>

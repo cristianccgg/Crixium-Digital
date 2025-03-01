@@ -168,7 +168,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         <div className="text-center mb-6">
           {formStatus.message === "Procesando tu solicitud..." ? (
             <div className="flex flex-col items-center justify-center">
-              <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-600 mb-4"></div>
+              <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-700 mb-4"></div>
               <h2 className="text-2xl font-bold">{formStatus.message}</h2>
               <p className="text-gray-600 mt-2">
                 Esto solo tomará un momento...
@@ -206,7 +206,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
                 referenceFiles: [],
               });
             }}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center gap-2"
+            className="px-6 py-3 bg-purple-700 text-white rounded-lg hover:bg-coral-400 transition-colors inline-flex items-center gap-2"
           >
             Enviar Otro Mensaje
           </button>
@@ -218,7 +218,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
   return (
     <div
       className={`max-w-3xl mx-auto p-8 bg-white rounded-xl shadow-lg border ${
-        initialService ? "border-blue-200" : "border-gray-100"
+        initialService ? "border-purple-200" : "border-gray-100"
       }`}
     >
       <div className="text-center mb-8">
@@ -246,7 +246,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
               required
               placeholder="Tu nombre completo"
             />
@@ -262,7 +262,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pl-10 transition-all"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent pl-10 transition-all"
                 required
                 placeholder="tu@email.com"
               />
@@ -282,7 +282,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pl-10 transition-all"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent pl-10 transition-all"
               placeholder="+1 234 567 890"
             />
             <Phone className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
@@ -304,8 +304,8 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
                 }
                 className={`p-5 border rounded-xl flex flex-col items-center gap-3 transition-all duration-300 ${
                   formData.service === id
-                    ? "border-blue-500 bg-blue-50 text-blue-600 shadow-md"
-                    : "border-gray-200 hover:border-blue-200 hover:shadow-sm"
+                    ? "border-purple-500 bg-purple-50 text-purple-700 shadow-md"
+                    : "border-gray-200 hover:border-purple-200 hover:shadow-sm"
                 }`}
               >
                 <Icon size={28} />
@@ -325,7 +325,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
               name="projectType"
               value={formData.projectType}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
               required
             >
               <option value="">Selecciona un tipo de proyecto</option>
@@ -357,7 +357,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
             name="budget"
             value={formData.budget}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
             required
           >
             <option value="">Selecciona un rango de presupuesto</option>
@@ -379,7 +379,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
             value={formData.description}
             onChange={handleChange}
             rows={5}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
             placeholder={
               initialProjectType === "Proyecto Personalizado"
                 ? "Describe tu proyecto musical: duración estimada, estilo musical, instrumentación deseada, referencias similares, fechas límite si las hay..."
@@ -400,7 +400,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
           <div className="mt-2 flex flex-col gap-3">
             <div
               onClick={() => fileInputRef.current.click()}
-              className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-blue-500 transition-colors"
+              className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-purple-500 transition-colors"
             >
               <Upload className="text-gray-400 mb-2" size={24} />
               <p className="text-sm text-gray-500">
@@ -429,8 +429,8 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
                       className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200"
                     >
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
-                          <FileIcon size={16} className="text-blue-500" />
+                        <div className="w-8 h-8 rounded-lg bg-purple-50 flex items-center justify-center">
+                          <FileIcon size={16} className="text-purple-700" />
                         </div>
                         <div>
                           <span className="text-sm truncate max-w-xs">
@@ -459,17 +459,17 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         {/* Botón de Envío */}
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg transform hover:scale-[1.01] font-medium"
+          className="w-full bg-purple-700 text-white py-4 px-6 rounded-lg hover:bg-coral-400 transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg transform hover:scale-[1.01] font-medium"
         >
           <Send size={20} />
           Enviar Solicitud
         </button>
 
         {/* Nota Informativa */}
-        <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
+        <div className="bg-purple-50 p-4 rounded-lg border border-purple-100">
           <div className="flex items-center gap-3">
             <div className="flex-shrink-0">
-              <AlertCircle className="h-5 w-5 text-blue-600" />
+              <AlertCircle className="h-5 w-5 text-purple-700" />
             </div>
             <p className="text-sm text-gray-700">
               {formData.service === "other" ||

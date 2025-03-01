@@ -131,10 +131,10 @@ const AudioPlayer = ({ title, category, audioUrl, voiceType, language }) => {
           <span
             className={`text-xs px-2 py-1 rounded-full transition-colors duration-300 ${
               category === "Jingles"
-                ? "bg-blue-100 text-blue-700"
-                : category === "Locuciones"
                 ? "bg-purple-100 text-purple-700"
-                : "bg-green-100 text-green-700"
+                : category === "Locuciones"
+                ? "bg-coral-100 text-coral-700"
+                : "bg-purple-200 text-purple-800"
             }`}
           >
             {category}
@@ -161,11 +161,11 @@ const AudioPlayer = ({ title, category, audioUrl, voiceType, language }) => {
             onClick={togglePlay}
             className={`p-3 rounded-full transition-all duration-300 ${
               isPlaying
-                ? "bg-blue-600 text-white"
+                ? "bg-purple-700 text-white"
                 : hovering
-                ? "bg-blue-500 text-white scale-110"
-                : "bg-blue-100 text-blue-600"
-            } hover:bg-blue-600 hover:text-white hover:scale-110 transform`}
+                ? "bg-coral-400 text-white scale-110"
+                : "bg-purple-100 text-purple-700"
+            } hover:bg-purple-700 hover:text-white hover:scale-110 transform`}
           >
             {isPlaying ? (
               <Pause size={18} />
@@ -181,9 +181,9 @@ const AudioPlayer = ({ title, category, audioUrl, voiceType, language }) => {
               max={audioDuration || 100}
               value={currentTime}
               onChange={handleProgressChange}
-              className="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-blue-600"
+              className="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-purple-700"
               style={{
-                background: `linear-gradient(to right, #2563eb ${progressPercentage}%, #e5e7eb ${progressPercentage}%)`,
+                background: `linear-gradient(to right, #6D28D9 ${progressPercentage}%, #e5e7eb ${progressPercentage}%)`,
               }}
             />
           </div>
@@ -197,7 +197,7 @@ const AudioPlayer = ({ title, category, audioUrl, voiceType, language }) => {
               <Volume2
                 size={18}
                 className={`${
-                  hovering ? "text-blue-600" : "text-gray-500"
+                  hovering ? "text-purple-700" : "text-gray-500"
                 } transition-colors duration-300`}
               />
             </button>
@@ -234,8 +234,8 @@ const CategoryButton = ({ label, iconComponent, isActive, onClick }) => (
     onClick={onClick}
     className={`flex flex-col items-center justify-center p-4 rounded-xl transition-all duration-300 transform ${
       isActive
-        ? "bg-blue-600 text-white shadow-md scale-105"
-        : "bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 border border-gray-100 shadow-sm"
+        ? "bg-purple-700 text-white shadow-md scale-105"
+        : "bg-white text-gray-700 hover:bg-purple-50 hover:text-purple-700 border border-gray-100 shadow-sm"
     }`}
   >
     {iconComponent}
@@ -490,7 +490,7 @@ const AudioPortfolio = () => {
       icon: (
         <Music
           className={`w-6 h-6 transition-colors duration-300 ${
-            selectedCategory === "Jingles" ? "text-white" : "text-blue-600"
+            selectedCategory === "Jingles" ? "text-white" : "text-purple-700"
           }`}
         />
       ),
@@ -501,7 +501,7 @@ const AudioPortfolio = () => {
       icon: (
         <Mic
           className={`w-6 h-6 transition-colors duration-300 ${
-            selectedCategory === "Locuciones" ? "text-white" : "text-blue-600"
+            selectedCategory === "Locuciones" ? "text-white" : "text-purple-700"
           }`}
         />
       ),
@@ -514,7 +514,7 @@ const AudioPortfolio = () => {
           className={`w-6 h-6 transition-colors duration-300 ${
             selectedCategory === "Podcast/YouTube Intro"
               ? "text-white"
-              : "text-blue-600"
+              : "text-purple-700"
           }`}
         />
       ),
@@ -585,9 +585,9 @@ const AudioPortfolio = () => {
   return (
     <div className="bg-gradient-to-b from-gray-50 to-white py-16 px-4 overflow-hidden relative">
       {/* Elementos decorativos */}
-      <div className="absolute top-20 right-10 w-32 h-32 bg-blue-200 rounded-full opacity-10 animate-pulse"></div>
+      <div className="absolute top-20 right-10 w-32 h-32 bg-purple-200 rounded-full opacity-10 animate-pulse"></div>
       <div
-        className="absolute bottom-10 left-10 w-24 h-24 bg-blue-300 rounded-full opacity-10 animate-pulse"
+        className="absolute bottom-10 left-10 w-24 h-24 bg-purple-300 rounded-full opacity-10 animate-pulse"
         style={{ animationDelay: "1s" }}
       ></div>
 
@@ -599,13 +599,15 @@ const AudioPortfolio = () => {
       >
         <div className="bg-white rounded-2xl shadow-xl p-8 mb-8 border border-gray-100">
           <div className="text-center mb-12">
-            <div className="inline-block mb-2 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+            <div className="inline-block mb-2 px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
               <div className="flex items-center gap-2">
                 <Headphones size={16} />
                 <span>Nuestro Trabajo</span>
               </div>
             </div>
-            <h2 className="text-3xl font-bold mb-4">Entregas Recientes</h2>
+            <h2 className="text-3xl font-bold mb-4">
+              Entregas <span className="text-coral-400">Recientes</span>
+            </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Explora nuestra colección de muestras de audio y descubre la
               calidad que ofrecemos en cada proyecto
@@ -636,11 +638,11 @@ const AudioPortfolio = () => {
           </div>
 
           {/* Filter Section */}
-          <div className="mb-8 bg-blue-50 rounded-xl p-5 border border-blue-100">
+          <div className="mb-8 bg-purple-50 rounded-xl p-5 border border-purple-100">
             <div className="flex justify-between items-center">
               <div className="flex items-center">
-                <div className="bg-blue-100 p-2 rounded-lg mr-3">
-                  <Filter size={20} className="text-blue-600" />
+                <div className="bg-purple-100 p-2 rounded-lg mr-3">
+                  <Filter size={20} className="text-purple-700" />
                 </div>
                 <div>
                   <h3 className="font-medium text-gray-800">
@@ -656,7 +658,7 @@ const AudioPortfolio = () => {
                 {(selectedCategory || getActiveFiltersCount() > 0) && (
                   <button
                     onClick={resetAll}
-                    className="text-sm text-blue-600 hover:text-blue-800 transition-colors"
+                    className="text-sm text-purple-700 hover:text-coral-400 transition-colors"
                   >
                     Limpiar todo
                   </button>
@@ -666,17 +668,17 @@ const AudioPortfolio = () => {
                   onClick={() => setShowFilters(!showFilters)}
                   className={`flex items-center gap-2 px-4 py-2 transition-all duration-300 ${
                     showFilters
-                      ? "bg-blue-600 text-white"
-                      : "bg-white text-blue-600 border border-blue-200"
-                  } rounded-lg hover:bg-blue-700 hover:text-white font-medium`}
+                      ? "bg-purple-700 text-white"
+                      : "bg-white text-purple-700 border border-purple-200"
+                  } rounded-lg hover:bg-coral-400 hover:text-white font-medium`}
                 >
                   {showFilters ? "Ocultar filtros" : "Mostrar filtros"}
                   {getActiveFiltersCount() > 0 && (
                     <span
                       className={`${
                         showFilters
-                          ? "bg-white text-blue-600"
-                          : "bg-blue-600 text-white"
+                          ? "bg-white text-purple-700"
+                          : "bg-purple-700 text-white"
                       } text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold`}
                     >
                       {getActiveFiltersCount()}
@@ -698,7 +700,7 @@ const AudioPortfolio = () => {
                 {/* Voice Types */}
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center">
-                    <Mic size={16} className="mr-2 text-blue-600" />
+                    <Mic size={16} className="mr-2 text-purple-700" />
                     Tipo de Voz
                   </h4>
                   <div className="flex flex-wrap gap-2">
@@ -716,7 +718,7 @@ const AudioPortfolio = () => {
                 {/* Languages */}
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center">
-                    <span className="mr-2 text-blue-600">🌐</span>
+                    <span className="mr-2 text-purple-700">🌐</span>
                     Idioma
                   </h4>
                   <div className="flex flex-wrap gap-2">
@@ -736,7 +738,7 @@ const AudioPortfolio = () => {
                 <div className="mt-4 flex justify-end">
                   <button
                     onClick={clearFilters}
-                    className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 transition-colors px-3 py-1 bg-blue-50 rounded-lg"
+                    className="flex items-center gap-1 text-sm text-purple-700 hover:text-coral-400 transition-colors px-3 py-1 bg-blue-50 rounded-lg"
                   >
                     <X size={14} />
                     Limpiar filtros
@@ -773,7 +775,7 @@ const AudioPortfolio = () => {
               {hasMoreItems && (
                 <button
                   onClick={loadMore}
-                  className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors transform hover:scale-105 duration-300"
+                  className="flex items-center gap-2 px-6 py-3 bg-purple-700 text-white rounded-full hover:bg-coral-400 transition-colors transform hover:scale-105 duration-300"
                 >
                   Cargar más <ChevronDown size={18} />
                 </button>
@@ -781,7 +783,7 @@ const AudioPortfolio = () => {
               {visibleItems > defaultVisibleItems && (
                 <button
                   onClick={showLess}
-                  className="flex items-center gap-2 px-6 py-3 bg-white text-blue-600 border border-blue-200 rounded-full hover:bg-blue-50 transition-colors transform hover:scale-105 duration-300"
+                  className="flex items-center gap-2 px-6 py-3 bg-white text-purple-700 border border-purple-200 rounded-full hover:bg-purple-50 transition-colors transform hover:scale-105 duration-300"
                 >
                   Mostrar menos <ChevronUp size={18} />
                 </button>
@@ -804,7 +806,7 @@ const AudioPortfolio = () => {
               </p>
               <button
                 onClick={resetAll}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg mx-auto hover:bg-blue-700 transition-all duration-300 transform hover:scale-105"
+                className="flex items-center gap-2 px-4 py-2 bg-purple-700 text-white rounded-lg mx-auto hover:bg-coral-400 transition-all duration-300 transform hover:scale-105"
               >
                 <span>Restablecer filtros</span>
                 <ArrowRight size={16} />

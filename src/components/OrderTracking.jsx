@@ -184,7 +184,7 @@ const OrderTracking = () => {
               {index < steps.length - 1 && (
                 <div
                   className={`absolute left-5 top-6 w-0.5 h-full ${
-                    step.completed ? "bg-blue-600" : "bg-gray-200"
+                    step.completed ? "bg-purple-700" : "bg-gray-200"
                   }`}
                 ></div>
               )}
@@ -193,16 +193,16 @@ const OrderTracking = () => {
               <div
                 className={`relative z-10 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center mr-4 ${
                   step.currentStage
-                    ? "bg-blue-100 border-2 border-blue-600"
+                    ? "bg-purple-100 border-2 border-purple-700"
                     : step.completed
-                    ? "bg-blue-600"
+                    ? "bg-purple-700"
                     : "bg-gray-200"
                 }`}
               >
                 {step.completed ? (
                   <CheckCircle size={20} className="text-white" />
                 ) : step.currentStage ? (
-                  <Clock size={20} className="text-blue-600" />
+                  <Clock size={20} className="text-purple-700" />
                 ) : (
                   <div className="w-4 h-4 rounded-full bg-white"></div>
                 )}
@@ -213,13 +213,13 @@ const OrderTracking = () => {
                 <div className="flex items-center">
                   <h4
                     className={`font-medium ${
-                      step.currentStage ? "text-blue-700" : "text-gray-800"
+                      step.currentStage ? "text-purple-700" : "text-gray-800"
                     }`}
                   >
                     {step.name}
                   </h4>
                   {step.currentStage && (
-                    <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">
+                    <span className="ml-2 text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded-full">
                       Actual
                     </span>
                   )}
@@ -244,7 +244,7 @@ const OrderTracking = () => {
     if (deliveryComments.length === 0) return null;
 
     return (
-      <div className="mt-8 p-4 border border-blue-100 rounded-lg bg-blue-50">
+      <div className="mt-8 p-4 border border-purple-100 rounded-lg bg-purple-50">
         <h3 className="text-lg font-semibold mb-2">Archivos disponibles</h3>
         <p className="text-sm text-gray-600 mb-3">
           Por favor, revisa el material y envía tus comentarios.
@@ -267,7 +267,7 @@ const OrderTracking = () => {
                 href={comment.deliveryFileUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 px-3 py-1 text-sm font-medium"
+                className="text-purple-700 hover:text-coral-400 px-3 py-1 text-sm font-medium"
               >
                 Descargar
               </a>
@@ -302,7 +302,7 @@ const OrderTracking = () => {
               key={index}
               className={`p-3 rounded-lg ${
                 comment.fromClient
-                  ? "bg-blue-50 border border-blue-100 ml-6"
+                  ? "bg-purple-50 border border-purple-100 ml-6"
                   : "bg-gray-50 border border-gray-200 mr-6"
               }`}
             >
@@ -364,7 +364,7 @@ const OrderTracking = () => {
             <textarea
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
               rows={3}
               placeholder="Escribe aquí tus comentarios, preguntas o solicitudes adicionales..."
               required
@@ -379,7 +379,7 @@ const OrderTracking = () => {
               <button
                 type="button"
                 onClick={() => fileInputRef.current.click()}
-                className="text-sm text-blue-600 hover:text-blue-800 flex items-center"
+                className="text-sm text-purple-700 hover:text-coral-400 flex items-center"
               >
                 <Upload size={14} className="mr-1" />
                 Adjuntar archivo
@@ -423,7 +423,7 @@ const OrderTracking = () => {
           <button
             type="submit"
             disabled={isSubmitting || !commentText.trim()}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
+            className="bg-purple-700 text-white px-4 py-2 rounded-lg hover:bg-coral-400 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
           >
             {isSubmitting ? (
               <>
@@ -481,22 +481,22 @@ const OrderTracking = () => {
   return (
     <div className=" bg-gray-50">
       {/* Hero Section con estilo similar a LandingPage */}
-      <section className="relative py-32 px-4 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white overflow-hidden">
+      <section className="relative py-32 px-4 bg-gradient-to-br from-purple-700 via-purple-800 to-purple-900 text-white overflow-hidden">
         {/* Elementos decorativos */}
         <div className="absolute top-10 right-5 w-36 h-36 bg-white/10 rounded-full blur-2xl"></div>
-        <div className="absolute bottom-5 left-10 w-28 h-28 bg-blue-400/20 rounded-full blur-2xl"></div>
+        <div className="absolute bottom-5 left-10 w-28 h-28 bg-purple-400/20 rounded-full blur-2xl"></div>
 
         <div className="max-w-4xl mx-auto relative z-10">
           <div className="text-center">
-            <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-sm font-medium backdrop-blur-sm inline-block mb-6 mx-auto">
-              <Package size={16} className="text-yellow-300" />
+            <div className="flex w-fit items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-sm font-medium backdrop-blur-sm mb-6 mx-auto">
+              <Package size={16} className="text-coral-400" />
               <span>Seguimiento de Pedido</span>
             </div>
 
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Consulta el Estado de tu Proyecto
             </h1>
-            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
               Mantente al tanto del progreso de tu proyecto en tiempo real
             </p>
 
@@ -508,11 +508,11 @@ const OrderTracking = () => {
               >
                 <div className="flex-grow relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Search size={20} className="text-blue-200" />
+                    <Search size={20} className="text-purple-200" />
                   </div>
                   <input
                     type="text"
-                    className="block w-full pl-10 pr-3 py-3 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-yellow-300 focus:border-yellow-300 text-white placeholder-blue-200"
+                    className="block w-full pl-10 pr-3 py-3 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-coral-400 focus:border-coral-400 text-white placeholder-purple-200"
                     placeholder="Ingresa tu número de pedido"
                     value={orderNumber}
                     onChange={(e) => setOrderNumber(e.target.value)}
@@ -521,7 +521,7 @@ const OrderTracking = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="bg-white text-blue-800 px-6 py-3 rounded-lg hover:bg-yellow-300 transition-all duration-300 font-medium flex items-center justify-center gap-2 min-w-[140px]"
+                  className="bg-white text-purple-800 px-6 py-3 rounded-lg hover:bg-coral-400 hover:text-white transition-all duration-300 font-medium flex items-center justify-center gap-2 min-w-[140px]"
                 >
                   {loading ? (
                     <>
@@ -552,17 +552,17 @@ const OrderTracking = () => {
         {!orderFound && !loading && (
           <div className="bg-white border border-gray-100 p-6 rounded-xl shadow-sm">
             <h3 className="font-semibold mb-3 flex items-center text-gray-800">
-              <Sparkles size={18} className="text-blue-600 mr-2" />
+              <Sparkles size={18} className="text-purple-700 mr-2" />
               Ejemplos para probar
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {Object.entries(sampleOrders).map(([number, order]) => (
                 <div
                   key={number}
-                  className="bg-gray-50 p-3 rounded-lg border border-gray-100 hover:border-blue-200 transition-colors cursor-pointer"
+                  className="bg-gray-50 p-3 rounded-lg border border-gray-100 hover:border-purple-200 transition-colors cursor-pointer"
                   onClick={() => setOrderNumber(number)}
                 >
-                  <code className="font-mono text-sm text-blue-700">
+                  <code className="font-mono text-sm text-purple-700">
                     {number}
                   </code>
                   <p className="text-xs text-gray-600 mt-1">
@@ -573,7 +573,7 @@ const OrderTracking = () => {
                       order.status === "in-progress"
                         ? "bg-amber-100 text-amber-800"
                         : order.status === "review"
-                        ? "bg-blue-100 text-blue-800"
+                        ? "bg-purple-100 text-purple-800"
                         : "bg-gray-100 text-gray-800"
                     }`}
                   >
@@ -597,7 +597,7 @@ const OrderTracking = () => {
                         orderDetails.status === "in-progress"
                           ? "bg-amber-400"
                           : orderDetails.status === "review"
-                          ? "bg-blue-500"
+                          ? "bg-purple-500"
                           : orderDetails.status === "completed"
                           ? "bg-green-500"
                           : "bg-gray-400"
@@ -621,7 +621,7 @@ const OrderTracking = () => {
                       orderDetails.status === "in-progress"
                         ? "bg-amber-100 text-amber-800"
                         : orderDetails.status === "review"
-                        ? "bg-blue-100 text-blue-800"
+                        ? "bg-purple-100 text-purple-800"
                         : orderDetails.status === "completed"
                         ? "bg-green-100 text-green-800"
                         : "bg-gray-100 text-gray-800"
@@ -658,7 +658,7 @@ const OrderTracking = () => {
               </p>
               <Link
                 to="/contact"
-                className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium"
+                className="inline-flex items-center text-purple-700 hover:text-coral-400 font-medium"
               >
                 Ir a la página de contacto{" "}
                 <ArrowRight size={16} className="ml-1" />

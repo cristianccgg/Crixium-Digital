@@ -140,10 +140,10 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
   };
 
   const SelectedPackageDisplay = () => (
-    <div className="mb-8 p-4 bg-blue-50 rounded-lg">
+    <div className="mb-8 p-4 bg-purple-50 rounded-lg">
       <div className="flex items-start gap-4">
-        <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-          <Package className="text-blue-600" size={24} />
+        <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+          <Package className="text-purple-700" size={24} />
         </div>
         <div>
           <h3 className="font-semibold">{selectedPackage.title}</h3>
@@ -151,7 +151,7 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
             {selectedPackage.delivery}
           </p>
           <div className="flex items-center gap-2">
-            <span className="text-blue-600 font-semibold">
+            <span className="text-purple-700 font-semibold">
               US${selectedPackage.price}
             </span>
             <span className="text-sm text-gray-500">precio base</span>
@@ -168,7 +168,7 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
           <div
             className={`w-8 h-8 rounded-full flex items-center justify-center ${
               step >= num
-                ? "bg-blue-600 text-white"
+                ? "bg-purple-700 text-white"
                 : "bg-gray-200 text-gray-600"
             }`}
           >
@@ -177,7 +177,7 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
           {num < 3 && (
             <div
               className={`w-12 h-1 ${
-                step > num ? "bg-blue-600" : "bg-gray-200"
+                step > num ? "bg-purple-700" : "bg-gray-200"
               }`}
             />
           )}
@@ -196,8 +196,8 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
             key={extra.id}
             className={`p-4 border rounded-lg cursor-pointer transition-colors ${
               formData.extras.includes(extra.id)
-                ? "border-blue-500 bg-blue-50"
-                : "border-gray-200 hover:border-blue-300"
+                ? "border-purple-500 bg-purple-50"
+                : "border-gray-200 hover:border-purple-300"
             }`}
             onClick={() => handleExtraToggle(extra.id)}
           >
@@ -206,7 +206,7 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
                 <div
                   className={`w-5 h-5 rounded-full border flex items-center justify-center ${
                     formData.extras.includes(extra.id)
-                      ? "border-blue-500 bg-blue-500"
+                      ? "border-purple-500 bg-purple-500"
                       : "border-gray-300"
                   }`}
                 >
@@ -249,8 +249,8 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
                 onClick={() => handleVoiceSelect(voice)}
                 className={`p-4 border rounded-lg flex items-center gap-2 ${
                   formData.voiceType === voice
-                    ? "border-blue-500 bg-blue-50 text-blue-600"
-                    : "border-gray-200 hover:border-blue-300"
+                    ? "border-purple-500 bg-purple-50 text-purple-700"
+                    : "border-gray-200 hover:border-purple-300"
                 }`}
               >
                 <Mic size={20} />
@@ -270,7 +270,7 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
             value={formData.reference}
             onChange={handleInputChange}
             placeholder="Ej: Estilo similar a..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
           />
         </div>
 
@@ -284,7 +284,7 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
             onChange={handleInputChange}
             rows={4}
             placeholder="Describe tu marca, el mensaje principal que quieres transmitir, y cualquier idea específica que tengas para el jingle..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
             required
           />
           <div>
@@ -299,7 +299,7 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
             <div className="mt-2 flex flex-col gap-3">
               <div
                 onClick={() => fileInputRef.current.click()}
-                className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-blue-500 transition-colors"
+                className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-purple-500 transition-colors"
               >
                 <Upload className="text-gray-400 mb-2" size={24} />
                 <p className="text-sm text-gray-500">
@@ -365,7 +365,7 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
             name="name"
             value={formData.name}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
             required
           />
         </div>
@@ -379,13 +379,13 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
             name="email"
             value={formData.email}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
             required
           />
         </div>
       </div>
 
-      <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+      <div className="mt-6 p-4 bg-purple-50 rounded-lg">
         <h4 className="font-medium mb-2">Resumen del Pedido</h4>
         <ul className="space-y-2 text-sm">
           <li className="flex justify-between">
@@ -427,20 +427,20 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
       <p className="text-gray-600 mb-6">
         Tu pedido ha sido recibido. Hemos enviado los detalles a tu correo.
       </p>
-      <div className="p-4 bg-blue-50 rounded-lg inline-block mb-6">
+      <div className="p-4 bg-purple-50 rounded-lg inline-block mb-6">
         <p className="text-sm text-gray-700 mb-1">Tu número de pedido es:</p>
         <p className="text-xl font-mono font-bold">{orderNumber}</p>
       </div>
       <div className="flex flex-col gap-4 max-w-xs mx-auto">
         <button
           onClick={() => navigate(`/tracking?order=${orderNumber}`)}
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+          className="bg-purple-700 text-white px-6 py-3 rounded-lg hover:bg-coral-400 transition-colors"
         >
           Seguir mi Pedido
         </button>
         <button
           onClick={() => navigate("/")}
-          className="text-gray-600 px-6 py-2 hover:text-blue-600 transition-colors"
+          className="text-gray-600 px-6 py-2 hover:text-purple-700 transition-colors"
         >
           Volver al Inicio
         </button>
@@ -557,7 +557,7 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="flex-1 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center"
+            className="flex-1 bg-purple-700 text-white px-6 py-2 rounded-lg hover:bg-coral-400 transition-colors disabled:opacity-50 flex items-center justify-center"
           >
             {isSubmitting ? (
               <>
