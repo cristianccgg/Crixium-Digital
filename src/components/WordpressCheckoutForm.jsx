@@ -73,7 +73,7 @@ const WordpressCheckoutForm = ({ selectedPackage, onCancel }) => {
       title: "Entrega Express",
       price: 30,
       description:
-        "Entrega en 3 días menos del tiempo estimado (sujeto a disponibilidad)",
+        "Entrega en 8 días menos del tiempo estimado (sujeto a disponibilidad)",
     },
     {
       id: "seo",
@@ -85,16 +85,9 @@ const WordpressCheckoutForm = ({ selectedPackage, onCancel }) => {
     {
       id: "domain",
       title: "Dominio y Hosting",
-      price: 50,
+      price: 30,
       description:
         "Configuración de dominio y hosting por 1 año (no incluye costo del dominio)",
-    },
-    {
-      id: "training",
-      title: "Capacitación Extendida",
-      price: 35,
-      description:
-        "2 horas adicionales de capacitación para administrar tu sitio WordPress",
     },
     {
       id: "maintenance",
@@ -134,10 +127,10 @@ const WordpressCheckoutForm = ({ selectedPackage, onCancel }) => {
   };
 
   const SelectedPackageDisplay = () => (
-    <div className="mb-8 p-4 bg-blue-50 rounded-lg">
+    <div className="mb-8 p-4 bg-purple-50 rounded-lg">
       <div className="flex items-start gap-4">
-        <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-          <Package className="text-blue-600" size={24} />
+        <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+          <Package className="text-purple-700" size={24} />
         </div>
         <div>
           <h3 className="font-semibold">{selectedPackage.title}</h3>
@@ -145,7 +138,7 @@ const WordpressCheckoutForm = ({ selectedPackage, onCancel }) => {
             {selectedPackage.delivery}
           </p>
           <div className="flex items-center gap-2">
-            <span className="text-blue-600 font-semibold">
+            <span className="text-purple-700 font-semibold">
               US${selectedPackage.price}
             </span>
             <span className="text-sm text-gray-500">precio base</span>
@@ -162,7 +155,7 @@ const WordpressCheckoutForm = ({ selectedPackage, onCancel }) => {
           <div
             className={`w-8 h-8 rounded-full flex items-center justify-center ${
               step >= num
-                ? "bg-blue-600 text-white"
+                ? "bg-purple-700 text-white"
                 : "bg-gray-200 text-gray-600"
             }`}
           >
@@ -171,7 +164,7 @@ const WordpressCheckoutForm = ({ selectedPackage, onCancel }) => {
           {num < 3 && (
             <div
               className={`w-12 h-1 ${
-                step > num ? "bg-blue-600" : "bg-gray-200"
+                step > num ? "bg-purple-700" : "bg-gray-200"
               }`}
             />
           )}
@@ -190,8 +183,8 @@ const WordpressCheckoutForm = ({ selectedPackage, onCancel }) => {
             key={extra.id}
             className={`p-4 border rounded-lg cursor-pointer transition-colors ${
               formData.extras.includes(extra.id)
-                ? "border-blue-500 bg-blue-50"
-                : "border-gray-200 hover:border-blue-300"
+                ? "border-purple-700 bg-purple-50"
+                : "border-gray-200 hover:border-purple-300"
             }`}
             onClick={() => handleExtraToggle(extra.id)}
           >
@@ -200,7 +193,7 @@ const WordpressCheckoutForm = ({ selectedPackage, onCancel }) => {
                 <div
                   className={`w-5 h-5 rounded-full border flex items-center justify-center ${
                     formData.extras.includes(extra.id)
-                      ? "border-blue-500 bg-blue-500"
+                      ? "border-purple-700 bg-purple-700"
                       : "border-gray-300"
                   }`}
                 >
@@ -243,8 +236,8 @@ const WordpressCheckoutForm = ({ selectedPackage, onCancel }) => {
                 onClick={() => handleSiteTypeSelect(type)}
                 className={`p-4 border rounded-lg flex items-center gap-2 ${
                   formData.siteType === type
-                    ? "border-blue-500 bg-blue-50 text-blue-600"
-                    : "border-gray-200 hover:border-blue-300"
+                    ? "border-purple-700 bg-purple-50 text-purple-700"
+                    : "border-gray-200 hover:border-purple-300"
                 }`}
               >
                 <Globe size={20} />
@@ -264,7 +257,7 @@ const WordpressCheckoutForm = ({ selectedPackage, onCancel }) => {
             value={formData.designReference}
             onChange={handleInputChange}
             placeholder="Ej: Me gusta el estilo de example.com..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent"
           />
         </div>
 
@@ -278,7 +271,7 @@ const WordpressCheckoutForm = ({ selectedPackage, onCancel }) => {
             onChange={handleInputChange}
             rows={4}
             placeholder="Describe tu proyecto, objetivo del sitio, características importantes, público objetivo, preferencias de color, etc..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent"
             required
           />
           <SimpleFileUploadComponent
@@ -306,7 +299,7 @@ const WordpressCheckoutForm = ({ selectedPackage, onCancel }) => {
             name="name"
             value={formData.name}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent"
             required
           />
         </div>
@@ -320,7 +313,7 @@ const WordpressCheckoutForm = ({ selectedPackage, onCancel }) => {
             name="email"
             value={formData.email}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent"
             required
           />
         </div>
@@ -334,12 +327,12 @@ const WordpressCheckoutForm = ({ selectedPackage, onCancel }) => {
             name="phone"
             value={formData.phone}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent"
           />
         </div>
       </div>
 
-      <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+      <div className="mt-6 p-4 bg-purple-50 rounded-lg">
         <h4 className="font-medium mb-2">Resumen del Pedido</h4>
         <ul className="space-y-2 text-sm">
           <li className="flex justify-between">
@@ -384,20 +377,20 @@ const WordpressCheckoutForm = ({ selectedPackage, onCancel }) => {
       <p className="text-gray-600 mb-6">
         Tu pedido ha sido recibido. Hemos enviado los detalles a tu correo.
       </p>
-      <div className="p-4 bg-blue-50 rounded-lg inline-block mb-6">
+      <div className="p-4 bg-purple-50 rounded-lg inline-block mb-6">
         <p className="text-sm text-gray-700 mb-1">Tu número de pedido es:</p>
         <p className="text-xl font-mono font-bold">{orderNumber}</p>
       </div>
       <div className="flex flex-col gap-4 max-w-xs mx-auto">
         <button
           onClick={() => navigate(`/tracking?order=${orderNumber}`)}
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+          className="bg-purple-700 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors"
         >
           Seguir mi Pedido
         </button>
         <button
           onClick={() => navigate("/")}
-          className="text-gray-600 px-6 py-2 hover:text-blue-600 transition-colors"
+          className="text-gray-600 px-6 py-2 hover:text-purple-700 transition-colors"
         >
           Volver al Inicio
         </button>
@@ -479,7 +472,7 @@ const WordpressCheckoutForm = ({ selectedPackage, onCancel }) => {
             <button
               type="button"
               onClick={() => setStep(step + 1)}
-              className="flex-1 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              className="flex-1 bg-purple-700 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors"
             >
               Siguiente
             </button>
@@ -487,7 +480,7 @@ const WordpressCheckoutForm = ({ selectedPackage, onCancel }) => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center"
+              className="flex-1 bg-purple-700 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50 flex items-center justify-center"
             >
               {isSubmitting ? "Procesando..." : "Realizar Pedido"}
               {isSubmitting && (

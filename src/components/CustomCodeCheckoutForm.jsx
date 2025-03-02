@@ -33,6 +33,9 @@ const CustomCodeCheckoutForm = ({ selectedPackage, onCancel }) => {
     total: parseInt(selectedPackage.price || 0),
   });
 
+  // Verificar si es un plan premium
+  const isPremiumPlan = selectedPackage.id === "custom-premium";
+
   // Actualizar el total cuando cambian los extras
   useEffect(() => {
     const newTotal = calculateTotal();
@@ -61,10 +64,41 @@ const CustomCodeCheckoutForm = ({ selectedPackage, onCancel }) => {
   };
 
   const handleFrameworkSelect = (framework) => {
-    setFormData((prev) => ({
-      ...prev,
-      framework,
-    }));
+    // Si no es plan premium y selecciona React, agregar el extra de React
+    if (!isPremiumPlan && framework === "React") {
+      // Añadir el servicio de React si no está ya incluido
+      if (!formData.extras.includes("react-framework")) {
+        setFormData((prev) => ({
+          ...prev,
+          framework,
+          extras: [...prev.extras, "react-framework"],
+        }));
+      } else {
+        setFormData((prev) => ({
+          ...prev,
+          framework,
+        }));
+      }
+    }
+    // Si no es plan premium y deselecciona React (selecciona otro), quitar el extra de React
+    else if (
+      !isPremiumPlan &&
+      formData.framework === "React" &&
+      framework !== "React"
+    ) {
+      setFormData((prev) => ({
+        ...prev,
+        framework,
+        extras: prev.extras.filter((id) => id !== "react-framework"),
+      }));
+    }
+    // Para otros casos, simplemente actualizar el framework
+    else {
+      setFormData((prev) => ({
+        ...prev,
+        framework,
+      }));
+    }
   };
 
   const extraServices = [
@@ -73,7 +107,7 @@ const CustomCodeCheckoutForm = ({ selectedPackage, onCancel }) => {
       title: "Entrega Express",
       price: 40,
       description:
-        "Entrega en 3 días menos del tiempo estimado (sujeto a disponibilidad)",
+        "Entrega en 7 días menos del tiempo estimado (sujeto a disponibilidad)",
     },
     {
       id: "responsive",
@@ -103,16 +137,38 @@ const CustomCodeCheckoutForm = ({ selectedPackage, onCancel }) => {
       description:
         "Configuración de hosting, dominio y despliegue (no incluye costo del hosting/dominio)",
     },
+    {
+      id: "multi-language",
+      title: "Soporte Multilenguaje",
+      price: 40,
+      description: "Traduccion del sitio completo con selector",
+    },
+    // Nuevo servicio extra para React (solo visible en planes no premium)
+    {
+      id: "react-framework",
+      title: "Framework React",
+      price: 60,
+      description:
+        "Desarrollo utilizando React para una experiencia de usuario más dinámica e interactiva",
+      hiddenInPremium: true, // Propiedad para ocultar en planes premium
+    },
   ];
 
-  const frameworks = [
-    "HTML/CSS/JS Vanilla",
-    "React",
-    "Vue",
-    "TailwindCSS",
-    "Bootstrap",
-    "Otro/Flexible",
-  ];
+  // Filtrar los frameworks disponibles según el plan
+  const getAvailableFrameworks = () => {
+    if (isPremiumPlan) {
+      return [
+        "HTML/CSS/JS Vanilla",
+        "React",
+        "TailwindCSS",
+        "Otro/Indiferente",
+      ];
+    } else {
+      return ["HTML/CSS/JS Vanilla", "TailwindCSS", "Otro/Indiferente"];
+    }
+  };
+
+  const frameworks = getAvailableFrameworks();
 
   const featureOptions = [
     {
@@ -132,10 +188,6 @@ const CustomCodeCheckoutForm = ({ selectedPackage, onCancel }) => {
       title: "Carrusel de Testimonios",
     },
     {
-      id: "multi-language",
-      title: "Soporte Multilenguaje",
-    },
-    {
       id: "maps",
       title: "Integración de Mapas",
     },
@@ -152,12 +204,32 @@ const CustomCodeCheckoutForm = ({ selectedPackage, onCancel }) => {
   };
 
   const handleExtraToggle = (extraId) => {
-    setFormData((prev) => ({
-      ...prev,
-      extras: prev.extras.includes(extraId)
-        ? prev.extras.filter((id) => id !== extraId)
-        : [...prev.extras, extraId],
-    }));
+    // Si es el extra de React, también actualizar el framework seleccionado
+    if (extraId === "react-framework") {
+      if (formData.extras.includes(extraId)) {
+        // Si se está quitando el extra de React, también quitar React como framework
+        setFormData((prev) => ({
+          ...prev,
+          framework: prev.framework === "React" ? "" : prev.framework,
+          extras: prev.extras.filter((id) => id !== extraId),
+        }));
+      } else {
+        // Si se está añadiendo el extra de React, también establecer React como framework
+        setFormData((prev) => ({
+          ...prev,
+          framework: "React",
+          extras: [...prev.extras, extraId],
+        }));
+      }
+    } else {
+      // Para otros extras, mantener el comportamiento original
+      setFormData((prev) => ({
+        ...prev,
+        extras: prev.extras.includes(extraId)
+          ? prev.extras.filter((id) => id !== extraId)
+          : [...prev.extras, extraId],
+      }));
+    }
   };
 
   const handleFeatureToggle = (featureId) => {
@@ -167,6 +239,18 @@ const CustomCodeCheckoutForm = ({ selectedPackage, onCancel }) => {
         ? prev.features.filter((id) => id !== featureId)
         : [...prev.features, featureId],
     }));
+  };
+
+  const validateCurrentStep = () => {
+    if (step === 2) {
+      // Validación para el paso 2
+      if (!formData.projectDescription.trim()) {
+        alert("La descripción del proyecto es obligatoria");
+        return false;
+      }
+      // Puedes añadir más validaciones para otros campos si es necesario
+    }
+    return true;
   };
 
   const SelectedPackageDisplay = () => (
@@ -181,7 +265,7 @@ const CustomCodeCheckoutForm = ({ selectedPackage, onCancel }) => {
             {selectedPackage.delivery}
           </p>
           <div className="flex items-center gap-2">
-            <span className="text-blue-600 font-semibold">
+            <span className="purple-7 font-semibold">
               US${selectedPackage.price}
             </span>
             <span className="text-sm text-gray-500">precio base</span>
@@ -221,38 +305,41 @@ const CustomCodeCheckoutForm = ({ selectedPackage, onCancel }) => {
     <div className="space-y-6">
       <h3 className="text-xl font-semibold mb-4">Personaliza tu Proyecto</h3>
       <div className="space-y-4">
-        {extraServices.map((extra) => (
-          <div
-            key={extra.id}
-            className={`p-4 border rounded-lg cursor-pointer transition-colors ${
-              formData.extras.includes(extra.id)
-                ? "border-purple-500 bg-purple-50"
-                : "border-gray-200 hover:border-purple-300"
-            }`}
-            onClick={() => handleExtraToggle(extra.id)}
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div
-                  className={`w-5 h-5 rounded-full border flex items-center justify-center ${
-                    formData.extras.includes(extra.id)
-                      ? "border-blue-500 bg-blue-500"
-                      : "border-gray-300"
-                  }`}
-                >
-                  {formData.extras.includes(extra.id) && (
-                    <Check className="w-3 h-3 text-white" />
-                  )}
+        {extraServices
+          // Filtrar servicios extras según el plan
+          .filter((extra) => !extra.hiddenInPremium || !isPremiumPlan)
+          .map((extra) => (
+            <div
+              key={extra.id}
+              className={`p-4 border rounded-lg cursor-pointer transition-colors ${
+                formData.extras.includes(extra.id)
+                  ? "border-purple-500 bg-purple-50"
+                  : "border-gray-200 hover:border-purple-300"
+              }`}
+              onClick={() => handleExtraToggle(extra.id)}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div
+                    className={`w-5 h-5 rounded-full border flex items-center justify-center ${
+                      formData.extras.includes(extra.id)
+                        ? "border-purple-700 bg-purple-700"
+                        : "border-gray-300"
+                    }`}
+                  >
+                    {formData.extras.includes(extra.id) && (
+                      <Check className="w-3 h-3 text-white" />
+                    )}
+                  </div>
+                  <div>
+                    <h4 className="font-medium">{extra.title}</h4>
+                    <p className="text-sm text-gray-500">{extra.description}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-medium">{extra.title}</h4>
-                  <p className="text-sm text-gray-500">{extra.description}</p>
-                </div>
+                <span className="font-medium">+${extra.price}</span>
               </div>
-              <span className="font-medium">+${extra.price}</span>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
       <div className="mt-6 p-4 bg-gray-50 rounded-lg">
         <div className="flex items-center justify-between">
@@ -279,8 +366,8 @@ const CustomCodeCheckoutForm = ({ selectedPackage, onCancel }) => {
                 onClick={() => handleFrameworkSelect(framework)}
                 className={`p-4 border rounded-lg flex items-center gap-2 ${
                   formData.framework === framework
-                    ? "border-blue-500 bg-blue-50 text-blue-600"
-                    : "border-gray-200 hover:border-blue-300"
+                    ? "border-purple-700 bg-purple-50 purple-7"
+                    : "border-gray-200 hover:border-purple-300"
                 }`}
               >
                 <Code size={20} />
@@ -288,6 +375,12 @@ const CustomCodeCheckoutForm = ({ selectedPackage, onCancel }) => {
               </button>
             ))}
           </div>
+          {!isPremiumPlan && formData.framework === "React" && (
+            <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded-md text-sm text-yellow-700">
+              El uso de React está disponible como un servicio adicional en este
+              plan. Se ha añadido a tus extras.
+            </div>
+          )}
         </div>
 
         <div>
@@ -300,8 +393,8 @@ const CustomCodeCheckoutForm = ({ selectedPackage, onCancel }) => {
                 key={feature.id}
                 className={`p-4 border rounded-lg cursor-pointer transition-colors ${
                   formData.features.includes(feature.id)
-                    ? "border-blue-500 bg-blue-50"
-                    : "border-gray-200 hover:border-blue-300"
+                    ? "border-purple-700 bg-purple-50"
+                    : "border-gray-200 hover:border-purple-300"
                 }`}
                 onClick={() => handleFeatureToggle(feature.id)}
               >
@@ -309,7 +402,7 @@ const CustomCodeCheckoutForm = ({ selectedPackage, onCancel }) => {
                   <div
                     className={`w-5 h-5 rounded-full border flex items-center justify-center ${
                       formData.features.includes(feature.id)
-                        ? "border-blue-500 bg-blue-500"
+                        ? "border-purple-700 bg-purple-700"
                         : "border-gray-300"
                     }`}
                   >
@@ -334,7 +427,7 @@ const CustomCodeCheckoutForm = ({ selectedPackage, onCancel }) => {
             value={formData.designReference}
             onChange={handleInputChange}
             placeholder="Ej: Me gusta el estilo de example.com o link a Figma/PDF..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent"
           />
         </div>
 
@@ -348,14 +441,14 @@ const CustomCodeCheckoutForm = ({ selectedPackage, onCancel }) => {
             onChange={handleInputChange}
             rows={4}
             placeholder="Describe tu proyecto, objetivos, funcionalidades, características importantes, público objetivo, preferencias de diseño y color, etc..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent"
             required
           />
           <SimpleFileUploadComponent
             files={formData.referenceFiles}
             setFiles={setFiles}
             label="Referencias o Documentos de Diseño"
-            description="Adjunta mockups, logos, o cualquier referencia visual para tu sitio web"
+            description="Adjunta textos, mockups, logos, o cualquier referencia visual para tu sitio web"
             acceptTypes=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.svg,.psd,.ai,.xd,.fig,.sketch"
           />
         </div>
@@ -376,7 +469,7 @@ const CustomCodeCheckoutForm = ({ selectedPackage, onCancel }) => {
             name="name"
             value={formData.name}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent"
             required
           />
         </div>
@@ -390,26 +483,13 @@ const CustomCodeCheckoutForm = ({ selectedPackage, onCancel }) => {
             name="email"
             value={formData.email}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent"
             required
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Teléfono (opcional)
-          </label>
-          <input
-            type="tel"
-            name="phone"
-            value={formData.phone}
-            onChange={handleInputChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
       </div>
 
-      <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+      <div className="mt-6 p-4 bg-purple-50 rounded-lg">
         <h4 className="font-medium mb-2">Resumen del Pedido</h4>
         <ul className="space-y-2 text-sm">
           <li className="flex justify-between">
@@ -454,7 +534,7 @@ const CustomCodeCheckoutForm = ({ selectedPackage, onCancel }) => {
       <p className="text-gray-600 mb-6">
         Tu pedido ha sido recibido. Hemos enviado los detalles a tu correo.
       </p>
-      <div className="p-4 bg-blue-50 rounded-lg inline-block mb-6">
+      <div className="p-4 bg-purple-50 rounded-lg inline-block mb-6">
         <p className="text-sm text-gray-700 mb-1">Tu número de pedido es:</p>
         <p className="text-xl font-mono font-bold">{orderNumber}</p>
       </div>
@@ -559,8 +639,12 @@ const CustomCodeCheckoutForm = ({ selectedPackage, onCancel }) => {
           {step < 3 ? (
             <button
               type="button"
-              onClick={() => setStep(step + 1)}
-              className="flex-1 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              onClick={() => {
+                if (validateCurrentStep()) {
+                  setStep(step + 1);
+                }
+              }}
+              className="flex-1 bg-purple-700 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors"
             >
               Siguiente
             </button>

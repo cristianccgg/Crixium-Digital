@@ -224,7 +224,7 @@ const PricingSection = ({ initialService }) => {
       id: "basic",
       title: "Your perfect Jingle!",
       price: "30",
-      delivery: "3-day delivery",
+      delivery: "5-day delivery",
       features: [
         "Up to 10-second running time",
         "Vocals recording",
@@ -234,14 +234,14 @@ const PricingSection = ({ initialService }) => {
         "Commercial use",
         "Unlimited Revisions",
       ],
-      type: "music", // Agregar explícitamente estas propiedades
-      category: "jingle", // Agregar explícitamente estas propiedades
+      type: "music",
+      category: "jingle",
     },
     {
       id: "standard",
       title: "All you need!",
       price: "50",
-      delivery: "3-day delivery",
+      delivery: "5-day delivery",
       features: [
         "Up to 20-second running time",
         "Vocals recording",
@@ -252,14 +252,14 @@ const PricingSection = ({ initialService }) => {
         "Unlimited Revisions",
       ],
       isPopular: true,
-      type: "music", // Agregar explícitamente estas propiedades
-      category: "jingle", // Agregar explícitamente estas propiedades
+      type: "music",
+      category: "jingle",
     },
     {
       id: "premium",
       title: "30 seconds, all inclusive!",
       price: "70",
-      delivery: "4-day delivery",
+      delivery: "6-day delivery",
       features: [
         "Up to 30-second running time",
         "Vocals recording",
@@ -269,8 +269,8 @@ const PricingSection = ({ initialService }) => {
         "Commercial use",
         "Unlimited Revisions",
       ],
-      type: "music", // Agregar explícitamente estas propiedades
-      category: "jingle", // Agregar explícitamente estas propiedades
+      type: "music",
+      category: "jingle",
     },
   ];
 
@@ -279,26 +279,25 @@ const PricingSection = ({ initialService }) => {
       id: "vo-basic",
       title: "Locución Básica",
       wordCount: "100",
-      price: "20",
-      delivery: "2 días de entrega",
+      price: "30",
+      delivery: "5 días de entrega",
       features: [
         "Locución profesional",
-        "Música de fondo incluida",
         "Edición y masterización",
         "2 revisiones incluidas",
         "Audio en formato WAV y MP3",
         "Uso comercial",
         "Calidad de estudio profesional",
       ],
-      type: "music", // Agregar explícitamente estas propiedades
-      category: "locucion", // Agregar explícitamente estas propiedades
+      type: "music",
+      category: "locucion",
     },
     {
       id: "vo-standard",
       title: "Locución Standard",
       wordCount: "300",
-      price: "40",
-      delivery: "3 días de entrega",
+      price: "50",
+      delivery: "5 días de entrega",
       features: [
         "Locución profesional",
         "Música de fondo incluida",
@@ -308,32 +307,30 @@ const PricingSection = ({ initialService }) => {
         "Audio en formato WAV y MP3",
         "Uso comercial",
         "Calidad de estudio profesional",
-        "Multiple opciones de música",
       ],
       isPopular: true,
-      type: "music", // Agregar explícitamente estas propiedades
-      category: "locucion", // Agregar explícitamente estas propiedades
+      type: "music",
+      category: "locucion",
     },
     {
       id: "vo-premium",
       title: "Locución Premium",
       wordCount: "500",
-      price: "60",
-      delivery: "4 días de entrega",
+      price: "70",
+      delivery: "6 días de entrega",
       features: [
         "Locución profesional",
         "Música de fondo incluida",
         "Efectos de sonido premium",
         "Edición y masterización",
         "Revisiones ilimitadas",
-        "Audio en todos los formatos",
+        "Audio en formato WAV y MP3",
         "Uso comercial",
         "Calidad de estudio profesional",
-        "Biblioteca completa de música",
         "Guión optimizado incluido",
       ],
-      type: "music", // Agregar explícitamente estas propiedades
-      category: "locucion", // Agregar explícitamente estas propiedades
+      type: "music",
+      category: "locucion",
     },
   ];
 

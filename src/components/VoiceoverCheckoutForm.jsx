@@ -86,26 +86,26 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
     {
       id: "rush",
       title: "Entrega Express",
-      price: 15,
+      price: 20,
       description: "Entrega en 48 horas o menos (sujeto a disponibilidad)",
     },
     {
-      id: "proofread",
-      title: "Revisión de Guión",
-      price: 20,
-      description: "Corrección profesional de texto y estilo",
-    },
-    {
       id: "multilingual",
-      title: "Múltiples Idiomas",
-      price: 25,
-      description: "Grabación en dos idiomas adicionales",
+      title: "Dos Idiomas",
+      price: 30,
+      description: "Grabación en Ingles y en Español",
     },
     {
-      id: "audioFormat",
-      title: "Múltiples Formatos",
-      price: 15,
-      description: "Entrega en MP3, WAV y otros formatos profesionales",
+      id: "background",
+      title: "Música de fondo (Ya incluido en Locución Standar y Pro)",
+      price: 20,
+      description: "Instrumentos musicales",
+    },
+    {
+      id: "soundFX",
+      title: "Efectos de sonido",
+      price: 20,
+      description: "Agregaremos efectos de sonido profesionales",
     },
   ];
 
@@ -167,6 +167,13 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
     }));
   };
 
+  const handleLanguageSelect = (language) => {
+    setFormData((prev) => ({
+      ...prev,
+      language: language,
+    }));
+  };
+
   const SelectedPackageDisplay = () => (
     <div className="mb-8 p-4 bg-purple-50 rounded-lg">
       <div className="flex items-start gap-4">
@@ -180,7 +187,7 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
             {selectedPackage.delivery}
           </p>
           <div className="flex items-center gap-2">
-            <span className="text-blue-600 font-semibold">
+            <span className="text-purple-700 font-semibold">
               US${selectedPackage.price}
             </span>
             <span className="text-sm text-gray-500">precio base</span>
@@ -277,8 +284,8 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
                 onClick={() => handleVoiceSelect(voice)}
                 className={`p-4 border rounded-lg flex items-center gap-2 ${
                   formData.voiceType === voice
-                    ? "border-blue-500 bg-blue-50 text-blue-600"
-                    : "border-gray-200 hover:border-blue-300"
+                    ? "border-purple-700 bg-purple-50 text-purple-700"
+                    : "border-gray-200 hover:border-purple-300"
                 }`}
               >
                 <Mic size={20} />
@@ -300,8 +307,8 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
                 onClick={() => handleVoiceAgeSelect(age)}
                 className={`p-3 border rounded-lg text-sm ${
                   formData.voiceAge === age
-                    ? "border-blue-500 bg-blue-50 text-blue-600"
-                    : "border-gray-200 hover:border-blue-300"
+                    ? "border-purple-700 bg-purple-50 text-purple-700"
+                    : "border-gray-200 hover:border-purple-300"
                 }`}
               >
                 {age}
@@ -322,8 +329,8 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
                 onClick={() => handleVoiceToneSelect(tone)}
                 className={`p-3 border rounded-lg text-sm ${
                   formData.tone === tone
-                    ? "border-blue-500 bg-blue-50 text-blue-600"
-                    : "border-gray-200 hover:border-blue-300"
+                    ? "border-purple-700 bg-purple-50 text-purple-700"
+                    : "border-gray-200 hover:border-purple-300"
                 }`}
               >
                 {tone}
@@ -336,14 +343,22 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Lenguaje / Idioma
           </label>
-          <input
-            type="text"
-            name="language"
-            value={formData.language}
-            onChange={handleInputChange}
-            placeholder="Ej: Español (Neutro, Mexicano, Argentino, etc.)"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
+          <div className="grid grid-cols-2 gap-4">
+            {["Español", "Inglés"].map((language) => (
+              <button
+                key={language}
+                type="button"
+                onClick={() => handleLanguageSelect(language)}
+                className={`p-4 border rounded-lg flex items-center justify-center gap-2 ${
+                  formData.language === language
+                    ? "border-purple-700 bg-purple-50 text-purple-700"
+                    : "border-gray-200 hover:border-purple-300"
+                }`}
+              >
+                <span>{language}</span>
+              </button>
+            ))}
+          </div>
         </div>
 
         <div>
@@ -356,7 +371,7 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
             onChange={handleInputChange}
             rows={6}
             placeholder="Ingresa el texto que deseas que sea locutado..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent"
             required
           />
           <p className="mt-2 text-sm text-gray-500">
@@ -375,7 +390,7 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
           <div className="mt-2 flex flex-col gap-3">
             <div
               onClick={() => fileInputRef.current.click()}
-              className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-blue-500 transition-colors"
+              className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-purple-700 transition-colors"
             >
               <Upload className="text-gray-400 mb-2" size={24} />
               <p className="text-sm text-gray-500">
