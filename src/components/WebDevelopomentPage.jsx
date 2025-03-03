@@ -17,10 +17,9 @@ import {
   Play,
   ShoppingCart,
 } from "lucide-react";
-import WebPricingSection from "./WebPricingSection";
-import EcommercePricingSection from "./EcommercePricingSection";
 import FeaturedProjects from "./FeaturedProjects";
 import LandingReviewsCarousel from "./LandingReviewsCarousel";
+import UnifiedPricingSection from "./UnifiedPricingSection";
 
 const ServiceCard = ({
   icon: Icon,
@@ -169,11 +168,10 @@ const TechnologyCard = ({ icon: Icon, name }) => (
 
 const WebDevelopmentPage = () => {
   const navigate = useNavigate();
-  const webPricingSectionRef = useRef(null);
-  const ecommercePricingSectionRef = useRef(null);
+  const pricingSectionRef = useRef(null);
   const portfolioRef = useRef(null);
   const [selectedService, setSelectedService] = useState(null);
-  const [selectedPricingSection, setSelectedPricingSection] = useState(null);
+  const [projectType, setProjectType] = useState("website"); // Nuevo estado para el tipo de proyecto
 
   const services = [
     {
@@ -238,13 +236,13 @@ const WebDevelopmentPage = () => {
         },
       });
     } else if (serviceType === "web") {
-      setSelectedService(serviceType);
-      setSelectedPricingSection("web");
-      webPricingSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+      setSelectedService("wordpress");
+      setProjectType("website");
+      pricingSectionRef.current?.scrollIntoView({ behavior: "smooth" });
     } else if (serviceType === "ecommerce") {
-      setSelectedService(serviceType);
-      setSelectedPricingSection("ecommerce");
-      ecommercePricingSectionRef.current?.scrollIntoView({
+      setSelectedService("wordpress");
+      setProjectType("ecommerce");
+      pricingSectionRef.current?.scrollIntoView({
         behavior: "smooth",
       });
     }
@@ -276,8 +274,9 @@ const WebDevelopmentPage = () => {
               <HeroButton
                 primary
                 onClick={() => {
-                  setSelectedPricingSection("web");
-                  webPricingSectionRef.current?.scrollIntoView({
+                  setProjectType("website");
+                  setSelectedService("wordpress");
+                  pricingSectionRef.current?.scrollIntoView({
                     behavior: "smooth",
                   });
                 }}
@@ -290,8 +289,9 @@ const WebDevelopmentPage = () => {
               </HeroButton>
               <HeroButton
                 onClick={() => {
-                  setSelectedPricingSection("ecommerce");
-                  ecommercePricingSectionRef.current?.scrollIntoView({
+                  setProjectType("ecommerce");
+                  setSelectedService("wordpress");
+                  pricingSectionRef.current?.scrollIntoView({
                     behavior: "smooth",
                   });
                 }}
@@ -415,21 +415,11 @@ const WebDevelopmentPage = () => {
         </div>
       </section>
 
-      {/* Web Pricing Section */}
-      <div ref={webPricingSectionRef}>
-        <WebPricingSection
-          initialService={
-            selectedPricingSection === "web" ? selectedService : null
-          }
-        />
-      </div>
-
-      {/* E-commerce Pricing Section */}
-      <div ref={ecommercePricingSectionRef}>
-        <EcommercePricingSection
-          initialService={
-            selectedPricingSection === "ecommerce" ? selectedService : null
-          }
+      {/* Unified Pricing Section */}
+      <div ref={pricingSectionRef}>
+        <UnifiedPricingSection
+          initialService={selectedService}
+          initialType={projectType}
         />
       </div>
 

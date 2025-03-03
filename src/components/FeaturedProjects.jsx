@@ -6,6 +6,7 @@ import ciom from "../assets/web_projects/ciom.png";
 import designo from "../assets/web_projects/designo.png";
 import clout from "../assets/web_projects/clout.png";
 import hoodLab from "../assets/web_projects/hoodlab.png";
+import FB from "../assets/web_projects/FB.png";
 
 const ProjectCard = ({
   title,
@@ -122,6 +123,13 @@ const FeaturedProjects = ({ ref }) => {
       techStack: ["HTML", "TailwindCSS", "JavaScript"],
       deployUrl: "https://clout-website.vercel.app",
       imageUrl: clout,
+    },
+    {
+      title: "FB Media Digital",
+      description: "Ventas y agendas automatizadas con IA",
+      techStack: ["Wordpress", "CSS", "JavaScript"],
+      deployUrl: "https://fbmediadigital.com",
+      imageUrl: FB,
     },
   ];
 

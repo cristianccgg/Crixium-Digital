@@ -28,48 +28,28 @@ export const generateOrderNumber = (type) => {
   return `${prefix}-${year}-${randomNum}`;
 };
 
-// Función para crear un nuevo pedido basado en el formulario de checkout
+// Función para crear un nuevo pedido basado en el formulario de checkout unificado
 export const createOrder = async (formData) => {
   try {
-    // Mejorar la determinación del tipo de pedido
+    // Determinar el tipo de pedido (web o ecommerce)
     const orderType =
-      formData.packageDetails?.category === "music" ||
-      formData.packageDetails?.category === "jingle" ||
-      formData.packageDetails?.category === "locucion" ||
-      formData.packageDetails?.title?.toLowerCase().includes("jingle") ||
-      formData.packageDetails?.title?.toLowerCase().includes("locucion") ||
-      formData.packageDetails?.type === "music"
-        ? "music"
-        : "web";
+      formData.projectType === "ecommerce" ? "ecommerce" : "web";
 
     // Generar un número de pedido único
     const orderNumber = generateOrderNumber(orderType);
 
     // Crear estructura básica de pasos para el seguimiento
-    const steps =
-      orderType === "music"
-        ? [
-            {
-              name: "Pedido Recibido",
-              completed: true,
-              date: new Date().toLocaleDateString(),
-            },
-            { name: "Concepto", completed: false },
-            { name: "Producción", completed: false },
-            { name: "Revisión", completed: false },
-            { name: "Finalizado", completed: false },
-          ]
-        : [
-            {
-              name: "Pedido Recibido",
-              completed: true,
-              date: new Date().toLocaleDateString(),
-            },
-            { name: "Diseño", completed: false },
-            { name: "Desarrollo", completed: false },
-            { name: "Revisión", completed: false },
-            { name: "Finalizado", completed: false },
-          ];
+    const steps = [
+      {
+        name: "Pedido Recibido",
+        completed: true,
+        date: new Date().toLocaleDateString(),
+      },
+      { name: "Diseño", completed: false },
+      { name: "Desarrollo", completed: false },
+      { name: "Revisión", completed: false },
+      { name: "Finalizado", completed: false },
+    ];
 
     // Subir archivos de referencia si existen
     const referenceFileUrls = [];
@@ -95,29 +75,86 @@ export const createOrder = async (formData) => {
       }
     }
 
-    // Crear el objeto de pedido
+    // Gestionar archivos de productos para ecommerce si existen
+    const productFileUrls = [];
+    const productFileNames = [];
+
+    if (formData.productFiles && formData.productFiles.length > 0) {
+      for (const file of formData.productFiles) {
+        // Crear una referencia en Firebase Storage
+        const fileRef = ref(
+          storage,
+          `orders/${orderNumber}/products/${file.name}`
+        );
+
+        // Subir el archivo
+        await uploadBytes(fileRef, file);
+
+        // Obtener la URL de descarga
+        const downloadURL = await getDownloadURL(fileRef);
+
+        // Guardar la URL y el nombre del archivo
+        productFileUrls.push(downloadURL);
+        productFileNames.push(file.name);
+      }
+    }
+
+    // Crear el objeto de detalles adaptado al tipo de proyecto
+    let details = {
+      package: formData.packageDetails,
+      extras: formData.extras || [],
+      designReference: formData.designReference || "",
+      referenceFileNames,
+      referenceFileUrls,
+    };
+
+    // Agregar campos específicos según el tipo de proyecto
+
+    if (orderType === "web") {
+      console.log("Procesando proyecto web con features:", formData.features);
+
+      details = {
+        ...details,
+        siteType: formData.siteType || "",
+        projectDescription: formData.projectDescription || "",
+        framework: formData.framework || "",
+        features: Array.isArray(formData.features)
+          ? [...formData.features]
+          : [],
+      };
+    } else if (orderType === "ecommerce") {
+      details = {
+        ...details,
+        businessName: formData.businessName || "",
+        businessType: formData.businessType || "",
+        productCount: formData.productCount || "",
+        domain: formData.domain || "",
+        hasLogo: formData.hasLogo || "no",
+        hasContent: formData.hasContent || "no",
+        hasProducts: formData.hasProducts || "no",
+        storeDescription: formData.storeDescription || "",
+        productFileNames,
+        productFileUrls,
+      };
+      console.log("Features después de procesamiento:", details.features);
+    }
+
+    // Crear el objeto de pedido completo
     const newOrder = {
       orderNumber,
       type: orderType,
       title: formData.packageDetails?.title || "Proyecto Personalizado",
       client: formData.name,
       email: formData.email,
+      phone: formData.phone || "",
       status: "received", // Estados posibles: received, in-progress, review, completed
       currentStep: 0,
       steps,
-      details: {
-        package: formData.packageDetails,
-        extras: formData.extras,
-        siteType: formData.siteType || "",
-        designReference: formData.designReference || "",
-        projectDescription: formData.projectDescription || "",
-        framework: formData.framework || "",
-        features: formData.features || [],
-        referenceFileNames,
-        referenceFileUrls,
-      },
+      details,
       comments: [],
       total: formData.total || 0,
+      serviceType: formData.serviceType || "wordpress", // tipo de servicio (wordpress, custom, shopify)
+      projectType: formData.projectType || "website", // tipo de proyecto (website, ecommerce)
       createdAt: serverTimestamp(),
       lastUpdate: serverTimestamp(),
     };
@@ -287,8 +324,6 @@ export const addOrderComment = async (
       newStatus = "review";
     }
 
-    // Si es un comentario del cliente y el pedido está en estado "completed"
-    // volver a ponerlo en "review" para indicar que requiere atención
     if (fromClient && order.status === "completed") {
       newStatus = "review";
     }

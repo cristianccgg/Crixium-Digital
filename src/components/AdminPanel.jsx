@@ -476,6 +476,85 @@ const AdminPanel = () => {
                       {order.details.siteType}
                     </p>
                   )}
+
+                  {/* Mostrar características seleccionadas */}
+                  {order.details?.features &&
+                    order.details.features.length > 0 && (
+                      <div className="mt-1">
+                        <span className="font-medium">Características:</span>{" "}
+                        <div className="mt-1 flex flex-wrap gap-1">
+                          {order.details.features.map((feature, idx) => (
+                            <span
+                              key={idx}
+                              className="inline-block px-2 py-1 bg-purple-50 text-purple-700 text-xs rounded-full border border-purple-100"
+                            >
+                              {feature}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                  {/* Mostrar framework si existe */}
+                  {order.details?.framework && (
+                    <p className="mt-1">
+                      <span className="font-medium">Framework:</span>{" "}
+                      {order.details.framework}
+                    </p>
+                  )}
+
+                  {order.details?.designReference && (
+                    <p className="mt-1">
+                      <span className="font-medium">Referencia de diseño:</span>{" "}
+                      {order.details.designReference}
+                    </p>
+                  )}
+
+                  {order.details?.projectDescription && (
+                    <>
+                      <p className="mt-1 font-medium">
+                        Descripción del proyecto:
+                      </p>
+                      <p className="mt-0.5 text-gray-600">
+                        {order.details.projectDescription}
+                      </p>
+                    </>
+                  )}
+
+                  {/* Para mostrar información de ecommerce si aplica */}
+                  {order.details?.businessType && (
+                    <p className="mt-1">
+                      <span className="font-medium">Tipo de negocio:</span>{" "}
+                      {order.details.businessType}
+                    </p>
+                  )}
+
+                  {order.details?.businessName && (
+                    <p className="mt-1">
+                      <span className="font-medium">Nombre del negocio:</span>{" "}
+                      {order.details.businessName}
+                    </p>
+                  )}
+
+                  {order.details?.productCount && (
+                    <p className="mt-1">
+                      <span className="font-medium">
+                        Cantidad de productos:
+                      </span>{" "}
+                      {order.details.productCount}
+                    </p>
+                  )}
+
+                  {order.details?.storeDescription && (
+                    <>
+                      <p className="mt-1 font-medium">
+                        Descripción de la tienda:
+                      </p>
+                      <p className="mt-0.5 text-gray-600">
+                        {order.details.storeDescription}
+                      </p>
+                    </>
+                  )}
                   {order.details?.designReference && (
                     <p className="mt-1">
                       <span className="font-medium">Referencia de diseño:</span>{" "}
