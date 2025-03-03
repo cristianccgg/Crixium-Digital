@@ -15,91 +15,124 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "./firebase";
 
 export const generateOrderNumber = (type) => {
-  // Asegurarnos de que el tipo sea el correcto
-  const prefix =
-    type.toLowerCase() === "music" ||
-    type.toLowerCase().includes("jingle") ||
-    type.toLowerCase().includes("locucion")
-      ? "MUSIC"
-      : "WEB";
+  // Improve type detection for music-related services
+  const isMusicService =
+    type === "music" ||
+    type === "jingle" ||
+    type === "locucion" ||
+    (typeof type === "object" && type.category === "jingle") ||
+    (typeof type === "object" && type.category === "locucion") ||
+    (typeof type === "object" && type.type === "music");
+
+  const prefix = isMusicService ? "MUSIC" : "WEB";
 
   const year = new Date().getFullYear();
   const randomNum = Math.floor(1000 + Math.random() * 9000);
   return `${prefix}-${year}-${randomNum}`;
 };
 
-// Función para crear un nuevo pedido basado en el formulario de checkout unificado
 export const createOrder = async (formData) => {
   try {
-    // Determinar el tipo de pedido (web o ecommerce)
-    const orderType =
-      formData.projectType === "ecommerce" ? "ecommerce" : "web";
+    // Better determination of order type - check for music-related types first
+    let orderType;
 
-    // Generar un número de pedido único
+    // Check if it's a music-related service
+    if (
+      formData.packageDetails?.type === "music" ||
+      formData.packageDetails?.category === "jingle" ||
+      formData.packageDetails?.category === "locucion"
+    ) {
+      orderType = "music";
+    }
+    // If not music, determine between web or ecommerce
+    else {
+      orderType = formData.projectType === "ecommerce" ? "ecommerce" : "web";
+    }
+
+    // Generate order number based on the determined type
     const orderNumber = generateOrderNumber(orderType);
 
-    // Crear estructura básica de pasos para el seguimiento
-    const steps = [
-      {
-        name: "Pedido Recibido",
-        completed: true,
-        date: new Date().toLocaleDateString(),
-      },
-      { name: "Diseño", completed: false },
-      { name: "Desarrollo", completed: false },
-      { name: "Revisión", completed: false },
-      { name: "Finalizado", completed: false },
-    ];
+    // Create basic structure of steps for tracking based on order type
+    let steps;
 
-    // Subir archivos de referencia si existen
+    if (orderType === "music") {
+      // Pasos específicos para servicios de audio (jingles/voiceovers)
+      steps = [
+        {
+          name: "Pedido Recibido",
+          completed: true,
+          date: new Date().toLocaleDateString(),
+        },
+        { name: "Composición", completed: false },
+        { name: "Producción", completed: false },
+        { name: "Grabación", completed: false },
+        { name: "Revisión", completed: false },
+        { name: "Finalizado", completed: false },
+      ];
+    } else {
+      // Pasos para proyectos web
+      steps = [
+        {
+          name: "Pedido Recibido",
+          completed: true,
+          date: new Date().toLocaleDateString(),
+        },
+        { name: "Diseño", completed: false },
+        { name: "Desarrollo", completed: false },
+        { name: "Revisión", completed: false },
+        { name: "Finalizado", completed: false },
+      ];
+    }
+
+    // Upload reference files if they exist
     const referenceFileUrls = [];
     const referenceFileNames = [];
 
     if (formData.referenceFiles && formData.referenceFiles.length > 0) {
       for (const file of formData.referenceFiles) {
-        // Crear una referencia en Firebase Storage
+        // Create a reference in Firebase Storage
         const fileRef = ref(
           storage,
           `orders/${orderNumber}/references/${file.name}`
         );
 
-        // Subir el archivo
+        // Upload file
         await uploadBytes(fileRef, file);
 
-        // Obtener la URL de descarga
+        // Get download URL
         const downloadURL = await getDownloadURL(fileRef);
 
-        // Guardar la URL y el nombre del archivo
+        // Save URL and filename
         referenceFileUrls.push(downloadURL);
         referenceFileNames.push(file.name);
       }
     }
 
-    // Gestionar archivos de productos para ecommerce si existen
+    // Handle product files for ecommerce if they exist
     const productFileUrls = [];
     const productFileNames = [];
 
     if (formData.productFiles && formData.productFiles.length > 0) {
       for (const file of formData.productFiles) {
-        // Crear una referencia en Firebase Storage
+        // Create a reference in Firebase Storage
         const fileRef = ref(
           storage,
           `orders/${orderNumber}/products/${file.name}`
         );
 
-        // Subir el archivo
+        // Upload file
         await uploadBytes(fileRef, file);
 
-        // Obtener la URL de descarga
+        // Get download URL
         const downloadURL = await getDownloadURL(fileRef);
 
-        // Guardar la URL y el nombre del archivo
+        // Save URL and filename
         productFileUrls.push(downloadURL);
         productFileNames.push(file.name);
       }
     }
 
-    // Crear el objeto de detalles adaptado al tipo de proyecto
+    // Create details object adapted to project type
     let details = {
       package: formData.packageDetails,
       extras: formData.extras || [],
@@ -108,10 +141,20 @@ export const createOrder = async (formData) => {
       referenceFileUrls,
     };
 
-    // Agregar campos específicos según el tipo de proyecto
-
-    if (orderType === "web") {
-      console.log("Procesando proyecto web con features:", formData.features);
+    // Add fields specific to project type
+    if (orderType === "music") {
+      // Special handling for music orders
+      details = {
+        ...details,
+        voiceType: formData.voiceType || "",
+        reference: formData.reference || "",
+        briefing: formData.briefing || formData.script || "", // Support both field names
+        tone: formData.tone || "",
+        voiceAge: formData.voiceAge || "",
+        language: formData.language || "",
+      };
+    } else if (orderType === "web") {
+      console.log("Processing web project with features:", formData.features);
 
       details = {
         ...details,
@@ -136,10 +179,10 @@ export const createOrder = async (formData) => {
         productFileNames,
         productFileUrls,
       };
-      console.log("Features después de procesamiento:", details.features);
+      console.log("Features after processing:", details.features);
     }
 
-    // Crear el objeto de pedido completo
+    // Create complete order object
     const newOrder = {
       orderNumber,
       type: orderType,
@@ -147,19 +190,19 @@ export const createOrder = async (formData) => {
       client: formData.name,
       email: formData.email,
       phone: formData.phone || "",
-      status: "received", // Estados posibles: received, in-progress, review, completed
+      status: "received", // Possible statuses: received, in-progress, review, completed
       currentStep: 0,
       steps,
       details,
       comments: [],
       total: formData.total || 0,
-      serviceType: formData.serviceType || "wordpress", // tipo de servicio (wordpress, custom, shopify)
-      projectType: formData.projectType || "website", // tipo de proyecto (website, ecommerce)
+      serviceType: formData.serviceType || "wordpress", // service type (wordpress, custom, shopify)
+      projectType: formData.projectType || "website", // project type (website, ecommerce)
       createdAt: serverTimestamp(),
       lastUpdate: serverTimestamp(),
     };
 
-    // Guardar en Firestore
+    // Save to Firestore
     const ordersRef = collection(db, "orders");
     const docRef = await addDoc(ordersRef, newOrder);
 
@@ -177,7 +220,7 @@ export const createOrder = async (formData) => {
   }
 };
 
-// Función para buscar un pedido por número
+// Function to find an order by number
 export const getOrderByNumber = async (orderNumber) => {
   try {
     const ordersRef = collection(db, "orders");
@@ -188,7 +231,7 @@ export const getOrderByNumber = async (orderNumber) => {
       return null;
     }
 
-    // Devolver el primer documento que coincide
+    // Return the first matching document
     const orderDoc = querySnapshot.docs[0];
     return { firebaseId: orderDoc.id, ...orderDoc.data() };
   } catch (error) {
@@ -197,36 +240,36 @@ export const getOrderByNumber = async (orderNumber) => {
   }
 };
 
-// Función para actualizar manualmente el estado de un pedido
+// Function to manually update an order's status
 export const updateOrderStatus = async (
   orderNumber,
   newStatus,
   currentStepIndex = null
 ) => {
   try {
-    // Primero buscar el pedido
+    // First find the order
     const order = await getOrderByNumber(orderNumber);
 
     if (!order) {
       return { success: false, message: "Pedido no encontrado" };
     }
 
-    // Preparar los datos para actualizar
+    // Prepare data to update
     const updateData = {
       status: newStatus,
       lastUpdate: serverTimestamp(),
     };
 
-    // Si se proporciona un índice de paso, actualizar los pasos completados
+    // If a step index is provided, update completed steps
     if (
       currentStepIndex !== null &&
       currentStepIndex >= 0 &&
       currentStepIndex < order.steps.length
     ) {
-      // Crear una copia de los pasos
+      // Create a copy of the steps
       const updatedSteps = [...order.steps];
 
-      // Marcar el paso actual y anteriores como completados
+      // Mark current and previous steps as completed
       for (let i = 0; i <= currentStepIndex; i++) {
         updatedSteps[i].completed = true;
         if (i === currentStepIndex) {
@@ -234,10 +277,10 @@ export const updateOrderStatus = async (
         }
       }
 
-      // Si hay un paso siguiente, marcarlo como el paso actual
+      // If there's a next step, mark it as the current stage
       if (currentStepIndex + 1 < updatedSteps.length) {
         updatedSteps[currentStepIndex + 1].currentStage = true;
-        // Limpiar cualquier otra etapa marcada como "currentStage"
+        // Clear any other stage marked as "currentStage"
         for (let i = 0; i < updatedSteps.length; i++) {
           if (i !== currentStepIndex + 1) {
             updatedSteps[i].currentStage = false;
@@ -249,11 +292,11 @@ export const updateOrderStatus = async (
       updateData.currentStep = currentStepIndex;
     }
 
-    // CAMBIO IMPORTANTE: Usamos el ID correcto del documento de Firestore
+    // Use the correct Firestore document ID
     const orderDocRef = doc(db, "orders", order.firebaseId);
     await updateDoc(orderDocRef, updateData);
 
-    // Obtener el documento actualizado
+    // Get the updated document
     const updatedOrderDoc = await getDoc(orderDocRef);
     const updatedOrder = {
       firebaseId: updatedOrderDoc.id,
@@ -270,7 +313,7 @@ export const updateOrderStatus = async (
   }
 };
 
-// Función para agregar un comentario o entrega a un pedido
+// Function to add a comment or delivery to an order
 export const addOrderComment = async (
   orderNumber,
   comment,
@@ -280,14 +323,14 @@ export const addOrderComment = async (
   attachmentNames = []
 ) => {
   try {
-    // Primero buscar el pedido
+    // First find the order
     const order = await getOrderByNumber(orderNumber);
 
     if (!order) {
       return { success: false, message: "Pedido no encontrado" };
     }
 
-    // Preparar el objeto de nuevo comentario
+    // Prepare the new comment object
     const newComment = {
       id: uuidv4(),
       text: comment,
@@ -297,29 +340,29 @@ export const addOrderComment = async (
       createdAt: new Date().toISOString(),
     };
 
-    // Si hay archivos de entrega que subir
+    // If there are delivery files to upload
     if (isDelivery && deliveryFile) {
-      // Crear una referencia en Firebase Storage
+      // Create a reference in Firebase Storage
       const fileRef = ref(
         storage,
         `orders/${orderNumber}/deliveries/${deliveryFile.name}`
       );
 
-      // Subir el archivo
+      // Upload the file
       await uploadBytes(fileRef, deliveryFile);
 
-      // Obtener la URL de descarga
+      // Get download URL
       const downloadURL = await getDownloadURL(fileRef);
 
-      // Añadir la URL al comentario
+      // Add URL to the comment
       newComment.deliveryFileUrl = downloadURL;
       newComment.deliveryFileName = deliveryFile.name;
     }
 
-    // Preparar los datos para actualizar
+    // Prepare data to update
     let newStatus = order.status;
 
-    // Si es una entrega, actualizar estado a "review"
+    // If it's a delivery, update status to "review"
     if (isDelivery) {
       newStatus = "review";
     }
@@ -328,10 +371,10 @@ export const addOrderComment = async (
       newStatus = "review";
     }
 
-    // CAMBIO IMPORTANTE: Usamos el ID correcto del documento de Firestore
+    // Use the correct Firestore document ID
     const orderDocRef = doc(db, "orders", order.firebaseId);
 
-    // Asegurarse de que order.comments sea un array antes de actualizarlo
+    // Make sure order.comments is an array before updating
     const comments = Array.isArray(order.comments)
       ? [...order.comments, newComment]
       : [newComment];
@@ -352,7 +395,7 @@ export const addOrderComment = async (
   }
 };
 
-// Función para obtener todos los pedidos (útil para crear un panel de administración)
+// Function to get all orders (useful for creating an admin panel)
 export const getAllOrders = async () => {
   try {
     const ordersRef = collection(db, "orders");
@@ -371,7 +414,7 @@ export const getAllOrders = async () => {
   }
 };
 
-// Función para exportar todos los pedidos a un archivo JSON
+// Function to export all orders to a JSON file
 export const exportOrdersToJson = async () => {
   try {
     const orders = await getAllOrders();
@@ -398,7 +441,7 @@ export const exportOrdersToJson = async () => {
   }
 };
 
-// Función para importar pedidos desde un archivo JSON
+// Function to import orders from a JSON file
 export const importOrdersFromJson = async (jsonData) => {
   try {
     const parsedData = JSON.parse(jsonData);
@@ -407,16 +450,16 @@ export const importOrdersFromJson = async (jsonData) => {
       const ordersRef = collection(db, "orders");
       const batch = [];
 
-      // Usar batches para importar múltiples documentos
+      // Use batches to import multiple documents
       for (const order of parsedData.orders) {
-        // Asegurarse de que las fechas sean timestamps de Firestore
+        // Make sure dates are Firestore timestamps
         const orderWithTimestamps = {
           ...order,
           createdAt: serverTimestamp(),
           lastUpdate: serverTimestamp(),
         };
 
-        // Eliminar los campos de ID si existen para evitar conflictos
+        // Remove ID fields if they exist to avoid conflicts
         if (orderWithTimestamps.firebaseId) {
           delete orderWithTimestamps.firebaseId;
         }
@@ -427,7 +470,7 @@ export const importOrdersFromJson = async (jsonData) => {
         batch.push(addDoc(ordersRef, orderWithTimestamps));
       }
 
-      // Ejecutar todas las promesas
+      // Execute all promises
       await Promise.all(batch);
 
       return {
@@ -446,7 +489,7 @@ export const importOrdersFromJson = async (jsonData) => {
   }
 };
 
-// Función para subir archivos al pedido
+// Function to upload files to an order
 export const uploadOrderFiles = async (
   orderNumber,
   files,
@@ -460,13 +503,13 @@ export const uploadOrderFiles = async (
     const fileNames = [];
 
     for (const file of files) {
-      // Crear una referencia en Firebase Storage
+      // Create a reference in Firebase Storage
       const fileRef = ref(
         storage,
         `orders/${orderNumber}/${type}/${file.name}`
       );
 
-      // Crear promesa para subir el archivo
+      // Create promise to upload the file
       uploadPromises.push(
         uploadBytes(fileRef, file).then(() => getDownloadURL(fileRef))
       );
@@ -474,7 +517,7 @@ export const uploadOrderFiles = async (
       fileNames.push(file.name);
     }
 
-    // Ejecutar todas las promesas de carga y obtener URLs
+    // Execute all upload promises and get URLs
     const urls = await Promise.all(uploadPromises);
 
     return {

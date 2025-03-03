@@ -7,9 +7,21 @@ import {
   ChevronRight,
   ArrowRight,
   Sparkles,
+  Package,
+  Clock,
+  CheckCircle,
+  Lock,
+  MessageSquare,
+  Download,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import LandingReviewsCarousel from "./LandingReviewsCarousel";
+import TrackingPreview from "./TrackingPreview";
+import EnhancedHeroSection from "./web_development/EnhancedHeroSection";
+import EnhancedServices from "./web_development/EnhancedServices";
+import FeaturedProjectsLanding from "./web_development/FeaturedProjectsLanding";
+import TechnologiesSection from "./web_development/TechnologiesSection";
+import ana from "../assets/users_pictures/ana.webp";
 
 const ServiceCard = ({ icon: Icon, title, description, link, color }) => {
   const navigate = useNavigate();
@@ -40,10 +52,10 @@ const ServiceCard = ({ icon: Icon, title, description, link, color }) => {
 // Componente para los números/estadísticas
 const StatCard = ({ number, label }) => (
   <div className="text-center">
-    <div className="text-4xl md:text-5xl font-bold text-purple-700 mb-2">
+    <div className="text-4xl md:text-5xl font-bold text-white mb-2">
       {number}
     </div>
-    <p className="text-gray-600">{label}</p>
+    <p className="text-white">{label}</p>
   </div>
 );
 
@@ -59,61 +71,8 @@ const LandingPage = () => {
 
   return (
     <>
-      {/* Hero Section con diseño más moderno */}
-      <section
-        ref={heroRef}
-        className="relative min-h-[100vh] md:min-h-[70vh] flex items-center py-16 px-4 bg-gradient-to-br from-purple-700 via-purple-800 to-purple-900 text-white overflow-hidden"
-      >
-        {/* Elementos decorativos */}
-        <div className="absolute top-20 right-10 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 left-20 w-56 h-56 bg-blue-400/20 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/3 left-1/3 w-40 h-40 bg-blue-300/20 rounded-full blur-3xl"></div>
-
-        <div className="max-w-7xl mx-auto w-full z-10">
-          <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Eleva tu Marca con{" "}
-              <span className="text-coral-400">Creatividad</span> y{" "}
-              <span className="text-coral-400">Tecnología</span>
-            </h1>
-
-            <p className="text-xl md:text-2xl mb-10 text-purple-100">
-              Desarrollo web impactante y producción musical de primer nivel
-              para hacer destacar tu negocio.
-            </p>
-
-            <div className="flex flex-wrap gap-4">
-              <Link
-                to="/web-development"
-                className="bg-white text-purple-900 px-8 py-4 rounded-lg hover:bg-coral-400 transition-all duration-300 flex items-center gap-2 font-medium shadow-lg hover:shadow-xl"
-              >
-                <Globe size={20} />
-                Desarrollo Web
-              </Link>
-              <Link
-                to="/music-production"
-                className="bg-white text-purple-900 px-8 py-4 rounded-lg hover:bg-coral-400 transition-all duration-300 flex items-center gap-2 font-medium shadow-lg hover:shadow-xl"
-              >
-                <Music2 size={20} />
-                Producción Musical
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Imagen o gráfico decorativo */}
-        <div className="absolute right-0 bottom-0 w-full md:w-1/2 h-full pointer-events-none opacity-30 md:opacity-70">
-          <div className="absolute right-0 bottom-0 transform translate-x-1/4 translate-y-1/4">
-            <svg viewBox="0 0 200 200" width="500" height="500">
-              <path
-                fill="rgba(255, 255, 255, 0.1)"
-                d="M45.4,-77.1C58.2,-69.3,67.9,-56.3,74.8,-42.3C81.7,-28.4,85.8,-14.2,85.1,-0.4C84.5,13.4,79.1,26.9,70.8,38.2C62.4,49.6,51.2,59,38.8,62.4C26.3,65.8,13.2,63.3,1.7,60.7C-9.8,58.1,-19.5,55.4,-31.6,51.9C-43.6,48.3,-58,43.8,-65.8,34.4C-73.7,25,-75.1,10.6,-73.3,-3C-71.5,-16.6,-66.5,-29.5,-57.7,-38.2C-49,-46.9,-36.4,-51.3,-24.5,-59.5C-12.5,-67.8,-1.3,-80,11.4,-82.6C24.1,-85.2,32.6,-84.9,45.4,-77.1Z"
-                transform="translate(100 100)"
-              />
-            </svg>
-          </div>
-        </div>
-      </section>
+      {/* Hero Section con tracking highlight */}
+      <EnhancedHeroSection />
 
       {/* Sección de servicios principales */}
       <section className="py-20 px-4 bg-gray-50">
@@ -128,32 +87,149 @@ const LandingPage = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            <ServiceCard
-              icon={Globe}
-              title="Desarrollo Web"
-              description="Sitios web y tiendas online de alto impacto visual con las tecnologías más avanzadas para garantizar rendimiento óptimo y experiencias memorables."
-              link="/web-development"
-              color="bg-purple-700"
-            />
-            <ServiceCard
-              icon={Music2}
-              title="Producción Musical"
-              description="Creamos la identidad sonora de tu marca con jingles, spots publicitarios y música original que conecta emocionalmente con tu audiencia."
-              link="/music-production"
-              color="bg-purple-800"
-            />
+          <EnhancedServices />
+        </div>
+      </section>
+
+      <FeaturedProjectsLanding />
+
+      <TechnologiesSection />
+
+      {/* Sección de característica destacada - Tracking */}
+      <section className="py-24 px-4 bg-white overflow-hidden relative">
+        {/* Elementos decorativos sutiles */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-purple-50 rounded-full opacity-70 blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+        <div className="absolute bottom-0 left-0 w-72 h-72 bg-purple-50 rounded-full opacity-70 blur-3xl translate-y-1/3 -translate-x-1/3"></div>
+
+        <div className="max-w-7xl mx-auto relative">
+          <div className="text-center mb-12">
+            <span className="inline-block px-4 py-2 rounded-full bg-purple-100 text-purple-800 text-sm font-medium mb-4">
+              Experiencia única para nuestros clientes
+            </span>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+              Seguimiento transparente
+              <br />
+              en cada etapa del proceso
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+              Mantente informado sobre el progreso de tu proyecto en tiempo real
+              con nuestra plataforma exclusiva de seguimiento.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Demo de TrackingPreview */}
+            <div className="order-2 md:order-1">
+              <TrackingPreview />
+            </div>
+
+            {/* Features y beneficios */}
+            <div className="order-1 md:order-2">
+              <div className="space-y-8">
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center text-purple-700">
+                    <Clock size={24} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">
+                      Progreso en tiempo real
+                    </h3>
+                    <p className="text-gray-600">
+                      Visualiza exactamente en qué etapa está tu proyecto y qué
+                      pasos faltan para completarlo.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center text-purple-700">
+                    <MessageSquare size={24} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">
+                      Comunicación directa
+                    </h3>
+                    <p className="text-gray-600">
+                      Envía comentarios, solicita cambios o haz preguntas
+                      directamente desde la plataforma.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center text-purple-700">
+                    <Download size={24} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">
+                      Entregas accesibles
+                    </h3>
+                    <p className="text-gray-600">
+                      Accede y descarga los archivos y entregas a medida que
+                      estén disponibles.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center text-purple-700">
+                    <Lock size={24} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">
+                      Acceso seguro y privado
+                    </h3>
+                    <p className="text-gray-600">
+                      Toda la información de tu proyecto está protegida y solo
+                      tú puedes acceder con tu número de orden.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-4">
+                  <Link
+                    to="/tracking"
+                    className="bg-purple-700 text-white px-6 py-3 rounded-lg hover:bg-coral-400 transition-all duration-300 inline-flex items-center gap-2 font-medium"
+                  >
+                    <Package size={18} />
+                    <span>Probar demo de seguimiento</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Testimonio específico sobre tracking */}
+          <div className="mt-20 bg-purple-50 p-8 rounded-2xl border border-purple-100 max-w-3xl mx-auto">
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0">
+                <div className="w-14 h-14 rounded-full overflow-hidden bg-purple-200 flex items-center justify-center">
+                  <img src={ana} alt="avatar" />
+                </div>
+              </div>
+              <div>
+                <p className="text-gray-700 italic mb-4">
+                  "Lo que más me gustó del servicio fue poder ver exactamente en
+                  qué etapa estaba mi proyecto. La transparencia y comunicación
+                  constante me dieron mucha tranquilidad durante todo el
+                  proceso."
+                </p>
+                <div>
+                  <p className="font-semibold">Ana Castillo</p>
+                  <p className="text-sm text-gray-500">
+                    Emprendedora, Decoraciones DECO
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Carrusel de Reseñas */}
-      <LandingReviewsCarousel />
-
       {/* Sección Stats/Cifras */}
-      <section className="py-16 px-4 bg-white">
+      <section className="py-16 px-4 bg-purple-700 ">
         <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 ">
             <StatCard number="250+" label="Clientes satisfechos" />
             <StatCard number="600+" label="Proyectos completados" />
             <StatCard number="8+" label="Años de experiencia" />
@@ -161,6 +237,9 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
+
+      {/* Carrusel de Reseñas */}
+      <LandingReviewsCarousel />
 
       {/* Sección de propuesta única de valor */}
       <section className="py-20 px-4 bg-gradient-to-br from-purple-50 to-white relative overflow-hidden">

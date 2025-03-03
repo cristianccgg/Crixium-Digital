@@ -63,7 +63,7 @@ const ContactPage = () => {
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
                 to="/web-development"
-                className="bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-lg border border-white/30 hover:bg-white/30 transition-all duration-300 flex items-center gap-2"
+                className="bg-white/20 font-semibold hover:bg-coral-400 backdrop-blur-sm text-white px-8 py-4 rounded-lg border border-white/30 transition-all duration-300 flex items-center gap-2"
               >
                 Servicios Web
                 <ArrowRight size={16} />
@@ -71,7 +71,7 @@ const ContactPage = () => {
 
               <Link
                 to="/music-production"
-                className="bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-lg border border-white/30 hover:bg-white/30 transition-all duration-300 flex items-center gap-2"
+                className="bg-white font-semibold text-purple-700 hover:bg-coral-400 hover:text-white backdrop-blur-sm  px-8 py-4 rounded-lg border border-white/30 transition-all duration-300 flex items-center gap-2"
               >
                 Servicios Musicales
                 <ArrowRight size={16} />
@@ -130,29 +130,21 @@ const ContactPage = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             <ContactInfoCard
               icon={Phone}
-              title="Llámanos"
-              content="+1 234 567 890"
+              title="Whatsapp"
+              content="+57 313 272 8188"
               link="tel:+12345678890"
-              linkText="Llamar ahora"
+              linkText="Escribenos ahora"
             />
 
             <ContactInfoCard
               icon={Mail}
               title="Email"
-              content="info@creativestudio.com"
-              link="mailto:info@creativestudio.com"
+              content="contact@crixiumdigital.com"
+              link="mailto:contact@crixiumdigital.com"
               linkText="Enviar email"
-            />
-
-            <ContactInfoCard
-              icon={MapPin}
-              title="Ubicación"
-              content="123 Calle Creativa, Ciudad Innovación, 12345"
-              link="https://maps.google.com"
-              linkText="Ver en mapa"
             />
           </div>
         </div>
@@ -178,10 +170,12 @@ const ContactPage = () => {
             cualquier otra consulta, no dudes en contactarnos
           </p>
           <a
-            href="mailto:info@creativestudio.com"
+            href="https://wa.me/573132728188?text=Hola,%20me%20gustaría%20obtener%20más%20información%20sobre%20tus%20servicios."
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-white text-purple-900 px-8 py-4 rounded-lg hover:bg-purple-50 transition-all duration-300 hover:shadow-lg transform hover:scale-105 font-medium shadow-md group"
           >
-            <span>Escribir Email</span>
+            <span>Escribir por WhatsApp</span>
             <ArrowRight
               size={18}
               className="transition-transform duration-300 group-hover:translate-x-1"

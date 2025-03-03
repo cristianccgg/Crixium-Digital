@@ -17,9 +17,9 @@ import {
   Play,
   ShoppingCart,
 } from "lucide-react";
-import FeaturedProjects from "./FeaturedProjects";
+import FeaturedProjects from "./web_development/FeaturedProjects";
 import LandingReviewsCarousel from "./LandingReviewsCarousel";
-import UnifiedPricingSection from "./UnifiedPricingSection";
+import UnifiedPricingSection from "./web_development/UnifiedPricingSection";
 
 const ServiceCard = ({
   icon: Icon,
@@ -264,7 +264,7 @@ const WebDevelopmentPage = () => {
               <span>Diseño Web y E-commerce</span>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Diseño Web <span className="text-coral-400">Profesional</span>
+              Desarollo Web <span className="text-coral-400">Profesional</span>
             </h1>
             <p className="text-xl md:text-2xl mb-10 text-purple-100 max-w-3xl mx-auto">
               Creamos sitios web atractivos y tiendas online funcionales para

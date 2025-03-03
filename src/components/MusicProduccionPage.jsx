@@ -12,9 +12,8 @@ import {
   ArrowRight,
   Play,
 } from "lucide-react";
-import ReviewsCarousel from "./ReviewsCarousel";
-import PricingSection from "./PricingSection";
-import AudioPorfolio from "./AudioPorfolio";
+import PricingSection from "./music_production/PricingSection";
+import AudioPorfolio from "./music_production/AudioPorfolio";
 import LandingReviewsCarousel from "./LandingReviewsCarousel";
 
 const ServiceCard = ({

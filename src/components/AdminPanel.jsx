@@ -17,6 +17,9 @@ import {
   X,
   Upload,
   File,
+  Music,
+  Globe,
+  ShoppingCart,
 } from "lucide-react";
 import {
   getAllOrders,
@@ -358,6 +361,153 @@ const AdminPanel = () => {
     return new Date(timestamp).toLocaleDateString();
   };
 
+  // Función para obtener el ícono adecuado según el tipo de pedido
+  const getOrderTypeIcon = (order) => {
+    if (order.type === "music") {
+      return <Music size={16} className="text-purple-600" />;
+    } else if (order.type === "ecommerce") {
+      return <ShoppingCart size={16} className="text-green-600" />;
+    } else {
+      return <Globe size={16} className="text-blue-600" />;
+    }
+  };
+
+  // Función para renderizar los detalles específicos según el tipo de proyecto
+  const renderSpecificDetails = (order) => {
+    if (order.type === "music") {
+      return (
+        <>
+          {/* Detalles específicos para servicios de música */}
+          {order.details?.voiceType && (
+            <p className="mt-1">
+              <span className="font-medium">Tipo de voz:</span>{" "}
+              {order.details.voiceType}
+            </p>
+          )}
+          {order.details?.voiceAge && (
+            <p className="mt-1">
+              <span className="font-medium">Edad de voz:</span>{" "}
+              {order.details.voiceAge}
+            </p>
+          )}
+          {order.details?.tone && (
+            <p className="mt-1">
+              <span className="font-medium">Tono:</span> {order.details.tone}
+            </p>
+          )}
+          {order.details?.language && (
+            <p className="mt-1">
+              <span className="font-medium">Idioma:</span>{" "}
+              {order.details.language}
+            </p>
+          )}
+          {order.details?.reference && (
+            <p className="mt-1">
+              <span className="font-medium">Referencia:</span>{" "}
+              {order.details.reference}
+            </p>
+          )}
+          {order.details?.briefing && (
+            <>
+              <p className="mt-1 font-medium">Briefing:</p>
+              <p className="mt-0.5 text-gray-600">{order.details.briefing}</p>
+            </>
+          )}
+        </>
+      );
+    } else if (order.type === "web") {
+      return (
+        <>
+          {/* Detalles específicos para proyectos web */}
+          {order.details?.siteType && (
+            <p>
+              <span className="font-medium">Tipo de sitio:</span>{" "}
+              {order.details.siteType}
+            </p>
+          )}
+
+          {/* Mostrar características seleccionadas */}
+          {order.details?.features && order.details.features.length > 0 && (
+            <div className="mt-1">
+              <span className="font-medium">Características:</span>{" "}
+              <div className="mt-1 flex flex-wrap gap-1">
+                {order.details.features.map((feature, idx) => (
+                  <span
+                    key={idx}
+                    className="inline-block px-2 py-1 bg-purple-50 text-purple-700 text-xs rounded-full border border-purple-100"
+                  >
+                    {feature}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Mostrar framework si existe */}
+          {order.details?.framework && (
+            <p className="mt-1">
+              <span className="font-medium">Framework:</span>{" "}
+              {order.details.framework}
+            </p>
+          )}
+
+          {order.details?.designReference && (
+            <p className="mt-1">
+              <span className="font-medium">Referencia de diseño:</span>{" "}
+              {order.details.designReference}
+            </p>
+          )}
+
+          {order.details?.projectDescription && (
+            <>
+              <p className="mt-1 font-medium">Descripción del proyecto:</p>
+              <p className="mt-0.5 text-gray-600">
+                {order.details.projectDescription}
+              </p>
+            </>
+          )}
+        </>
+      );
+    } else if (order.type === "ecommerce") {
+      return (
+        <>
+          {/* Detalles específicos para proyectos ecommerce */}
+          {order.details?.businessType && (
+            <p className="mt-1">
+              <span className="font-medium">Tipo de negocio:</span>{" "}
+              {order.details.businessType}
+            </p>
+          )}
+
+          {order.details?.businessName && (
+            <p className="mt-1">
+              <span className="font-medium">Nombre del negocio:</span>{" "}
+              {order.details.businessName}
+            </p>
+          )}
+
+          {order.details?.productCount && (
+            <p className="mt-1">
+              <span className="font-medium">Cantidad de productos:</span>{" "}
+              {order.details.productCount}
+            </p>
+          )}
+
+          {order.details?.storeDescription && (
+            <>
+              <p className="mt-1 font-medium">Descripción de la tienda:</p>
+              <p className="mt-0.5 text-gray-600">
+                {order.details.storeDescription}
+              </p>
+            </>
+          )}
+        </>
+      );
+    }
+
+    return null;
+  };
+
   // CAMBIO: Usar firebaseId en lugar de id
   const renderOrderItem = (order) => {
     // Usar firebaseId para la expansión, con fallback a id para compatibilidad
@@ -381,9 +531,12 @@ const AdminPanel = () => {
         >
           <div className="flex flex-col">
             <div className="flex items-center">
-              <span className="font-mono text-sm font-medium">
-                {order.orderNumber}
-              </span>
+              <div className="flex items-center gap-1 mr-2">
+                {getOrderTypeIcon(order)}
+                <span className="font-mono text-sm font-medium">
+                  {order.orderNumber}
+                </span>
+              </div>
               <span className="mx-2 text-gray-300">|</span>
               <span className="text-sm text-gray-600">
                 {formatDate(order.createdAt)}
@@ -449,6 +602,17 @@ const AdminPanel = () => {
                   Detalles del paquete
                 </h5>
                 <div className="p-3 bg-white rounded border border-gray-200 text-sm">
+                  <div className="flex items-center gap-1 mb-2">
+                    {getOrderTypeIcon(order)}
+                    <span className="font-medium">
+                      Tipo:{" "}
+                      {order.type === "music"
+                        ? "Audio"
+                        : order.type === "ecommerce"
+                        ? "Tienda Online"
+                        : "Sitio Web"}
+                    </span>
+                  </div>
                   <p>
                     <span className="font-medium">Paquete:</span>{" "}
                     {order.details?.package?.title || "Personalizado"}
@@ -470,107 +634,7 @@ const AdminPanel = () => {
                   Información del proyecto
                 </h5>
                 <div className="p-3 bg-white rounded border border-gray-200 text-sm h-32 overflow-y-auto">
-                  {order.details?.siteType && (
-                    <p>
-                      <span className="font-medium">Tipo de sitio:</span>{" "}
-                      {order.details.siteType}
-                    </p>
-                  )}
-
-                  {/* Mostrar características seleccionadas */}
-                  {order.details?.features &&
-                    order.details.features.length > 0 && (
-                      <div className="mt-1">
-                        <span className="font-medium">Características:</span>{" "}
-                        <div className="mt-1 flex flex-wrap gap-1">
-                          {order.details.features.map((feature, idx) => (
-                            <span
-                              key={idx}
-                              className="inline-block px-2 py-1 bg-purple-50 text-purple-700 text-xs rounded-full border border-purple-100"
-                            >
-                              {feature}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                  {/* Mostrar framework si existe */}
-                  {order.details?.framework && (
-                    <p className="mt-1">
-                      <span className="font-medium">Framework:</span>{" "}
-                      {order.details.framework}
-                    </p>
-                  )}
-
-                  {order.details?.designReference && (
-                    <p className="mt-1">
-                      <span className="font-medium">Referencia de diseño:</span>{" "}
-                      {order.details.designReference}
-                    </p>
-                  )}
-
-                  {order.details?.projectDescription && (
-                    <>
-                      <p className="mt-1 font-medium">
-                        Descripción del proyecto:
-                      </p>
-                      <p className="mt-0.5 text-gray-600">
-                        {order.details.projectDescription}
-                      </p>
-                    </>
-                  )}
-
-                  {/* Para mostrar información de ecommerce si aplica */}
-                  {order.details?.businessType && (
-                    <p className="mt-1">
-                      <span className="font-medium">Tipo de negocio:</span>{" "}
-                      {order.details.businessType}
-                    </p>
-                  )}
-
-                  {order.details?.businessName && (
-                    <p className="mt-1">
-                      <span className="font-medium">Nombre del negocio:</span>{" "}
-                      {order.details.businessName}
-                    </p>
-                  )}
-
-                  {order.details?.productCount && (
-                    <p className="mt-1">
-                      <span className="font-medium">
-                        Cantidad de productos:
-                      </span>{" "}
-                      {order.details.productCount}
-                    </p>
-                  )}
-
-                  {order.details?.storeDescription && (
-                    <>
-                      <p className="mt-1 font-medium">
-                        Descripción de la tienda:
-                      </p>
-                      <p className="mt-0.5 text-gray-600">
-                        {order.details.storeDescription}
-                      </p>
-                    </>
-                  )}
-                  {order.details?.designReference && (
-                    <p className="mt-1">
-                      <span className="font-medium">Referencia de diseño:</span>{" "}
-                      {order.details.designReference}
-                    </p>
-                  )}
-                  {order.details?.projectDescription && (
-                    <>
-                      <p className="mt-1 font-medium">
-                        Descripción del proyecto:
-                      </p>
-                      <p className="mt-0.5 text-gray-600">
-                        {order.details.projectDescription}
-                      </p>
-                    </>
-                  )}
+                  {renderSpecificDetails(order)}
 
                   {/* Mostrar archivos de referencia si existen */}
                   {order.details?.referenceFileUrls &&
@@ -922,8 +986,9 @@ const AdminPanel = () => {
                   onChange={(e) => setTypeFilter(e.target.value)}
                 >
                   <option value="all">Todos los tipos</option>
-                  <option value="jingle">Jingles</option>
-                  <option value="web">Web</option>
+                  <option value="music">Audio (Jingles/Locuciones)</option>
+                  <option value="web">Sitio Web</option>
+                  <option value="ecommerce">Tienda Online</option>
                 </select>
               </div>
 

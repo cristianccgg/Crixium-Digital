@@ -1,36 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navigate, useLocation } from "react-router-dom";
+import {
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
+import { auth } from "./firebase"; // Asegúrate de que firebase.js exporta auth
 
-// En una aplicación real, esta lógica se conectaría a un sistema de autenticación
-// Para este ejemplo, usamos una contraseña simple
 const PrivateRoute = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    localStorage.getItem("admin_authenticated") === "true"
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const location = useLocation();
 
-  // En una aplicación real, esta contraseña estaría en el servidor
-  // Solo para ejemplo, la contraseña es "admin123"
-  const adminPassword = "admin123";
+  useEffect(() => {
+    // Escuchar cambios en el estado de autenticación
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsAuthenticated(!!user);
+      setLoading(false);
+    });
 
-  const handleLogin = (e) => {
+    // Limpiar suscripción al desmontar
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
 
-    if (password === adminPassword) {
-      localStorage.setItem("admin_authenticated", "true");
-      setIsAuthenticated(true);
-      setError("");
-    } else {
-      setError("Contraseña incorrecta");
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      // No necesitamos actualizar isAuthenticated aquí,
+      // onAuthStateChanged lo hará automáticamente
+    } catch (error) {
+      console.error("Error en login:", error);
+      setError(
+        error.code === "auth/invalid-credential"
+          ? "Credenciales inválidas. Revisa tu email y contraseña."
+          : "Error al iniciar sesión. Por favor, intenta de nuevo."
+      );
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("admin_authenticated");
-    setIsAuthenticated(false);
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      // No necesitamos actualizar isAuthenticated aquí,
+      // onAuthStateChanged lo hará automáticamente
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+    }
   };
+
+  // Mostrar spinner mientras se verifica la autenticación
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
 
   if (!isAuthenticated) {
     return (
@@ -41,11 +72,27 @@ const PrivateRoute = ({ children }) => {
               Panel de Administración
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
-              Ingresa tu contraseña para acceder
+              Ingresa tus credenciales para acceder
             </p>
           </div>
           <form className="mt-8 space-y-6" onSubmit={handleLogin}>
-            <div className="rounded-md shadow-sm -space-y-px">
+            <div className="rounded-md shadow-sm space-y-2">
+              <div>
+                <label htmlFor="email" className="sr-only">
+                  Correo electrónico
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                  placeholder="Correo electrónico"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
               <div>
                 <label htmlFor="password" className="sr-only">
                   Contraseña
@@ -64,7 +111,11 @@ const PrivateRoute = ({ children }) => {
               </div>
             </div>
 
-            {error && <div className="text-sm text-red-600">{error}</div>}
+            {error && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+                {error}
+              </div>
+            )}
 
             <div>
               <button

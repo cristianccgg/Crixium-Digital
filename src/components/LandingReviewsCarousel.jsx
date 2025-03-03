@@ -86,9 +86,9 @@ const ReviewCard = ({ review }) => {
   };
 
   return (
-    <div className="p-8 mb-8">
+    <div className="py-8 px-4 mb-8">
       <div
-        className="relative bg-white p-6 rounded-lg shadow-lg border border-gray-100 h-full transition-all duration-300"
+        className="relative bg-white p-6 rounded-lg shadow-lg border border-gray-100 h-80 transition-all duration-300"
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
