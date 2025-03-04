@@ -92,7 +92,7 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white shadow-md" : "bg-transparent"
+        isScrolled ? "bg-purple-700 shadow-md" : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -100,13 +100,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <Link
               to="/"
-              className={`text-xl font-bold transition-colors duration-300 ${
-                isScrolled
-                  ? "text-purple-700"
-                  : hasHeroBackground
-                  ? "text-white"
-                  : "text-purple-700"
-              }`}
+              className="text-2xl font-bold transition-colors duration-300"
             >
               <div className="flex items-center gap-2">
                 {/* Reduced logo size and gap */}
@@ -130,7 +124,7 @@ const Navbar = () => {
                 to={item.href}
                 className={`flex items-center gap-1 text-xs lg:text-base transition-colors ${
                   isScrolled || !hasHeroBackground
-                    ? "text-gray-700 font-semibold hover:text-purple-700 hover:scale-105 transition-transform duration-500 ease-in-out"
+                    ? "text-white font-semibold hover:text-coral-400 hover:scale-105 transition-transform duration-500 ease-in-out"
                     : "text-white font-semibold hover:text-coral-400 hover:scale-105 transition-transform duration-500 ease-in-out"
                 } ${location.pathname === item.href ? "font-semibold" : ""}`}
                 onClick={(e) => handleNavClick(e, item.href)}
@@ -143,7 +137,7 @@ const Navbar = () => {
               href="/contact"
               className={`px-2 md:px-3 lg:px-5 py-1.5 md:py-2 rounded-lg transition-all duration-300 flex items-center gap-1 text-xs md:text-sm lg:text-base whitespace-nowrap cursor-pointer ${
                 isScrolled || !hasHeroBackground
-                  ? "bg-coral-500 text-white font-semibold hover:bg-purple-800 hover:scale-105 hover:shadow-md hover:shadow-purple-300 transition-all duration-300 ease-out"
+                  ? "bg-white/20 font-semibold backdrop-blur-sm text-white hover:bg-coral-400 border border-white/30 hover:text-white hover:scale-105 hover:shadow-coral-300/80 hover:shadow-lg hover:ring-2 hover:ring-coral-300 transition-all duration-300 ease-out"
                   : "bg-white/20 font-semibold backdrop-blur-sm text-white hover:bg-coral-400 border border-white/30 hover:text-white hover:scale-105 hover:shadow-coral-300/80 hover:shadow-lg hover:ring-2 hover:ring-coral-300 transition-all duration-300 ease-out"
               }`}
               onClick={handleContactClick}
