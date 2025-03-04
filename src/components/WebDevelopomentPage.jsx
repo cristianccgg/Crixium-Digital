@@ -162,7 +162,7 @@ const TechnologyCard = ({ icon: Icon, name }) => (
     <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
       <Icon className="text-purple-700" size={24} />
     </div>
-    <span className="font-medium text-lg">{name}</span>
+    <span className="font-medium text-xs md:text-base">{name}</span>
   </div>
 );
 
@@ -251,7 +251,7 @@ const WebDevelopmentPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex items-center pt-16 px-4 bg-gradient-to-br from-purple-700 via-purple-800 to-purple-900 text-white overflow-hidden">
+      <section className="relative sm:min-h-[60vh] min-h-screen flex items-center pt-16 px-4 bg-gradient-to-br from-purple-700 via-purple-800 to-purple-900 text-white overflow-hidden">
         {/* Elementos decorativos */}
         <div className="absolute top-20 right-10 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-10 left-20 w-56 h-56 bg-purple-400/20 rounded-full blur-3xl"></div>
@@ -359,7 +359,7 @@ const WebDevelopmentPage = () => {
               robustas y escalables que impulsan tu negocio
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-6">
             {technologies.map((tech, index) => (
               <TechnologyCard key={index} {...tech} />
             ))}

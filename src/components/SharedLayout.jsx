@@ -108,42 +108,47 @@ const Navbar = () => {
                   : "text-purple-700"
               }`}
             >
-              <div className="flex items-center gap-3">
-                <img src="/bombillo.PNG" alt="bombillo" className="w-12" />
-                <h1 className="text-coral-400 text-bold text-3xl">
+              <div className="flex items-center gap-2">
+                {/* Reduced logo size and gap */}
+                <img
+                  src="/bombillo.PNG"
+                  alt="bombillo"
+                  className="w-8  md:w-10 lg:w-12"
+                />
+                <h1 className="text-coral-400 text-bold text-2xl md:text-md lg:text-3xl">
                   Crixium Digital
                 </h1>
               </div>
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center md:space-x-3 lg:space-x-8">
+          {/* Desktop Navigation - Modified breakpoints */}
+          <div className="hidden md:flex items-center md:space-x-2 lg:space-x-4 xl:space-x-8">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className={`flex items-center gap-1 text-sm lg:text-base transition-colors  ${
+                className={`flex items-center gap-1 text-xs lg:text-base transition-colors ${
                   isScrolled || !hasHeroBackground
                     ? "text-gray-700 font-semibold hover:text-purple-700 hover:scale-105 transition-transform duration-500 ease-in-out"
                     : "text-white font-semibold hover:text-coral-400 hover:scale-105 transition-transform duration-500 ease-in-out"
                 } ${location.pathname === item.href ? "font-semibold" : ""}`}
                 onClick={(e) => handleNavClick(e, item.href)}
               >
-                <item.icon size={16} className="md:mr-0.5 lg:mr-1" />
+                <item.icon size={14} className="md:mr-0.5 lg:mr-1" />
                 <span className="whitespace-nowrap">{item.name}</span>
               </Link>
             ))}
             <a
               href="/contact"
-              className={`px-3 lg:px-5 py-2 rounded-lg transition-all duration-300 flex items-center gap-1 text-sm lg:text-base whitespace-nowrap cursor-pointer ${
+              className={`px-2 md:px-3 lg:px-5 py-1.5 md:py-2 rounded-lg transition-all duration-300 flex items-center gap-1 text-xs md:text-sm lg:text-base whitespace-nowrap cursor-pointer ${
                 isScrolled || !hasHeroBackground
-                  ? "bg-coral-500 text-white font-semibold hover:bg-purple-800 hover:scale-105  hover:shadow-md hover:shadow-purple-300 transition-all duration-300 ease-out"
+                  ? "bg-coral-500 text-white font-semibold hover:bg-purple-800 hover:scale-105 hover:shadow-md hover:shadow-purple-300 transition-all duration-300 ease-out"
                   : "bg-white/20 font-semibold backdrop-blur-sm text-white hover:bg-coral-400 border border-white/30 hover:text-white hover:scale-105 hover:shadow-coral-300/80 hover:shadow-lg hover:ring-2 hover:ring-coral-300 transition-all duration-300 ease-out"
               }`}
               onClick={handleContactClick}
             >
-              <MessageSquare size={16} className="md:mr-0.5 lg:mr-1" />
+              <MessageSquare size={14} className="md:mr-0.5 lg:mr-1" />
               Contactar
             </a>
           </div>

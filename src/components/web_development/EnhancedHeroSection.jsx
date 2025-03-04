@@ -18,7 +18,7 @@ const EnhancedHeroSection = () => {
   }, []);
 
   return (
-    <section className="relative md:min-h-[70vh] min-h-screen flex items-center py-16 px-4 bg-gradient-to-br from-purple-700 via-purple-800 to-purple-900 text-white overflow-hidden">
+    <section className="relative sm:min-h-[70vh] min-h-screen flex items-center xl:py-16 py-20 px-4 bg-gradient-to-br from-purple-700 via-purple-800 to-purple-900 text-white overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Gradient circles */}

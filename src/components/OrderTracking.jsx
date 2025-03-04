@@ -481,7 +481,7 @@ const OrderTracking = () => {
   return (
     <div className=" bg-gray-50">
       {/* Hero Section con estilo similar a LandingPage */}
-      <section className="relative py-32 px-4 bg-gradient-to-br from-purple-700 via-purple-800 to-purple-900 text-white overflow-hidden">
+      <section className="relative flex flex-col justify-center md:min-h-[60vh] min-h-screen py-32 px-4 bg-gradient-to-br from-purple-700 via-purple-800 to-purple-900 text-white overflow-hidden">
         {/* Elementos decorativos */}
         <div className="absolute top-10 right-5 w-36 h-36 bg-white/10 rounded-full blur-2xl"></div>
         <div className="absolute bottom-5 left-10 w-28 h-28 bg-purple-400/20 rounded-full blur-2xl"></div>

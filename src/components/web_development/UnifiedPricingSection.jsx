@@ -62,7 +62,7 @@ const ServiceSelector = ({ activeService, onServiceChange, projectType }) => {
       : [
           {
             id: "wordpress",
-            label: "WordPress/WooCommerce",
+            label: "WordPress",
             icon: <Globe size={20} />,
           },
           { id: "shopify", label: "Shopify", icon: <ShoppingCart size={20} /> },
