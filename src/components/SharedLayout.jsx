@@ -171,13 +171,13 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="md:hidden bg-white shadow-lg">
+        <div className="md:hidden bg-purple-800 shadow-lg">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg"
+                className="flex items-center gap-2 px-3 py-2 text-white hover:text-purple-700 hover:bg-blue-50 rounded-lg"
                 onClick={(e) => handleNavClick(e, item.href)}
               >
                 <item.icon size={18} />
@@ -186,7 +186,7 @@ const Navbar = () => {
             ))}
             <a
               href="/contact"
-              className="flex items-center gap-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 mt-2 cursor-pointer"
+              className="flex items-center gap-2 px-3 py-2 bg-coral-400 text-white rounded-lg hover:text-purple-700 hover:bg-white mt-2 cursor-pointer"
               onClick={handleContactClick}
             >
               <MessageSquare size={18} />
