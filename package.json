@@ -15,6 +15,7 @@
     "firebase": "^11.3.1",
     "lucide": "^0.476.0",
     "lucide-react": "^0.476.0",
+    "md5": "^2.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-multi-carousel": "^2.8.5",

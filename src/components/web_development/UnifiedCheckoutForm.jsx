@@ -15,12 +15,15 @@ import {
 } from "lucide-react";
 import SimpleFileUploadComponent from "../web_development/SimpleFileUploadComponent";
 import { createOrder } from "../OrderManagerFirebase";
+import PaymentGateway from "../payments/PaymentGateway";
 
 const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
+  const [orderCreated, setOrderCreated] = useState(false); // Nuevo estado para controlar si la orden fue creada
+  const [orderData, setOrderData] = useState(null); // Almacenará los datos de la orden creada
   const [orderNumber, setOrderNumber] = useState("");
   const [currentTotal, setCurrentTotal] = useState(
     parseInt(selectedPackage.price || 0)
@@ -616,7 +619,7 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
         </div>
 
         {/* Instrucciones específicas según la plataforma */}
-        {getCredentialsInstructions()}
+        {getCredentialsInstructions && getCredentialsInstructions()}
 
         <div className="flex flex-col gap-4 max-w-xs mx-auto mt-6">
           <button
@@ -643,13 +646,6 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
     setIsSubmitting(true);
 
     try {
-      // Extraer explícitamente las características seleccionadas para depuración
-      const selectedFeatures = formData.features || [];
-      console.log(
-        "Características seleccionadas antes de enviar:",
-        selectedFeatures
-      );
-
       // Crear un objeto limpio con todos los datos necesarios
       const orderData = {
         // Información del paquete
@@ -672,7 +668,7 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
         // Campos específicos para web no-ecommerce
         siteType: !isEcommerce ? formData.siteType : null,
         projectDescription: !isEcommerce ? formData.projectDescription : null,
-        features: !isEcommerce ? [...selectedFeatures] : [], // Forzar copia del array
+        features: !isEcommerce ? [...formData.features] : [], // Forzar copia del array
         framework: isCustomCode ? formData.framework : null,
 
         // Campos específicos para ecommerce
@@ -681,6 +677,8 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
         productCount: isEcommerce ? formData.productCount : null,
         storeDescription: isEcommerce ? formData.storeDescription : null,
         productFiles: isEcommerce ? formData.productFiles : null,
+
+        paymentStatus: "pending",
       };
 
       console.log("Objeto completo a enviar:", orderData);
@@ -691,7 +689,9 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
 
       if (result.success) {
         setOrderNumber(result.orderNumber);
-        setOrderComplete(true);
+        setOrderData({ ...orderData, orderNumber: result.orderNumber }); // Guardamos los datos completos
+        setOrderCreated(true); // La orden fue creada exitosamente
+        setStep(4); // Avanzamos al paso de pago (nuevo paso)
       } else {
         alert(
           "Hubo un error al procesar tu pedido. Por favor, intenta de nuevo."
@@ -705,6 +705,16 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
     }
 
     setIsSubmitting(false);
+  };
+
+  // Manejador para cuando el pago se completa exitosamente
+  const handlePaymentSuccess = () => {
+    setOrderComplete(true);
+  };
+
+  // Manejador para volver desde la pasarela de pago
+  const handleBackFromPayment = () => {
+    setStep(3); // Volver al paso anterior
   };
 
   // Si el pedido está completo, mostrar la confirmación
@@ -721,6 +731,14 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
         return renderStep2();
       case 3:
         return renderStep3();
+      case 4: // Paso de pago
+        return (
+          <PaymentGateway
+            orderData={orderData}
+            onSuccess={handlePaymentSuccess}
+            onBack={handleBackFromPayment}
+          />
+        );
       default:
         return null;
     }
@@ -1150,47 +1168,50 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
       <form onSubmit={handleSubmit} className="space-y-8">
         {renderCurrentStep()}
 
-        <div className="flex justify-between gap-4">
-          {step > 1 && (
-            <button
-              type="button"
-              onClick={() => setStep(step - 1)}
-              disabled={isSubmitting}
-              className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
-            >
-              Anterior
-            </button>
-          )}
+        {/* Mostrar botones solo si no estamos en el paso 4 */}
+        {step < 4 && (
+          <div className="flex justify-between gap-4">
+            {step > 1 && (
+              <button
+                type="button"
+                onClick={() => setStep(step - 1)}
+                disabled={isSubmitting}
+                className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
+              >
+                Anterior
+              </button>
+            )}
 
-          {step < 3 ? (
-            <button
-              type="button"
-              onClick={() => {
-                if (validateCurrentStep()) {
-                  setStep(step + 1);
-                }
-              }}
-              className="flex-1 bg-purple-700 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors"
-            >
-              Siguiente
-            </button>
-          ) : (
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="flex-1 bg-purple-700 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors disabled:opacity-50 flex items-center justify-center"
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader size={18} className="animate-spin mr-2" />
-                  <span>Procesando...</span>
-                </>
-              ) : (
-                <span>Realizar Pedido</span>
-              )}
-            </button>
-          )}
-        </div>
+            {step < 3 ? (
+              <button
+                type="button"
+                onClick={() => {
+                  if (validateCurrentStep()) {
+                    setStep(step + 1);
+                  }
+                }}
+                className="flex-1 bg-purple-700 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors"
+              >
+                Siguiente
+              </button>
+            ) : (
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="flex-1 bg-purple-700 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors disabled:opacity-50 flex items-center justify-center"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader size={18} className="animate-spin mr-2" />
+                    <span>Procesando...</span>
+                  </>
+                ) : (
+                  <span>Continuar al pago</span>
+                )}
+              </button>
+            )}
+          </div>
+        )}
       </form>
     </div>
   );

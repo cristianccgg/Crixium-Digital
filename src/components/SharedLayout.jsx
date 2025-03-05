@@ -153,9 +153,9 @@ const Navbar = () => {
               onClick={() => setIsOpen(!isOpen)}
               className={`${
                 isScrolled || !hasHeroBackground
-                  ? "text-gray-600"
-                  : "text-white"
-              } hover:text-gray-900`}
+                  ? "text-coral-400"
+                  : "text-coral-400"
+              } hover:text-white`}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>

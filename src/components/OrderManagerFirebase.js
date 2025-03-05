@@ -191,6 +191,7 @@ export const createOrder = async (formData) => {
       email: formData.email,
       phone: formData.phone || "",
       status: "received", // Possible statuses: received, in-progress, review, completed
+      paymentStatus: formData.paymentStatus || "pending", // Nuevo campo para el estado del pago
       currentStep: 0,
       steps,
       details,
@@ -237,6 +238,68 @@ export const getOrderByNumber = async (orderNumber) => {
   } catch (error) {
     console.error("Error getting order:", error);
     return null;
+  }
+};
+
+/**
+ * Actualiza el estado de pago de una orden
+ * @param {string} orderNumber - El número de orden
+ * @param {string} paymentStatus - El estado del pago ('approved', 'rejected', 'pending')
+ * @returns {Promise<Object>} - Objeto con el resultado de la operación
+ */
+export const updateOrderPaymentStatus = async (orderNumber, paymentStatus) => {
+  try {
+    // Primero encontrar la orden
+    const order = await getOrderByNumber(orderNumber);
+
+    if (!order) {
+      return { success: false, message: "Pedido no encontrado" };
+    }
+
+    // Preparar los datos a actualizar
+    const updateData = {
+      paymentStatus: paymentStatus,
+      lastUpdate: serverTimestamp(),
+    };
+
+    // Si el pago fue aprobado, actualizar también el estado general de la orden
+    if (paymentStatus === "approved") {
+      updateData.status = "in-progress"; // La orden pasa de 'received' a 'in-progress'
+
+      // Avanzar al siguiente paso si corresponde
+      if (order.currentStep === 0) {
+        const updatedSteps = [...order.steps];
+        updatedSteps[0].completed = true;
+        updatedSteps[0].date = new Date().toLocaleDateString();
+        updatedSteps[1].currentStage = true;
+        updateData.steps = updatedSteps;
+        updateData.currentStep = 1;
+      }
+    }
+
+    // Si el pago fue rechazado, marcar la orden como 'payment_failed'
+    if (paymentStatus === "rejected") {
+      updateData.status = "payment_failed";
+    }
+
+    // Usar el ID correcto del documento de Firestore
+    const orderDocRef = doc(db, "orders", order.firebaseId);
+    await updateDoc(orderDocRef, updateData);
+
+    // Obtener el documento actualizado
+    const updatedOrderDoc = await getDoc(orderDocRef);
+
+    return {
+      success: true,
+      order: { firebaseId: updatedOrderDoc.id, ...updatedOrderDoc.data() },
+      message: `Estado de pago actualizado a: ${paymentStatus}`,
+    };
+  } catch (error) {
+    console.error("Error al actualizar el estado de pago:", error);
+    return {
+      success: false,
+      message: `Error al actualizar el estado de pago: ${error.message}`,
+    };
   }
 };
 

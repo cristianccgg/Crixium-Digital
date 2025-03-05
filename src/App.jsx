@@ -8,6 +8,7 @@ import ChatbotAssistant from "./components/ChatbotAssistant";
 import OrderTracking from "./components/OrderTracking";
 import AdminPanel from "./components/AdminPanel";
 import PrivateRoute from "./components/PrivateRoute";
+import PaymentResponseHandler from "./components/payments/PaymentResponseHandler"; // Importar el manejador de respuesta de pago
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        {/* Ruta para manejar respuestas de pago */}
+        <Route path="/payment-response" element={<PaymentResponseHandler />} />
 
         {/* Rutas públicas con layout compartido */}
         <Route
