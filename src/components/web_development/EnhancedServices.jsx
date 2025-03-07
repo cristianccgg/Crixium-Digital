@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Globe, Music2, ChevronRight, Star } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next"; // Importamos useTranslation
+import { useTranslation } from "react-i18next";
 
 const EnhancedServiceCard = ({
   icon: Icon,
@@ -13,6 +13,9 @@ const EnhancedServiceCard = ({
   exploreButtonText,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  // Ensure features is an array
+  const safeFeatures = Array.isArray(features) ? features : [];
 
   return (
     <div
@@ -49,7 +52,7 @@ const EnhancedServiceCard = ({
 
         {/* Feature list */}
         <div className="mb-6">
-          {features.map((feature, index) => (
+          {safeFeatures.map((feature, index) => (
             <div key={index} className="flex items-center mb-2">
               <Star size={14} className="text-yellow-400 mr-2" />
               <span className="text-sm text-gray-700">{feature}</span>
@@ -73,42 +76,69 @@ const EnhancedServiceCard = ({
 };
 
 const EnhancedServices = () => {
-  // Usamos el hook useTranslation con el namespace 'services'
-  const { t } = useTranslation("services");
+  // Use the translation hook with the 'services' namespace
+  const { t, i18n } = useTranslation("services");
 
-  // Obtener datos de traducciones
-  const webTitle = t("web.title");
-  const webDescription = t("web.description");
-  const webFeatures = t("web.features", { returnObjects: true });
+  // Log current language and translations for debugging
+  console.log("Current Language:", i18n.language);
+  console.log("Loaded Namespaces:", i18n.loadedNamespaces);
 
-  const musicTitle = t("music.title");
-  const musicDescription = t("music.description");
-  const musicFeatures = t("music.features", { returnObjects: true });
+  try {
+    // Careful translation retrieval with fallbacks
+    const webTitle = t("web.title", "Web Development");
+    const webDescription = t(
+      "web.description",
+      "Professional web development services"
+    );
+    const webFeatures = t("web.features", {
+      defaultValue: ["Custom Design", "Responsive Layout", "SEO Optimization"],
+    });
 
-  const exploreButtonText = t("exploreButton");
+    const musicTitle = t("music.title", "Music Production");
+    const musicDescription = t(
+      "music.description",
+      "Professional music production services"
+    );
+    const musicFeatures = t("music.features", {
+      defaultValue: ["Studio Recording", "Mixing", "Mastering"],
+    });
 
-  return (
-    <div className="grid md:grid-cols-2 gap-8">
-      <EnhancedServiceCard
-        icon={Globe}
-        title={webTitle}
-        description={webDescription}
-        link="/web-development"
-        color="bg-purple-700"
-        features={webFeatures}
-        exploreButtonText={exploreButtonText}
-      />
-      <EnhancedServiceCard
-        icon={Music2}
-        title={musicTitle}
-        description={musicDescription}
-        link="/music-production"
-        color="bg-purple-800"
-        features={musicFeatures}
-        exploreButtonText={exploreButtonText}
-      />
-    </div>
-  );
+    const exploreButtonText = t("exploreButton", "Explore Services");
+
+    // Log the retrieved translations for debugging
+    console.log("Web Features:", webFeatures);
+    console.log("Music Features:", musicFeatures);
+
+    return (
+      <div className="grid md:grid-cols-2 gap-8">
+        <EnhancedServiceCard
+          icon={Globe}
+          title={webTitle}
+          description={webDescription}
+          link="/web-development"
+          color="bg-purple-700"
+          features={webFeatures}
+          exploreButtonText={exploreButtonText}
+        />
+        <EnhancedServiceCard
+          icon={Music2}
+          title={musicTitle}
+          description={musicDescription}
+          link="/music-production"
+          color="bg-purple-800"
+          features={musicFeatures}
+          exploreButtonText={exploreButtonText}
+        />
+      </div>
+    );
+  } catch (error) {
+    console.error("Error in EnhancedServices:", error);
+    return (
+      <div className="text-red-500 p-8">
+        Error loading services. Please check your translations.
+      </div>
+    );
+  }
 };
 
 export default EnhancedServices;
