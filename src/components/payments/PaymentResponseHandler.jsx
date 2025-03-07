@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Check, AlertCircle, Loader } from "lucide-react";
-import { updateOrderPaymentStatus } from "../OrderManagerFirebase";
+import {
+  updateOrderPaymentStatus,
+  getOrderByNumber,
+} from "../OrderManagerFirebase";
 
 // Esta función toma los parámetros de la URL y los convierte en un objeto
 function useQuery() {
@@ -58,7 +61,13 @@ const PaymentResponseHandler = () => {
 
         // Verificar si tenemos datos de PayU
         if (referenceCode && transactionState) {
-          const reference = referenceCode.split("-")[1]; // Asumiendo formato "ORDER-123456"
+          // Fix: Extraer correctamente el número de pedido del referenceCode
+          // Asumiendo formato "ORDER-{orderNumber}"
+          const orderNumberMatch = referenceCode.match(/ORDER-(.+)/);
+          const reference = orderNumberMatch
+            ? orderNumberMatch[1]
+            : referenceCode;
+
           setOrderNumber(reference);
           setPaymentMethod("payu");
 
@@ -106,6 +115,12 @@ const PaymentResponseHandler = () => {
 
           // Actualizar el estado de la orden en tu base de datos
           await updateOrderPaymentStatus(reference, paymentStatus);
+
+          // Obtener la información actualizada del pedido para mostrar el número correcto
+          const updatedOrder = await getOrderByNumber(reference);
+          if (updatedOrder) {
+            setOrderNumber(updatedOrder.orderNumber);
+          }
 
           setStatus(paymentStatus);
           setMessage(statusMessage);

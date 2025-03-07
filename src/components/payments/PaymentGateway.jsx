@@ -127,6 +127,8 @@ const PaymentGateway = ({ orderData, onSuccess, onBack }) => {
     const apiKey = "4Vj8eK4rloUd272L48hsrarnUA";
     const accountId = "512321";
 
+    // Asegurarse de usar el mismo formato exacto para el referenceCode
+    // Esto es importante para asegurar que la extracción del número de pedido funcione correctamente
     const referenceCode = `ORDER-${orderData.orderNumber}`;
     const description = `Pago por ${orderData.packageDetails.title}`;
     const amount = orderData.total;
@@ -134,6 +136,15 @@ const PaymentGateway = ({ orderData, onSuccess, onBack }) => {
 
     // URL a la que PayU redirigirá después del pago
     const responseUrl = `${window.location.origin}/payment-response`;
+
+    // Almacenar información de referencia en localStorage como respaldo
+    localStorage.setItem(
+      "pendingOrder",
+      JSON.stringify({
+        orderNumber: orderData.orderNumber,
+        referenceCode: referenceCode,
+      })
+    );
 
     // Generar firma
     const signature = generatePayUSignature(
