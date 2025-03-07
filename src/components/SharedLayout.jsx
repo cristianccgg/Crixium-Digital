@@ -11,6 +11,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 // Componente para manejar scroll al top en cambios de ruta
 const ScrollToTop = () => {
@@ -108,7 +109,7 @@ const Navbar = () => {
                 <img
                   src="/bombillo.PNG"
                   alt="bombillo"
-                  className="w-8  md:w-10 lg:w-12"
+                  className="w-8  md:w-10 "
                 />
                 <h1 className="text-coral-400 text-bold text-2xl md:text-md lg:text-3xl">
                   Crixium Digital
@@ -197,6 +198,7 @@ const Navbar = () => {
 };
 
 const CallToAction = () => {
+  const { t } = useTranslation("cta");
   const navigate = useNavigate();
 
   const handleContactClick = (e) => {
@@ -215,18 +217,16 @@ const CallToAction = () => {
   return (
     <section className="py-16 px-4 bg-purple-900 text-white">
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-6">
-          ¿Listo para iniciar tu próximo proyecto?
-        </h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-6">{t("title")}</h2>
         <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
-          Conversemos sobre cómo podemos ayudarte a alcanzar tus objetivos
+          {t("subtitle")}
         </p>
         <a
           href="/contact"
           onClick={handleContactClick}
           className="bg-coral-500 text-white px-8 py-4 rounded-lg hover:bg-coral-600 transition-all duration-300 inline-flex items-center gap-2 font-medium shadow-lg group cursor-pointer"
         >
-          <span>Contactar Ahora</span>
+          <span>{t("button")}</span>
           <ArrowRight
             size={18}
             className="transition-transform duration-300 group-hover:translate-x-1"
@@ -238,6 +238,7 @@ const CallToAction = () => {
 };
 
 const Footer = () => {
+  const { t } = useTranslation("footer");
   const navigate = useNavigate();
 
   const handleContactClick = (e) => {
@@ -252,43 +253,32 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white py-12 px-4">
       <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-8">
-        <div>
-          <h3 className="text-xl font-bold mb-4">CreativeStudio</h3>
-          <p className="text-gray-400">
-            Soluciones creativas para hacer crecer tu negocio
-          </p>
-
-          {/* Botones principales en footer */}
-          <div className="mt-6 space-y-2">
-            <Link
-              to="/web-development"
-              className="flex items-center gap-2 text-gray-300 hover:text-coral-300 transition-colors"
-            >
-              <Globe size={18} />
-              Desarrollo Web
-            </Link>
-            <Link
-              to="/music-production"
-              className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
-            >
-              <Music2 size={18} />
-              Producción Musical
-            </Link>
+        <Link to="/">
+          <div className="flex flex-col items-start">
+            <div className="flex flex-col items-center">
+              <div className="flex gap-2">
+                <img src="/bombillo.PNG" alt="bombillo" className="w-8" />
+                <h1 className="text-coral-400 text-bold text-2xl md:text-md lg:text-3xl">
+                  Crixium Digital
+                </h1>
+              </div>
+              <p className="text-gray-400 ">Bringing Ideas To Life</p>
+            </div>
           </div>
-        </div>
+        </Link>
         <div>
-          <h4 className="font-semibold mb-4">Servicios</h4>
+          <h4 className="font-semibold mb-4">{t("services")}</h4>
           <ul className="space-y-2 text-gray-400">
             <li className="hover:text-white transition-colors">
-              <Link to="/web-development">Sitios Web / Tiendas Online</Link>
+              <Link to="/web-development">{t("web")}</Link>
             </li>
             <li className="hover:text-white transition-colors">
-              <Link to="/music-production">Jingles / Spots de Radio</Link>
+              <Link to="/music-production">{t("music")}</Link>
             </li>
           </ul>
         </div>
         <div>
-          <h4 className="font-semibold mb-4">Contacto</h4>
+          <h4 className="font-semibold mb-4">{t("contact")}</h4>
           <ul className="space-y-2 text-gray-400">
             <li className="hover:text-white transition-colors">
               contact@crixiumdigital.com
@@ -300,13 +290,13 @@ const Footer = () => {
                 onClick={handleContactClick}
                 className="px-4 py-2 bg-purple-700 text-white rounded-lg inline-block hover:bg-purple-800 transition-colors cursor-pointer"
               >
-                Contáctanos
+                {t("button")}
               </a>
             </li>
           </ul>
         </div>
         <div>
-          <h4 className="font-semibold mb-4">Síguenos</h4>
+          <h4 className="font-semibold mb-4">{t("social")}</h4>
           <div className="flex space-x-4">
             {/* Iconos de redes sociales - placeholder */}
             <a
@@ -370,8 +360,7 @@ const Footer = () => {
       </div>
       <div className="max-w-7xl mx-auto border-t border-gray-800 mt-12 pt-8 text-gray-500 text-sm text-center">
         <p>
-          © {new Date().getFullYear()} CreativeStudio. Todos los derechos
-          reservados.
+          © {new Date().getFullYear()} Crixium Digital. {t("rights")}
         </p>
       </div>
     </footer>
