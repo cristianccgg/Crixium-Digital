@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Globe, Music2, ArrowRight, Play, Pause } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import hoodlabImage from "../../assets/web_projects/hoodlab.png";
 import jingleAudio from "../../assets/jingles/AI_United_English.wav";
 import promovideo from "../../assets/jingles/jinglepromo.MP4";
@@ -352,6 +353,10 @@ const FeaturedProject = ({ title, description, media, type, isEven, tags }) => {
 };
 
 const FeaturedProjectsLanding = () => {
+  const { t } = useTranslation("projects");
+
+  console.log("Traducción de proyectos:", t("ourWork"));
+
   return (
     <section className="py-20 px-4 bg-gray-50 relative overflow-hidden">
       {/* Background decoration */}
@@ -364,20 +369,19 @@ const FeaturedProjectsLanding = () => {
         {/* Section header */}
         <div className="text-center mb-16">
           <div className="inline-block px-4 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">
-            Nuestro Trabajo
+            {t("ourWork")}
           </div>
-          <h2 className="text-4xl font-bold mb-4">Proyectos Destacados</h2>
+          <h2 className="text-4xl font-bold mb-4">{t("featuredProjects")}</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Una selección de nuestros mejores trabajos que demuestran nuestro
-            enfoque creativo y técnico.
+            {t("featuredProjectsDescription")}
           </p>
         </div>
 
         {/* Projects list */}
         <div className="space-y-24">
           <FeaturedProject
-            title="The Hood Lab - Tienda Online"
-            description="Desarrollo de tienda en línea con catálogo completo de productos, integración de pagos y panel de administración personalizado. Diseño elegante y experiencia de compra optimizada para incrementar conversiones."
+            title={t("hoodlabTitle")}
+            description={t("hoodlabDescription")}
             media={{
               image: hoodlabImage,
             }}
@@ -387,8 +391,8 @@ const FeaturedProjectsLanding = () => {
           />
 
           <FeaturedProject
-            title="Jingle Corporativo - AI United Inssurance"
-            description="Creación de identidad sonora, incluyendo jingle principal, melodías para espera telefónica y elementos sonoros para plataforma digital. El audio branding refuerza los valores de seguridad y confianza de la institución."
+            title={t("jingleTitle")}
+            description={t("jingleDescription")}
             media={{
               audio: jingleAudio,
             }}
@@ -398,8 +402,8 @@ const FeaturedProjectsLanding = () => {
           />
 
           <FeaturedProject
-            title="Video Promocional - Servicios Musicales"
-            description="Video showcase de nuestros servicios de producción musical, demostrando la calidad y variedad de proyectos que podemos realizar para diferentes tipos de clientes y marcas."
+            title={t("videoTitle")}
+            description={t("videoDescription")}
             media={{
               videoUrl: promovideo,
               poster: fiverr,
@@ -416,7 +420,7 @@ const FeaturedProjectsLanding = () => {
             to="web-development"
             className="group bg-purple-700 text-white px-8 py-4 rounded-lg hover:bg-purple-800 transition-all duration-300 flex items-center gap-2 font-medium shadow-lg"
           >
-            Ver todos los proyectos
+            {t("viewAllProjects")}
             <ArrowRight
               size={18}
               className="transition-transform duration-300 group-hover:translate-x-1"

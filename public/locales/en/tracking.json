@@ -1,0 +1,26 @@
+{
+  "badge": "Unique experience for our clients",
+  "title": {
+    "part1": "Transparent tracking",
+    "part2": "at every stage of the process"
+  },
+  "main-subtitle": "Stay informed about the progress of your project in real time with our exclusive tracking platform.",
+  "features": {
+    "titles": {
+      "first": "Real-time progress",
+      "second": "Direct communication",
+      "third": "Accessible deliveries",
+      "fourth": "Secure and private access"
+    },
+    "descriptions": {
+      "first": "See exactly which stage your project is in and what steps remain to complete it.",
+      "second": "Send feedback, request changes, or ask questions directly from the platform.",
+      "third": "Access and download files and deliveries as they become available.",
+      "fourth": "All your project information is protected, and only you can access it with your order number."
+    }
+  },
+  "button": "Try tracking demo",
+  "testimonial": "'What I liked most about the service was being able to see exactly which stage my project was in. The transparency and constant communication gave me great peace of mind throughout the entire process.'",
+  "name": "Ana Castillo",
+  "position": "Entrepreneur, DECO Decorations"
+}

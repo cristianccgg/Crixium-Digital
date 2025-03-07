@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Globe, Music2, ChevronRight, Code, Star } from "lucide-react";
+import { Globe, Music2, ChevronRight, Star } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next"; // Importamos useTranslation
 
 const EnhancedServiceCard = ({
   icon: Icon,
@@ -9,6 +10,7 @@ const EnhancedServiceCard = ({
   link,
   color,
   features,
+  exploreButtonText,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -59,7 +61,7 @@ const EnhancedServiceCard = ({
           to={link}
           className={`group text-white px-6 py-3 rounded-lg flex items-center text-sm font-medium transition-all duration-300 ${color} hover:opacity-90`}
         >
-          Explorar servicios
+          {exploreButtonText}
           <ChevronRight
             size={18}
             className="ml-1 transition-transform duration-300 group-hover:translate-x-1"
@@ -71,35 +73,39 @@ const EnhancedServiceCard = ({
 };
 
 const EnhancedServices = () => {
+  // Usamos el hook useTranslation con el namespace 'services'
+  const { t } = useTranslation("services");
+
+  // Obtener datos de traducciones
+  const webTitle = t("web.title");
+  const webDescription = t("web.description");
+  const webFeatures = t("web.features", { returnObjects: true });
+
+  const musicTitle = t("music.title");
+  const musicDescription = t("music.description");
+  const musicFeatures = t("music.features", { returnObjects: true });
+
+  const exploreButtonText = t("exploreButton");
+
   return (
     <div className="grid md:grid-cols-2 gap-8">
       <EnhancedServiceCard
         icon={Globe}
-        title="Desarrollo Web"
-        description="Sitios web y tiendas online de alto impacto visual con las tecnologías más avanzadas para garantizar rendimiento óptimo y experiencias memorables."
+        title={webTitle}
+        description={webDescription}
         link="/web-development"
         color="bg-purple-700"
-        features={[
-          "Diseño UI/UX Personalizado",
-          "Optimización para Móviles",
-          "Integración de APIs",
-          "SEO Avanzado",
-          "Mantenimiento Continuo",
-        ]}
+        features={webFeatures}
+        exploreButtonText={exploreButtonText}
       />
       <EnhancedServiceCard
         icon={Music2}
-        title="Producción Musical"
-        description="Creamos la identidad sonora de tu marca con jingles, spots publicitarios y música original que conecta emocionalmente con tu audiencia."
+        title={musicTitle}
+        description={musicDescription}
         link="/music-production"
         color="bg-purple-800"
-        features={[
-          "Jingles Personalizados",
-          "Spots Publicitarios",
-          "Música para Videos",
-          "Audio Branding Completo",
-          "Locución Profesional",
-        ]}
+        features={musicFeatures}
+        exploreButtonText={exploreButtonText}
       />
     </div>
   );

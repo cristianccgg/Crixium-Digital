@@ -10,6 +10,7 @@ import {
   ArrowRight,
   Sparkles,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 // Import images - asegúrate de que las rutas sean correctas
 import emplaw from "../assets/users_pictures/emplaw.webp";
@@ -150,6 +151,7 @@ const ReviewCard = ({ review }) => {
 const LandingReviewsCarousel = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
+  const { t } = useTranslation("reviews");
 
   // Observer para detectar cuando el carrusel está visible
   useEffect(() => {
@@ -174,7 +176,6 @@ const LandingReviewsCarousel = () => {
     };
   }, []);
 
-  // Array de reviews
   const reviews = [
     {
       userName: "Allison Pitman",
@@ -341,14 +342,10 @@ const LandingReviewsCarousel = () => {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">
             <Sparkles size={16} className="text-coral-500" />
-            <span>Testimonios</span>
+            <span>{t("badge")}</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Lo que dicen nuestros clientes
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Clientes satisfechos que confían en nuestros servicios
-          </p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("title")}</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">{t("description")}</p>
         </div>
 
         <Carousel

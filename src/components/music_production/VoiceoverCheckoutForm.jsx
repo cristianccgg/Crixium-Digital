@@ -12,12 +12,15 @@ import {
   Loader,
 } from "lucide-react";
 import { createOrder } from "../OrderManagerFirebase";
+import PaymentGateway from "../payments/PaymentGateway";
 
 const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
+  const [orderCreated, setOrderCreated] = useState(false); // Seguimiento si la orden fue creada
+  const [orderData, setOrderData] = useState(null); // Para almacenar los datos de la orden para el pago
   const [orderNumber, setOrderNumber] = useState("");
   const [error, setError] = useState("");
   const [currentTotal, setCurrentTotal] = useState(
@@ -25,11 +28,11 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
   );
 
   const [formData, setFormData] = useState({
-    // Package details
+    // Detalles del paquete
     package: selectedPackage.id,
     packageDetails: selectedPackage,
     extras: [],
-    // Project details
+    // Detalles del proyecto
     voiceType: "",
     script: "",
     language: "",
@@ -38,11 +41,12 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
     reference: "", // Añadimos este campo para ser consistente
     briefing: "", // Añadimos este campo para evitar undefined
     referenceFiles: [],
-    // Contact info
+    // Información de contacto
     name: "",
     email: "",
     total: parseInt(selectedPackage.price || 0),
   });
+
   const fileInputRef = useRef(null);
 
   // Actualizar el total cuando cambian los extras
@@ -199,7 +203,7 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
 
   const StepIndicator = () => (
     <div className="flex items-center justify-center mb-8">
-      {[1, 2, 3].map((num) => (
+      {[1, 2, 3, 4].map((num) => (
         <div key={num} className="flex items-center">
           <div
             className={`w-8 h-8 rounded-full flex items-center justify-center ${
@@ -210,7 +214,7 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
           >
             {num}
           </div>
-          {num < 3 && (
+          {num < 4 && (
             <div
               className={`w-12 h-1 ${
                 step > num ? "bg-purple-700" : "bg-gray-200"
@@ -430,7 +434,7 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
                       onClick={() => removeFile(file.name)}
                       className="text-red-500 hover:text-red-700 text-sm"
                     >
-                      Eliminar
+                      <X size={16} />
                     </button>
                   </div>
                 ))}
@@ -455,7 +459,7 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
             name="name"
             value={formData.name}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent"
             required
           />
         </div>
@@ -469,13 +473,13 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
             name="email"
             value={formData.email}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent"
             required
           />
         </div>
       </div>
 
-      <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+      <div className="mt-6 p-4 bg-purple-50 rounded-lg">
         <h4 className="font-medium mb-2">Resumen del Pedido</h4>
         <ul className="space-y-2 text-sm">
           <li className="flex justify-between">
@@ -500,6 +504,29 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
     </div>
   );
 
+  // Paso de pago
+  const renderStep4 = () => {
+    if (!orderData) return null;
+
+    return (
+      <PaymentGateway
+        orderData={orderData}
+        onSuccess={handlePaymentSuccess}
+        onBack={handleBackFromPayment}
+      />
+    );
+  };
+
+  // Manejador para cuando el pago se completa exitosamente
+  const handlePaymentSuccess = () => {
+    setOrderComplete(true);
+  };
+
+  // Manejador para volver desde la pasarela de pago
+  const handleBackFromPayment = () => {
+    setStep(3);
+  };
+
   // Componente para mostrar la confirmación del pedido
   const OrderConfirmation = () => (
     <div className="text-center py-8">
@@ -510,7 +537,7 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
       <p className="text-gray-600 mb-6">
         Tu pedido ha sido recibido. Hemos enviado los detalles a tu correo.
       </p>
-      <div className="p-4 bg-blue-50 rounded-lg inline-block mb-6">
+      <div className="p-4 bg-purple-50 rounded-lg inline-block mb-6">
         <p className="text-sm text-gray-700 mb-1">Tu número de pedido es:</p>
         <p className="text-xl font-mono font-bold">{orderNumber}</p>
       </div>
@@ -531,66 +558,82 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
     </div>
   );
 
+  const validateCurrentStep = () => {
+    if (step === 2) {
+      if (!formData.voiceType) {
+        setError("Por favor, selecciona un tipo de voz");
+        return false;
+      }
+      if (!formData.voiceAge) {
+        setError("Por favor, selecciona un rango de edad para la voz");
+        return false;
+      }
+      if (!formData.tone) {
+        setError("Por favor, selecciona un tono de voz");
+        return false;
+      }
+      if (!formData.language) {
+        setError("Por favor, selecciona un idioma");
+        return false;
+      }
+      if (!formData.script.trim()) {
+        setError("El guión o texto a locutar es obligatorio");
+        return false;
+      }
+    } else if (step === 3) {
+      if (!formData.name.trim()) {
+        setError("El nombre es obligatorio");
+        return false;
+      }
+      if (!formData.email.trim()) {
+        setError("El email es obligatorio");
+        return false;
+      }
+      // Validación del email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        setError("Por favor, introduce un email válido");
+        return false;
+      }
+    }
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError("");
 
-    if (
-      step === 2 &&
-      (!formData.voiceType || !formData.voiceAge || !formData.tone)
-    ) {
-      setError("Por favor, completa todos los detalles de la voz");
-      setIsSubmitting(false);
-      return;
-    }
-
-    if (step === 3 && (!formData.name.trim() || !formData.email.trim())) {
-      setError("Por favor, completa todos los campos requeridos");
+    if (!validateCurrentStep()) {
       setIsSubmitting(false);
       return;
     }
 
     try {
-      // En el paso 3, enviamos el formulario
       if (step === 3) {
-        // SOLUCIÓN: Creamos un nuevo objeto con propiedades explícitas type y category
+        // Datos de formulario mejorados para la creación de la orden
         const enhancedFormData = {
           ...formData,
-          reference: formData.reference || "",
-          briefing: formData.script || "",
+          briefing: formData.script || "", // Copiar el script como briefing para mantener consistencia
           packageDetails: {
             ...formData.packageDetails,
-            type: "music", // CLAVE: Forzar el tipo "music"
-            category: "locucion", // CLAVE: Forzar la categoría "locucion"
+            type: "music",
+            category: "locucion",
           },
-          details: {
-            ...formData.details,
-            package: {
-              ...formData.packageDetails,
-              type: "music",
-              category: "locucion",
-            },
-            extras: formData.extras,
-            voiceType: formData.voiceType,
-            voiceAge: formData.voiceAge,
-            tone: formData.tone,
-            language: formData.language,
-            reference: formData.reference || "",
-            briefing: formData.script || "",
-          },
+          paymentStatus: "pending",
         };
 
-        // Usar el objeto mejorado para crear el pedido
+        // Crear la orden
         const result = await createOrder(enhancedFormData);
 
         if (result.success) {
           setOrderNumber(result.orderNumber);
-          setOrderComplete(true);
-
-          console.log(
-            `Email would be sent to ${formData.email} with order number ${result.orderNumber}`
-          );
+          setOrderData({
+            ...enhancedFormData,
+            orderNumber: result.orderNumber,
+          });
+          setOrderCreated(true);
+          setStep(4); // Avanzar al paso de pago
         } else {
           setError(
             result.message ||
@@ -598,7 +641,7 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
           );
         }
       } else {
-        // Si no estamos en el paso final, simplemente avanzamos al siguiente paso
+        // Avanzar al siguiente paso
         setStep((prevStep) => prevStep + 1);
       }
     } catch (error) {
@@ -625,6 +668,8 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
         return renderStep2();
       case 3:
         return renderStep3();
+      case 4:
+        return renderStep4();
       default:
         return null;
     }
@@ -644,35 +689,38 @@ const VoiceoverCheckoutForm = ({ selectedPackage, onCancel }) => {
       <form onSubmit={handleSubmit} className="space-y-8">
         {renderCurrentStep()}
 
-        <div className="flex justify-between gap-4">
-          {step > 1 && (
-            <button
-              type="button"
-              onClick={() => setStep(step - 1)}
-              disabled={isSubmitting}
-              className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
-            >
-              Anterior
-            </button>
-          )}
-
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="flex-1 bg-purple-700 text-white px-6 py-2 rounded-lg hover:bg-coral-400 transition-colors disabled:opacity-50 flex items-center justify-center"
-          >
-            {isSubmitting ? (
-              <>
-                <Loader size={20} className="animate-spin mr-2" />
-                Procesando...
-              </>
-            ) : step < 3 ? (
-              "Siguiente"
-            ) : (
-              "Realizar Pedido"
+        {/* Mostrar botones solo si no estamos en el paso 4 */}
+        {step < 4 && (
+          <div className="flex justify-between gap-4">
+            {step > 1 && (
+              <button
+                type="button"
+                onClick={() => setStep(step - 1)}
+                disabled={isSubmitting}
+                className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
+              >
+                Anterior
+              </button>
             )}
-          </button>
-        </div>
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="flex-1 bg-purple-700 text-white px-6 py-2 rounded-lg hover:bg-coral-400 transition-colors disabled:opacity-50 flex items-center justify-center"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader size={20} className="animate-spin mr-2" />
+                  Procesando...
+                </>
+              ) : step < 3 ? (
+                "Siguiente"
+              ) : (
+                "Continuar al pago"
+              )}
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );

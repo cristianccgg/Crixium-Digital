@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Sparkles, Globe, Music2, Package, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next"; // Importamos useTranslation
 
 const EnhancedHeroSection = () => {
   const [loaded, setLoaded] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const { t } = useTranslation("hero"); // Especificamos que usamos el namespace 'hero'
 
   useEffect(() => {
     setLoaded(true);
@@ -91,13 +93,13 @@ const EnhancedHeroSection = () => {
           >
             <div className="flex w-fit items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-sm font-medium backdrop-blur-sm mb-6">
               <Sparkles size={16} className="text-coral-400" />
-              <span>Servicio único con seguimiento en tiempo real</span>
+              <span>{t("badge")}</span>
             </div>
 
             <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-              Eleva tu Marca con{" "}
+              {t("title.part1")}
               <span className="relative inline-block text-coral-400">
-                Creatividad
+                {t("title.highlight1")}
                 <svg
                   className="absolute -bottom-1 left-0 w-full"
                   height="6"
@@ -111,10 +113,10 @@ const EnhancedHeroSection = () => {
                     fill="none"
                   />
                 </svg>
-              </span>{" "}
-              y{" "}
+              </span>
+              {t("title.and")}
               <span className="relative inline-block text-coral-400">
-                Tecnología
+                {t("title.highlight2")}
                 <svg
                   className="absolute -bottom-1 left-0 w-full"
                   height="6"
@@ -132,8 +134,7 @@ const EnhancedHeroSection = () => {
             </h1>
 
             <p className="text-xl md:text-2xl mb-10 text-purple-100 max-w-lg">
-              Desarrollo web impactante y producción musical de primer nivel
-              para hacer destacar tu negocio.
+              {t("subtitle")}
             </p>
 
             {/* Improved Button Layout - grid with equal sizing and responsive behavior */}
@@ -144,7 +145,7 @@ const EnhancedHeroSection = () => {
               >
                 <span className="absolute inset-0 w-full h-full bg-white/30 transform -translate-x-full transition-transform group-hover:translate-x-0"></span>
                 <Globe size={20} className="relative z-10" />
-                <span className="relative z-10">Desarrollo Web</span>
+                <span className="relative z-10">{t("buttons.web")}</span>
               </Link>
 
               <Link
@@ -153,7 +154,7 @@ const EnhancedHeroSection = () => {
               >
                 <span className="absolute inset-0 w-full h-full bg-white/30 transform -translate-x-full transition-transform group-hover:translate-x-0"></span>
                 <Music2 size={20} className="relative z-10" />
-                <span className="relative z-10">Producción Musical</span>
+                <span className="relative z-10">{t("buttons.music")}</span>
               </Link>
 
               <Link
@@ -162,7 +163,7 @@ const EnhancedHeroSection = () => {
               >
                 <span className="absolute inset-0 w-full h-full bg-white/10 transform -translate-x-full transition-transform group-hover:translate-x-0"></span>
                 <Package size={20} className="relative z-10" />
-                <span className="relative z-10">Ver Ejemplos de Tracking</span>
+                <span className="relative z-10">{t("buttons.tracking")}</span>
               </Link>
             </div>
           </div>
@@ -180,20 +181,22 @@ const EnhancedHeroSection = () => {
               {/* Header */}
               <div className="bg-purple-700 text-white p-3 flex items-center gap-2">
                 <Package size={18} />
-                <h3 className="font-medium">Sistema de Seguimiento</h3>
+                <h3 className="font-medium">{t("trackingPreview.title")}</h3>
               </div>
 
               {/* Body with animated elements */}
               <div className="p-4">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <h4 className="font-semibold">Proyecto #ORD12345</h4>
+                    <h4 className="font-semibold">
+                      {t("trackingPreview.projectId")}
+                    </h4>
                     <p className="text-sm text-gray-600">
-                      Sitio Web Corporativo
+                      {t("trackingPreview.projectType")}
                     </p>
                   </div>
                   <span className="px-2 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-medium">
-                    En Progreso
+                    {t("trackingPreview.status")}
                   </span>
                 </div>
 
@@ -218,8 +221,12 @@ const EnhancedHeroSection = () => {
                         />
                       </svg>
                     </div>
-                    <p className="text-sm font-medium">Diseño Aprobado</p>
-                    <p className="text-xs text-gray-500">Completado 12/02</p>
+                    <p className="text-sm font-medium">
+                      {t("trackingPreview.steps.design.text")}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {t("trackingPreview.steps.design.date")}
+                    </p>
                   </div>
 
                   <div className="relative animate-pulse">
@@ -249,15 +256,21 @@ const EnhancedHeroSection = () => {
                       </svg>
                     </div>
                     <p className="text-sm font-medium text-purple-700">
-                      Desarrollo Frontend
+                      {t("trackingPreview.steps.frontend.text")}
                     </p>
-                    <p className="text-xs text-gray-500">En curso</p>
+                    <p className="text-xs text-gray-500">
+                      {t("trackingPreview.steps.frontend.status")}
+                    </p>
                   </div>
 
                   <div className="relative opacity-50">
                     <div className="absolute left-[-24px] w-5 h-5 rounded-full bg-gray-200"></div>
-                    <p className="text-sm font-medium">Pruebas Finales</p>
-                    <p className="text-xs text-gray-500">Próximamente</p>
+                    <p className="text-sm font-medium">
+                      {t("trackingPreview.steps.testing.text")}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {t("trackingPreview.steps.testing.status")}
+                    </p>
                   </div>
                 </div>
 
@@ -268,7 +281,7 @@ const EnhancedHeroSection = () => {
                 >
                   <span className="absolute inset-0 w-full h-full bg-white/20 transform -translate-x-full transition-transform group-hover:translate-x-0"></span>
                   <span className="relative z-10">
-                    Ver detalles del proyecto
+                    {t("trackingPreview.viewDetails")}
                   </span>
                   <ArrowRight
                     size={14}

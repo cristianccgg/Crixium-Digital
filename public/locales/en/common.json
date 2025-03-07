@@ -1,0 +1,24 @@
+{
+  "nav": {
+    "home": "Home",
+    "web": "Web Development",
+    "music": "Music Production",
+    "tracking": "Order Tracking",
+    "contact": "Contact"
+  },
+  "buttons": {
+    "explore": "Explore services",
+    "viewMore": "View more",
+    "viewAll": "View all",
+    "viewDetails": "View details",
+    "try": "Try demo"
+  },
+  "projectTypes": {
+    "web": "Web Development",
+    "music": "Music Production",
+    "video": "Promotional Video",
+    "jingle": "Jingle",
+    "audioBranding": "Audio Branding",
+    "spot": "Radio Spot"
+  }
+}

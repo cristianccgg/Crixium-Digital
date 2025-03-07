@@ -1,0 +1,36 @@
+{
+  "badge": "Unique service with real-time tracking",
+  "title": {
+    "part1": "Elevate Your Brand with ",
+    "highlight1": "Creativity",
+    "and": " and ",
+    "highlight2": "Technology"
+  },
+  "subtitle": "Impactful web development and top-tier music production to make your business stand out",
+  "buttons": {
+    "web": "Web Development",
+    "music": "Music Production",
+    "tracking": "View Tracking Examples"
+  },
+  "trackingPreview": {
+    "title": "Tracking System",
+    "projectId": "Project #ORD12345",
+    "projectType": "Corporate Website",
+    "status": "In Progress",
+    "steps": {
+      "design": {
+        "text": "Design Approved",
+        "date": "Completed 02/12"
+      },
+      "frontend": {
+        "text": "Frontend Development",
+        "status": "In progress"
+      },
+      "testing": {
+        "text": "Final Testing",
+        "status": "Coming soon"
+      }
+    },
+    "viewDetails": "View project details"
+  }
+}

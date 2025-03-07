@@ -1,0 +1,46 @@
+{
+  "ourWork": "Our Work",
+  "featuredProjects": "Featured Projects",
+  "featuredProjectsDescription": "A selection of our best work that demonstrates our creative and technical approach.",
+
+  "hoodlabTitle": "The Hood Lab - Online Store",
+  "hoodlabDescription": "Development of an online store with a complete product catalog, payment integration, and custom admin panel. Elegant design and optimized shopping experience to increase conversions.",
+
+  "jingleTitle": "Corporate Jingle - AI United Insurance",
+  "jingleDescription": "Creation of sound identity, including main jingle, melodies for telephone hold, and sound elements for digital platform. Audio branding reinforces the institution's values of security and trust.",
+
+  "videoTitle": "Promotional Video - Music Services",
+  "videoDescription": "Video showcase of our music production services, demonstrating the quality and variety of projects we can carry out for different types of clients and brands.",
+
+  "webDevelopment": "Web Development",
+  "musicProduction": "Music Production",
+  "promotionalVideo": "Promotional Video",
+
+  "viewWebsite": "View website",
+  "viewMoreProjects": "View more projects",
+  "viewAllProjects": "View all projects",
+  "playing": "Playing...",
+
+  "error": "Error",
+  "mediaError": "Error loading media.",
+  "audioError": "Could not play audio",
+  "videoError": "Could not play video",
+  "abortedError": "Operation aborted.",
+  "networkError": "Network error or media not found.",
+  "formatError": "Format not supported.",
+  "protectedError": "Protected content.",
+  "loadError": "Could not load media.",
+
+  "tags": {
+    "wordpress": "WordPress",
+    "woocommerce": "WooCommerce",
+    "customCSS": "Custom CSS",
+    "responsive": "Responsive",
+    "jingle": "Jingle",
+    "audioBranding": "Audio Branding",
+    "production": "Production",
+    "audiovisual": "Audiovisual Production",
+    "promotion": "Promotion",
+    "brandIdentity": "Brand Identity"
+  }
+}

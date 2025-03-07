@@ -12,12 +12,15 @@ import {
   Loader,
 } from "lucide-react";
 import { createOrder } from "../OrderManagerFirebase";
+import PaymentGateway from "../payments/PaymentGateway";
 
 const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
+  const [orderCreated, setOrderCreated] = useState(false); // Track if order has been created
+  const [orderData, setOrderData] = useState(null); // To store order data for payment
   const [orderNumber, setOrderNumber] = useState("");
   const [currentTotal, setCurrentTotal] = useState(
     parseInt(selectedPackage.price || 0)
@@ -163,7 +166,7 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
 
   const StepIndicator = () => (
     <div className="flex items-center justify-center mb-8">
-      {[1, 2, 3].map((num) => (
+      {[1, 2, 3, 4].map((num) => (
         <div key={num} className="flex items-center">
           <div
             className={`w-8 h-8 rounded-full flex items-center justify-center ${
@@ -174,7 +177,7 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
           >
             {num}
           </div>
-          {num < 3 && (
+          {num < 4 && (
             <div
               className={`w-12 h-1 ${
                 step > num ? "bg-purple-700" : "bg-gray-200"
@@ -417,6 +420,29 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
     </div>
   );
 
+  // Payment step
+  const renderStep4 = () => {
+    if (!orderData) return null;
+
+    return (
+      <PaymentGateway
+        orderData={orderData}
+        onSuccess={handlePaymentSuccess}
+        onBack={handleBackFromPayment}
+      />
+    );
+  };
+
+  // Handler for payment success
+  const handlePaymentSuccess = () => {
+    setOrderComplete(true);
+  };
+
+  // Handler to go back from payment
+  const handleBackFromPayment = () => {
+    setStep(3);
+  };
+
   // Componente para mostrar la confirmación del pedido
   const OrderConfirmation = () => (
     <div className="text-center py-8">
@@ -448,47 +474,69 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
     </div>
   );
 
+  const validateCurrentStep = () => {
+    if (step === 2) {
+      if (!formData.voiceType) {
+        setError("Por favor, selecciona un tipo de voz");
+        return false;
+      }
+      if (!formData.briefing.trim()) {
+        setError("El brief creativo es obligatorio");
+        return false;
+      }
+    } else if (step === 3) {
+      if (!formData.name.trim()) {
+        setError("El nombre es obligatorio");
+        return false;
+      }
+      if (!formData.email.trim()) {
+        setError("El email es obligatorio");
+        return false;
+      }
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        setError("Por favor, introduce un email válido");
+        return false;
+      }
+    }
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError("");
 
-    if (formData.voiceType === "" && step === 2) {
-      setError("Por favor, selecciona un tipo de voz");
-      setIsSubmitting(false);
-      return;
-    }
-
-    if (step === 3 && (!formData.name.trim() || !formData.email.trim())) {
-      setError("Por favor, completa todos los campos requeridos");
+    if (!validateCurrentStep()) {
       setIsSubmitting(false);
       return;
     }
 
     try {
-      // En el paso 3, enviamos el formulario
       if (step === 3) {
-        // SOLUCIÓN: Creamos un nuevo objeto para enviar, con las propiedades type y category explícitas
+        // Enhanced form data for order creation
         const enhancedFormData = {
           ...formData,
           packageDetails: {
             ...formData.packageDetails,
-            type: "music", // CLAVE: Establecer explícitamente para forzar MUSIC-
-            category: "jingle", // CLAVE: Establecer explícitamente para forzar MUSIC-
+            type: "music",
+            category: "jingle",
           },
+          paymentStatus: "pending",
         };
 
-        // Utilizar la versión Firebase para crear el pedido con el objeto mejorado
+        // Create the order
         const result = await createOrder(enhancedFormData);
 
         if (result.success) {
           setOrderNumber(result.orderNumber);
-          setOrderComplete(true);
-
-          // En un entorno real, aquí enviarías un correo electrónico al cliente
-          console.log(
-            `Email would be sent to ${formData.email} with order number ${result.orderNumber}`
-          );
+          setOrderData({
+            ...enhancedFormData,
+            orderNumber: result.orderNumber,
+          });
+          setOrderCreated(true);
+          setStep(4); // Move to payment step
         } else {
           setError(
             result.message ||
@@ -496,7 +544,7 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
           );
         }
       } else {
-        // Si no estamos en el paso final, simplemente avanzamos al siguiente paso
+        // Move to the next step
         setStep((prevStep) => prevStep + 1);
       }
     } catch (error) {
@@ -523,6 +571,8 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
         return renderStep2();
       case 3:
         return renderStep3();
+      case 4:
+        return renderStep4();
       default:
         return null;
     }
@@ -542,35 +592,38 @@ const JingleCheckoutForm = ({ selectedPackage, onCancel }) => {
       <form onSubmit={handleSubmit} className="space-y-8">
         {renderCurrentStep()}
 
-        <div className="flex justify-between gap-4">
-          {step > 1 && (
-            <button
-              type="button"
-              onClick={() => setStep(step - 1)}
-              disabled={isSubmitting}
-              className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
-            >
-              Anterior
-            </button>
-          )}
-
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="flex-1 bg-purple-700 text-white px-6 py-2 rounded-lg hover:bg-coral-400 transition-colors disabled:opacity-50 flex items-center justify-center"
-          >
-            {isSubmitting ? (
-              <>
-                <Loader size={20} className="animate-spin mr-2" />
-                Procesando...
-              </>
-            ) : step < 3 ? (
-              "Siguiente"
-            ) : (
-              "Realizar Pedido"
+        {/* Show buttons only if not in step 4 */}
+        {step < 4 && (
+          <div className="flex justify-between gap-4">
+            {step > 1 && (
+              <button
+                type="button"
+                onClick={() => setStep(step - 1)}
+                disabled={isSubmitting}
+                className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
+              >
+                Anterior
+              </button>
             )}
-          </button>
-        </div>
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="flex-1 bg-purple-700 text-white px-6 py-2 rounded-lg hover:bg-coral-400 transition-colors disabled:opacity-50 flex items-center justify-center"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader size={20} className="animate-spin mr-2" />
+                  Procesando...
+                </>
+              ) : step < 3 ? (
+                "Siguiente"
+              ) : (
+                "Continuar al pago"
+              )}
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );

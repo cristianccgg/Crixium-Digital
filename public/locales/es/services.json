@@ -1,0 +1,25 @@
+{
+  "web": {
+    "title": "Desarrollo Web",
+    "description": "Sitios web y tiendas online de alto impacto visual con las tecnologías más avanzadas para garantizar rendimiento óptimo y experiencias memorables.",
+    "features": [
+      "Diseño UI/UX Personalizado",
+      "Optimización para Móviles",
+      "Integración de APIs",
+      "SEO Avanzado",
+      "Mantenimiento Continuo"
+    ]
+  },
+  "music": {
+    "title": "Producción Musical",
+    "description": "Creamos la identidad sonora de tu marca con jingles, spots publicitarios y música original que conecta emocionalmente con tu audiencia.",
+    "features": [
+      "Jingles Personalizados",
+      "Spots Publicitarios",
+      "Música para Videos",
+      "Audio Branding Completo",
+      "Locución Profesional"
+    ]
+  },
+  "exploreButton": "Explorar servicios"
+}

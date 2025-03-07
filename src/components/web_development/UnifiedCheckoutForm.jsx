@@ -746,7 +746,7 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
 
   const StepIndicator = () => (
     <div className="flex items-center justify-center mb-8">
-      {[1, 2, 3].map((num) => (
+      {[1, 2, 3, 4].map((num) => (
         <div key={num} className="flex items-center">
           <div
             className={`w-8 h-8 rounded-full flex items-center justify-center ${
@@ -757,7 +757,7 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
           >
             {num}
           </div>
-          {num < 3 && (
+          {num < 4 && (
             <div
               className={`w-12 h-1 ${
                 step > num ? "bg-purple-700" : "bg-gray-200"

@@ -1,0 +1,46 @@
+{
+  "ourWork": "Nuestro Trabajo",
+  "featuredProjects": "Proyectos Destacados",
+  "featuredProjectsDescription": "Una selección de nuestros mejores trabajos que demuestran nuestro enfoque creativo y técnico.",
+
+  "hoodlabTitle": "The Hood Lab - Tienda Online",
+  "hoodlabDescription": "Desarrollo de tienda en línea con catálogo completo de productos, integración de pagos y panel de administración personalizado. Diseño elegante y experiencia de compra optimizada para incrementar conversiones.",
+
+  "jingleTitle": "Jingle Corporativo - AI United Inssurance",
+  "jingleDescription": "Creación de identidad sonora, incluyendo jingle principal, melodías para espera telefónica y elementos sonoros para plataforma digital. El audio branding refuerza los valores de seguridad y confianza de la institución.",
+
+  "videoTitle": "Video Promocional - Servicios Musicales",
+  "videoDescription": "Video showcase de nuestros servicios de producción musical, demostrando la calidad y variedad de proyectos que podemos realizar para diferentes tipos de clientes y marcas.",
+
+  "webDevelopment": "Desarrollo Web",
+  "musicProduction": "Producción Musical",
+  "promotionalVideo": "Video Promocional",
+
+  "viewWebsite": "Ver pagina web",
+  "viewMoreProjects": "Ver más proyectos",
+  "viewAllProjects": "Ver todos los proyectos",
+  "playing": "Reproduciendo...",
+
+  "error": "Error",
+  "mediaError": "Error al cargar el medio.",
+  "audioError": "No se pudo reproducir el audio",
+  "videoError": "No se pudo reproducir el video",
+  "abortedError": "Operación abortada.",
+  "networkError": "Error de red o medio no encontrado.",
+  "formatError": "Formato no soportado.",
+  "protectedError": "Contenido protegido.",
+  "loadError": "No se pudo cargar el medio.",
+
+  "tags": {
+    "wordpress": "WordPress",
+    "woocommerce": "WooCommerce",
+    "customCSS": "Custom CSS",
+    "responsive": "Responsive",
+    "jingle": "Jingle",
+    "audioBranding": "Audio Branding",
+    "production": "Producción",
+    "audiovisual": "Producción Audiovisual",
+    "promotion": "Promoción",
+    "brandIdentity": "Identidad de Marca"
+  }
+}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next"; // Importamos useTranslation
 import {
   Code,
   Layout,
@@ -50,6 +51,7 @@ const TechBadge = ({ name, icon: Icon, delay }) => {
 };
 
 const TechnologiesSection = () => {
+  const { t } = useTranslation("technologies"); // Especificamos que usamos el namespace 'technologies'
   const [isVisible, setIsVisible] = useState(false);
   const [ref, setRef] = useState(null);
 
@@ -108,13 +110,10 @@ const TechnologiesSection = () => {
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="text-center mb-16">
           <div className="inline-block px-4 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">
-            Stack Tecnológico
+            {t("techStack")}
           </div>
-          <h2 className="text-4xl font-bold mb-4">Tecnologías de Vanguardia</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Utilizamos las herramientas más modernas y eficientes para crear
-            experiencias web excepcionales
-          </p>
+          <h2 className="text-4xl font-bold mb-4">{t("title")}</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">{t("description")}</p>
         </div>
 
         <div
@@ -126,7 +125,7 @@ const TechnologiesSection = () => {
           <div className="mb-16">
             <h3 className="text-xl font-bold mb-8 text-center">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-700 to-purple-500">
-                Desarrollo Frontend
+                {t("frontendTitle")}
               </span>
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -145,7 +144,7 @@ const TechnologiesSection = () => {
           <div className="mb-16">
             <h3 className="text-xl font-bold mb-8 text-center">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-700 to-purple-500">
-                Plataformas CMS
+                {t("cmsTitle")}
               </span>
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -164,7 +163,7 @@ const TechnologiesSection = () => {
           <div>
             <h3 className="text-xl font-bold mb-8 text-center">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-700 to-purple-500">
-                Especialidades
+                {t("specialtiesTitle")}
               </span>
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">

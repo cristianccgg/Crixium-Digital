@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Package, CheckCircle, Clock, ArrowRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const TrackingPreview = () => {
+  const { t } = useTranslation("tracking-preview");
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
 
@@ -42,16 +44,18 @@ const TrackingPreview = () => {
         <div className="flex items-center mb-2">
           <Package size={18} className="mr-2" />
           <span className="text-sm font-medium">
-            Pedido #{demoOrder.number}
+            {t("pedido")} #{demoOrder.number}
           </span>
         </div>
         <h3 className="text-xl font-bold">{demoOrder.title}</h3>
-        <p className="text-sm text-purple-100">Cliente: {demoOrder.client}</p>
+        <p className="text-sm text-purple-100">
+          {t("client")}: {demoOrder.client}
+        </p>
       </div>
 
       {/* Timeline demo */}
       <div className="p-6">
-        <h4 className="font-semibold mb-4">Progreso del proyecto</h4>
+        <h4 className="font-semibold mb-4">{t("progreso")}</h4>
         <div className="relative">
           {demoOrder.steps.map((step, index) => (
             <div

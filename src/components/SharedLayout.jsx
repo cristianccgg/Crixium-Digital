@@ -10,6 +10,7 @@ import {
   ScanSearch,
   ArrowRight,
 } from "lucide-react";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 // Componente para manejar scroll al top en cambios de ruta
 const ScrollToTop = () => {
@@ -145,6 +146,7 @@ const Navbar = () => {
               <MessageSquare size={14} className="md:mr-0.5 lg:mr-1" />
               Contactar
             </a>
+            <LanguageSwitcher />
           </div>
 
           {/* Mobile menu button */}

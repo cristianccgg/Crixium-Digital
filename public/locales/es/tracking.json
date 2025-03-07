@@ -1,0 +1,26 @@
+{
+  "badge": "Experiencia única para nuestros clientes",
+  "title": {
+    "part1": "Seguimiento transparente",
+    "part2": "en cada etapa del proceso"
+  },
+  "main-subtitle": "Mantente informado sobre el progreso de tu proyecto en tiempo real con nuestra plataforma exclusiva de seguimiento.",
+  "features": {
+    "titles": {
+      "first": "Progreso en tiempo real",
+      "second": "Comunicación directa",
+      "third": "Entregas accesibles",
+      "fourth": "Acceso seguro y privado"
+    },
+    "descriptions": {
+      "first": "Visualiza exactamente en qué etapa está tu proyecto y qué pasos faltan para completarlo.",
+      "second": "Envía comentarios, solicita cambios o haz preguntas directamente desde la plataforma.",
+      "third": "Accede y descarga los archivos y entregas a medida que estén disponibles.",
+      "fourth": "Toda la información de tu proyecto está protegida y solo tú puedes acceder con tu número de orden."
+    }
+  },
+  "button": "Probar demo de seguimiento",
+  "testimonial": "'Lo que más me gustó del servicio fue poder ver exactamente en qué etapa estaba mi proyecto. La transparencia y comunicación constante me dieron mucha tranquilidad durante todo el proceso.'",
+  "name": "Ana Castillo",
+  "position": "Emprendedora, Decoraciones DECO"
+}

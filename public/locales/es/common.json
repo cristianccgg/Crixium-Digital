@@ -1,0 +1,24 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "web": "Desarrollo Web",
+    "music": "Producción Musical",
+    "tracking": "Seguimiento",
+    "contact": "Contacto"
+  },
+  "buttons": {
+    "explore": "Explorar servicios",
+    "viewMore": "Ver más",
+    "viewAll": "Ver todos",
+    "viewDetails": "Ver detalles",
+    "try": "Probar demo"
+  },
+  "projectTypes": {
+    "web": "Desarrollo Web",
+    "music": "Producción Musical",
+    "video": "Video Promocional",
+    "jingle": "Jingle",
+    "audioBranding": "Audio Branding",
+    "spot": "Spot de Radio"
+  }
+}
