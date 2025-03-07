@@ -2,5 +2,12 @@
   "pedido": "Pedido",
   "title": "Página Web Corporativa",
   "client": "Cliente",
-  "progreso": "Progreso del proyecto"
+  "progreso": "Progreso del proyecto",
+  "example": "Empresa Ejemplo",
+  "reception": "Recepción y Planificación",
+  "design": "Diseño y Prototipo",
+  "development": "Desarrollo Frontend",
+  "prueba": "Pruebas y Ajustes",
+  "delivery": "Entrega Final",
+  "status": "En curso"
 }

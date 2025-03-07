@@ -2,5 +2,12 @@
   "pedido": "Order",
   "title": "Corporate Website",
   "client": "Client",
-  "progreso": "Project Progress"
+  "progreso": "Project Progress",
+  "example": "Example Company",
+  "reception": "Reception and Planning",
+  "design": "Design and Prototype",
+  "development": "Frontend Development",
+  "prueba": "Testing and Adjustments",
+  "delivery": "Final Delivery",
+  "status": "In progress"
 }

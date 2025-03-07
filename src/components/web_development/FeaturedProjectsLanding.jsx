@@ -15,6 +15,7 @@ const FeaturedProject = ({ title, description, media, type, isEven, tags }) => {
   const [error, setError] = useState(null);
   const audioRef = useRef(null);
   const videoRef = useRef(null);
+  const { t } = useTranslation("projects");
 
   // Determinar la ruta según el tipo de proyecto
   const getProjectRoute = () => {
@@ -312,10 +313,10 @@ const FeaturedProject = ({ title, description, media, type, isEven, tags }) => {
         {/* Badge */}
         <div className="absolute -top-3 -left-3 px-4 py-2 bg-purple-700 text-white rounded-lg shadow-lg z-20">
           {type === "web"
-            ? "Desarrollo Web"
+            ? t("webDevelopment")
             : type === "music"
-            ? "Producción Musical"
-            : "Video Promocional"}
+            ? t("musicProduction")
+            : t("promotionalVideo")}
         </div>
       </div>
 
@@ -341,7 +342,7 @@ const FeaturedProject = ({ title, description, media, type, isEven, tags }) => {
           to={getProjectRoute()}
           className="text-purple-700 flex items-center gap-2 font-medium hover:text-purple-900 transition-colors"
         >
-          Ver más proyectos
+          {t("viewMoreProjects")}
           <ArrowRight
             size={18}
             className="transition-transform group-hover:translate-x-1"

@@ -11,20 +11,19 @@ const TrackingPreview = () => {
   // Demo order data
   const demoOrder = {
     number: "ORD12345",
-    title: "Página Web Corporativa",
-    client: "Empresa Ejemplo",
-    status: "in-progress",
+    title: t("title"),
+    client: t("example"),
+    status: t("status"),
     steps: [
       {
-        name: "Recepción y Planificación",
+        name: t("reception"),
         completed: true,
         date: "15/01/2025",
       },
-      { name: "Diseño y Prototipo", completed: true, date: "30/01/2025" },
-      { name: "Desarrollo Frontend", currentStage: true, date: "En curso" },
-      { name: "Desarrollo Backend", completed: false },
-      { name: "Pruebas y Ajustes", completed: false },
-      { name: "Entrega Final", completed: false },
+      { name: t("design"), completed: true, date: "30/01/2025" },
+      { name: t("development"), currentStage: true, date: t("status") },
+      { name: t("prueba"), completed: false },
+      { name: t("delivery"), completed: false },
     ],
   };
 
