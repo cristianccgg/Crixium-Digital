@@ -30,7 +30,7 @@ const LanguageSwitcher = () => {
         className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-coral-400 transition-all duration-300 hover:scale-105"
       >
         <Globe size={16} className="text-white" />
-        <span className="font-medium">{getCurrentLanguageText()}</span>
+        <span className="font-medium text-sm">{getCurrentLanguageText()}</span>
       </button>
 
       {/* Menú desplegable */}

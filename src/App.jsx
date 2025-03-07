@@ -4,11 +4,11 @@ import LandingPage from "./components/LandingPage";
 import MusicProductionPage from "./components/MusicProduccionPage";
 import WebDevelopmentPage from "./components/WebDevelopomentPage";
 import ContactPage from "./components/ContactPage";
-import ChatbotAssistant from "./components/ChatbotAssistant";
+import WhatsAppButton from "./components/WhatsAppButton"; // Importar el nuevo componente
 import OrderTracking from "./components/OrderTracking";
 import AdminPanel from "./components/AdminPanel";
 import PrivateRoute from "./components/PrivateRoute";
-import PaymentResponseHandler from "./components/payments/PaymentResponseHandler"; // Importar el manejador de respuesta de pago
+import PaymentResponseHandler from "./components/payments/PaymentResponseHandler";
 
 function App() {
   return (
@@ -46,7 +46,8 @@ function App() {
                 <Route path="/contact" element={<ContactPage />} />
                 {/* Add more routes as needed */}
               </Routes>
-              <ChatbotAssistant />
+              <WhatsAppButton />{" "}
+              {/* Reemplazar ChatbotAssistant por WhatsAppButton */}
             </Layout>
           }
         />

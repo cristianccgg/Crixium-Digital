@@ -19,6 +19,8 @@ i18n
       "technologies",
       "reviews",
       "tracking",
+      "tracking-landing",
+      "whatsapp",
     ],
     defaultNS: "common",
     backend: {

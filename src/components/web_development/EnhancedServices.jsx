@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Globe, Music2, ChevronRight, Star } from "lucide-react";
+import { Globe, Music2, ChevronRight, Code, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -10,12 +10,9 @@ const EnhancedServiceCard = ({
   link,
   color,
   features,
-  exploreButtonText,
 }) => {
+  const { t } = useTranslation("services");
   const [isHovered, setIsHovered] = useState(false);
-
-  // Ensure features is an array
-  const safeFeatures = Array.isArray(features) ? features : [];
 
   return (
     <div
@@ -52,7 +49,7 @@ const EnhancedServiceCard = ({
 
         {/* Feature list */}
         <div className="mb-6">
-          {safeFeatures.map((feature, index) => (
+          {features.map((feature, index) => (
             <div key={index} className="flex items-center mb-2">
               <Star size={14} className="text-yellow-400 mr-2" />
               <span className="text-sm text-gray-700">{feature}</span>
@@ -64,7 +61,7 @@ const EnhancedServiceCard = ({
           to={link}
           className={`group text-white px-6 py-3 rounded-lg flex items-center text-sm font-medium transition-all duration-300 ${color} hover:opacity-90`}
         >
-          {exploreButtonText}
+          {t("exploreButton")}
           <ChevronRight
             size={18}
             className="ml-1 transition-transform duration-300 group-hover:translate-x-1"
@@ -76,69 +73,40 @@ const EnhancedServiceCard = ({
 };
 
 const EnhancedServices = () => {
-  // Use the translation hook with the 'services' namespace
-  const { t, i18n } = useTranslation("services");
+  const { t } = useTranslation("services");
+  return (
+    <div className="grid md:grid-cols-2 gap-8">
+      <EnhancedServiceCard
+        icon={Globe}
+        title={t("web.title")}
+        description={t("web.description")}
+        link="/web-development"
+        color="bg-purple-700"
+        features={[
+          t("web.features.first"),
+          t("web.features.second"),
+          t("web.features.third"),
+          t("web.features.fourth"),
+          t("web.features.fifth"),
+        ]}
+      />
 
-  // Log current language and translations for debugging
-  console.log("Current Language:", i18n.language);
-  console.log("Loaded Namespaces:", i18n.loadedNamespaces);
-
-  try {
-    // Careful translation retrieval with fallbacks
-    const webTitle = t("web.title", "Web Development");
-    const webDescription = t(
-      "web.description",
-      "Professional web development services"
-    );
-    const webFeatures = t("web.features", {
-      defaultValue: ["Custom Design", "Responsive Layout", "SEO Optimization"],
-    });
-
-    const musicTitle = t("music.title", "Music Production");
-    const musicDescription = t(
-      "music.description",
-      "Professional music production services"
-    );
-    const musicFeatures = t("music.features", {
-      defaultValue: ["Studio Recording", "Mixing", "Mastering"],
-    });
-
-    const exploreButtonText = t("exploreButton", "Explore Services");
-
-    // Log the retrieved translations for debugging
-    console.log("Web Features:", webFeatures);
-    console.log("Music Features:", musicFeatures);
-
-    return (
-      <div className="grid md:grid-cols-2 gap-8">
-        <EnhancedServiceCard
-          icon={Globe}
-          title={webTitle}
-          description={webDescription}
-          link="/web-development"
-          color="bg-purple-700"
-          features={webFeatures}
-          exploreButtonText={exploreButtonText}
-        />
-        <EnhancedServiceCard
-          icon={Music2}
-          title={musicTitle}
-          description={musicDescription}
-          link="/music-production"
-          color="bg-purple-800"
-          features={musicFeatures}
-          exploreButtonText={exploreButtonText}
-        />
-      </div>
-    );
-  } catch (error) {
-    console.error("Error in EnhancedServices:", error);
-    return (
-      <div className="text-red-500 p-8">
-        Error loading services. Please check your translations.
-      </div>
-    );
-  }
+      <EnhancedServiceCard
+        icon={Music2}
+        title="Producción Musical"
+        description="Creamos la identidad sonora de tu marca con jingles, spots publicitarios y música original que conecta emocionalmente con tu audiencia."
+        link="/music-production"
+        color="bg-purple-800"
+        features={[
+          t("music.features.first"),
+          t("music.features.second"),
+          t("music.features.third"),
+          t("music.features.fourth"),
+          t("music.features.fifth"),
+        ]}
+      />
+    </div>
+  );
 };
 
 export default EnhancedServices;

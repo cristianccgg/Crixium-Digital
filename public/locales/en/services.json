@@ -1,17 +1,27 @@
 {
   "web": {
-    "title": "Desarrollo Web",
-    "description": "Servicios profesionales de desarrollo web",
-    "features": [
-      "Diseño Personalizado",
-      "Diseño Responsivo",
-      "Optimización SEO"
-    ]
+    "title": "Web Development",
+    "description": "Websites and online stores with high visual impact using advanced technologies to ensure optimal performance and memorable experiences.",
+
+    "features": {
+      "first": "Custom UI/UX Design",
+      "second": "Mobile Optimization",
+      "third": "API Integration",
+      "fourth": "Advanced SEO",
+      "fifth": "Ongoing Maintenance"
+    }
   },
   "music": {
-    "title": "Producción Musical",
-    "description": "Servicios profesionales de producción musical",
-    "features": ["Grabación en Estudio", "Mezcla", "Masterización"]
+    "title": "Music Production",
+    "description": "We create your brand's sonic identity with jingles, advertising spots, and original music that connects emotionally with your audience.",
+
+    "features": {
+      "first": "Custom Jingles",
+      "second": "Advertising Spots",
+      "third": "Music for Videos",
+      "fourth": "Complete Audio Branding",
+      "fifth": "Professional Voice-over"
+    }
   },
-  "exploreButton": "Explorar Servicios"
+  "exploreButton": "Explore services"
 }
