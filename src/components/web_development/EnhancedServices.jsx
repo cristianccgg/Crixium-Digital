@@ -93,8 +93,8 @@ const EnhancedServices = () => {
 
       <EnhancedServiceCard
         icon={Music2}
-        title="Producción Musical"
-        description="Creamos la identidad sonora de tu marca con jingles, spots publicitarios y música original que conecta emocionalmente con tu audiencia."
+        title={t("music.title")}
+        description={t("music.description")}
         link="/music-production"
         color="bg-purple-800"
         features={[
