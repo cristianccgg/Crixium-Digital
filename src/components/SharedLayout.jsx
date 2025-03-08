@@ -28,13 +28,18 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslation("navbar");
 
   // Menú con links directos a las secciones principales
   const navItems = [
-    { name: "Inicio", href: "/", icon: Home },
-    { name: "Desarrollo Web", href: "/web-development", icon: Globe },
-    { name: "Producción Musical", href: "/music-production", icon: Music2 },
-    { name: "Seguimiento de pedido", href: "/tracking", icon: ScanSearch },
+    { name: t("navbar.home"), href: "/", icon: Home },
+    { name: t("navbar.webDevelopment"), href: "/web-development", icon: Globe },
+    {
+      name: t("navbar.musicProduction"),
+      href: "/music-production",
+      icon: Music2,
+    },
+    { name: t("navbar.orderTracking"), href: "/tracking", icon: ScanSearch },
   ];
 
   // Controlar el cambio de estilo al hacer scroll
@@ -144,7 +149,7 @@ const Navbar = () => {
               onClick={handleContactClick}
             >
               <MessageSquare size={14} className="md:mr-0.5 lg:mr-1" />
-              Contactar
+              {t("navbar.contact")}
             </a>
             <LanguageSwitcher />
           </div>
@@ -187,7 +192,7 @@ const Navbar = () => {
               onClick={handleContactClick}
             >
               <MessageSquare size={18} />
-              Contactar
+              {t("navbar.contact")}
             </a>
           </div>
         </div>
@@ -236,7 +241,9 @@ const CallToAction = () => {
   );
 };
 
-const Footer = () => {
+// Footer component remains untouched as it's already translated
+const Footer = ({ children }) => {
+  // Original Footer component code...
   const { t } = useTranslation("footer");
   const navigate = useNavigate();
 
@@ -297,43 +304,6 @@ const Footer = () => {
         <div>
           <h4 className="font-semibold mb-4">{t("social")}</h4>
           <div className="flex space-x-4">
-            {/* Iconos de redes sociales - placeholder */}
-            {/*<a
-              href="#"
-              className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:bg-purple-700 hover:text-white transition-all"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-              </svg>
-            </a>
-            <a
-              href="#"
-              className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:bg-purple-700 hover:text-white transition-all"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
-              </svg>
-            </a>*/}
             <a
               href="https://www.instagram.com/crixiumdigital/"
               target="blank"

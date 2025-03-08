@@ -1,0 +1,14 @@
+{
+  "navbar": {
+    "home": "Home",
+    "webDevelopment": "Web Development",
+    "musicProduction": "Music Production",
+    "orderTracking": "Order Tracking",
+    "contact": "Contact"
+  },
+  "cta": {
+    "title": "Ready to bring your ideas to life?",
+    "subtitle": "Contact us today to discuss your project and start working on digital solutions that boost your business.",
+    "button": "Contact now"
+  }
+}

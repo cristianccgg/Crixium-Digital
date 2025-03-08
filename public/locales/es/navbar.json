@@ -1,0 +1,14 @@
+{
+  "navbar": {
+    "home": "Inicio",
+    "webDevelopment": "Desarrollo Web",
+    "musicProduction": "Producción Musical",
+    "orderTracking": "Seguimiento de pedido",
+    "contact": "Contactar"
+  },
+  "cta": {
+    "title": "¿Listo para dar vida a tus ideas?",
+    "subtitle": "Contáctanos hoy mismo para discutir tu proyecto y comenzar a trabajar en soluciones digitales que impulsen tu negocio.",
+    "button": "Contactar ahora"
+  }
+}
