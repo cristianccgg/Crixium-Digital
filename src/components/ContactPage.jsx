@@ -21,6 +21,8 @@ const ContactInfoCard = ({ icon: Icon, title, content, link, linkText }) => (
       <div className="text-center">
         <a
           href={link}
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-purple-700 font-medium hover:text-coral-400 group"
         >
           {linkText}
@@ -134,9 +136,9 @@ const ContactPage = () => {
             <ContactInfoCard
               icon={Phone}
               title="Whatsapp"
-              content="+57 313 272 8188"
-              link="tel:+12345678890"
-              linkText="Escribenos ahora"
+              content="+57 321 974 60 45"
+              link="https://wa.me/573219746045?text=Hola,%20me%20gustaría%20obtener%20más%20información%20sobre%20tus%20servicios."
+              linkText="Escríbenos ahora"
             />
 
             <ContactInfoCard
@@ -170,7 +172,7 @@ const ContactPage = () => {
             cualquier otra consulta, no dudes en contactarnos
           </p>
           <a
-            href="https://wa.me/573132728188?text=Hola,%20me%20gustaría%20obtener%20más%20información%20sobre%20tus%20servicios."
+            href="https://wa.me/573219746045?text=Hola,%20me%20gustaría%20obtener%20más%20información%20sobre%20tus%20servicios."
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-white text-purple-900 px-8 py-4 rounded-lg hover:bg-purple-50 transition-all duration-300 hover:shadow-lg transform hover:scale-105 font-medium shadow-md group"

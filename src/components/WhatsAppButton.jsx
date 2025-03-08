@@ -16,7 +16,7 @@ const WhatsAppButton = () => {
 
   const openWhatsApp = () => {
     // Número con código de país (personalizar según ubicación)
-    const phoneNumber = "573132728188";
+    const phoneNumber = "573219746045";
 
     // Mensaje predefinido dinámico según la página
     let message = t("message");

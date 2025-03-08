@@ -13,7 +13,17 @@ import {
 } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "./firebase";
+// Importar el nuevo cliente de email
+import {
+  sendOrderConfirmationEmail,
+  sendOrderStatusEmail,
+} from "../services/EmailClient";
 
+/**
+ * Genera un número de pedido basado en el tipo
+ * @param {string|Object} type - Tipo de pedido
+ * @returns {string} - Número de pedido generado
+ */
 export const generateOrderNumber = (type) => {
   // Improve type detection for music-related services
   const isMusicService =
@@ -31,6 +41,11 @@ export const generateOrderNumber = (type) => {
   return `${prefix}-${year}-${randomNum}`;
 };
 
+/**
+ * Crea un nuevo pedido en Firestore
+ * @param {Object} formData - Datos del formulario de pedido
+ * @returns {Promise<Object>} - Resultado de la operación
+ */
 export const createOrder = async (formData) => {
   try {
     // Better determination of order type - check for music-related types first
@@ -201,11 +216,38 @@ export const createOrder = async (formData) => {
       projectType: formData.projectType || "website", // project type (website, ecommerce)
       createdAt: serverTimestamp(),
       lastUpdate: serverTimestamp(),
+      emailSent: false, // Nuevo campo para rastrear si se ha enviado el correo
     };
 
     // Save to Firestore
     const ordersRef = collection(db, "orders");
     const docRef = await addDoc(ordersRef, newOrder);
+
+    // NUEVO: Enviar correo de confirmación si el pago ya está aprobado
+    // Ahora usa el nuevo cliente de email que se conecta con las Cloud Functions
+    if (formData.paymentStatus === "approved") {
+      try {
+        // Construir la URL de seguimiento
+        const trackingUrl = `${window.location.origin}/tracking?order=${orderNumber}`;
+
+        // Enviar el correo de confirmación
+        const emailResult = await sendOrderConfirmationEmail({
+          ...newOrder,
+          trackingUrl,
+        });
+
+        // Actualizar el documento si el correo se envió correctamente
+        if (emailResult.success) {
+          await updateDoc(doc(db, "orders", docRef.id), {
+            emailSent: true,
+            emailSentDate: new Date().toISOString(),
+          });
+        }
+      } catch (emailError) {
+        console.error("Error al enviar correo de confirmación:", emailError);
+        // No bloqueamos el flujo principal si falla el envío de correo
+      }
+    }
 
     return {
       success: true,
@@ -221,7 +263,11 @@ export const createOrder = async (formData) => {
   }
 };
 
-// Function to find an order by number
+/**
+ * Encuentra un pedido por su número
+ * @param {string} orderNumber - Número de pedido
+ * @returns {Promise<Object|null>} - Pedido encontrado o null
+ */
 export const getOrderByNumber = async (orderNumber) => {
   try {
     const ordersRef = collection(db, "orders");
@@ -282,16 +328,74 @@ export const updateOrderPaymentStatus = async (orderNumber, paymentStatus) => {
       updateData.status = "payment_failed";
     }
 
+    // IMPORTANTE: Si ya está marcado como "emailSent", mantenemos ese estado
+    // para evitar que el trigger de Firebase intente enviar otro correo
+    if (order.emailSent) {
+      updateData.emailSent = true;
+      // También preservamos la fecha de envío si existe
+      if (order.emailSentDate) {
+        updateData.emailSentDate = order.emailSentDate;
+      }
+    }
+
     // Usar el ID correcto del documento de Firestore
     const orderDocRef = doc(db, "orders", order.firebaseId);
     await updateDoc(orderDocRef, updateData);
 
     // Obtener el documento actualizado
     const updatedOrderDoc = await getDoc(orderDocRef);
+    const updatedOrder = {
+      firebaseId: updatedOrderDoc.id,
+      ...updatedOrderDoc.data(),
+    };
+
+    // MODIFICADO: Enviar correo de confirmación solo si el pago fue aprobado y no se ha enviado antes
+    if (paymentStatus === "approved" && !order.emailSent) {
+      try {
+        // Verificar si se ha enviado un correo en los últimos 10 minutos
+        // para evitar duplicados
+        let recentEmail = false;
+        if (order.emailSentDate) {
+          const emailDate = new Date(order.emailSentDate);
+          const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000);
+          recentEmail = emailDate > tenMinutesAgo;
+        }
+
+        if (!recentEmail) {
+          // Construir la URL de seguimiento
+          const trackingUrl = `${window.location.origin}/tracking?order=${orderNumber}`;
+
+          // Enviar el correo de confirmación usando el nuevo cliente
+          const emailResult = await sendOrderConfirmationEmail({
+            ...updatedOrder,
+            trackingUrl,
+          });
+
+          // Marcar que el correo fue enviado si fue exitoso y actualizar el documento
+          if (emailResult.success && !emailResult.alreadySent) {
+            await updateDoc(orderDocRef, {
+              emailSent: true,
+              emailSentDate: new Date().toISOString(),
+            });
+
+            // Actualizar también el objeto updatedOrder para retornarlo
+            updatedOrder.emailSent = true;
+            updatedOrder.emailSentDate = new Date().toISOString();
+          }
+        } else {
+          console.log(
+            "Se detectó un envío reciente de correo, evitando duplicado"
+          );
+        }
+      } catch (emailError) {
+        console.error("Error al enviar correo de confirmación:", emailError);
+        // No bloqueamos el flujo principal si falla el envío de correo
+      }
+    }
 
     return {
       success: true,
-      order: { firebaseId: updatedOrderDoc.id, ...updatedOrderDoc.data() },
+      order: updatedOrder,
       message: `Estado de pago actualizado a: ${paymentStatus}`,
     };
   } catch (error) {
@@ -303,11 +407,19 @@ export const updateOrderPaymentStatus = async (orderNumber, paymentStatus) => {
   }
 };
 
-// Function to manually update an order's status
+/**
+ * Actualiza manualmente el estado de un pedido
+ * @param {string} orderNumber - Número de pedido
+ * @param {string} newStatus - Nuevo estado
+ * @param {number|null} currentStepIndex - Índice del paso actual
+ * @param {boolean} notifyCustomer - Si notificar al cliente
+ * @returns {Promise<Object>} - Resultado de la operación
+ */
 export const updateOrderStatus = async (
   orderNumber,
   newStatus,
-  currentStepIndex = null
+  currentStepIndex = null,
+  notifyCustomer = true
 ) => {
   try {
     // First find the order
@@ -366,6 +478,47 @@ export const updateOrderStatus = async (
       ...updatedOrderDoc.data(),
     };
 
+    // Enviar correo de actualización de estado si se solicitó y hay cambio de estado
+    if (notifyCustomer && order.status !== newStatus && order.email) {
+      try {
+        // Construir la URL de seguimiento
+        const trackingUrl = `${window.location.origin}/tracking?order=${orderNumber}`;
+
+        // Mensaje predeterminado según el estado
+        let statusMessage = "";
+        if (newStatus === "in-progress") {
+          statusMessage =
+            "¡Buenas noticias! Hemos comenzado a trabajar en tu proyecto.";
+        } else if (newStatus === "review") {
+          statusMessage =
+            "Tu proyecto está listo para revisión. Por favor, revisa los detalles en el seguimiento de tu pedido.";
+        } else if (newStatus === "completed") {
+          statusMessage =
+            "¡Tu proyecto ha sido completado! Gracias por confiar en nosotros.";
+        }
+
+        // Enviar correo de actualización usando el nuevo cliente
+        const emailResult = await sendOrderStatusEmail(
+          {
+            ...updatedOrder,
+            trackingUrl,
+          },
+          statusMessage
+        );
+
+        // Actualizar el registro de envío de correo si fue exitoso
+        if (emailResult.success) {
+          await updateDoc(orderDocRef, {
+            lastEmailSent: new Date().toISOString(),
+            lastEmailType: "status_update",
+          });
+        }
+      } catch (emailError) {
+        console.error("Error al enviar correo de actualización:", emailError);
+        // No interrumpir el flujo principal si falla el envío de correo
+      }
+    }
+
     return { success: true, order: updatedOrder };
   } catch (error) {
     console.error("Error updating order status:", error);
@@ -376,7 +529,16 @@ export const updateOrderStatus = async (
   }
 };
 
-// Function to add a comment or delivery to an order
+/**
+ * Agrega un comentario o entrega a un pedido
+ * @param {string} orderNumber - Número de pedido
+ * @param {string} comment - Texto del comentario
+ * @param {boolean} isDelivery - Si es una entrega
+ * @param {File|null} deliveryFile - Archivo de entrega
+ * @param {boolean} fromClient - Si el comentario viene del cliente
+ * @param {string[]} attachmentNames - Nombres de archivos adjuntos
+ * @returns {Promise<Object>} - Resultado de la operación
+ */
 export const addOrderComment = async (
   orderNumber,
   comment,
@@ -448,6 +610,51 @@ export const addOrderComment = async (
       lastUpdate: serverTimestamp(),
     });
 
+    // Si el comentario es del administrador y contiene una entrega o es una actualización importante,
+    // enviar correo al cliente para notificarle
+    if (
+      !fromClient &&
+      (isDelivery || newStatus === "review" || newStatus === "completed")
+    ) {
+      // Solo enviar si tenemos un email al que enviar
+      if (order.email) {
+        try {
+          // Construir la URL de seguimiento
+          const trackingUrl = `${window.location.origin}/tracking?order=${orderNumber}`;
+
+          // Preparar mensaje según el tipo de actualización
+          let message = comment;
+          if (isDelivery) {
+            message =
+              "Hemos subido una entrega para tu revisión. Por favor, revisa los detalles en tu panel de seguimiento.";
+          }
+
+          // Enviar correo de actualización usando el nuevo cliente
+          const emailResult = await sendOrderStatusEmail(
+            {
+              orderNumber,
+              client: order.client,
+              email: order.email,
+              status: newStatus,
+              trackingUrl,
+            },
+            message
+          );
+
+          // Actualizar el registro de envío de correo si fue exitoso
+          if (emailResult.success) {
+            await updateDoc(orderDocRef, {
+              lastEmailSent: new Date().toISOString(),
+              lastEmailType: isDelivery ? "delivery" : "comment",
+            });
+          }
+        } catch (emailError) {
+          console.error("Error al enviar correo de notificación:", emailError);
+          // No interrumpir el flujo principal si falla el envío de correo
+        }
+      }
+    }
+
     return { success: true, comment: newComment };
   } catch (error) {
     console.error("Error adding comment:", error);
@@ -458,7 +665,64 @@ export const addOrderComment = async (
   }
 };
 
-// Function to get all orders (useful for creating an admin panel)
+/**
+ * Envía un correo de notificación al cliente sobre su pedido
+ * @param {string} orderNumber - El número de orden
+ * @param {string} subject - Asunto del correo
+ * @param {string} message - Mensaje personalizado para incluir en el correo
+ * @returns {Promise<Object>} - Resultado de la operación
+ */
+export const sendOrderNotification = async (orderNumber, subject, message) => {
+  try {
+    // Obtener la información de la orden
+    const order = await getOrderByNumber(orderNumber);
+
+    if (!order) {
+      return { success: false, message: "Pedido no encontrado" };
+    }
+
+    if (!order.email) {
+      return { success: false, message: "El pedido no tiene email asociado" };
+    }
+
+    // Construir la URL de seguimiento
+    const trackingUrl = `${window.location.origin}/tracking?order=${orderNumber}`;
+
+    // Enviar correo de notificación usando el nuevo cliente
+    const result = await sendOrderStatusEmail(
+      {
+        orderNumber,
+        client: order.client,
+        email: order.email,
+        status: order.status,
+        trackingUrl,
+      },
+      message
+    );
+
+    // Actualizar el estado de envío de correo en la base de datos si fue exitoso
+    if (result.success) {
+      const orderDocRef = doc(db, "orders", order.firebaseId);
+      await updateDoc(orderDocRef, {
+        lastEmailSent: new Date().toISOString(),
+        lastEmailType: "notification",
+      });
+    }
+
+    return result;
+  } catch (error) {
+    console.error("Error al enviar notificación:", error);
+    return {
+      success: false,
+      message: `Error al enviar correo: ${error.message}`,
+    };
+  }
+};
+
+/**
+ * Obtiene todos los pedidos
+ * @returns {Promise<Array>} - Lista de pedidos
+ */
 export const getAllOrders = async () => {
   try {
     const ordersRef = collection(db, "orders");
@@ -477,7 +741,10 @@ export const getAllOrders = async () => {
   }
 };
 
-// Function to export all orders to a JSON file
+/**
+ * Exporta todos los pedidos a un archivo JSON
+ * @returns {Promise<Object>} - Resultado de la operación
+ */
 export const exportOrdersToJson = async () => {
   try {
     const orders = await getAllOrders();
@@ -504,7 +771,11 @@ export const exportOrdersToJson = async () => {
   }
 };
 
-// Function to import orders from a JSON file
+/**
+ * Importa pedidos desde un archivo JSON
+ * @param {string} jsonData - Datos JSON
+ * @returns {Promise<Object>} - Resultado de la operación
+ */
 export const importOrdersFromJson = async (jsonData) => {
   try {
     const parsedData = JSON.parse(jsonData);
@@ -552,7 +823,13 @@ export const importOrdersFromJson = async (jsonData) => {
   }
 };
 
-// Function to upload files to an order
+/**
+ * Sube archivos a un pedido
+ * @param {string} orderNumber - Número de pedido
+ * @param {File[]} files - Archivos
+ * @param {string} type - Tipo de archivos
+ * @returns {Promise<Object>} - Resultado de la operación
+ */
 export const uploadOrderFiles = async (
   orderNumber,
   files,
@@ -595,4 +872,19 @@ export const uploadOrderFiles = async (
       message: `Error al subir archivos: ${error.message}`,
     };
   }
+};
+
+// Exportar por defecto un objeto con todas las funciones
+export default {
+  generateOrderNumber,
+  createOrder,
+  getOrderByNumber,
+  updateOrderPaymentStatus,
+  updateOrderStatus,
+  addOrderComment,
+  sendOrderNotification,
+  getAllOrders,
+  exportOrdersToJson,
+  importOrdersFromJson,
+  uploadOrderFiles,
 };

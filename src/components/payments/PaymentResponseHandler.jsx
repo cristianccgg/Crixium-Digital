@@ -5,6 +5,7 @@ import {
   updateOrderPaymentStatus,
   getOrderByNumber,
 } from "../OrderManagerFirebase";
+import { sendOrderConfirmationEmail } from "/src/services/EmailClient";
 
 // Esta función toma los parámetros de la URL y los convierte en un objeto
 function useQuery() {
@@ -16,6 +17,7 @@ const PaymentResponseHandler = () => {
   const [orderNumber, setOrderNumber] = useState("");
   const [message, setMessage] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("");
+  const [emailSent, setEmailSent] = useState(false);
   const navigate = useNavigate();
   const query = useQuery();
 
@@ -39,9 +41,49 @@ const PaymentResponseHandler = () => {
             setPaymentMethod("paypal");
 
             // Actualizar el estado de la orden en la base de datos
-            await updateOrderPaymentStatus(reference, "approved");
+            const updateResult = await updateOrderPaymentStatus(
+              reference,
+              "approved"
+            );
 
-            // Limpiar datos de localStorage
+            // Verificar si el correo ya fue enviado anteriormente
+            if (updateResult.success) {
+              // Si la orden ya tiene marcado emailSent como true, no volvemos a enviar
+              if (updateResult.order && updateResult.order.emailSent) {
+                console.log("El correo ya fue enviado anteriormente");
+                setEmailSent(true);
+              } else {
+                // Solo intentar enviar si no se ha enviado antes
+                try {
+                  // Obtener los datos de la orden actualizada
+                  const order = await getOrderByNumber(reference);
+
+                  if (order && order.email) {
+                    // Construir la URL de seguimiento
+                    const trackingUrl = `${window.location.origin}/tracking?order=${reference}`;
+
+                    // Enviar correo de confirmación usando el cliente
+                    const emailResult = await sendOrderConfirmationEmail({
+                      ...order,
+                      trackingUrl,
+                    });
+
+                    // Verificar si el correo se envió o si ya estaba enviado
+                    setEmailSent(
+                      emailResult.success || emailResult.alreadySent
+                    );
+                  }
+                } catch (emailError) {
+                  console.error(
+                    "Error al enviar correo de confirmación:",
+                    emailError
+                  );
+                  // No bloqueamos el flujo si falla el envío de correo
+                }
+              }
+            }
+
+            // Limpiar datos de localStorage - MANTENER ESTAS LIMPIEZAS
             localStorage.removeItem("paypalTransaction");
             localStorage.removeItem("pendingOrder");
           } else {
@@ -83,12 +125,6 @@ const PaymentResponseHandler = () => {
             return;
           }
 
-          // Interpretar el estado de la transacción
-          // Los estados pueden variar según la pasarela de pago
-          // Para PayU:
-          // 4 = Aprobada
-          // 6 = Rechazada
-          // 7 = Pendiente
           let paymentStatus;
           let statusMessage;
 
@@ -114,7 +150,43 @@ const PaymentResponseHandler = () => {
           }
 
           // Actualizar el estado de la orden en tu base de datos
-          await updateOrderPaymentStatus(reference, paymentStatus);
+          const updateResult = await updateOrderPaymentStatus(
+            reference,
+            paymentStatus
+          );
+
+          // Si el pago fue aprobado, verificar si ya se envió correo o si hay que enviarlo
+          if (paymentStatus === "approved" && updateResult.success) {
+            if (updateResult.order && updateResult.order.emailSent) {
+              // Si ya se envió, solo actualizar el estado en la UI
+              setEmailSent(true);
+            } else {
+              // Solo intentar enviar si no se ha enviado antes
+              try {
+                // Obtener los datos de la orden actualizada
+                const order = await getOrderByNumber(reference);
+
+                if (order && order.email) {
+                  // Construir la URL de seguimiento
+                  const trackingUrl = `${window.location.origin}/tracking?order=${reference}`;
+
+                  // Enviar correo de confirmación usando el cliente
+                  const emailResult = await sendOrderConfirmationEmail({
+                    ...order,
+                    trackingUrl,
+                  });
+
+                  setEmailSent(emailResult.success || emailResult.alreadySent);
+                }
+              } catch (emailError) {
+                console.error(
+                  "Error al enviar correo de confirmación:",
+                  emailError
+                );
+                // No bloqueamos el flujo si falla el envío de correo
+              }
+            }
+          }
 
           // Obtener la información actualizada del pedido para mostrar el número correcto
           const updatedOrder = await getOrderByNumber(reference);
@@ -136,11 +208,49 @@ const PaymentResponseHandler = () => {
             if (paymentStatus === "approved") {
               setStatus("approved");
               setMessage("¡Pago exitoso! Tu pedido ha sido aprobado.");
+
               // Actualizar en base de datos
-              await updateOrderPaymentStatus(
+              const updateResult = await updateOrderPaymentStatus(
                 pendingOrder.orderNumber,
                 "approved"
               );
+
+              // Verificar si ya se envió el correo o si hay que enviarlo
+              if (updateResult.success) {
+                if (updateResult.order && updateResult.order.emailSent) {
+                  // Si ya se envió, solo actualizar el estado en la UI
+                  setEmailSent(true);
+                } else {
+                  // Solo intentar enviar si no se ha enviado antes
+                  try {
+                    // Obtener los datos de la orden actualizada
+                    const order = await getOrderByNumber(
+                      pendingOrder.orderNumber
+                    );
+
+                    if (order && order.email) {
+                      // Construir la URL de seguimiento
+                      const trackingUrl = `${window.location.origin}/tracking?order=${pendingOrder.orderNumber}`;
+
+                      // Enviar correo de confirmación usando el cliente
+                      const emailResult = await sendOrderConfirmationEmail({
+                        ...order,
+                        trackingUrl,
+                      });
+
+                      setEmailSent(
+                        emailResult.success || emailResult.alreadySent
+                      );
+                    }
+                  } catch (emailError) {
+                    console.error(
+                      "Error al enviar correo de confirmación:",
+                      emailError
+                    );
+                    // No bloqueamos el flujo si falla el envío de correo
+                  }
+                }
+              }
             } else if (paymentStatus === "canceled") {
               setStatus("rejected");
               setMessage(
@@ -153,7 +263,7 @@ const PaymentResponseHandler = () => {
               );
             }
 
-            // Limpiar localStorage
+            // Limpiar localStorage - MANTENER ESTAS LIMPIEZAS
             localStorage.removeItem("pendingOrder");
             localStorage.removeItem("paymentStatus");
           } else {
@@ -208,6 +318,14 @@ const PaymentResponseHandler = () => {
             </p>
             <p className="text-xl font-mono font-bold">{orderNumber}</p>
           </div>
+          {emailSent && (
+            <div className="p-4 mb-6 bg-blue-50 rounded-lg inline-block">
+              <p className="text-sm text-blue-700">
+                Hemos enviado un correo con los detalles de tu pedido a tu
+                dirección de email.
+              </p>
+            </div>
+          )}
           <button
             onClick={handleRedirect}
             className="bg-purple-700 text-white px-6 py-3 rounded-lg hover:bg-purple-600 transition-colors"

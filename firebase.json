@@ -1,0 +1,16 @@
+{
+  "functions": {
+    "source": "email-functions",
+    "ignore": [
+      "node_modules",
+      ".git",
+      "firebase-debug.log",
+      "firebase-debug.*.log",
+      "*.local"
+    ],
+    "runtime": "nodejs20",
+    "environmentVariables": {
+      "ZOHO_APP_PASSWORD": "${ZOHO_APP_PASSWORD}"
+    }
+  }
+}

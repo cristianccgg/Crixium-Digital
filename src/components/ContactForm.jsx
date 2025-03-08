@@ -475,7 +475,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
               {formData.service === "other" ||
               formData.projectType === "Proyecto Personalizado"
                 ? "Para proyectos personalizados, evaluaremos tu solicitud y te contactaremos con una propuesta adaptada a tus necesidades específicas."
-                : "Te responderemos con una propuesta detallada en menos de 24 horas. Si necesitas asistencia inmediata, escribenos al Whatsapp al +57 313 272 81 88."}
+                : "Te responderemos con una propuesta detallada en menos de 24 horas. Si necesitas asistencia inmediata, escribenos al Whatsapp al +57 321 974 60 45."}
             </p>
           </div>
         </div>
