@@ -13,13 +13,15 @@ import {
   X,
   FileText,
   Music,
-  // Reemplazamos iconos no disponibles por File con variaciones
-  File as FileDocument,
   FileImage,
 } from "lucide-react";
+import { getFunctions, httpsCallable } from "firebase/functions";
 
 const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
   const fileInputRef = useRef(null);
+  const functions = getFunctions();
+  // Referencia a la función de Firebase
+  const sendContactFormEmail = httpsCallable(functions, "sendContactFormEmail");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -29,13 +31,14 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
     projectType: initialProjectType,
     budget: "",
     description: "",
-    referenceFiles: [], // Campo para archivos
+    referenceFiles: [],
   });
 
   const [formStatus, setFormStatus] = useState({
     submitted: false,
     error: false,
     message: "",
+    isLoading: false,
   });
 
   useEffect(() => {
@@ -108,7 +111,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
   const getFileIcon = (fileName) => {
     const extension = fileName.split(".").pop().toLowerCase();
 
-    if (["pdf"].includes(extension)) return FileDocument;
+    if (["pdf"].includes(extension)) return File;
     if (["doc", "docx", "txt", "rtf"].includes(extension)) return FileText;
     if (["mp3", "wav", "ogg", "flac"].includes(extension)) return Music;
     if (["jpg", "jpeg", "png", "gif", "svg"].includes(extension))
@@ -117,29 +120,61 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
     return File;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulación de envío de formulario exitoso
-    console.log("Form submitted:", formData);
 
-    // Simulamos un tiempo de carga
     setFormStatus({
-      submitted: true,
+      submitted: false,
       error: false,
       message: "Procesando tu solicitud...",
+      isLoading: true,
     });
 
-    // Después de 2 segundos, mostramos éxito
-    setTimeout(() => {
-      setFormStatus({
-        submitted: true,
-        error: false,
-        message: "¡Gracias por contactarnos! Te responderemos en breve.",
-      });
-    }, 2000);
+    try {
+      // Preparar los datos para enviar
+      const fileNames = formData.referenceFiles
+        .map((file) => file.name)
+        .join(", ");
 
-    // En un caso real, aquí iría el código para enviar el formulario a tu backend
-    // y manejar errores si los hay
+      // Datos a enviar a Firebase
+      const dataToSend = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || "No proporcionado",
+        service: formData.service,
+        projectType: formData.projectType,
+        budget: formData.budget,
+        description: formData.description,
+        fileNames: fileNames || "Ninguno",
+        // Añadir datos extra útiles
+        timestamp: new Date().toISOString(),
+        source: "contact_form",
+      };
+
+      // Llamar a la Cloud Function
+      const result = await sendContactFormEmail(dataToSend);
+
+      if (result.data.success) {
+        // Éxito
+        setFormStatus({
+          submitted: true,
+          error: false,
+          message: "¡Gracias por contactarnos! Te responderemos en breve.",
+          isLoading: false,
+        });
+      } else {
+        throw new Error(result.data.message || "Error al enviar el correo");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setFormStatus({
+        submitted: false,
+        error: true,
+        message:
+          "Hubo un error al enviar tu mensaje. Por favor, intenta nuevamente o contáctanos directamente por WhatsApp.",
+        isLoading: false,
+      });
+    }
   };
 
   const handleChange = (e) => {
@@ -161,15 +196,15 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
     }
   };
 
-  // Si el formulario se envió exitosamente, mostramos un mensaje de confirmación
-  if (formStatus.submitted && !formStatus.error) {
+  // Si el formulario se envió exitosamente o está procesando, mostramos un mensaje de confirmación
+  if (formStatus.isLoading || (formStatus.submitted && !formStatus.error)) {
     return (
       <div className="max-w-2xl mx-auto p-8 bg-white rounded-xl shadow-lg border border-gray-100">
         <div className="text-center mb-6">
-          {formStatus.message === "Procesando tu solicitud..." ? (
+          {formStatus.isLoading ? (
             <div className="flex flex-col items-center justify-center">
               <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-700 mb-4"></div>
-              <h2 className="text-2xl font-bold">{formStatus.message}</h2>
+              <h2 className="text-2xl font-bold">Procesando tu solicitud...</h2>
               <p className="text-gray-600 mt-2">
                 Esto solo tomará un momento...
               </p>
@@ -194,6 +229,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
                 submitted: false,
                 error: false,
                 message: "",
+                isLoading: false,
               });
               setFormData({
                 name: "",
@@ -215,6 +251,40 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
     );
   }
 
+  // Si hay un error, mostramos el mensaje y permitimos reintentarlo
+  if (formStatus.error) {
+    return (
+      <div className="max-w-2xl mx-auto p-8 bg-white rounded-xl shadow-lg border border-gray-100">
+        <div className="text-center mb-6">
+          <div className="flex flex-col items-center justify-center">
+            <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+              <AlertCircle className="text-red-600" size={32} />
+            </div>
+            <h2 className="text-2xl font-bold">Error al enviar</h2>
+            <p className="text-gray-600 mt-2 max-w-md">{formStatus.message}</p>
+          </div>
+        </div>
+
+        <div className="mt-8 text-center">
+          <button
+            onClick={() => {
+              setFormStatus({
+                submitted: false,
+                error: false,
+                message: "",
+                isLoading: false,
+              });
+            }}
+            className="px-6 py-3 bg-purple-700 text-white rounded-lg hover:bg-coral-400 transition-colors inline-flex items-center gap-2"
+          >
+            Intentar Nuevamente
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Formulario normal
   return (
     <div
       className={`max-w-3xl mx-auto p-8 bg-white rounded-xl shadow-lg border ${
@@ -389,7 +459,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
           />
         </div>
 
-        {/* File Upload Section - Siempre visible */}
+        {/* File Upload Section */}
         <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Referencias o Archivos Adicionales{" "}

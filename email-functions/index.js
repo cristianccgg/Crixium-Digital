@@ -398,3 +398,174 @@ exports.sendGenericEmail = onCall(
     }
   }
 );
+
+/**
+ * Cloud Function para enviar el correo del formulario de contacto
+ */
+exports.sendContactFormEmail = onCall(
+  {
+    maxInstances: 10,
+  },
+  async (data) => {
+    try {
+      const formData = data.data;
+
+      if (!formData || !formData.email || !formData.name) {
+        throw new Error("Datos del formulario incompletos");
+      }
+
+      // Preparar los datos del servicio
+      const serviceLabel =
+        {
+          web: "Desarrollo Web",
+          music: "Producción Musical",
+          other: "Otro Tipo de Proyecto",
+        }[formData.service] || formData.service;
+
+      // Lista de archivos si existen
+      const fileNames = formData.fileNames || "Ninguno";
+
+      // Crear el contenido HTML del correo
+      const htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Nuevo mensaje de contacto</title>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              line-height: 1.6;
+              color: #333;
+              margin: 0;
+              padding: 0;
+            }
+            .container {
+              max-width: 600px;
+              margin: 0 auto;
+              padding: 20px;
+            }
+            .header {
+              background-color: #6b21a8;
+              color: white;
+              padding: 20px;
+              text-align: center;
+            }
+            .content {
+              padding: 20px;
+              background-color: #f9fafb;
+            }
+            .footer {
+              background-color: #f3f4f6;
+              padding: 15px;
+              text-align: center;
+              font-size: 12px;
+              color: #6b7280;
+            }
+            .info-block {
+              background-color: white;
+              border: 1px solid #e5e7eb;
+              border-radius: 5px;
+              padding: 15px;
+              margin-bottom: 15px;
+            }
+            .description {
+              background-color: #f9fafb;
+              border-radius: 5px;
+              padding: 15px;
+              margin-top: 10px;
+              white-space: pre-wrap;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>Nuevo Mensaje de Contacto</h1>
+            </div>
+            <div class="content">
+              <div class="info-block">
+                <h3>Información del cliente</h3>
+                <p><strong>Nombre:</strong> ${formData.name}</p>
+                <p><strong>Email:</strong> ${formData.email}</p>
+                <p><strong>Teléfono:</strong> ${
+                  formData.phone || "No proporcionado"
+                }</p>
+              </div>
+              
+              <div class="info-block">
+                <h3>Detalles del proyecto</h3>
+                <p><strong>Tipo de servicio:</strong> ${serviceLabel}</p>
+                <p><strong>Tipo de proyecto:</strong> ${
+                  formData.projectType || "No especificado"
+                }</p>
+                <p><strong>Presupuesto:</strong> ${formData.budget}</p>
+                <p><strong>Descripción:</strong></p>
+                <div class="description">${formData.description.replace(
+                  /\n/g,
+                  "<br>"
+                )}</div>
+              </div>
+              
+              <div class="info-block">
+                <h3>Archivos adjuntos mencionados</h3>
+                <p>${fileNames}</p>
+                <p><em>(Nota: Los archivos no se adjuntan automáticamente. Para ver los archivos, el cliente deberá enviarlos por separado.)</em></p>
+              </div>
+            </div>
+            <div class="footer">
+              <p>Este mensaje fue enviado desde el formulario de contacto de Crixium Digital.</p>
+              <p>&copy; ${new Date().getFullYear()} Crixium Digital. Todos los derechos reservados.</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `;
+
+      // Enviar correo
+      const mailOptions = {
+        from: {
+          name: "Formulario de Contacto",
+          address: "contact@crixiumdigital.com",
+        },
+        to: "contact@crixiumdigital.com, cristianccggg@gmail.com",
+        subject: `Nuevo contacto: ${serviceLabel} - ${
+          formData.projectType || "Consulta"
+        }`,
+        html: htmlContent,
+        replyTo: formData.email,
+      };
+
+      const info = await transporter.sendMail(mailOptions);
+      console.log(`Correo de contacto enviado. MessageId: ${info.messageId}`);
+
+      // Opcional: guardar el mensaje en Firestore
+      try {
+        await admin
+          .firestore()
+          .collection("contactMessages")
+          .add({
+            ...formData,
+            createdAt: admin.firestore.FieldValue.serverTimestamp(),
+            status: "new",
+          });
+      } catch (firestoreError) {
+        console.error("Error al guardar en Firestore:", firestoreError);
+        // Continuamos aunque falle el guardado en Firestore
+      }
+
+      return {
+        success: true,
+        messageId: info.messageId,
+        message: "Mensaje de contacto enviado correctamente",
+      };
+    } catch (error) {
+      console.error("Error al enviar correo de contacto:", error);
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
+  }
+);
