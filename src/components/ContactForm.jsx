@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { getFunctions, httpsCallable } from "firebase/functions";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "../firebase"; // Asegúrate de importar el storage desde tu configuración de Firebase
+import { storage } from "./firebase"; // Asegúrate de importar el storage desde tu configuración de Firebase
 import { v4 as uuidv4 } from "uuid"; // Si no tienes uuid instalado: npm install uuid
 
 const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
