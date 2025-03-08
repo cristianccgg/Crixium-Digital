@@ -402,6 +402,8 @@ exports.sendGenericEmail = onCall(
 /**
  * Cloud Function para enviar el correo del formulario de contacto
  */
+// Actualización para la función sendContactFormEmail
+
 exports.sendContactFormEmail = onCall(
   {
     maxInstances: 10,
@@ -422,8 +424,43 @@ exports.sendContactFormEmail = onCall(
           other: "Otro Tipo de Proyecto",
         }[formData.service] || formData.service;
 
-      // Lista de archivos si existen
-      const fileNames = formData.fileNames || "Ninguno";
+      // Procesar archivos adjuntos (si existen)
+      const fileDetails = formData.fileDetails || [];
+      let fileLinksHTML = "<p>No se adjuntaron archivos</p>";
+
+      if (fileDetails.length > 0) {
+        fileLinksHTML = '<ul style="list-style-type: none; padding: 0;">';
+        fileDetails.forEach((file) => {
+          // Elegir el icono según el tipo de archivo
+          let iconEmoji = "📄";
+          const fileType = file.type || "";
+          const fileName = file.name || "";
+
+          if (fileType.includes("image/")) iconEmoji = "🖼️";
+          else if (fileType.includes("audio/")) iconEmoji = "🎵";
+          else if (fileType.includes("video/")) iconEmoji = "🎬";
+          else if (fileName.endsWith(".pdf")) iconEmoji = "📑";
+          else if (fileName.endsWith(".doc") || fileName.endsWith(".docx"))
+            iconEmoji = "📝";
+
+          // Añadir enlace con tamaño formateado
+          const sizeKB = Math.round(file.size / 1024);
+          const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+          const sizeText = sizeKB < 1000 ? `${sizeKB} KB` : `${sizeMB} MB`;
+
+          fileLinksHTML += `
+            <li style="margin-bottom: 10px; background-color: #f9f9f9; padding: 10px; border-radius: 5px; display: flex; align-items: center;">
+              <span style="font-size: 1.5rem; margin-right: 10px;">${iconEmoji}</span>
+              <div>
+                <a href="${file.url}" target="_blank" style="color: #6b21a8; text-decoration: underline; font-weight: bold;">
+                  ${file.name}
+                </a>
+                <span style="display: block; font-size: 0.8rem; color: #666;">${sizeText}</span>
+              </div>
+            </li>`;
+        });
+        fileLinksHTML += "</ul>";
+      }
 
       // Crear el contenido HTML del correo
       const htmlContent = `
@@ -477,6 +514,15 @@ exports.sendContactFormEmail = onCall(
               margin-top: 10px;
               white-space: pre-wrap;
             }
+            .btn {
+              display: inline-block;
+              background-color: #6b21a8;
+              color: white;
+              text-decoration: none;
+              padding: 8px 15px;
+              border-radius: 5px;
+              font-weight: 500;
+            }
           </style>
         </head>
         <body>
@@ -509,9 +555,14 @@ exports.sendContactFormEmail = onCall(
               </div>
               
               <div class="info-block">
-                <h3>Archivos adjuntos mencionados</h3>
-                <p>${fileNames}</p>
-                <p><em>(Nota: Los archivos no se adjuntan automáticamente. Para ver los archivos, el cliente deberá enviarlos por separado.)</em></p>
+                <h3>Archivos adjuntos</h3>
+                ${fileLinksHTML}
+              </div>
+              
+              <div style="text-align: center; margin-top: 20px;">
+                <a href="mailto:${
+                  formData.email
+                }" class="btn">Responder al cliente</a>
               </div>
             </div>
             <div class="footer">
@@ -540,13 +591,22 @@ exports.sendContactFormEmail = onCall(
       const info = await transporter.sendMail(mailOptions);
       console.log(`Correo de contacto enviado. MessageId: ${info.messageId}`);
 
-      // Opcional: guardar el mensaje en Firestore
+      // Guardar el mensaje en Firestore incluyendo las URLs de los archivos
       try {
         await admin
           .firestore()
           .collection("contactMessages")
           .add({
-            ...formData,
+            messageId:
+              formData.messageId || admin.firestore.FieldValue.increment(),
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone || "No proporcionado",
+            service: formData.service,
+            projectType: formData.projectType || "No especificado",
+            budget: formData.budget || "No especificado",
+            description: formData.description,
+            fileDetails: fileDetails, // Detalles completos de los archivos
             createdAt: admin.firestore.FieldValue.serverTimestamp(),
             status: "new",
           });

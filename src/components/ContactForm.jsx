@@ -14,13 +14,16 @@ import {
   FileText,
   Music,
   FileImage,
+  Loader,
 } from "lucide-react";
 import { getFunctions, httpsCallable } from "firebase/functions";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../firebase"; // Asegúrate de importar el storage desde tu configuración de Firebase
+import { v4 as uuidv4 } from "uuid"; // Si no tienes uuid instalado: npm install uuid
 
 const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
   const fileInputRef = useRef(null);
   const functions = getFunctions();
-  // Referencia a la función de Firebase
   const sendContactFormEmail = httpsCallable(functions, "sendContactFormEmail");
 
   const [formData, setFormData] = useState({
@@ -39,6 +42,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
     error: false,
     message: "",
     isLoading: false,
+    progress: 0,
   });
 
   useEffect(() => {
@@ -92,9 +96,16 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
   // Manejo de archivos
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
+    // Limitamos el tamaño a 10MB
+    const validFiles = files.filter((file) => file.size <= 10 * 1024 * 1024);
+
+    if (validFiles.length < files.length) {
+      alert("Algunos archivos superan el límite de 10MB y no serán incluidos.");
+    }
+
     setFormData((prev) => ({
       ...prev,
-      referenceFiles: [...prev.referenceFiles, ...files],
+      referenceFiles: [...prev.referenceFiles, ...validFiles],
     }));
   };
 
@@ -120,6 +131,60 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
     return File;
   };
 
+  // Función para subir archivos a Firebase Storage
+  const uploadFilesToStorage = async (files) => {
+    if (!files || files.length === 0) return { urls: [], fileNames: [] };
+
+    // Crear un ID único para el contacto
+    const contactId = uuidv4();
+    const currentDate = new Date();
+    const dateFormatted = currentDate.toISOString().split("T")[0];
+
+    const fileUrls = [];
+    const fileDetails = [];
+
+    setFormStatus((prev) => ({
+      ...prev,
+      message: "Subiendo archivos...",
+      progress: 0,
+    }));
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+
+      // Crear la ruta en Storage
+      const storagePath = `contact-uploads/${
+        formData.service || "general"
+      }/${dateFormatted}/${contactId}/${file.name}`;
+      const storageRef = ref(storage, storagePath);
+
+      // Subir el archivo
+      await uploadBytes(storageRef, file);
+
+      // Obtener la URL
+      const downloadUrl = await getDownloadURL(storageRef);
+
+      // Guardar los detalles del archivo
+      fileUrls.push(downloadUrl);
+      fileDetails.push({
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        url: downloadUrl,
+        path: storagePath,
+      });
+
+      // Actualizar progreso
+      const progress = Math.round(((i + 1) / files.length) * 100);
+      setFormStatus((prev) => ({
+        ...prev,
+        progress,
+      }));
+    }
+
+    return { urls: fileUrls, fileDetails };
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -128,16 +193,21 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
       error: false,
       message: "Procesando tu solicitud...",
       isLoading: true,
+      progress: 0,
     });
 
     try {
-      // Preparar los datos para enviar
-      const fileNames = formData.referenceFiles
-        .map((file) => file.name)
-        .join(", ");
+      // Subir archivos si existen
+      const { fileDetails } = await uploadFilesToStorage(
+        formData.referenceFiles
+      );
 
-      // Datos a enviar a Firebase
+      // Crear un ID único para el mensaje
+      const messageId = uuidv4();
+
+      // Datos para enviar
       const dataToSend = {
+        messageId,
         name: formData.name,
         email: formData.email,
         phone: formData.phone || "No proporcionado",
@@ -145,25 +215,30 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         projectType: formData.projectType,
         budget: formData.budget,
         description: formData.description,
-        fileNames: fileNames || "Ninguno",
-        // Añadir datos extra útiles
+        fileDetails: fileDetails, // Información completa de los archivos
         timestamp: new Date().toISOString(),
         source: "contact_form",
       };
 
+      setFormStatus((prev) => ({
+        ...prev,
+        message: "Enviando formulario...",
+      }));
+
       // Llamar a la Cloud Function
       const result = await sendContactFormEmail(dataToSend);
 
-      if (result.data.success) {
+      if (result.data && result.data.success) {
         // Éxito
         setFormStatus({
           submitted: true,
           error: false,
           message: "¡Gracias por contactarnos! Te responderemos en breve.",
           isLoading: false,
+          progress: 100,
         });
       } else {
-        throw new Error(result.data.message || "Error al enviar el correo");
+        throw new Error(result.data?.message || "Error al enviar el correo");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -173,6 +248,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         message:
           "Hubo un error al enviar tu mensaje. Por favor, intenta nuevamente o contáctanos directamente por WhatsApp.",
         isLoading: false,
+        progress: 0,
       });
     }
   };
@@ -204,9 +280,22 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
           {formStatus.isLoading ? (
             <div className="flex flex-col items-center justify-center">
               <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-700 mb-4"></div>
-              <h2 className="text-2xl font-bold">Procesando tu solicitud...</h2>
+              <h2 className="text-2xl font-bold">{formStatus.message}</h2>
+              {formData.referenceFiles.length > 0 && (
+                <div className="w-full max-w-md mt-4">
+                  <div className="bg-gray-200 rounded-full h-2.5 mb-2">
+                    <div
+                      className="bg-purple-700 h-2.5 rounded-full"
+                      style={{ width: `${formStatus.progress}%` }}
+                    ></div>
+                  </div>
+                  <p className="text-sm text-gray-600">
+                    {formStatus.progress}%
+                  </p>
+                </div>
+              )}
               <p className="text-gray-600 mt-2">
-                Esto solo tomará un momento...
+                Esto puede tomar un momento...
               </p>
             </div>
           ) : (
@@ -230,6 +319,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
                 error: false,
                 message: "",
                 isLoading: false,
+                progress: 0,
               });
               setFormData({
                 name: "",
@@ -273,6 +363,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
                 error: false,
                 message: "",
                 isLoading: false,
+                progress: 0,
               });
             }}
             className="px-6 py-3 bg-purple-700 text-white rounded-lg hover:bg-coral-400 transition-colors inline-flex items-center gap-2"
