@@ -11,61 +11,78 @@ import {
   Database,
 } from "lucide-react";
 import UnifiedCheckoutForm from "./UnifiedCheckoutForm";
+import { useTranslation } from "react-i18next";
+import { packageFeaturesEN } from "../packageFeatures.en";
+import { packageFeaturesES } from "../packageFeatures.es";
 
 // Selector de tipo de proyecto (Web o Ecommerce)
-const ProjectTypeSelector = ({ activeType, onTypeChange }) => (
-  <div className="flex justify-center gap-4 mb-8">
-    <button
-      onClick={() => onTypeChange("website")}
-      className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 transform ${
-        activeType === "website"
-          ? "bg-purple-700 text-white shadow-lg scale-105"
-          : "bg-white text-gray-700 hover:bg-purple-50 hover:text-purple-700 hover:shadow-md border border-gray-200"
-      }`}
-    >
-      <Monitor
-        size={20}
-        className={activeType === "website" ? "animate-pulse" : ""}
-      />
-      <span>Sitio Web</span>
-    </button>
-    <button
-      onClick={() => onTypeChange("ecommerce")}
-      className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 transform ${
-        activeType === "ecommerce"
-          ? "bg-purple-700 text-white shadow-lg scale-105"
-          : "bg-white text-gray-700 hover:bg-purple-50 hover:text-purple-700 hover:shadow-md border border-gray-200"
-      }`}
-    >
-      <ShoppingCart
-        size={20}
-        className={activeType === "ecommerce" ? "animate-pulse" : ""}
-      />
-      <span>Tienda Online</span>
-    </button>
-  </div>
-);
+const ProjectTypeSelector = ({ activeType, onTypeChange }) => {
+  const { t } = useTranslation("pricing-section-web");
+
+  return (
+    <div className="flex justify-center gap-4 mb-8">
+      <button
+        onClick={() => onTypeChange("website")}
+        className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 transform ${
+          activeType === "website"
+            ? "bg-purple-700 text-white shadow-lg scale-105"
+            : "bg-white text-gray-700 hover:bg-purple-50 hover:text-purple-700 hover:shadow-md border border-gray-200"
+        }`}
+      >
+        <Monitor
+          size={20}
+          className={activeType === "website" ? "animate-pulse" : ""}
+        />
+        <span>{t("projectTypes.website")}</span>
+      </button>
+      <button
+        onClick={() => onTypeChange("ecommerce")}
+        className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 transform ${
+          activeType === "ecommerce"
+            ? "bg-purple-700 text-white shadow-lg scale-105"
+            : "bg-white text-gray-700 hover:bg-purple-50 hover:text-purple-700 hover:shadow-md border border-gray-200"
+        }`}
+      >
+        <ShoppingCart
+          size={20}
+          className={activeType === "ecommerce" ? "animate-pulse" : ""}
+        />
+        <span>{t("projectTypes.ecommerce")}</span>
+      </button>
+    </div>
+  );
+};
 
 // Selector de tecnología/plataforma
 const ServiceSelector = ({ activeService, onServiceChange, projectType }) => {
+  const { t } = useTranslation("pricing-section-web");
+
   // Opciones de plataforma basadas en el tipo de proyecto
   const options =
     projectType === "website"
       ? [
-          { id: "wordpress", label: "WordPress", icon: <Globe size={20} /> },
+          {
+            id: "wordpress",
+            label: t("services.wordpress"),
+            icon: <Globe size={20} />,
+          },
           {
             id: "custom",
-            label: "Código Personalizado",
+            label: t("services.custom"),
             icon: <Code size={20} />,
           },
         ]
       : [
           {
             id: "wordpress",
-            label: "WordPress",
+            label: t("services.wordpress"),
             icon: <Globe size={20} />,
           },
-          { id: "shopify", label: "Shopify", icon: <ShoppingCart size={20} /> },
+          {
+            id: "shopify",
+            label: t("services.shopify"),
+            icon: <ShoppingCart size={20} />,
+          },
         ];
 
   return (
@@ -98,6 +115,8 @@ const PricingCard = ({
   isPopular,
   onSelect,
   id,
+  popularText,
+  selectPlanText,
 }) => {
   const [hovering, setHovering] = useState(false);
 
@@ -115,7 +134,7 @@ const PricingCard = ({
         <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
           <span className="bg-gradient-to-r from-purple-700 to-purple-800 text-white px-4 py-1 rounded-full text-sm font-medium flex items-center">
             <Sparkles size={14} className="mr-1 animate-pulse" />
-            Más Popular
+            {popularText}
           </span>
         </div>
       )}
@@ -165,7 +184,7 @@ const PricingCard = ({
             : "bg-purple-50 text-purple-700 hover:bg-purple-700 hover:text-white"
         }`}
       >
-        <span>Seleccionar Plan</span>
+        <span>{selectPlanText}</span>
         <ArrowRight
           size={16}
           className={`transition-transform duration-300 ${
@@ -177,243 +196,8 @@ const PricingCard = ({
   );
 };
 
-// Planes y paquetes para cada tipo y tecnología
-const packages = {
-  website: {
-    wordpress: [
-      {
-        id: "wp-basic",
-        title: "Landing Page",
-        price: "120",
-        delivery: "10 días de entrega",
-        features: [
-          "Diseño profesional responsive",
-          "1 página optimizada",
-          "Formulario de contacto",
-          "Optimización de velocidad",
-          "Integración con redes sociales",
-          "Instalación de plugins básicos",
-          "Diseño adaptado a tu marca",
-          "Entrega lista para publicar",
-        ],
-      },
-      {
-        id: "wp-standard",
-        title: "Sitio Web 3 páginas",
-        price: "250",
-        delivery: "14 días de entrega",
-        features: [
-          "Diseño profesional responsive",
-          "Hasta 3 páginas optimizadas",
-          "Formularios de contacto",
-          "Optimización SEO básica",
-          "Integración con redes sociales",
-          "Diseño adaptado a tu marca",
-          "Entrega lista para publicar",
-        ],
-        isPopular: true,
-      },
-      {
-        id: "wp-premium",
-        title: "Sitio Web Completo",
-        price: "350",
-        delivery: "20 días de entrega",
-        features: [
-          "Diseño profesional responsive",
-          "Hasta 5 páginas optimizadas",
-          "Formularios avanzados",
-          "Optimización SEO completa",
-          "Integración con redes sociales",
-          "Integración con Google Analytics",
-          "Diseño adaptado a tu marca",
-          "Área de blog/noticias",
-          "Panel de administración personalizado",
-          "Capacitación incluida",
-        ],
-      },
-    ],
-    custom: [
-      {
-        id: "custom-basic",
-        title: "Landing Page",
-        price: "150",
-        delivery: "10 días de entrega",
-        features: [
-          "Diseño profesional responsive",
-          "1 página con HTML, CSS y JS",
-          "Formulario de contacto funcional",
-          "Optimización de velocidad",
-          "Integración con redes sociales",
-          "Uso de TailwindCSS",
-          "Animaciones básicas",
-          "Entrega de código fuente",
-        ],
-      },
-      {
-        id: "custom-standard",
-        title: "Sitio Web 3 páginas",
-        price: "280",
-        delivery: "14 días de entrega",
-        features: [
-          "Diseño profesional responsive",
-          "Hasta 3 páginas con HTML, CSS y JS",
-          "Formularios de contacto funcionales",
-          "Optimización de velocidad y SEO",
-          "Integración con redes sociales",
-          "Uso de TailwindCSS",
-          "Animaciones personalizadas básicas",
-          "Código limpio y documentado",
-          "Optimización para dispositivos móviles",
-          "Entrega de código fuente",
-        ],
-        isPopular: true,
-      },
-      {
-        id: "custom-premium",
-        title: "Sitio Web Completo",
-        price: "550",
-        delivery: "20 días de entrega",
-        features: [
-          "Diseño profesional responsive",
-          "Hasta 5 páginas con HTML, CSS y JS",
-          "Formularios avanzados con validación",
-          "Optimización de velocidad y SEO avanzado",
-          "Integración con redes sociales",
-          "Integración con APIs de terceros",
-          "Framework React (opcional)",
-          "Animaciones personalizadas avanzadas",
-          "Código limpio, modular y documentado",
-          "Optimización para todos los dispositivos",
-          "Entrega de código fuente con documentación",
-        ],
-      },
-    ],
-  },
-  ecommerce: {
-    wordpress: [
-      {
-        id: "woo-basic",
-        title: "Tienda Básica",
-        price: "350",
-        delivery: "10 días de entrega",
-        features: [
-          "Hasta 50 productos",
-          "Diseño responsive basado en platilla",
-          "Catálogo de productos",
-          "Carrito de compra",
-          "Pasarela de pago",
-          "Página de inicio y categorías",
-          "Formulario de contacto",
-          "Optimización básica SEO",
-          "Instalación de plugins esenciales",
-        ],
-      },
-      {
-        id: "woo-standard",
-        title: "Tienda Estándar",
-        price: "550",
-        delivery: "15 días de entrega",
-        features: [
-          "Hasta 150 productos",
-          "Diseño profesional responsive",
-          "Catálogo con filtros",
-          "Carrito de compra avanzado",
-          "Pasarelas de pago",
-          "Configuración de envíos básica",
-          "Importación inicial de productos",
-          "Optimización SEO completa",
-          "Cupones y descuentos",
-          "Panel de administración personalizado",
-          "Documentacion incluida",
-        ],
-        isPopular: true,
-      },
-      {
-        id: "woo-premium",
-        title: "Tienda Premium",
-        price: "850",
-        delivery: "21 días de entrega",
-        features: [
-          "Hasta 300 productos",
-          "Diseño premium a medida",
-          "Filtros avanzados de productos",
-          "Múltiples pasarelas de pago",
-          "Configuración de impuestos",
-          "Sistema de envíos completo",
-          "Importación completa de productos",
-          "Sistema de membresías/suscripciones",
-          "Optimización SEO avanzada",
-          "Panel de administración avanzado",
-          "Análisis de velocidad y optimización",
-          "Capacitación en video",
-        ],
-      },
-    ],
-    shopify: [
-      {
-        id: "shopify-basic",
-        title: "Tienda Básica",
-        price: "300",
-        delivery: "7 días de entrega",
-        features: [
-          "Hasta 50 productos",
-          "Tema Shopify optimizado",
-          "Configuración de productos",
-          "Pasarela de pago Shopify",
-          "Configuración de envíos básica",
-          "Página de inicio y colecciones",
-          "Página de contacto",
-          "Optimización básica SEO",
-          "Configuración de dominio",
-          "Nota: No incluye la suscripción mensual a Shopify",
-        ],
-      },
-      {
-        id: "shopify-standard",
-        title: "Tienda Estándar",
-        price: "450",
-        delivery: "12 días de entrega",
-        features: [
-          "Hasta 150 productos",
-          "Personalización avanzada del tema",
-          "Configuración de productos con variantes",
-          "Configuración de envíos avanzada",
-          "Importación inicial de productos",
-          "Configuración de impuestos",
-          "Optimización SEO completa",
-          "Configuración de dominio y correos",
-          "Apps esenciales instaladas y configuradas",
-          "1 hora de capacitación incluida",
-          "Nota: No incluye la suscripción mensual a Shopify",
-        ],
-        isPopular: true,
-      },
-      {
-        id: "shopify-premium",
-        title: "Tienda Premium",
-        price: "750",
-        delivery: "18 días de entrega",
-        features: [
-          "Hasta 300 productos",
-          "Personalización completa del tema",
-          "Diseño personalizado de páginas clave",
-          "Configuración avanzada de productos",
-          "Múltiples pasarelas de pago",
-          "Sistema de envíos completo",
-          "Importación completa de productos con metadatos",
-          "Optimización SEO avanzada",
-          "Integración con redes sociales y marketing",
-          "Apps premium instaladas y configuradas",
-          "Análisis y optimización de conversión",
-          "2 horas de capacitación incluidas",
-          "Nota: No incluye la suscripción mensual a Shopify",
-        ],
-      },
-    ],
-  },
-};
-
 const UnifiedPricingSection = ({ initialService, initialType }) => {
+  const { t, i18n } = useTranslation("pricing-section-web");
   const [projectType, setProjectType] = useState(initialType || "website");
   const [activeService, setActiveService] = useState(
     initialService || "wordpress"
@@ -421,17 +205,49 @@ const UnifiedPricingSection = ({ initialService, initialType }) => {
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [showCheckout, setShowCheckout] = useState(false);
 
+  // Get current locale's package features
+  const getFeatures = () => {
+    const currentLanguage = i18n.language;
+    return currentLanguage.startsWith("es")
+      ? packageFeaturesES
+      : packageFeaturesEN;
+  };
+
   const handlePackageSelect = (packageId) => {
-    const selected = packages[projectType][activeService].find(
-      (pkg) => pkg.id === packageId
+    // Parse packageId to determine type and tier
+    // Format: 'serviceType-tier' (e.g., 'wp-basic', 'custom-premium')
+    const [servicePrefix, tier] = packageId.split("-");
+
+    // Map service prefix to full service name if needed
+    let serviceType = activeService;
+    if (servicePrefix === "woo") {
+      serviceType = "wordpress"; // For WooCommerce
+    } else if (servicePrefix === "wp") {
+      serviceType = "wordpress";
+    }
+
+    // Get features from the correct translation object
+    const features = getFeatures();
+
+    // Get translated info for pricing
+    const translatedInfo = t(
+      `packageBasicInfo.${projectType}.${serviceType}.${tier}`,
+      { returnObjects: true }
     );
 
-    setSelectedPackage({
-      ...selected,
+    const selected = {
+      id: packageId,
+      title: translatedInfo.title,
+      price: translatedInfo.price,
+      delivery: translatedInfo.delivery,
+      tier,
       projectType,
-      serviceType: activeService,
-    });
+      serviceType,
+      features: features[projectType][serviceType][tier],
+      isPopular: tier === "standard",
+    };
 
+    setSelectedPackage(selected);
     setShowCheckout(true);
   };
 
@@ -440,20 +256,46 @@ const UnifiedPricingSection = ({ initialService, initialType }) => {
     setSelectedPackage(null);
   };
 
-  const getSectionTitle = () => {
-    if (projectType === "website") {
-      return "Desarrollo Web";
-    } else {
-      return "Tiendas Online";
-    }
-  };
+  const getPackageOptions = () => {
+    const features = getFeatures();
+    const packageTiers = ["basic", "standard", "premium"];
 
-  const getSectionDescription = () => {
-    if (projectType === "website") {
-      return "Elige la tecnología y plan que mejor se adapte a tus necesidades";
-    } else {
-      return "Elige la plataforma y plan que mejor se adapte a tu negocio";
-    }
+    return packageTiers.map((tier, index) => {
+      // Get features from the translation files
+      const featuresForTier = features[projectType][activeService][tier];
+
+      // Generate ID based on service and tier
+      let id;
+      if (activeService === "wordpress" && projectType === "ecommerce") {
+        id = `woo-${tier}`;
+      } else if (activeService === "wordpress") {
+        id = `wp-${tier}`;
+      } else {
+        id = `${activeService}-${tier}`;
+      }
+
+      // Determine if this package is the popular option (middle one)
+      const isPopular = index === 1;
+
+      // Get translated basic info
+      const translatedInfo = t(
+        `packageBasicInfo.${projectType}.${activeService}.${tier}`,
+        { returnObjects: true }
+      );
+
+      return {
+        id,
+        title: translatedInfo.title,
+        price: translatedInfo.price,
+        delivery: translatedInfo.delivery,
+        features: featuresForTier,
+        isPopular,
+        popularText: isPopular
+          ? translatedInfo.popular ||
+            t("packageBasicInfo.website.wordpress.standard.popular")
+          : "",
+      };
+    });
   };
 
   const getAdviceBanner = () => {
@@ -461,7 +303,7 @@ const UnifiedPricingSection = ({ initialService, initialType }) => {
       return (
         <div className="mt-16 bg-purple-50 p-6 rounded-xl">
           <h3 className="text-xl font-semibold mb-4">
-            Consideraciones importantes
+            {t("ecommerceBanner.title")}
           </h3>
           <ul className="space-y-2">
             <li className="flex items-start">
@@ -469,8 +311,7 @@ const UnifiedPricingSection = ({ initialService, initialType }) => {
                 <Check size={12} />
               </div>
               <span className="text-gray-700">
-                WooCommerce: Los precios no incluyen el costo del hosting, que
-                puede variar entre $5-$30/mes según tus necesidades.
+                {t("ecommerceBanner.points.first")}
               </span>
             </li>
             <li className="flex items-start">
@@ -478,8 +319,7 @@ const UnifiedPricingSection = ({ initialService, initialType }) => {
                 <Check size={12} />
               </div>
               <span className="text-gray-700">
-                Shopify: Los precios no incluyen la suscripción mensual a
-                Shopify (desde $29/mes) ni las comisiones por transacción.
+                {t("ecommerceBanner.points.second")}
               </span>
             </li>
             <li className="flex items-start">
@@ -487,8 +327,7 @@ const UnifiedPricingSection = ({ initialService, initialType }) => {
                 <Check size={12} />
               </div>
               <span className="text-gray-700">
-                Temas premium o plugins adicionales pueden tener costos extra
-                dependiendo de tus necesidades específicas.
+                {t("ecommerceBanner.points.third")}
               </span>
             </li>
           </ul>
@@ -503,11 +342,13 @@ const UnifiedPricingSection = ({ initialService, initialType }) => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <div className="inline-block mb-2 px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
-            Precios Transparentes
+            {t("badge")}
           </div>
-          <h2 className="text-3xl font-bold mb-4">{getSectionTitle()}</h2>
+          <h2 className="text-3xl font-bold mb-4">
+            {t(`sectionTitles.${projectType}`)}
+          </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            {getSectionDescription()}
+            {t(`sectionDescriptions.${projectType}`)}
           </p>
         </div>
 
@@ -529,11 +370,12 @@ const UnifiedPricingSection = ({ initialService, initialType }) => {
             />
 
             <div className="grid md:grid-cols-3 gap-8">
-              {packages[projectType][activeService].map((pkg) => (
+              {getPackageOptions().map((pkg) => (
                 <PricingCard
                   key={pkg.id}
                   {...pkg}
                   onSelect={handlePackageSelect}
+                  selectPlanText={t("buttons.selectPlan")}
                 />
               ))}
             </div>
@@ -550,7 +392,7 @@ const UnifiedPricingSection = ({ initialService, initialType }) => {
                 size={16}
                 className="transform rotate-180 group-hover:-translate-x-1 transition-transform duration-200"
               />
-              <span>Volver a los planes</span>
+              <span>{t("buttons.backToPlans")}</span>
             </button>
             <div className="bg-white p-6 rounded-xl shadow-lg">
               <UnifiedCheckoutForm

@@ -7,6 +7,7 @@ import designo from "../../assets/web_projects/designo.png";
 import clout from "../../assets/web_projects/clout.png";
 import hoodLab from "../../assets/web_projects/hoodlab.png";
 import FB from "../../assets/web_projects/FB.png";
+import { useTranslation } from "react-i18next";
 
 const ProjectCard = ({
   title,
@@ -15,6 +16,7 @@ const ProjectCard = ({
   imageUrl,
   deployUrl,
   repoUrl,
+  viewProjectText,
 }) => (
   <div className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 transform hover:shadow-xl hover:scale-105 hover:border-purple-100 border border-transparent h-full flex flex-col">
     <div className="h-48 bg-gray-200 relative">
@@ -36,7 +38,7 @@ const ProjectCard = ({
             target="_blank"
             rel="noopener noreferrer"
             className="bg-black/70 hover:bg-black p-2 rounded-full text-white flex items-center justify-center"
-            title="Ver proyecto desplegado"
+            title={viewProjectText}
           >
             <ExternalLink size={16} />
           </a>
@@ -64,7 +66,7 @@ const ProjectCard = ({
             rel="noopener noreferrer"
             className="text-purple-700 hover:text-coral-400 text-sm font-medium flex items-center transition-colors duration-300"
           >
-            <span>Ver proyecto</span>
+            <span>{viewProjectText}</span>
             <ExternalLink size={14} className="ml-1" />
           </a>
         )}
@@ -84,6 +86,7 @@ const CarouselIndicator = ({ active, onClick }) => (
 );
 
 const FeaturedProjects = ({ ref }) => {
+  const { t } = useTranslation("featured-projects");
   const [activeSlide, setActiveSlide] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
@@ -92,60 +95,63 @@ const FeaturedProjects = ({ ref }) => {
   const autoplayDelay = 5000; // Tiempo entre slides automáticos (ms)
   const autoplayIntervalRef = useRef(null);
 
-  // Reemplaza estos datos con tus propios proyectos de Vercel
+  // Definimos los techStacks de manera estática ya que no necesitan traducción
+  const hoodlabTechStack = ["Wordpress", "CSS", "Woocomerce"];
+  const designoTechStack = ["React", "TailwindCSS", "Vite"];
+  const evaProTechStack = ["HTML", "TailwindCSS", "JavaScript"];
+  const automateHQTechStack = ["HTML", "TailwindCSS", "JavaScript"];
+  const ciomTechStack = ["HTML", "CSS", "JavaScript"];
+  const cloutTechStack = ["HTML", "TailwindCSS", "JavaScript"];
+  const fbTechStack = ["Wordpress", "CSS", "JavaScript"];
+
+  // Proyectos con traducciones para el título y descripción, pero techStack estático
   const projects = [
     {
-      title: "The Hood Lab Store",
-      description:
-        "Ecommerce para la venta de productos de moda urbana y accesorios",
-      techStack: ["Wordpress", "CSS", "Woocomerce"],
+      title: t("projects.hoodlab.title"),
+      description: t("projects.hoodlab.description"),
+      techStack: hoodlabTechStack,
       deployUrl: "https://thehoodlab.com",
       imageUrl: hoodLab,
     },
     {
-      title: "Designo",
-      description:
-        "Sitio Web de una agencia de diseño que ofrece servicios de diseño web, diseño gráfico y branding",
-      techStack: ["React", "TailwindCSS", "Vite"],
+      title: t("projects.designo.title"),
+      description: t("projects.designo.description"),
+      techStack: designoTechStack,
       deployUrl: "https://designo-website-seven.vercel.app",
       imageUrl: designo,
     },
     {
-      title: "Eva Pro",
-      description:
-        "LMS empresarial diseñado para respaldar incluso los programas de capacitación más exigentes",
-      techStack: ["HTML", "TailwindCSS", "JavaScript"],
+      title: t("projects.evapro.title"),
+      description: t("projects.evapro.description"),
+      techStack: evaProTechStack,
       deployUrl: "https://eva-pro-website.vercel.app",
       imageUrl: EvaPro,
     },
     {
-      title: "Automate HQ",
-      description:
-        "Aplicación para gestionar tareas diarias con inteligencia artificial",
-      techStack: ["HTML", "TailwindCSS", "JavaScript"],
+      title: t("projects.automatehq.title"),
+      description: t("projects.automatehq.description"),
+      techStack: automateHQTechStack,
       deployUrl: "https://automate-hq-website.vercel.app",
       imageUrl: automateHQ,
     },
     {
-      title: "Ciom",
-      description:
-        "Sitio Web que proporciona una solución avanzada para la gestión de indicadores clave de desempeño (KPIs)",
-      techStack: ["HTML", "CSS", "JavaScript"],
+      title: t("projects.ciom.title"),
+      description: t("projects.ciom.description"),
+      techStack: ciomTechStack,
       deployUrl: "https://ciom-website-2.vercel.app",
       imageUrl: ciom,
     },
     {
-      title: "Clout",
-      description:
-        "Plataforma de redes sociales para compartir y descubrir contenido",
-      techStack: ["HTML", "TailwindCSS", "JavaScript"],
+      title: t("projects.clout.title"),
+      description: t("projects.clout.description"),
+      techStack: cloutTechStack,
       deployUrl: "https://clout-website.vercel.app",
       imageUrl: clout,
     },
     {
-      title: "FB Media Digital",
-      description: "Ventas y agendas automatizadas con IA",
-      techStack: ["Wordpress", "CSS", "JavaScript"],
+      title: t("projects.fbmedia.title"),
+      description: t("projects.fbmedia.description"),
+      techStack: fbTechStack,
       deployUrl: "https://fbmediadigital.com",
       imageUrl: FB,
     },
@@ -227,14 +233,13 @@ const FeaturedProjects = ({ ref }) => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <div className="inline-block mb-2 px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
-            Mis Proyectos
+            {t("badge")}
           </div>
           <h2 className="text-3xl font-bold mb-4">
-            Proyectos <span className="text-coral-400">Recientes</span>
+            {t("title.first")}
+            <span className="text-coral-400">{t("title.second")}</span>
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Una selección de mis mejores proyectos desplegados en Vercel
-          </p>
+          <p className="text-gray-600 max-w-2xl mx-auto">{t("description")}</p>
         </div>
 
         {/* Carrusel */}
@@ -247,7 +252,7 @@ const FeaturedProjects = ({ ref }) => {
                 stopAutoplay();
               }}
               className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white rounded-full p-2 shadow-md z-10 hover:bg-purple-50 transition-colors duration-300"
-              aria-label="Anterior"
+              aria-label={t("buttons.prev")}
             >
               <ChevronLeft size={24} className="text-purple-700" />
             </button>
@@ -257,7 +262,7 @@ const FeaturedProjects = ({ ref }) => {
                 stopAutoplay();
               }}
               className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white rounded-full p-2 shadow-md z-10 hover:bg-purple-50 transition-colors duration-300"
-              aria-label="Siguiente"
+              aria-label={t("buttons.next")}
             >
               <ChevronRight size={24} className="text-purple-700" />
             </button>
@@ -279,6 +284,7 @@ const FeaturedProjects = ({ ref }) => {
                 <ProjectCard
                   key={`desktop-${activeSlide}-${index}`}
                   {...project}
+                  viewProjectText={t("viewProject")}
                 />
               ))}
             </div>
@@ -286,7 +292,10 @@ const FeaturedProjects = ({ ref }) => {
             {/* Vista móvil: una tarjeta a la vez */}
             <div className="md:hidden">
               <div className="w-full">
-                <ProjectCard {...projects[activeSlide % projects.length]} />
+                <ProjectCard
+                  {...projects[activeSlide % projects.length]}
+                  viewProjectText={t("viewProject")}
+                />
               </div>
             </div>
           </div>

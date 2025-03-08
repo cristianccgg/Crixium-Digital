@@ -1,0 +1,43 @@
+{
+  "badge": "Projects Preview",
+  "title": {
+    "first": "Recent ",
+    "second": "Projects"
+  },
+  "description": "A selection of our most recent delivered projects",
+  "viewProject": "View project",
+  "projects": {
+    "hoodlab": {
+      "title": "The Hood Lab Store",
+      "description": "E-commerce for the sale of urban fashion products and accessories"
+    },
+    "designo": {
+      "title": "Designo",
+      "description": "Website of a design agency offering web design, graphic design, and branding services"
+    },
+    "evapro": {
+      "title": "Eva Pro",
+      "description": "Corporate LMS designed to support even the most demanding training programs"
+    },
+    "automatehq": {
+      "title": "Automate HQ",
+      "description": "Application for managing daily tasks with artificial intelligence"
+    },
+    "ciom": {
+      "title": "Ciom",
+      "description": "Website that provides an advanced solution for managing key performance indicators (KPIs)"
+    },
+    "clout": {
+      "title": "Clout",
+      "description": "Social media platform for sharing and discovering content"
+    },
+    "fbmedia": {
+      "title": "FB Media Digital",
+      "description": "Automated sales and scheduling with AI"
+    }
+  },
+  "buttons": {
+    "prev": "Previous",
+    "next": "Next"
+  }
+}

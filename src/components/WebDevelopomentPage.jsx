@@ -20,6 +20,7 @@ import {
 import FeaturedProjects from "./web_development/FeaturedProjects";
 import LandingReviewsCarousel from "./LandingReviewsCarousel";
 import UnifiedPricingSection from "./web_development/UnifiedPricingSection";
+import { useTranslation } from "react-i18next";
 
 const ServiceCard = ({
   icon: Icon,
@@ -31,6 +32,10 @@ const ServiceCard = ({
   isCustom = false,
 }) => {
   const [hovering, setHovering] = useState(false);
+  const { t } = useTranslation("web-development");
+
+  // Obtenemos las claves del objeto features para poder iterar sobre ellas
+  const featureKeys = Object.keys(features);
 
   return (
     <div
@@ -53,7 +58,7 @@ const ServiceCard = ({
         <h3 className="text-2xl font-semibold mb-3">{title}</h3>
         <p className="text-gray-600 mb-6">{description}</p>
         <ul className="space-y-3">
-          {features.map((feature, index) => (
+          {featureKeys.map((key, index) => (
             <li key={index} className="flex items-start group">
               <div
                 className={`h-5 w-5 rounded-full mr-2 flex-shrink-0 flex items-center justify-center ${
@@ -65,7 +70,7 @@ const ServiceCard = ({
                 <ChevronRight size={12} />
               </div>
               <span className="text-gray-600 group-hover:text-gray-900 transition-colors duration-200">
-                {feature}
+                {features[key]}
               </span>
             </li>
           ))}
@@ -79,7 +84,9 @@ const ServiceCard = ({
             : "bg-purple-700 text-white hover:bg-coral-400"
         } group`}
       >
-        <span>{isCustom ? "Solicitar Cotización" : "Ver Paquetes"}</span>
+        <span>
+          {isCustom ? t("buttons.requestQuote") : t("buttons.viewPackages")}
+        </span>
         <ArrowRight
           size={16}
           className={`transition-transform duration-300 group-hover:translate-x-1`}
@@ -167,53 +174,36 @@ const TechnologyCard = ({ icon: Icon, name }) => (
 );
 
 const WebDevelopmentPage = () => {
+  const { t } = useTranslation("web-development");
   const navigate = useNavigate();
   const pricingSectionRef = useRef(null);
   const portfolioRef = useRef(null);
   const [selectedService, setSelectedService] = useState(null);
   const [projectType, setProjectType] = useState("website"); // Nuevo estado para el tipo de proyecto
 
+  // Las claves para los pasos del proceso
+  const processStepKeys = ["first", "second", "third", "fourth"];
+
   const services = [
     {
       icon: Globe,
-      title: "Sitios Web Corporativos",
-      description:
-        "La presencia digital de tu empresa con diseño a medida y optimizado para conversiones",
-      features: [
-        "Diseño profesional y personalizado",
-        "100% responsivo en todos los dispositivos",
-        "SEO optimizado para mejor posicionamiento",
-        "CMS integrado para fácil gestión",
-        "Optimización de velocidad de carga",
-      ],
+      title: t("services.corporate.title"),
+      description: t("services.corporate.description"),
+      features: t("services.corporate.features", { returnObjects: true }),
       serviceType: "web",
     },
     {
       icon: ShoppingCart,
-      title: "Tiendas Online",
-      description:
-        "Plataformas e-commerce robustas y personalizadas para vender tus productos en internet",
-      features: [
-        "Catálogo de productos avanzado",
-        "Carrito de compras intuitivo",
-        "Múltiples pasarelas de pagos",
-        "Gestión de inventario automatizada",
-        "Panel de administración completo",
-      ],
+      title: t("services.ecommerce.title"),
+      description: t("services.ecommerce.description"),
+      features: t("services.ecommerce.features", { returnObjects: true }),
       serviceType: "ecommerce",
     },
     {
       icon: Layout,
-      title: "Rediseño Web",
-      description:
-        "Actualiza tu sitio existente para mejorar su rendimiento, estética y conversiones",
-      features: [
-        "Diseño moderno y atractivo",
-        "Mejora de rendimiento y velocidad",
-        "Optimización completa de SEO",
-        "Migración segura de contenido",
-        "Integración de analytics avanzados",
-      ],
+      title: t("services.redesign.title"),
+      description: t("services.redesign.description"),
+      features: t("services.redesign.features", { returnObjects: true }),
       serviceType: "redesign",
     },
   ];
@@ -232,7 +222,7 @@ const WebDevelopmentPage = () => {
       navigate("/contact", {
         state: {
           initialService: "web",
-          projectType: "Rediseño Web",
+          projectType: t("services.redesign.title"),
         },
       });
     } else if (serviceType === "web") {
@@ -261,14 +251,14 @@ const WebDevelopmentPage = () => {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-sm font-medium backdrop-blur-sm mb-6">
               <Globe size={16} />
-              <span>Diseño Web y E-commerce</span>
+              <span>{t("badge")}</span>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Desarollo Web <span className="text-coral-400">Profesional</span>
+              {t("title.first")}
+              <span className="text-coral-400">{t("title.second")}</span>
             </h1>
             <p className="text-xl md:text-2xl mb-10 text-purple-100 max-w-3xl mx-auto">
-              Creamos sitios web atractivos y tiendas online funcionales para
-              impulsar tu presencia digital y aumentar tus conversiones
+              {t("description")}
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <HeroButton
@@ -281,7 +271,7 @@ const WebDevelopmentPage = () => {
                   });
                 }}
               >
-                <span>Ver Paquetes Web</span>
+                <span>{t("button1")}</span>
                 <ArrowRight
                   size={18}
                   className="group-hover:translate-x-1 transition-transform duration-300"
@@ -297,7 +287,7 @@ const WebDevelopmentPage = () => {
                 }}
               >
                 <ShoppingCart size={18} />
-                <span>Ver Tiendas Online</span>
+                <span>{t("button2")}</span>
               </HeroButton>
             </div>
           </div>
@@ -323,14 +313,13 @@ const WebDevelopmentPage = () => {
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">
               <Sparkles size={16} className="text-yellow-500" />
-              <span>Soluciones Personalizadas</span>
+              <span>{t("customSolutions")}</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Nuestros Servicios
+              {t("ourServices")}
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Ofrecemos una amplia gama de servicios de desarrollo web adaptados
-              a tus necesidades específicas
+              {t("servicesDescription")}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
@@ -351,12 +340,13 @@ const WebDevelopmentPage = () => {
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">
               <Code size={16} />
-              <span>Stack Tecnológico</span>
+              <span>{t("technology.badge")}</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Tecnologías</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {t("technology.title")}
+            </h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Utilizamos las tecnologías más modernas para crear soluciones
-              robustas y escalables que impulsan tu negocio
+              {t("technology.description")}
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-6">
@@ -376,52 +366,44 @@ const WebDevelopmentPage = () => {
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">
               <CheckCircle size={16} />
-              <span>Cómo Trabajamos</span>
+              <span>{t("process.badge")}</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Nuestro Proceso
+              {t("process.title")}
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Un enfoque estructurado para garantizar resultados excepcionales
-              en cada proyecto que desarrollamos
+              {t("process.description")}
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
-            <ProcessStep
-              icon={CheckCircle}
-              title="1. Planificación"
-              description="Definimos los objetivos y requerimientos específicos de tu proyecto"
-              index={0}
-            />
-            <ProcessStep
-              icon={Layout}
-              title="2. Diseño"
-              description="Creamos la arquitectura y diseño visual de la solución"
-              index={1}
-            />
-            <ProcessStep
-              icon={Code}
-              title="3. Desarrollo"
-              description="Implementamos la solución con código limpio y eficiente"
-              index={2}
-            />
-            <ProcessStep
-              icon={Gauge}
-              title="4. Lanzamiento"
-              description="Desplegamos y optimizamos tu proyecto para máximo rendimiento"
-              index={3}
-            />
+            {processStepKeys.map((key, index) => (
+              <ProcessStep
+                key={key}
+                icon={
+                  index === 0
+                    ? CheckCircle
+                    : index === 1
+                    ? Layout
+                    : index === 2
+                    ? Code
+                    : Gauge
+                }
+                title={t(`process.steps.${key}.title`)}
+                description={t(`process.steps.${key}.description`)}
+                index={index}
+              />
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Unified Pricing Section */}
+      {/* Unified Pricing Section 
       <div ref={pricingSectionRef}>
         <UnifiedPricingSection
           initialService={selectedService}
           initialType={projectType}
         />
-      </div>
+      </div>*/}
 
       <LandingReviewsCarousel />
     </div>

@@ -1,0 +1,85 @@
+{
+  "badge": "Web Design & E-commerce",
+  "title": {
+    "first": "Professional ",
+    "second": "Web Development"
+  },
+  "description": "We create attractive websites and functional online stores to boost your digital presence and increase your conversions.",
+  "button1": "View Web Packages",
+  "button2": "View Online Stores",
+
+  "customSolutions": "Custom Solutions",
+  "ourServices": "Our Services",
+  "servicesDescription": "We offer a wide range of web development services tailored to your specific needs",
+
+  "services": {
+    "corporate": {
+      "title": "Corporate Websites",
+      "description": "Your company's digital presence with custom design optimized for conversions",
+      "features": {
+        "first": "Professional and customized design",
+        "second": "100% responsive on all devices",
+        "third": "SEO optimized for better positioning",
+        "fourth": "Integrated CMS for easy management",
+        "fifth": "Page load speed optimization"
+      }
+    },
+    "ecommerce": {
+      "title": "Online Stores",
+      "description": "Robust and customized e-commerce platforms to sell your products online",
+      "features": {
+        "first": "Advanced product catalog",
+        "second": "Intuitive shopping cart",
+        "third": "Multiple payment gateways",
+        "fourth": "Automated inventory management",
+        "fifth": "Complete admin dashboard"
+      }
+    },
+    "redesign": {
+      "title": "Web Redesign",
+      "description": "Update your existing site to improve its performance, aesthetics, and conversions",
+      "features": {
+        "first": "Modern and attractive design",
+        "second": "Performance and speed improvements",
+        "third": "Complete SEO optimization",
+        "fourth": "Secure content migration",
+        "fifth": "Advanced analytics integration"
+      }
+    }
+  },
+
+  "buttons": {
+    "requestQuote": "Request Quote",
+    "viewPackages": "View Packages"
+  },
+
+  "technology": {
+    "badge": "Technology Stack",
+    "title": "Technologies",
+    "description": "We use the most modern technologies to create robust and scalable solutions that drive your business"
+  },
+
+  "process": {
+    "badge": "How We Work",
+    "title": "Our Process",
+    "description": "A structured approach to ensure exceptional results in every project we develop",
+    "steps": {
+      "first": {
+        "title": "1. Planning",
+        "description": "We define the specific objectives and requirements of your project"
+      },
+      "second": {
+        "title": "2. Design",
+        "description": "We create the architecture and visual design of the solution"
+      },
+      "third": {
+        "title": "3. Development",
+        "description": "We implement the solution with clean and efficient code"
+      },
+      "fourth": {
+        "title": "4. Launch",
+        "description": "We deploy and optimize your project for maximum performance"
+      }
+    }
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "badge": "Transparent Pricing",
+  "sectionTitles": {
+    "website": "Web Development",
+    "ecommerce": "Online Stores"
+  },
+  "sectionDescriptions": {
+    "website": "Choose the technology and plan that best suits your needs",
+    "ecommerce": "Choose the platform and plan that best suits your business"
+  },
+  "projectTypes": {
+    "website": "Website",
+    "ecommerce": "Online Store"
+  },
+  "services": {
+    "wordpress": "WordPress",
+    "custom": "Custom Code",
+    "shopify": "Shopify"
+  },
+  "packageBasicInfo": {
+    "website": {
+      "wordpress": {
+        "basic": {
+          "title": "Landing Page",
+          "price": "120",
+          "delivery": "10 days delivery"
+        },
+        "standard": {
+          "title": "3-Page Website",
+          "price": "250",
+          "delivery": "14 days delivery",
+          "popular": "Most Popular"
+        },
+        "premium": {
+          "title": "Complete Website",
+          "price": "350",
+          "delivery": "20 days delivery"
+        }
+      },
+      "custom": {
+        "basic": {
+          "title": "Landing Page",
+          "price": "150",
+          "delivery": "10 days delivery"
+        },
+        "standard": {
+          "title": "3-Page Website",
+          "price": "280",
+          "delivery": "14 days delivery",
+          "popular": "Most Popular"
+        },
+        "premium": {
+          "title": "Complete Website",
+          "price": "550",
+          "delivery": "20 days delivery"
+        }
+      }
+    },
+    "ecommerce": {
+      "wordpress": {
+        "basic": {
+          "title": "Basic Store",
+          "price": "350",
+          "delivery": "10 days delivery"
+        },
+        "standard": {
+          "title": "Standard Store",
+          "price": "550",
+          "delivery": "15 days delivery",
+          "popular": "Most Popular"
+        },
+        "premium": {
+          "title": "Premium Store",
+          "price": "850",
+          "delivery": "21 days delivery"
+        }
+      },
+      "shopify": {
+        "basic": {
+          "title": "Basic Store",
+          "price": "300",
+          "delivery": "7 days delivery"
+        },
+        "standard": {
+          "title": "Standard Store",
+          "price": "450",
+          "delivery": "12 days delivery",
+          "popular": "Most Popular"
+        },
+        "premium": {
+          "title": "Premium Store",
+          "price": "750",
+          "delivery": "18 days delivery"
+        }
+      }
+    }
+  },
+  "buttons": {
+    "selectPlan": "Select Plan",
+    "backToPlans": "Back to plans"
+  },
+  "ecommerceBanner": {
+    "title": "Important Considerations",
+    "points": {
+      "first": "WooCommerce: Prices do not include hosting costs, which can vary between $5-$30/month depending on your needs.",
+      "second": "Shopify: Prices do not include the monthly Shopify subscription (from $29/month) or transaction fees.",
+      "third": "Premium themes or additional plugins may have extra costs depending on your specific needs."
+    }
+  },
+  "wordpressF": {
+    "first": "Profesional responsive design"
+  }
+}

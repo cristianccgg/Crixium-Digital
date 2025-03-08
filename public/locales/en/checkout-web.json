@@ -1,0 +1,267 @@
+{
+  "checkout": {
+    "steps": {
+      "customize": "Customize Your Project",
+      "customizeEcommerce": "Customize Your Online Store",
+      "details": "Project Details",
+      "detailsEcommerce": "Store Details",
+      "contact": "Contact Information",
+      "payment": "Payment"
+    },
+    "general": {
+      "next": "Next",
+      "previous": "Previous",
+      "proceed": "Proceed to Payment",
+      "processing": "Processing...",
+      "totalEstimate": "Total Estimate",
+      "orderSummary": "Order Summary",
+      "basePackage": "Base Package",
+      "total": "Total",
+      "attachedFiles": "Attached Files",
+      "filesProcessing": "Files will be processed upon form submission",
+      "webShop": "Website",
+      "ecommerceShop": "Online Store",
+      "basePrice": "base price"
+    },
+    "ecommerce": {
+      "businessName": {
+        "label": "Your Business Name",
+        "placeholder": "Name of your company or project"
+      },
+      "businessType": {
+        "label": "Business Type"
+      },
+      "productCount": {
+        "label": "Approximate Number of Products",
+        "placeholder": "E.g.: 50"
+      },
+      "domain": {
+        "label": "Domain (if you already have one)",
+        "placeholder": "yourbusiness.com"
+      },
+      "designReference": {
+        "label": "Do you have any design references?",
+        "placeholder": "E.g.: I like the style of example.com or link to Figma/PDF..."
+      },
+      "storeDescription": {
+        "label": "Store Description and Requirements",
+        "placeholder": "Describe your store, objectives, important functionalities, target audience, design preferences, etc..."
+      },
+      "uploadFiles": {
+        "label": "References, Logo or Design Documents / Product Catalog",
+        "description": "Attach logo, texts and any visual reference for your store / Attach CSV, Excel or product images"
+      },
+      "types": {
+        "fashion": "Fashion and Clothing",
+        "food": "Food and Beverages",
+        "electronics": "Electronics and Technology",
+        "home": "Home and Decoration",
+        "beauty": "Beauty and Health",
+        "crafts": "Crafts",
+        "services": "Services",
+        "others": "Others"
+      }
+    },
+    "website": {
+      "siteType": {
+        "label": "Website Type"
+      },
+      "framework": {
+        "label": "Preferred Technology",
+        "reactNotice": "React usage is available as an additional service in this plan. It has been added to your extras."
+      },
+      "features": {
+        "label": "Desired Features"
+      },
+      "designReference": {
+        "label": "Do you have any design references?",
+        "placeholder": "E.g.: I like the style of example.com..."
+      },
+      "projectDescription": {
+        "label": "Project Description",
+        "placeholder": "Describe your project, site objective, important features, target audience, color preferences, etc..."
+      },
+      "uploadFiles": {
+        "label": "Logo, References or Design Documents",
+        "description": "Attach logo, mockups or any visual reference for your website"
+      },
+      "types": {
+        "blog": "Blog/Personal",
+        "localBusiness": "Local Business",
+        "portfolio": "Portfolio",
+        "corporate": "Corporate",
+        "landing": "Sales Landing",
+        "educational": "Educational",
+        "informative": "Informative"
+      },
+      "frameworks": {
+        "premium": {
+          "htmlCssJs": "HTML/CSS/JS",
+          "htmlTailwind": "HTML/TailwindCSS/JS",
+          "reactTailwind": "React/TailwindCSS",
+          "indifferent": "Indifferent"
+        },
+        "standard": {
+          "htmlCssJs": "HTML/CSS/JS Vanilla",
+          "htmlTailwind": "HTML/TailwindCSS/JS",
+          "indifferent": "Indifferent"
+        }
+      },
+      "featureOptions": {
+        "contactForm": "Advanced Contact Form",
+        "gallery": "Images/Projects Gallery",
+        "blog": "Blog/News Section",
+        "testimonials": "Testimonials Carousel",
+        "maps": "Maps Integration"
+      }
+    },
+    "contact": {
+      "fullName": { "label": "Full Name" },
+      "email": { "label": "Email" },
+      "phone": { "label": "Phone" }
+    },
+    "extras": {
+      "ecommerce": {
+        "rush": {
+          "id": "rush",
+          "title": "Express Delivery",
+          "price": 50,
+          "description": "Delivery 3 days faster than estimated time (subject to availability)"
+        },
+        "seo": {
+          "id": "seo",
+          "title": "Advanced SEO Configuration",
+          "price": 35,
+          "description": "Search engine optimization, meta tags and keyword strategy"
+        },
+        "analytics": {
+          "id": "analytics",
+          "title": "Analytics Integration",
+          "price": 30,
+          "description": "Google Analytics, Facebook Pixel and advanced tracking setup"
+        },
+        "onboarding": {
+          "id": "onboarding",
+          "title": "Personalized Onboarding",
+          "price": 45,
+          "description": "4 hours of training to efficiently manage your store"
+        },
+        "products": {
+          "id": "products",
+          "title": "Product Upload (50 units)",
+          "price": 50,
+          "description": "Complete setup of up to 50 products with images and descriptions"
+        }
+      },
+      "customCode": {
+        "rush": {
+          "id": "rush",
+          "title": "Express Delivery",
+          "price": 40,
+          "description": "Delivery 7 days faster than estimated time (subject to availability)"
+        },
+        "responsive": {
+          "id": "responsive",
+          "title": "Ultra-Responsive Design",
+          "price": 35,
+          "description": "Additional optimization for all devices and screen sizes"
+        },
+        "animations": {
+          "id": "animations",
+          "title": "Advanced Animations",
+          "price": 45,
+          "description": "Custom animations and transitions for a premium user experience"
+        },
+        "api": {
+          "id": "api",
+          "title": "API Integration",
+          "price": 50,
+          "description": "Connection with external APIs (payments, maps, social networks, etc.)"
+        },
+        "deployment": {
+          "id": "deployment",
+          "title": "Complete Deployment",
+          "price": 35,
+          "description": "Hosting, domain, and deployment configuration (hosting/domain cost not included)"
+        },
+        "multiLanguage": {
+          "id": "multi-language",
+          "title": "Multi-Language Support",
+          "price": 40,
+          "description": "Complete site translation with selector"
+        },
+        "reactFramework": {
+          "id": "react-framework",
+          "title": "React Framework",
+          "price": 60,
+          "description": "Development using React for a more dynamic and interactive user experience",
+          "hiddenInPremium": true
+        }
+      },
+      "wordpress": {
+        "rush": {
+          "id": "rush",
+          "title": "Express Delivery",
+          "price": 30,
+          "description": "Delivery 8 days faster than estimated time (subject to availability)"
+        },
+        "seo": {
+          "id": "seo",
+          "title": "Advanced SEO",
+          "price": 40,
+          "description": "Complete SEO optimization, metadata configuration, schema markup and keyword analysis"
+        },
+        "domain": {
+          "id": "domain",
+          "title": "Domain and Hosting",
+          "price": 30,
+          "description": "Domain and hosting configuration for 1 year (domain cost not included)"
+        },
+        "maintenance": {
+          "id": "maintenance",
+          "title": "Maintenance (3 months)",
+          "price": 60,
+          "description": "3 months of maintenance, updates and technical support"
+        }
+      }
+    },
+    "confirmation": {
+      "title": "Order Confirmed!",
+      "message": "Your order has been received. We have sent the details to your email. If we need additional information, we will contact you shortly.",
+      "orderNumber": "Your order number is:",
+      "trackOrder": "Track My Order",
+      "backToHome": "Back to Home",
+      "wordpress": {
+        "title": "Next Steps for Your WordPress Site",
+        "intro": "To start your project, we need access to your WordPress site.",
+        "step1": "Create an admin user in your WordPress panel with the email: contact@crixiumdigital.com.",
+        "step2": "Assign 'Administrator' role to this account.",
+        "step3": "Send us the site information and password through your order tracking or by email to contact@crixiumdigital.com.",
+        "noWordPress": "If you don't have a WordPress site yet, don't worry. Send us a message through your order tracking and we'll help you set it up."
+      },
+      "shopify": {
+        "title": "Next Steps for Your Shopify Store",
+        "intro": "To start your project, we need access to your Shopify store. You can choose either of these options.",
+        "option1_title": "Option 1: Send us your store code",
+        "option1_step1": "Go to your Shopify panel → Settings → Users and permissions → Add collaborator.",
+        "option1_step2": "Copy your store code (e.g. store123.myshopify.com or 1234).",
+        "option1_step3": "Send this code through your order tracking or by email to contact@crixiumdigital.com.",
+        "option1_step4": "We'll send you an official request that you just need to accept.",
+        "option2_title": "Option 2: Add us directly as a collaborator",
+        "option2_step1": "Go to Settings → Users and permissions.",
+        "option2_step2": "Add contact@crixiumdigital.com as staff with full access.",
+        "noShopify": "If you don't have a Shopify store yet, send us a message and we'll help you set it up."
+      }
+    },
+    "validation": {
+      "requiredBusinessName": "Business name is required.",
+      "requiredBusinessType": "Business type is required.",
+      "requiredProductCount": "Approximate number of products is required.",
+      "requiredStoreDescription": "Store description is required.",
+      "requiredProjectDescription": "Project description is required.",
+      "requiredName": "Name is required.",
+      "requiredEmail": "Email is required.",
+      "invalidEmail": "Please enter a valid email."
+    }
+  }
+}

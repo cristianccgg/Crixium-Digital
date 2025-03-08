@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {
@@ -18,16 +19,20 @@ import { createOrder } from "../OrderManagerFirebase";
 import PaymentGateway from "../payments/PaymentGateway";
 
 const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
+  const { t } = useTranslation("checkout-web");
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
-  const [orderCreated, setOrderCreated] = useState(false); // Nuevo estado para controlar si la orden fue creada
-  const [orderData, setOrderData] = useState(null); // Almacenará los datos de la orden creada
+  const [orderCreated, setOrderCreated] = useState(false);
+  const [orderData, setOrderData] = useState(null);
   const [orderNumber, setOrderNumber] = useState("");
-  const [currentTotal, setCurrentTotal] = useState(
-    parseInt(selectedPackage.price || 0)
-  );
+  const [currentTotal, setCurrentTotal] = useState(() => {
+    const priceValue = selectedPackage.price || 0;
+    return typeof priceValue === "string"
+      ? parseInt(priceValue.replace(/[^\d]/g, ""))
+      : parseInt(priceValue);
+  });
 
   // Determinar qué tipo de formulario necesitamos
   const projectType = selectedPackage.projectType || "website";
@@ -42,9 +47,13 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
 
   const getServiceName = () => {
     if (isEcommerce) {
-      return isShopify ? "Shopify" : "WooCommerce";
+      return isShopify
+        ? t("serviceName.shopify")
+        : t("serviceName.wooCommerce");
     } else {
-      return isCustomCode ? "Código Personalizado" : "WordPress";
+      return isCustomCode
+        ? t("serviceName.customCode")
+        : t("serviceName.wordpress");
     }
   };
 
@@ -74,7 +83,6 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
     productCount: isEcommerce ? "" : null,
     domain: "",
 
-    // Eliminados los campos de hasLogo, hasContent, hasProducts
     storeDescription: isEcommerce ? "" : null,
 
     // Archivos
@@ -125,91 +133,83 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
       return [
         {
           id: "rush",
-          title: "Entrega Express",
+          title: t("checkout.extras.ecommerce.rush.title"),
           price: 50,
-          description:
-            "Entrega en 3 días menos del tiempo estimado (sujeto a disponibilidad)",
+          description: t("checkout.extras.ecommerce.rush.description"),
         },
         {
           id: "seo",
-          title: "Configuración SEO Avanzada",
+          title: t("checkout.extras.ecommerce.seo.title"),
           price: 35,
-          description:
-            "Optimización para motores de búsqueda, meta tags y estrategia de palabras clave",
+          description: t("checkout.extras.ecommerce.seo.description"),
         },
         {
           id: "analytics",
-          title: "Integración de Analytics",
+          title: t("checkout.extras.ecommerce.analytics.title"),
           price: 30,
-          description:
-            "Configuración de Google Analytics, Facebook Pixel y seguimiento avanzado",
+          description: t("checkout.extras.ecommerce.analytics.description"),
         },
         {
           id: "onboarding",
-          title: "Onboarding Personalizado",
+          title: t("checkout.extras.ecommerce.onboarding.title"),
           price: 45,
-          description:
-            "4 horas de entrenamiento para administrar tu tienda eficientemente",
+          description: t("checkout.extras.ecommerce.onboarding.description"),
         },
         {
           id: "products",
-          title: "Carga de Productos (50 unidades)",
+          title: t("checkout.extras.ecommerce.products.title"),
           price: 50,
-          description:
-            "Configuración completa de hasta 50 productos con imágenes y descripciones",
+          description: t("checkout.extras.ecommerce.products.description"),
         },
       ];
     } else if (isCustomCode) {
       return [
         {
           id: "rush",
-          title: "Entrega Express",
+          title: t("checkout.extras.customCode.rush.title"),
           price: 40,
-          description:
-            "Entrega en 7 días menos del tiempo estimado (sujeto a disponibilidad)",
+          description: t("checkout.extras.customCode.rush.description"),
         },
         {
           id: "responsive",
-          title: "Diseño Ultra-Responsive",
+          title: t("checkout.extras.customCode.responsive.title"),
           price: 35,
-          description:
-            "Optimización adicional para todos los dispositivos y tamaños de pantalla",
+          description: t("checkout.extras.customCode.responsive.description"),
         },
         {
           id: "animations",
-          title: "Animaciones Avanzadas",
+          title: t("checkout.extras.customCode.animations.title"),
           price: 45,
-          description:
-            "Animaciones personalizadas y transiciones para una experiencia de usuario premium",
+          description: t("checkout.extras.customCode.animations.description"),
         },
         {
           id: "api",
-          title: "Integración API",
+          title: t("checkout.extras.customCode.api.title"),
           price: 50,
-          description:
-            "Conexión con APIs externas (pagos, mapas, redes sociales, etc.)",
+          description: t("checkout.extras.customCode.api.description"),
         },
         {
           id: "deployment",
-          title: "Despliegue Completo",
+          title: t("checkout.extras.customCode.deployment.title"),
           price: 35,
-          description:
-            "Configuración de hosting, dominio y despliegue (no incluye costo del hosting/dominio)",
+          description: t("checkout.extras.customCode.deployment.description"),
         },
         {
           id: "multi-language",
-          title: "Soporte Multilenguaje",
+          title: t("checkout.extras.customCode.multiLanguage.title"),
           price: 40,
-          description: "Traduccion del sitio completo con selector",
+          description: t(
+            "checkout.extras.customCode.multiLanguage.description"
+          ),
         },
-        // Nuevo servicio extra para React (solo visible en planes no premium)
         {
           id: "react-framework",
-          title: "Framework React",
+          title: t("checkout.extras.customCode.reactFramework.title"),
           price: 60,
-          description:
-            "Desarrollo utilizando React para una experiencia de usuario más dinámica e interactiva",
-          hiddenInPremium: true, // Propiedad para ocultar en planes premium
+          description: t(
+            "checkout.extras.customCode.reactFramework.description"
+          ),
+          hiddenInPremium: true,
         },
       ];
     } else {
@@ -217,105 +217,110 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
       return [
         {
           id: "rush",
-          title: "Entrega Express",
+          title: t("checkout.extras.wordpress.rush.title"),
           price: 30,
-          description:
-            "Entrega en 8 días menos del tiempo estimado (sujeto a disponibilidad)",
+          description: t("checkout.extras.wordpress.rush.description"),
         },
         {
           id: "seo",
-          title: "SEO Avanzado",
+          title: t("checkout.extras.wordpress.seo.title"),
           price: 40,
-          description:
-            "Optimización SEO completa, configuración de metadatos, schema markup y análisis de keywords",
+          description: t("checkout.extras.wordpress.seo.description"),
         },
         {
           id: "domain",
-          title: "Dominio y Hosting",
+          title: t("checkout.extras.wordpress.domain.title"),
           price: 30,
-          description:
-            "Configuración de dominio y hosting por 1 año (no incluye costo del dominio)",
+          description: t("checkout.extras.wordpress.domain.description"),
         },
         {
           id: "maintenance",
-          title: "Mantenimiento (3 meses)",
+          title: t("checkout.extras.wordpress.maintenance.title"),
           price: 60,
-          description:
-            "3 meses de mantenimiento, actualizaciones y soporte técnico",
+          description: t("checkout.extras.wordpress.maintenance.description"),
         },
       ];
     }
   };
 
-  // Obtener datos específicos según el tipo de proyecto
+  // Obtener tipos de sitios
   const getSiteTypes = () => {
     if (isEcommerce) {
       return [
-        "Moda y ropa",
-        "Alimentos y bebidas",
-        "Electrónica y tecnología",
-        "Hogar y decoración",
-        "Belleza y salud",
-        "Artesanías",
-        "Servicios",
-        "Otros",
+        t("siteTypes.ecommerce.fashion"),
+        t("siteTypes.ecommerce.food"),
+        t("siteTypes.ecommerce.electronics"),
+        t("siteTypes.ecommerce.home"),
+        t("siteTypes.ecommerce.beauty"),
+        t("siteTypes.ecommerce.crafts"),
+        t("siteTypes.ecommerce.services"),
+        t("siteTypes.ecommerce.others"),
       ];
     } else {
       return [
-        "Blog/Personal",
-        "Negocio Local",
-        "Portfolio",
-        "Corporativo",
-        "Landing de Ventas",
-        "Educativo",
-        "Informativo",
+        t("siteTypes.website.blog"),
+        t("siteTypes.website.localBusiness"),
+        t("siteTypes.website.portfolio"),
+        t("siteTypes.website.corporate"),
+        t("siteTypes.website.landing"),
+        t("siteTypes.website.educational"),
+        t("siteTypes.website.informative"),
       ];
     }
   };
 
+  // Obtener frameworks
   const getFrameworks = () => {
     if (isCustomCode) {
       if (isPremiumPlan) {
         return [
-          "HTML/CSS/JS",
-          "HTML/TailwindCSS/JS",
-          "React/TailwindCSS",
-          "Indiferente",
+          t("frameworks.premium.htmlCssJs"),
+          t("frameworks.premium.htmlTailwind"),
+          t("frameworks.premium.reactTailwind"),
+          t("frameworks.premium.indifferent"),
         ];
       } else {
-        return ["HTML/CSS/JS Vanilla", "HTML/TailwindCSS/JS", "Indiferente"];
+        return [
+          t("frameworks.standard.htmlCssJs"),
+          t("frameworks.standard.htmlTailwind"),
+          t("frameworks.standard.indifferent"),
+        ];
       }
     }
     return [];
   };
 
+  // Feature options para sitios web
   const featureOptions = isEcommerce
     ? []
     : [
         {
           id: "contact-form",
-          title: "Formulario de Contacto Avanzado",
+          title: t("featureOptions.contactForm"),
         },
         {
           id: "gallery",
-          title: "Galería de Imágenes/Proyectos",
+          title: t("featureOptions.gallery"),
         },
         {
           id: "blog",
-          title: "Sección de Blog/Noticias",
+          title: t("featureOptions.blog"),
         },
         {
           id: "testimonials",
-          title: "Carrusel de Testimonios",
+          title: t("featureOptions.testimonials"),
         },
         {
           id: "maps",
-          title: "Integración de Mapas",
+          title: t("featureOptions.maps"),
         },
       ];
 
   const calculateTotal = () => {
-    const basePrice = parseInt(selectedPackage.price || 0);
+    const basePrice =
+      typeof selectedPackage.price === "string"
+        ? parseInt(selectedPackage.price.replace(/[^\d]/g, ""))
+        : parseInt(selectedPackage.price || 0);
     const extrasTotal = formData.extras.reduce((total, extraId) => {
       const extra = getExtraServices().find((e) => e.id === extraId);
       return total + (extra?.price || 0);
@@ -474,14 +479,18 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
         <div>
           <h3 className="font-semibold">{selectedPackage.title}</h3>
           <p className="text-sm text-gray-600 mb-2">
-            {projectType === "ecommerce" ? "Tienda Online" : "Sitio Web"} •{" "}
-            {getServiceName()} • {selectedPackage.delivery}
+            {projectType === "ecommerce"
+              ? t("general.ecommerceShop")
+              : t("general.webShop")}{" "}
+            • {getServiceName()} • {selectedPackage.delivery}
           </p>
           <div className="flex items-center gap-2">
             <span className="text-purple-700 font-semibold">
               US${selectedPackage.price}
             </span>
-            <span className="text-sm text-gray-500">precio base</span>
+            <span className="text-sm text-gray-500">
+              {t("general.basePrice")}
+            </span>
           </div>
         </div>
       </div>
@@ -1168,7 +1177,6 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
       <form onSubmit={handleSubmit} className="space-y-8">
         {renderCurrentStep()}
 
-        {/* Mostrar botones solo si no estamos en el paso 4 */}
         {step < 4 && (
           <div className="flex justify-between gap-4">
             {step > 1 && (
@@ -1178,7 +1186,7 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
                 disabled={isSubmitting}
                 className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
               >
-                Anterior
+                {t("steps.previous")}
               </button>
             )}
 
@@ -1192,7 +1200,7 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
                 }}
                 className="flex-1 bg-purple-700 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors"
               >
-                Siguiente
+                {t("steps.next")}
               </button>
             ) : (
               <button
@@ -1203,10 +1211,10 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
                 {isSubmitting ? (
                   <>
                     <Loader size={18} className="animate-spin mr-2" />
-                    <span>Procesando...</span>
+                    <span>{t("steps.processing")}</span>
                   </>
                 ) : (
-                  <span>Continuar al pago</span>
+                  <span>{t("steps.proceedToPayment")}</span>
                 )}
               </button>
             )}

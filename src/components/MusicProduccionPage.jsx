@@ -359,9 +359,9 @@ const MusicProductionPage = () => {
         </div>
       </section>
 
-      <div ref={pricingSectionRef}>
+      {/* <div ref={pricingSectionRef}>
         <PricingSection initialService={selectedService} />
-      </div>
+      </div> */}
 
       <LandingReviewsCarousel />
     </div>

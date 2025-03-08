@@ -1,0 +1,113 @@
+{
+  "badge": "Precios Transparentes",
+  "sectionTitles": {
+    "website": "Desarrollo Web",
+    "ecommerce": "Tiendas Online"
+  },
+  "sectionDescriptions": {
+    "website": "Elige la tecnología y plan que mejor se adapte a tus necesidades",
+    "ecommerce": "Elige la plataforma y plan que mejor se adapte a tu negocio"
+  },
+  "projectTypes": {
+    "website": "Sitio Web",
+    "ecommerce": "Tienda Online"
+  },
+  "services": {
+    "wordpress": "WordPress",
+    "custom": "Código Personalizado",
+    "shopify": "Shopify"
+  },
+  "packageBasicInfo": {
+    "website": {
+      "wordpress": {
+        "basic": {
+          "title": "Landing Page",
+          "price": "120",
+          "delivery": "10 días de entrega"
+        },
+        "standard": {
+          "title": "Sitio Web 3 páginas",
+          "price": "250",
+          "delivery": "14 días de entrega",
+          "popular": "Más Popular"
+        },
+        "premium": {
+          "title": "Sitio Web Completo",
+          "price": "350",
+          "delivery": "20 días de entrega"
+        }
+      },
+      "custom": {
+        "basic": {
+          "title": "Landing Page",
+          "price": "150",
+          "delivery": "10 días de entrega"
+        },
+        "standard": {
+          "title": "Sitio Web 3 páginas",
+          "price": "280",
+          "delivery": "14 días de entrega",
+          "popular": "Más Popular"
+        },
+        "premium": {
+          "title": "Sitio Web Completo",
+          "price": "550",
+          "delivery": "20 días de entrega"
+        }
+      }
+    },
+    "ecommerce": {
+      "wordpress": {
+        "basic": {
+          "title": "Tienda Básica",
+          "price": "350",
+          "delivery": "10 días de entrega"
+        },
+        "standard": {
+          "title": "Tienda Estándar",
+          "price": "550",
+          "delivery": "15 días de entrega",
+          "popular": "Más Popular"
+        },
+        "premium": {
+          "title": "Tienda Premium",
+          "price": "850",
+          "delivery": "21 días de entrega"
+        }
+      },
+      "shopify": {
+        "basic": {
+          "title": "Tienda Básica",
+          "price": "300",
+          "delivery": "7 días de entrega"
+        },
+        "standard": {
+          "title": "Tienda Estándar",
+          "price": "450",
+          "delivery": "12 días de entrega",
+          "popular": "Más Popular"
+        },
+        "premium": {
+          "title": "Tienda Premium",
+          "price": "750",
+          "delivery": "18 días de entrega"
+        }
+      }
+    }
+  },
+  "buttons": {
+    "selectPlan": "Seleccionar Plan",
+    "backToPlans": "Volver a los planes"
+  },
+  "ecommerceBanner": {
+    "title": "Consideraciones importantes",
+    "points": {
+      "first": "WooCommerce: Los precios no incluyen el costo del hosting, que puede variar entre $5-$30/mes según tus necesidades.",
+      "second": "Shopify: Los precios no incluyen la suscripción mensual a Shopify (desde $29/mes) ni las comisiones por transacción.",
+      "third": "Temas premium o plugins adicionales pueden tener costos extra dependiendo de tus necesidades específicas."
+    }
+  },
+  "wordpressF": {
+    "first": "Diseño profesional responsive"
+  }
+}
