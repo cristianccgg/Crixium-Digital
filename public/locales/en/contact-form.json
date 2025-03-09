@@ -1,0 +1,114 @@
+{
+  "contactForm": {
+    "title": {
+      "default": "Contact Us",
+      "custom": "Custom Quote Request"
+    },
+    "description": {
+      "default": "Tell us about your project and we'll get back to you within 24 hours",
+      "custom": "Tell us the details of your music project and we'll send you a custom quote"
+    },
+    "fields": {
+      "fullName": {
+        "label": "Full Name",
+        "placeholder": "Your full name"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "your@email.com"
+      },
+      "phone": {
+        "label": "Phone (optional)",
+        "placeholder": "+1 234 567 890"
+      },
+      "service": {
+        "label": "Service Type",
+        "options": {
+          "web": "Web Development",
+          "music": "Music Production",
+          "other": "Other Project Type"
+        }
+      },
+      "projectType": {
+        "label": "Project Type",
+        "placeholder": "Select a project type",
+        "web": {
+          "corporate": "Corporate Website",
+          "ecommerce": "Online Store",
+          "landing": "Landing Page",
+          "blog": "Blog",
+          "webApp": "Web Application",
+          "redesign": "Website Redesign",
+          "maintenance": "Website Maintenance",
+          "other": "Other"
+        },
+        "music": {
+          "jingle": "Advertising Jingle",
+          "corporate": "Corporate Music",
+          "radio": "Radio Spot",
+          "cinemaTV": "Film/TV Music",
+          "soundtrack": "Soundtrack",
+          "audiobook": "Audiobook",
+          "children": "Children's Music",
+          "custom": "Custom Project",
+          "other": "Other"
+        },
+        "other": {
+          "custom": "Custom Project"
+        }
+      },
+      "budget": {
+        "label": "Estimated Budget",
+        "placeholder": "Select a budget range",
+        "options": {
+          "under500": "Less than $500",
+          "500to1000": "$500 - $1000",
+          "1000to2000": "$1000 - $2000",
+          "2000to5000": "$2000 - $5000",
+          "over5000": "More than $5000",
+          "undefined": "To be defined"
+        }
+      },
+      "description": {
+        "label": "Project Description",
+        "placeholder": {
+          "default": "Tell us more about your project and your goals...",
+          "custom": "Describe your music project: estimated duration, musical style, desired instrumentation, similar references, deadlines if any..."
+        }
+      },
+      "files": {
+        "label": "References or Additional Files",
+        "optional": "(optional)",
+        "message": {
+          "default": "Attach any document, image or file that helps us better understand your project",
+          "web": "Attach sketches, designs, images or any relevant material for your web project",
+          "music": "Attach music samples, lyrics, references or relevant details for your music project"
+        },
+        "dropzone": {
+          "text": "Click to upload files or drag them here",
+          "formats": "PDF, DOC, TXT, MP3, JPG, PNG (max 10MB)"
+        },
+        "fileSize": "KB"
+      }
+    },
+    "buttons": {
+      "submit": "Submit Request",
+      "retry": "Try Again",
+      "another": "Send Another Message"
+    },
+    "statusMessages": {
+      "processing": "Processing your request...",
+      "uploading": "Uploading files...",
+      "sending": "Sending form...",
+      "success": "Message Sent!",
+      "thankYou": "Thank you for contacting us! We'll respond shortly.",
+      "loading": "This may take a moment...",
+      "error": "Error sending",
+      "errorMessage": "There was an error sending your message. Please try again or contact us directly via WhatsApp."
+    },
+    "infoNote": {
+      "default": "We'll respond with a detailed proposal within 24 hours. If you need immediate assistance, text us on WhatsApp at +57 321 974 60 45.",
+      "custom": "For custom projects, we'll evaluate your request and contact you with a proposal tailored to your specific needs."
+    }
+  }
+}

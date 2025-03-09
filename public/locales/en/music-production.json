@@ -1,0 +1,82 @@
+{
+  "musicProduction": {
+    "hero": {
+      "badge": "Professional Audio Production",
+      "title": "Professional ",
+      "title2": "Music ",
+      "title3": "Production",
+      "description": "We create the perfect sound identity for your brand with original music and high-quality production for all your projects",
+      "buttons": {
+        "viewPackages": "View Packages",
+        "listenSamples": "Listen to Samples"
+      }
+    },
+    "services": {
+      "title": "Our Services",
+      "subtitle": "Customized Solutions",
+      "description": "We offer a wide range of music production services tailored to your specific needs",
+      "items": {
+        "jingles": {
+          "title": "Advertising Jingles",
+          "description": "Memorable and effective music to make your brand resonate with your audience and stay in their memory",
+          "features": {
+            "feature1": "Custom original jingles",
+            "feature2": "Adaptations of existing songs",
+            "feature3": "Multiple durations and formats",
+            "feature4": "Includes full commercial rights",
+            "feature5": "Optional professional vocals"
+          }
+        },
+        "voiceover": {
+          "title": "Radio Spots",
+          "description": "Complete radio production with creative scripts and professional voiceover that capture attention",
+          "features": {
+            "feature1": "Custom creative script",
+            "feature2": "High-quality professional voiceover",
+            "feature3": "Original or licensed music",
+            "feature4": "Immersive sound effects",
+            "feature5": "Professional mixing and mastering"
+          }
+        },
+        "custom": {
+          "title": "Custom Music",
+          "description": "Tailored musical solutions for any creative or commercial project that requires a sound identity",
+          "features": {
+            "feature1": "Music for film, TV and advertising",
+            "feature2": "Soundtracks for video games",
+            "feature3": "Audiobook sound design",
+            "feature4": "Music for digital content",
+            "feature5": "Special customized projects"
+          }
+        }
+      },
+      "buttons": {
+        "viewPackages": "View Packages",
+        "requestQuote": "Request Quote"
+      }
+    },
+    "process": {
+      "title": "Our Process",
+      "subtitle": "How We Work",
+      "description": "A structured approach to ensure exceptional results in every musical project we develop",
+      "steps": {
+        "step1": {
+          "title": "1. Briefing",
+          "description": "We understand your vision and objectives to create the perfect sound concept"
+        },
+        "step2": {
+          "title": "2. Composition",
+          "description": "We create the original music that best represents your brand and identity"
+        },
+        "step3": {
+          "title": "3. Production",
+          "description": "We produce and mix until we achieve a professional and high-quality sound"
+        },
+        "step4": {
+          "title": "4. Delivery",
+          "description": "We deliver the final files in all the formats you need"
+        }
+      }
+    }
+  }
+}

@@ -38,6 +38,7 @@ import Serious_Beef from "../../assets/jingles/Serious_Beef.wav";
 import Superculiar_Creature_Features_Master from "../../assets/jingles/Superculiar_Creature_Features_Master.wav";
 import Wiz from "../../assets/jingles/Wiz.wav";
 import Wordpress_Roulette from "../../assets/jingles/Wordpress_Roulette.wav";
+import { useTranslation } from "react-i18next";
 
 const AudioPlayer = ({ title, category, audioUrl, voiceType, language }) => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -257,6 +258,7 @@ const FilterItem = ({ label, isActive, onClick }) => (
 );
 
 const AudioPortfolio = () => {
+  const { t } = useTranslation("audio-portfolio");
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showFilters, setShowFilters] = useState(false);
   const [selectedVoiceTypes, setSelectedVoiceTypes] = useState(new Set());
@@ -265,6 +267,24 @@ const AudioPortfolio = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
   const defaultVisibleItems = 3;
+
+  // Traducción de constantes
+  const CATEGORIES = {
+    JINGLES: t("audio.categories.jingles"),
+    VOICEOVERS: t("audio.categories.voiceovers"),
+    PODCAST: t("audio.categories.podcast"),
+  };
+
+  const VOICE_TYPES = {
+    MALE: t("audio.voice_types.male"),
+    FEMALE: t("audio.voice_types.female"),
+    ACAPELLA: t("audio.voice_types.acapella"),
+  };
+
+  const LANGUAGES = {
+    SPANISH: t("audio.languages.spanish"),
+    ENGLISH: t("audio.languages.english"),
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -288,231 +308,237 @@ const AudioPortfolio = () => {
     };
   }, []);
 
+  // Definimos portfolioItems utilizando constantes traducidas
   const portfolioItems = [
     {
       title: "Jingles - Foodin",
-      category: "Jingles",
-      voiceType: "Voz Masculina",
-      language: "Español",
+      category: CATEGORIES.JINGLES,
+      voiceType: VOICE_TYPES.MALE,
+      language: LANGUAGES.SPANISH,
       duration: "0:10",
       audioUrl: FoodinMaster,
     },
     {
       title: "Jingles - AI United Insurance (English)",
-      category: "Jingles",
-      voiceType: "Voz Masculina",
-      language: "English",
+      category: CATEGORIES.JINGLES,
+      voiceType: VOICE_TYPES.MALE,
+      language: LANGUAGES.ENGLISH,
       duration: "1:00",
       audioUrl: AI_United_English,
     },
     {
       title: "Jingles - AI United Insurance (Spanish)",
-      category: "Jingles",
-      voiceType: "Voz Masculina",
-      language: "Español",
+      category: CATEGORIES.JINGLES,
+      voiceType: VOICE_TYPES.MALE,
+      language: LANGUAGES.SPANISH,
       duration: "0:20",
       audioUrl: AI_United_Spanish,
     },
     {
       title: "Podcast Intro - The Virtual Couch",
-      category: "Podcast/YouTube Intro",
-      voiceType: "Voz Masculina",
-      language: "English",
+      category: CATEGORIES.PODCAST,
+      voiceType: VOICE_TYPES.MALE,
+      language: LANGUAGES.ENGLISH,
       duration: "0:20",
       audioUrl: Virtual_Couch,
     },
     {
       title: "Youtube Intro - Alexis Vee Book Reviews",
-      category: "Podcast/YouTube Intro",
-      voiceType: "Voz Masculina",
-      language: "English",
+      category: CATEGORIES.PODCAST,
+      voiceType: VOICE_TYPES.MALE,
+      language: LANGUAGES.ENGLISH,
       duration: "0:20",
       audioUrl: Alexis_Vee,
     },
     {
       title: "Jingles - Andy Jackson",
-      category: "Podcast/YouTube Intro",
-      voiceType: "Acapella",
-      language: "English",
+      category: CATEGORIES.PODCAST,
+      voiceType: VOICE_TYPES.ACAPELLA,
+      language: LANGUAGES.ENGLISH,
       duration: "0:20",
       audioUrl: Andy_Jackson,
     },
     {
       title: "Jingles - Aussie Forklifts",
-      category: "Jingles",
-      voiceType: "Voz Masculina",
-      language: "English",
+      category: CATEGORIES.JINGLES,
+      voiceType: VOICE_TYPES.MALE,
+      language: LANGUAGES.ENGLISH,
       duration: "0:20",
       audioUrl: Aussie_Forklifts,
     },
     {
       title: "Jingles - BO's Smokey",
-      category: "Jingles",
-      voiceType: "Acapella",
-      language: "English",
+      category: CATEGORIES.JINGLES,
+      voiceType: VOICE_TYPES.ACAPELLA,
+      language: LANGUAGES.ENGLISH,
       duration: "0:20",
       audioUrl: BOs_Smokey,
     },
     {
       title: "Jingles - Busillis",
-      category: "Jingles",
-      voiceType: "Voz Masculina",
-      language: "English",
+      category: CATEGORIES.JINGLES,
+      voiceType: VOICE_TYPES.MALE,
+      language: LANGUAGES.ENGLISH,
       duration: "0:20",
       audioUrl: Busillis,
     },
     {
       title: "Jingles - Agua de La Villa",
-      category: "Jingles",
-      voiceType: "Voz Masculina",
-      language: "Español",
+      category: CATEGORIES.JINGLES,
+      voiceType: VOICE_TYPES.MALE,
+      language: LANGUAGES.SPANISH,
       duration: "0:20",
       audioUrl: Agua_de_La_Villa,
     },
     {
       title: "Jingles - Cardio Flex",
-      category: "Jingles",
-      voiceType: "Voz Masculina",
-      language: "English",
+      category: CATEGORIES.JINGLES,
+      voiceType: VOICE_TYPES.MALE,
+      language: LANGUAGES.ENGLISH,
       duration: "0:20",
       audioUrl: Cardio_Flex,
     },
     {
       title: "Jingles - El Abogado de la Ley",
-      category: "Jingles",
-      voiceType: "Voz Masculina",
-      language: "Español",
+      category: CATEGORIES.JINGLES,
+      voiceType: VOICE_TYPES.MALE,
+      language: LANGUAGES.SPANISH,
       duration: "0:20",
       audioUrl: El_Abogado_de_la_Ley,
     },
     {
       title: "Locuciones - DJ Dis Moi Oui",
-      category: "Locuciones",
-      voiceType: "Voz Masculina",
-      language: "English",
+      category: CATEGORIES.VOICEOVERS,
+      voiceType: VOICE_TYPES.MALE,
+      language: LANGUAGES.ENGLISH,
       duration: "0:20",
       audioUrl: DJ_Dis_Moi_Oui,
     },
     {
       title: "Jingles - Evan Radio",
-      category: "Jingles",
-      voiceType: "Acapella",
-      language: "Español",
+      category: CATEGORIES.JINGLES,
+      voiceType: VOICE_TYPES.ACAPELLA,
+      language: LANGUAGES.SPANISH,
       duration: "0:20",
       audioUrl: Evan_Radio,
     },
     {
       title: "Jingles - La Torre Law Firm",
-      category: "Jingles",
-      voiceType: "Voz Masculina",
-      language: "Español",
+      category: CATEGORIES.JINGLES,
+      voiceType: VOICE_TYPES.MALE,
+      language: LANGUAGES.SPANISH,
       duration: "0:20",
       audioUrl: La_Torre_Law_Firm_Master,
     },
     {
       title: "Jingles - Matt's Total Tree Care",
-      category: "Jingles",
-      voiceType: "Voz Masculina",
-      language: "English",
+      category: CATEGORIES.JINGLES,
+      voiceType: VOICE_TYPES.MALE,
+      language: LANGUAGES.ENGLISH,
       duration: "0:20",
       audioUrl: Matts_Total_Tree_Care_Master,
     },
     {
       title: "Mental Health Minute",
-      category: "Jingles",
-      voiceType: "Voz Masculina",
-      language: "English",
+      category: CATEGORIES.JINGLES,
+      voiceType: VOICE_TYPES.MALE,
+      language: LANGUAGES.ENGLISH,
       duration: "0:20",
       audioUrl: Mental_Health_Minute,
     },
     {
       title: "Podcast Intro (Instrumental)",
-      category: "Podcast/YouTube Intro",
-      voiceType: "Voz Masculina",
-      language: "English",
+      category: CATEGORIES.PODCAST,
+      voiceType: VOICE_TYPES.MALE,
+      language: LANGUAGES.ENGLISH,
       duration: "0:20",
       audioUrl: Podcast_Intro,
     },
     {
       title: "Radio Insular",
-      category: "Jingles",
-      voiceType: "Acapella",
-      language: "Español",
+      category: CATEGORIES.JINGLES,
+      voiceType: VOICE_TYPES.ACAPELLA,
+      language: LANGUAGES.SPANISH,
       duration: "0:20",
       audioUrl: Radio_Insular,
     },
     {
       title: "Radio Sin Fronteras",
-      category: "Jingles",
-      voiceType: "Acapella",
-      language: "Español",
+      category: CATEGORIES.JINGLES,
+      voiceType: VOICE_TYPES.ACAPELLA,
+      language: LANGUAGES.SPANISH,
       duration: "0:20",
       audioUrl: Radio_Sin_Fronteras,
     },
     {
       title: "Serious Beef",
-      category: "Jingles",
-      voiceType: "Voz Femenina",
-      language: "English",
+      category: CATEGORIES.JINGLES,
+      voiceType: VOICE_TYPES.FEMALE,
+      language: LANGUAGES.ENGLISH,
       duration: "0:20",
       audioUrl: Serious_Beef,
     },
     {
       title: "Superculiar Creature Features",
-      category: "Podcast/YouTube Intro",
-      voiceType: "Acapella",
-      language: "English",
+      category: CATEGORIES.PODCAST,
+      voiceType: VOICE_TYPES.ACAPELLA,
+      language: LANGUAGES.ENGLISH,
       duration: "0:20",
       audioUrl: Superculiar_Creature_Features_Master,
     },
     {
       title: "Wiz Video World",
-      category: "Jingles",
-      voiceType: "Voz Femenina",
-      language: "English",
+      category: CATEGORIES.JINGLES,
+      voiceType: VOICE_TYPES.FEMALE,
+      language: LANGUAGES.ENGLISH,
       duration: "0:20",
       audioUrl: Wiz,
     },
     {
       title: "Wordpress Roulette",
-      category: "Jingles",
-      voiceType: "Voz Femenina",
-      language: "English",
+      category: CATEGORIES.JINGLES,
+      voiceType: VOICE_TYPES.FEMALE,
+      language: LANGUAGES.ENGLISH,
       duration: "0:20",
       audioUrl: Wordpress_Roulette,
     },
   ];
 
+  // Modificamos mainCategories para usar las traducciones
   const mainCategories = [
     {
-      id: "Jingles",
-      label: "Jingles",
+      id: CATEGORIES.JINGLES,
+      label: t("audio.labels.jingles_category"),
       icon: (
         <Music
           className={`w-6 h-6 transition-colors duration-300 ${
-            selectedCategory === "Jingles" ? "text-white" : "text-purple-700"
+            selectedCategory === CATEGORIES.JINGLES
+              ? "text-white"
+              : "text-purple-700"
           }`}
         />
       ),
     },
     {
-      id: "Locuciones",
-      label: "Locuciones",
+      id: CATEGORIES.VOICEOVERS,
+      label: t("audio.labels.voiceovers_category"),
       icon: (
         <Mic
           className={`w-6 h-6 transition-colors duration-300 ${
-            selectedCategory === "Locuciones" ? "text-white" : "text-purple-700"
+            selectedCategory === CATEGORIES.VOICEOVERS
+              ? "text-white"
+              : "text-purple-700"
           }`}
         />
       ),
     },
     {
-      id: "Podcast/YouTube Intro",
-      label: "Intros",
+      id: CATEGORIES.PODCAST,
+      label: t("audio.labels.podcast_category"),
       icon: (
         <Radio
           className={`w-6 h-6 transition-colors duration-300 ${
-            selectedCategory === "Podcast/YouTube Intro"
+            selectedCategory === CATEGORIES.PODCAST
               ? "text-white"
               : "text-purple-700"
           }`}
@@ -521,6 +547,7 @@ const AudioPortfolio = () => {
     },
   ];
 
+  // Extraemos los valores únicos para voiceTypes y languages
   const voiceTypes = [...new Set(portfolioItems.map((item) => item.voiceType))];
   const languages = [...new Set(portfolioItems.map((item) => item.language))];
 
@@ -602,22 +629,22 @@ const AudioPortfolio = () => {
             <div className="inline-block mb-2 px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
               <div className="flex items-center gap-2">
                 <Headphones size={16} />
-                <span>Nuestro Trabajo</span>
+                <span>{t("work.tag")}</span>
               </div>
             </div>
             <h2 className="text-3xl font-bold mb-4">
-              Entregas <span className="text-coral-400">Recientes</span>
+              {t("work.title")}{" "}
+              <span className="text-coral-400">{t("work.title2")}</span>
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Explora nuestra colección de muestras de audio y descubre la
-              calidad que ofrecemos en cada proyecto
+              {t("work.description")}
             </p>
           </div>
 
           {/* Main Category Selector */}
           <div className="mb-10">
             <h3 className="text-lg font-medium text-gray-700 mb-4 text-center">
-              ¿Qué estás buscando?
+              {t("categories.title")}
             </h3>
             <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto">
               {mainCategories.map((category) => (
@@ -646,10 +673,10 @@ const AudioPortfolio = () => {
                 </div>
                 <div>
                   <h3 className="font-medium text-gray-800">
-                    Refina tu búsqueda
+                    {t("filters.title")}
                   </h3>
                   <p className="text-sm text-gray-600">
-                    Filtra por tipo de voz e idioma
+                    {t("filters.description")}
                   </p>
                 </div>
               </div>
@@ -660,7 +687,7 @@ const AudioPortfolio = () => {
                     onClick={resetAll}
                     className="text-sm text-purple-700 hover:text-coral-400 transition-colors"
                   >
-                    Limpiar todo
+                    {t("filters.clear_all")}
                   </button>
                 )}
 
@@ -672,7 +699,7 @@ const AudioPortfolio = () => {
                       : "bg-white text-purple-700 border border-purple-200"
                   } rounded-lg hover:bg-coral-400 hover:text-white font-medium`}
                 >
-                  {showFilters ? "Ocultar filtros" : "Mostrar filtros"}
+                  {showFilters ? t("filters.hide") : t("filters.show")}
                   {getActiveFiltersCount() > 0 && (
                     <span
                       className={`${
@@ -701,7 +728,7 @@ const AudioPortfolio = () => {
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center">
                     <Mic size={16} className="mr-2 text-purple-700" />
-                    Tipo de Voz
+                    {t("filters.voice_type")}
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {voiceTypes.map((voiceType) => (
@@ -719,7 +746,7 @@ const AudioPortfolio = () => {
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center">
                     <span className="mr-2 text-purple-700">🌐</span>
-                    Idioma
+                    {t("filters.language")}
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {languages.map((language) => (
@@ -741,7 +768,7 @@ const AudioPortfolio = () => {
                     className="flex items-center gap-1 text-sm text-purple-700 hover:text-coral-400 transition-colors px-3 py-1 bg-blue-50 rounded-lg"
                   >
                     <X size={14} />
-                    Limpiar filtros
+                    {t("filters.clear_filters")}
                   </button>
                 </div>
               )}
@@ -750,7 +777,9 @@ const AudioPortfolio = () => {
 
           {/* Results Counter */}
           <p className="text-center text-gray-600 mb-8">
-            Mostrando {displayedItems.length} de {filteredItems.length} ejemplos
+            {t("results.showing")} {displayedItems.length}{" "}
+            {t("results.showing2")} {filteredItems.length}{" "}
+            {t("results.showing3")}
           </p>
 
           {/* Audio Players Grid */}
@@ -777,7 +806,7 @@ const AudioPortfolio = () => {
                   onClick={loadMore}
                   className="flex items-center gap-2 px-6 py-3 bg-purple-700 text-white rounded-full hover:bg-coral-400 transition-colors transform hover:scale-105 duration-300"
                 >
-                  Cargar más <ChevronDown size={18} />
+                  {t("buttons.load_more")} <ChevronDown size={18} />
                 </button>
               )}
               {visibleItems > defaultVisibleItems && (
@@ -785,7 +814,7 @@ const AudioPortfolio = () => {
                   onClick={showLess}
                   className="flex items-center gap-2 px-6 py-3 bg-white text-purple-700 border border-purple-200 rounded-full hover:bg-purple-50 transition-colors transform hover:scale-105 duration-300"
                 >
-                  Mostrar menos <ChevronUp size={18} />
+                  {t("buttons.show_less")} <ChevronUp size={18} />
                 </button>
               )}
             </div>
@@ -799,16 +828,16 @@ const AudioPortfolio = () => {
                 size={48}
               />
               <h3 className="text-xl font-semibold text-gray-600 mb-2">
-                No se encontraron resultados
+                {t("empty_state.title")}
               </h3>
               <p className="text-gray-500 mb-4">
-                Prueba con una combinación diferente de filtros
+                {t("empty_state.description")}
               </p>
               <button
                 onClick={resetAll}
                 className="flex items-center gap-2 px-4 py-2 bg-purple-700 text-white rounded-lg mx-auto hover:bg-coral-400 transition-all duration-300 transform hover:scale-105"
               >
-                <span>Restablecer filtros</span>
+                <span>{t("empty_state.reset")}</span>
                 <ArrowRight size={16} />
               </button>
             </div>

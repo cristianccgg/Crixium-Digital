@@ -13,10 +13,13 @@ i18n
     ns: [
       "checkout-web",
       "common",
+      "contact-form",
+      "contact-page",
       "cta",
       "featured-projects",
       "footer",
       "hero",
+      "music-production",
       "navbar",
       "pricing-section-web",
       "projects",

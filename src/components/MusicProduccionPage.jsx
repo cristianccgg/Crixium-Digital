@@ -12,6 +12,7 @@ import {
   ArrowRight,
   Play,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import PricingSection from "./music_production/PricingSection";
 import AudioPorfolio from "./music_production/AudioPorfolio";
 import LandingReviewsCarousel from "./LandingReviewsCarousel";
@@ -24,6 +25,7 @@ const ServiceCard = ({
   onRequestQuote,
   serviceType,
   isCustom = false,
+  t,
 }) => {
   const [hovering, setHovering] = useState(false);
 
@@ -46,7 +48,7 @@ const ServiceCard = ({
         <h3 className="text-2xl font-semibold mb-3">{title}</h3>
         <p className="text-gray-600 mb-6">{description}</p>
         <ul className="space-y-3">
-          {features.map((feature, index) => (
+          {Object.values(features).map((feature, index) => (
             <li key={index} className="flex items-start group">
               <div
                 className={`h-5 w-5 rounded-full mr-2 flex-shrink-0 flex items-center justify-center ${
@@ -72,7 +74,11 @@ const ServiceCard = ({
             : "bg-purple-700 text-white hover:bg-coral-400"
         } group`}
       >
-        <span>{isCustom ? "Solicitar Cotización" : "Ver Paquetes"}</span>
+        <span>
+          {isCustom
+            ? t("musicProduction.services.buttons.requestQuote")
+            : t("musicProduction.services.buttons.viewPackages")}
+        </span>
         <ArrowRight
           size={16}
           className={`transition-transform duration-300 group-hover:translate-x-1`}
@@ -151,56 +157,89 @@ const HeroButton = ({ children, primary = false, onClick, to }) => {
 };
 
 const MusicProductionPage = () => {
+  const { t } = useTranslation("music-production");
   const navigate = useNavigate();
   const pricingSectionRef = useRef(null);
   const audioPortfolioRef = useRef(null);
   const [selectedService, setSelectedService] = useState(null);
 
-  const services = [
-    {
+  // Ahora usamos un objeto en lugar de un array para los servicios
+  const services = {
+    jingles: {
       icon: Mic,
-      title: "Jingles Publicitarios",
-      description:
-        "Música memorable y efectiva para que tu marca resuene con tu audiencia y se quede en su memoria",
-      features: [
-        "Jingles originales a medida",
-        "Adaptaciones de canciones existentes",
-        "Múltiples duraciones y formatos",
-        "Incluye derechos comerciales completos",
-        "Voces profesionales opcionales",
-      ],
+      title: t("musicProduction.services.items.jingles.title"),
+      description: t("musicProduction.services.items.jingles.description"),
+      features: {
+        feature1: t("musicProduction.services.items.jingles.features.feature1"),
+        feature2: t("musicProduction.services.items.jingles.features.feature2"),
+        feature3: t("musicProduction.services.items.jingles.features.feature3"),
+        feature4: t("musicProduction.services.items.jingles.features.feature4"),
+        feature5: t("musicProduction.services.items.jingles.features.feature5"),
+      },
       serviceType: "jingles",
     },
-    {
+    voiceover: {
       icon: Radio,
-      title: "Spots de Radio",
-      description:
-        "Producción completa para radio con guiones creativos y locución profesional que captan la atención",
-      features: [
-        "Guión creativo personalizado",
-        "Locución profesional de alta calidad",
-        "Música original o licenciada",
-        "Efectos sonoros inmersivos",
-        "Mezcla y masterización profesional",
-      ],
+      title: t("musicProduction.services.items.voiceover.title"),
+      description: t("musicProduction.services.items.voiceover.description"),
+      features: {
+        feature1: t(
+          "musicProduction.services.items.voiceover.features.feature1"
+        ),
+        feature2: t(
+          "musicProduction.services.items.voiceover.features.feature2"
+        ),
+        feature3: t(
+          "musicProduction.services.items.voiceover.features.feature3"
+        ),
+        feature4: t(
+          "musicProduction.services.items.voiceover.features.feature4"
+        ),
+        feature5: t(
+          "musicProduction.services.items.voiceover.features.feature5"
+        ),
+      },
       serviceType: "voiceover",
     },
-    {
+    custom: {
       icon: Waves,
-      title: "Música Personalizada",
-      description:
-        "Soluciones musicales a medida para cualquier proyecto creativo o comercial que requiera identidad sonora",
-      features: [
-        "Música para cine, TV y publicidad",
-        "Bandas sonoras para videojuegos",
-        "Sonorización de audiolibros",
-        "Música para contenido digital",
-        "Proyectos especiales a medida",
-      ],
+      title: t("musicProduction.services.items.custom.title"),
+      description: t("musicProduction.services.items.custom.description"),
+      features: {
+        feature1: t("musicProduction.services.items.custom.features.feature1"),
+        feature2: t("musicProduction.services.items.custom.features.feature2"),
+        feature3: t("musicProduction.services.items.custom.features.feature3"),
+        feature4: t("musicProduction.services.items.custom.features.feature4"),
+        feature5: t("musicProduction.services.items.custom.features.feature5"),
+      },
       serviceType: "custom",
       isCustom: true,
     },
-  ];
+  };
+
+  // Objeto para los pasos del proceso
+  const processSteps = {
+    step1: {
+      icon: Headphones,
+      title: t("musicProduction.process.steps.step1.title"),
+      description: t("musicProduction.process.steps.step1.description"),
+    },
+    step2: {
+      icon: Music,
+      title: t("musicProduction.process.steps.step2.title"),
+      description: t("musicProduction.process.steps.step2.description"),
+    },
+    step3: {
+      icon: Waves,
+      title: t("musicProduction.process.steps.step3.title"),
+      description: t("musicProduction.process.steps.step3.description"),
+    },
+    step4: {
+      icon: Award,
+      title: t("musicProduction.process.steps.step4.title"),
+      description: t("musicProduction.process.steps.step4.description"),
+    },
+  };
 
   const handleRequestQuote = (serviceType) => {
     if (serviceType === "custom") {
@@ -229,15 +268,17 @@ const MusicProductionPage = () => {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-sm font-medium backdrop-blur-sm mb-6">
               <Music size={16} />
-              <span>Producción de Audio Profesional</span>
+              <span>{t("musicProduction.hero.badge")}</span>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Producción <span className="text-coral-400">Musical</span>{" "}
-              Profesional
+              {t("musicProduction.hero.title")}
+              <span className="text-coral-400">
+                {t("musicProduction.hero.title2")}
+              </span>{" "}
+              {t("musicProduction.hero.title3")}
             </h1>
             <p className="text-xl md:text-2xl mb-10 text-blue-100 max-w-3xl mx-auto">
-              Creamos la identidad sonora perfecta para tu marca con música
-              original y producción de alta calidad para todos tus proyectos
+              {t("musicProduction.hero.description")}
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <HeroButton
@@ -248,7 +289,7 @@ const MusicProductionPage = () => {
                   })
                 }
               >
-                <span>Ver Paquetes</span>
+                <span>{t("musicProduction.hero.buttons.viewPackages")}</span>
                 <ArrowRight
                   size={18}
                   className="group-hover:translate-x-1 transition-transform duration-300"
@@ -262,7 +303,7 @@ const MusicProductionPage = () => {
                 }
               >
                 <Play size={18} />
-                <span>Escuchar Muestras</span>
+                <span>{t("musicProduction.hero.buttons.listenSamples")}</span>
               </HeroButton>
             </div>
           </div>
@@ -288,22 +329,22 @@ const MusicProductionPage = () => {
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">
               <Sparkles size={16} className="text-purple-700" />
-              <span>Soluciones Personalizadas</span>
+              <span>{t("musicProduction.services.subtitle")}</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Nuestros Servicios
+              {t("musicProduction.services.title")}
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Ofrecemos una amplia gama de servicios de producción musical
-              adaptados a tus necesidades específicas
+              {t("musicProduction.services.description")}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
-            {services.map((service, index) => (
+            {Object.values(services).map((service, index) => (
               <ServiceCard
                 key={index}
                 {...service}
                 onRequestQuote={handleRequestQuote}
+                t={t}
               />
             ))}
           </div>
@@ -320,41 +361,25 @@ const MusicProductionPage = () => {
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">
               <Headphones size={16} />
-              <span>Cómo Trabajamos</span>
+              <span>{t("musicProduction.process.subtitle")}</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Nuestro Proceso
+              {t("musicProduction.process.title")}
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Un enfoque estructurado para garantizar resultados excepcionales
-              en cada proyecto musical que desarrollamos
+              {t("musicProduction.process.description")}
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
-            <ProcessStep
-              icon={Headphones}
-              title="1. Briefing"
-              description="Entendemos tu visión y objetivos para crear el concepto sonoro perfecto"
-              index={0}
-            />
-            <ProcessStep
-              icon={Music}
-              title="2. Composición"
-              description="Creamos la música original que mejor represente tu marca e identidad"
-              index={1}
-            />
-            <ProcessStep
-              icon={Waves}
-              title="3. Producción"
-              description="Producimos y mezclamos hasta lograr un sonido profesional y de alta calidad"
-              index={2}
-            />
-            <ProcessStep
-              icon={Award}
-              title="4. Entrega"
-              description="Entregamos los archivos finales en todos los formatos que necesites"
-              index={3}
-            />
+            {Object.values(processSteps).map((step, index) => (
+              <ProcessStep
+                key={index}
+                icon={step.icon}
+                title={step.title}
+                description={step.description}
+                index={index}
+              />
+            ))}
           </div>
         </div>
       </section>

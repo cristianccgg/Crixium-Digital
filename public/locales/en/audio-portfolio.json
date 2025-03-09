@@ -1,0 +1,60 @@
+{
+  "work": {
+    "tag": "Our Work",
+    "title": "Recent",
+    "title2": "Deliveries",
+    "description": "Explore our collection of audio samples and discover the quality we offer in each project"
+  },
+  "categories": {
+    "title": "What are you looking for?"
+  },
+  "filters": {
+    "title": "Refine your search",
+    "description": "Filter by voice type and language",
+    "clear_all": "Clear all",
+    "show": "Show filters",
+    "hide": "Hide filters",
+    "voice_type": "Voice Type",
+    "language": "Language",
+    "clear_filters": "Clear filters"
+  },
+  "results": {
+    "showing": "Showing",
+    "showing2": "of",
+    "showing3": "samples"
+  },
+  "buttons": {
+    "load_more": "Load more",
+    "show_less": "Show less"
+  },
+  "empty_state": {
+    "title": "No results found",
+    "description": "Try a different combination of filters",
+    "reset": "Reset filters"
+  },
+  "voice_types": {
+    "male": "Male Voice",
+    "female": "Female Voice"
+  },
+  "audio": {
+    "voice_types": {
+      "male": "Male Voice",
+      "female": "Female Voice",
+      "acapella": "Acapella"
+    },
+    "languages": {
+      "spanish": "Spanish",
+      "english": "English"
+    },
+    "categories": {
+      "jingles": "Jingles",
+      "voiceovers": "Voiceovers",
+      "podcast": "Podcast/YouTube Intro"
+    },
+    "labels": {
+      "jingles_category": "Jingles",
+      "voiceovers_category": "Voiceovers",
+      "podcast_category": "Podcast/YouTube Intro/Outro"
+    }
+  }
+}

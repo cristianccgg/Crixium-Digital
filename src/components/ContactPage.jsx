@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import ContactForm from "./ContactForm";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ContactInfoCard = ({ icon: Icon, title, content, link, linkText }) => (
   <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all border border-gray-100 hover:border-purple-100 transform hover:scale-[1.02] duration-300">
@@ -37,6 +38,8 @@ const ContactInfoCard = ({ icon: Icon, title, content, link, linkText }) => (
 );
 
 const ContactPage = () => {
+  const { t } = useTranslation("contact-page");
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
@@ -50,16 +53,16 @@ const ContactPage = () => {
           <div className="text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-sm font-medium backdrop-blur-sm mb-6">
               <MessageCircle size={16} />
-              <span>Estamos aquí para ayudarte</span>
+              <span>{t("contact.heroSubtitle")}</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Hablemos de tu <span className="text-coral-400">Proyecto</span>
+              {t("contact.title")}
+              <span className="text-coral-400">{t("contact.title2")}</span>
             </h1>
 
             <p className="text-xl md:text-2xl mb-10 text-purple-100 max-w-3xl mx-auto">
-              Estamos listos para convertir tus ideas en realidades creativas
-              que impulsen tu negocio
+              {t("contact.description")}
             </p>
 
             <div className="flex flex-wrap gap-4 justify-center">
@@ -67,7 +70,7 @@ const ContactPage = () => {
                 to="/web-development"
                 className="bg-white/20 font-semibold hover:bg-coral-400 backdrop-blur-sm text-white px-8 py-4 rounded-lg border border-white/30 transition-all duration-300 flex items-center gap-2"
               >
-                Servicios Web
+                {t("contact.webServices")}
                 <ArrowRight size={16} />
               </Link>
 
@@ -75,7 +78,7 @@ const ContactPage = () => {
                 to="/music-production"
                 className="bg-white font-semibold text-purple-700 hover:bg-coral-400 hover:text-white backdrop-blur-sm  px-8 py-4 rounded-lg border border-white/30 transition-all duration-300 flex items-center gap-2"
               >
-                Servicios Musicales
+                {t("contact.musicServices")}
                 <ArrowRight size={16} />
               </Link>
             </div>
@@ -99,16 +102,17 @@ const ContactPage = () => {
       {/* Form Section */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-0">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">
               <Sparkles size={16} className="text-coral-400" />
-              <span>Contacto Directo</span>
+              <span>{t("contact.formSection.badge")}</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Contáctanos</h2>
+            {/* <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {t("contact.formSection.title")}
+            </h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Cuéntanos sobre tu proyecto y nos pondremos en contacto contigo en
-              menos de 24 horas
-            </p>
+              {t("contact.formSection.description")}
+            </p> */}
           </div>
 
           {/* Contact Form */}
@@ -122,31 +126,31 @@ const ContactPage = () => {
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">
               <Phone size={16} />
-              <span>Otras Formas de Contacto</span>
+              <span>{t("contact.infoSection.badge")}</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Estamos Disponibles
+              {t("contact.infoSection.title")}
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Puedes contactarnos a través de diferentes canales
+              {t("contact.infoSection.description")}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
             <ContactInfoCard
               icon={Phone}
-              title="Whatsapp"
-              content="+57 321 974 60 45"
+              title={t("contact.infoSection.whatsapp.title")}
+              content={t("contact.infoSection.whatsapp.content")}
               link="https://wa.me/573219746045?text=Hola,%20me%20gustaría%20obtener%20más%20información%20sobre%20tus%20servicios."
-              linkText="Escríbenos ahora"
+              linkText={t("contact.infoSection.whatsapp.linkText")}
             />
 
             <ContactInfoCard
               icon={Mail}
-              title="Email"
-              content="contact@crixiumdigital.com"
+              title={t("contact.infoSection.email.title")}
+              content={t("contact.infoSection.email.content")}
               link="mailto:contact@crixiumdigital.com"
-              linkText="Enviar email"
+              linkText={t("contact.infoSection.email.linkText")}
             />
           </div>
         </div>
@@ -162,14 +166,13 @@ const ContactPage = () => {
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium mb-6">
             <Sparkles size={16} className="text-coral-400" />
-            <span>Respuesta Rápida</span>
+            <span>{t("contact.faqSection.badge")}</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            ¿Tienes alguna duda?
+            {t("contact.faqSection.title")}
           </h2>
           <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
-            Si tienes alguna pregunta sobre nuestros servicios, precios o
-            cualquier otra consulta, no dudes en contactarnos
+            {t("contact.faqSection.description")}
           </p>
           <a
             href="https://wa.me/573219746045?text=Hola,%20me%20gustaría%20obtener%20más%20información%20sobre%20tus%20servicios."
@@ -177,7 +180,7 @@ const ContactPage = () => {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-white text-purple-900 px-8 py-4 rounded-lg hover:bg-purple-50 transition-all duration-300 hover:shadow-lg transform hover:scale-105 font-medium shadow-md group"
           >
-            <span>Escribir por WhatsApp</span>
+            <span>{t("contact.faqSection.button")}</span>
             <ArrowRight
               size={18}
               className="transition-transform duration-300 group-hover:translate-x-1"

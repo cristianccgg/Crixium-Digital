@@ -20,8 +20,10 @@ import { getFunctions, httpsCallable } from "firebase/functions";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "./firebase"; // Asegúrate de importar el storage desde tu configuración de Firebase
 import { v4 as uuidv4 } from "uuid"; // Si no tienes uuid instalado: npm install uuid
+import { useTranslation } from "react-i18next";
 
 const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
+  const { t } = useTranslation("contact-form");
   const fileInputRef = useRef(null);
   const functions = getFunctions();
   const sendContactFormEmail = httpsCallable(functions, "sendContactFormEmail");
@@ -55,43 +57,56 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
     }
   }, [initialService, initialProjectType]);
 
-  const services = [
-    { id: "web", label: "Desarrollo Web", icon: Globe },
-    { id: "music", label: "Producción Musical", icon: Music2 },
-    { id: "other", label: "Otro Tipo de Proyecto", icon: Code },
-  ];
+  const services = {
+    web: {
+      id: "web",
+      label: t("contactForm.fields.service.options.web"),
+      icon: Globe,
+    },
+    music: {
+      id: "music",
+      label: t("contactForm.fields.service.options.music"),
+      icon: Music2,
+    },
+    other: {
+      id: "other",
+      label: t("contactForm.fields.service.options.other"),
+      icon: Code,
+    },
+  };
 
-  const webProjectTypes = [
-    "Sitio Web Corporativo",
-    "Tienda en Línea",
-    "Landing Page",
-    "Blog",
-    "Aplicación Web",
-    "Rediseño Web",
-    "Mantenimiento Web",
-    "Otro",
-  ];
+  // Definimos los tipos de proyecto como objetos en lugar de arrays
+  const webProjectTypes = {
+    corporate: t("contactForm.fields.projectType.web.corporate"),
+    ecommerce: t("contactForm.fields.projectType.web.ecommerce"),
+    landing: t("contactForm.fields.projectType.web.landing"),
+    blog: t("contactForm.fields.projectType.web.blog"),
+    webApp: t("contactForm.fields.projectType.web.webApp"),
+    redesign: t("contactForm.fields.projectType.web.redesign"),
+    maintenance: t("contactForm.fields.projectType.web.maintenance"),
+    other: t("contactForm.fields.projectType.web.other"),
+  };
 
-  const musicProjectTypes = [
-    "Jingle Publicitario",
-    "Música Corporativa",
-    "Spot de Radio",
-    "Música para Cine/TV",
-    "Banda Sonora",
-    "Audiolibro",
-    "Música Infantil",
-    "Proyecto Personalizado",
-    "Otro",
-  ];
+  const musicProjectTypes = {
+    jingle: t("contactForm.fields.projectType.music.jingle"),
+    corporate: t("contactForm.fields.projectType.music.corporate"),
+    radio: t("contactForm.fields.projectType.music.radio"),
+    cinemaTV: t("contactForm.fields.projectType.music.cinemaTV"),
+    soundtrack: t("contactForm.fields.projectType.music.soundtrack"),
+    audiobook: t("contactForm.fields.projectType.music.audiobook"),
+    children: t("contactForm.fields.projectType.music.children"),
+    custom: t("contactForm.fields.projectType.music.custom"),
+    other: t("contactForm.fields.projectType.music.other"),
+  };
 
-  const budgetRanges = [
-    "Menos de $500",
-    "$500 - $1000",
-    "$1000 - $2000",
-    "$2000 - $5000",
-    "Más de $5000",
-    "Por definir",
-  ];
+  const budgetRanges = {
+    under500: t("contactForm.fields.budget.options.under500"),
+    range500to1000: t("contactForm.fields.budget.options.500to1000"),
+    range1000to2000: t("contactForm.fields.budget.options.1000to2000"),
+    range2000to5000: t("contactForm.fields.budget.options.2000to5000"),
+    over5000: t("contactForm.fields.budget.options.over5000"),
+    undefined: t("contactForm.fields.budget.options.undefined"),
+  };
 
   // Manejo de archivos
   const handleFileChange = (e) => {
@@ -145,7 +160,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
 
     setFormStatus((prev) => ({
       ...prev,
-      message: "Subiendo archivos...",
+      message: t("contactForm.statusMessages.uploading"),
       progress: 0,
     }));
 
@@ -191,7 +206,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
     setFormStatus({
       submitted: false,
       error: false,
-      message: "Procesando tu solicitud...",
+      message: t("contactForm.statusMessages.processing"),
       isLoading: true,
       progress: 0,
     });
@@ -222,7 +237,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
 
       setFormStatus((prev) => ({
         ...prev,
-        message: "Enviando formulario...",
+        message: t("contactForm.statusMessages.sending"),
       }));
 
       // Llamar a la Cloud Function
@@ -233,7 +248,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         setFormStatus({
           submitted: true,
           error: false,
-          message: "¡Gracias por contactarnos! Te responderemos en breve.",
+          message: t("contactForm.statusMessages.thankYou"),
           isLoading: false,
           progress: 100,
         });
@@ -245,8 +260,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
       setFormStatus({
         submitted: false,
         error: true,
-        message:
-          "Hubo un error al enviar tu mensaje. Por favor, intenta nuevamente o contáctanos directamente por WhatsApp.",
+        message: t("contactForm.statusMessages.errorMessage"),
         isLoading: false,
         progress: 0,
       });
@@ -264,11 +278,11 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
   // Personalizar el mensaje de la sección de carga según el tipo de servicio
   const getFileUploadMessage = () => {
     if (formData.service === "music") {
-      return "Adjunta muestras de música, letras, referencias o detalles relevantes para tu proyecto musical";
+      return t("contactForm.fields.files.message.music");
     } else if (formData.service === "web") {
-      return "Adjunta bocetos, diseños, imágenes o cualquier material relevante para tu proyecto web";
+      return t("contactForm.fields.files.message.web");
     } else {
-      return "Adjunta cualquier documento, imagen o archivo que nos ayude a entender mejor tu proyecto";
+      return t("contactForm.fields.files.message.default");
     }
   };
 
@@ -295,7 +309,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
                 </div>
               )}
               <p className="text-gray-600 mt-2">
-                Esto puede tomar un momento...
+                {t("contactForm.statusMessages.loading")}
               </p>
             </div>
           ) : (
@@ -303,7 +317,9 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
                 <CheckCircle className="text-green-600" size={32} />
               </div>
-              <h2 className="text-2xl font-bold">¡Mensaje Enviado!</h2>
+              <h2 className="text-2xl font-bold">
+                {t("contactForm.statusMessages.success")}
+              </h2>
               <p className="text-gray-600 mt-2 max-w-md">
                 {formStatus.message}
               </p>
@@ -334,7 +350,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
             }}
             className="px-6 py-3 bg-purple-700 text-white rounded-lg hover:bg-coral-400 transition-colors inline-flex items-center gap-2"
           >
-            Enviar Otro Mensaje
+            {t("contactForm.buttons.another")}
           </button>
         </div>
       </div>
@@ -350,7 +366,9 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
             <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
               <AlertCircle className="text-red-600" size={32} />
             </div>
-            <h2 className="text-2xl font-bold">Error al enviar</h2>
+            <h2 className="text-2xl font-bold">
+              {t("contactForm.statusMessages.error")}
+            </h2>
             <p className="text-gray-600 mt-2 max-w-md">{formStatus.message}</p>
           </div>
         </div>
@@ -368,7 +386,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
             }}
             className="px-6 py-3 bg-purple-700 text-white rounded-lg hover:bg-coral-400 transition-colors inline-flex items-center gap-2"
           >
-            Intentar Nuevamente
+            {t("contactForm.buttons.retry")}
           </button>
         </div>
       </div>
@@ -385,13 +403,13 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
       <div className="text-center mb-8">
         <h2 className="text-2xl font-bold mb-3">
           {initialProjectType === "Proyecto Personalizado"
-            ? "Solicitud de Cotización Personalizada"
-            : "Contacta con Nosotros"}
+            ? t("contactForm.title.custom")
+            : t("contactForm.title.default")}
         </h2>
         <p className="text-gray-600">
           {initialProjectType === "Proyecto Personalizado"
-            ? "Cuéntanos los detalles de tu proyecto musical y te enviaremos una cotización personalizada"
-            : "Cuéntanos sobre tu proyecto y te responderemos en menos de 24 horas"}
+            ? t("contactForm.description.custom")
+            : t("contactForm.description.default")}
         </p>
       </div>
 
@@ -400,7 +418,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Nombre Completo
+              {t("contactForm.fields.fullName.label")}
             </label>
             <input
               type="text"
@@ -409,13 +427,13 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
               onChange={handleChange}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
               required
-              placeholder="Tu nombre completo"
+              placeholder={t("contactForm.fields.fullName.placeholder")}
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Email
+              {t("contactForm.fields.email.label")}
             </label>
             <div className="relative">
               <input
@@ -425,7 +443,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
                 onChange={handleChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent pl-10 transition-all"
                 required
-                placeholder="tu@email.com"
+                placeholder={t("contactForm.fields.email.placeholder")}
               />
               <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
             </div>
@@ -435,7 +453,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         {/* Teléfono (opcional) */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Teléfono (opcional)
+            {t("contactForm.fields.phone.label")}
           </label>
           <div className="relative">
             <input
@@ -444,7 +462,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
               value={formData.phone}
               onChange={handleChange}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent pl-10 transition-all"
-              placeholder="+1 234 567 890"
+              placeholder={t("contactForm.fields.phone.placeholder")}
             />
             <Phone className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
           </div>
@@ -453,10 +471,10 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         {/* Selección de Servicio */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Tipo de Servicio
+            {t("contactForm.fields.service.label")}
           </label>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {services.map(({ id, label, icon: Icon }) => (
+            {Object.values(services).map(({ id, label, icon: Icon }) => (
               <button
                 key={id}
                 type="button"
@@ -480,7 +498,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         {formData.service && (
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Tipo de Proyecto
+              {t("contactForm.fields.projectType.label")}
             </label>
             <select
               name="projectType"
@@ -489,21 +507,25 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
               required
             >
-              <option value="">Selecciona un tipo de proyecto</option>
+              <option value="">
+                {t("contactForm.fields.projectType.placeholder")}
+              </option>
               {formData.service === "web" &&
-                webProjectTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
+                Object.entries(webProjectTypes).map(([key, value]) => (
+                  <option key={key} value={value}>
+                    {value}
                   </option>
                 ))}
               {formData.service === "music" &&
-                musicProjectTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
+                Object.entries(musicProjectTypes).map(([key, value]) => (
+                  <option key={key} value={value}>
+                    {value}
                   </option>
                 ))}
               {formData.service === "other" && (
-                <option value="custom">Proyecto Personalizado</option>
+                <option value="Proyecto Personalizado">
+                  {t("contactForm.fields.projectType.other.custom")}
+                </option>
               )}
             </select>
           </div>
@@ -512,7 +534,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         {/* Presupuesto */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Presupuesto Estimado
+            {t("contactForm.fields.budget.label")}
           </label>
           <select
             name="budget"
@@ -521,8 +543,10 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
             required
           >
-            <option value="">Selecciona un rango de presupuesto</option>
-            {budgetRanges.map((range) => (
+            <option value="">
+              {t("contactForm.fields.budget.placeholder")}
+            </option>
+            {Object.values(budgetRanges).map((range) => (
               <option key={range} value={range}>
                 {range}
               </option>
@@ -533,7 +557,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         {/* Descripción del Proyecto */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Descripción del Proyecto
+            {t("contactForm.fields.description.label")}
           </label>
           <textarea
             name="description"
@@ -543,8 +567,8 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
             placeholder={
               initialProjectType === "Proyecto Personalizado"
-                ? "Describe tu proyecto musical: duración estimada, estilo musical, instrumentación deseada, referencias similares, fechas límite si las hay..."
-                : "Cuéntanos más sobre tu proyecto y tus objetivos..."
+                ? t("contactForm.fields.description.placeholder.custom")
+                : t("contactForm.fields.description.placeholder.default")
             }
             required
           />
@@ -553,8 +577,10 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         {/* File Upload Section */}
         <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Referencias o Archivos Adicionales{" "}
-            <span className="text-gray-400 text-xs">(opcional)</span>
+            {t("contactForm.fields.files.label")}{" "}
+            <span className="text-gray-400 text-xs">
+              {t("contactForm.fields.files.optional")}
+            </span>
           </label>
           <p className="text-sm text-gray-500 mb-4">{getFileUploadMessage()}</p>
 
@@ -565,10 +591,10 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
             >
               <Upload className="text-gray-400 mb-2" size={24} />
               <p className="text-sm text-gray-500">
-                Haz clic para subir archivos o arrastra aquí
+                {t("contactForm.fields.files.dropzone.text")}
               </p>
               <p className="text-xs text-gray-400 mt-1">
-                PDF, DOC, TXT, MP3, JPG, PNG (máx 10MB)
+                {t("contactForm.fields.files.dropzone.formats")}
               </p>
               <input
                 ref={fileInputRef}
@@ -598,7 +624,8 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
                             {file.name}
                           </span>
                           <span className="text-xs text-gray-400 block">
-                            {(file.size / 1024).toFixed(1)} KB
+                            {(file.size / 1024).toFixed(1)}{" "}
+                            {t("contactForm.fields.files.fileSize")}
                           </span>
                         </div>
                       </div>
@@ -623,7 +650,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
           className="w-full bg-purple-700 text-white py-4 px-6 rounded-lg hover:bg-coral-400 transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg transform hover:scale-[1.01] font-medium"
         >
           <Send size={20} />
-          Enviar Solicitud
+          {t("contactForm.buttons.submit")}
         </button>
 
         {/* Nota Informativa */}
@@ -635,8 +662,8 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
             <p className="text-sm text-gray-700">
               {formData.service === "other" ||
               formData.projectType === "Proyecto Personalizado"
-                ? "Para proyectos personalizados, evaluaremos tu solicitud y te contactaremos con una propuesta adaptada a tus necesidades específicas."
-                : "Te responderemos con una propuesta detallada en menos de 24 horas. Si necesitas asistencia inmediata, escribenos al Whatsapp al +57 321 974 60 45."}
+                ? t("contactForm.infoNote.custom")
+                : t("contactForm.infoNote.default")}
             </p>
           </div>
         </div>

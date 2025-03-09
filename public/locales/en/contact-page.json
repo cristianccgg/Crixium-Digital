@@ -1,0 +1,39 @@
+{
+  "contact": {
+    "heroSubtitle": "We're here to help you",
+    "title": "Let's talk about your ",
+    "title2": "Project",
+    "description": "We're ready to turn your ideas into creative realities that drive your business",
+    "webServices": "Web Services",
+    "musicServices": "Music Services",
+
+    "formSection": {
+      "badge": "Direct Contact",
+      "title": "Contact Us",
+      "description": "Tell us about your project and we'll get back to you within 24 hours"
+    },
+
+    "infoSection": {
+      "badge": "Other Contact Methods",
+      "title": "We're Available",
+      "description": "You can contact us through different channels",
+      "whatsapp": {
+        "title": "Whatsapp",
+        "content": "+57 321 974 60 45",
+        "linkText": "Text us now"
+      },
+      "email": {
+        "title": "Email",
+        "content": "contact@crixiumdigital.com",
+        "linkText": "Send email"
+      }
+    },
+
+    "faqSection": {
+      "badge": "Quick Response",
+      "title": "Do you have any questions?",
+      "description": "If you have any questions about our services, prices, or any other inquiry, don't hesitate to contact us",
+      "button": "Chat on WhatsApp"
+    }
+  }
+}
