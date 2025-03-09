@@ -26,6 +26,7 @@ i18n
       "pricing-section-web",
       "projects",
       "reviews",
+      "sample-orders", // Añadido el namespace para sample-orders
       "services",
       "stats",
       "technologies",

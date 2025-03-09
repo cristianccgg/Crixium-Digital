@@ -1,0 +1,29 @@
+{
+  "steps": {
+    "received": "Pedido Recibido",
+    "design": "Diseño",
+    "development": "Desarrollo",
+    "concept": "Concepto",
+    "production": "Producción",
+    "review": "Revisión",
+    "completed": "Finalizado"
+  },
+  "comments": {
+    "web_welcome": "¡Bienvenido! Hemos recibido tu pedido y comenzaremos con el diseño.",
+    "web_client_question": "Gracias, ¿cuándo podré ver los primeros avances?",
+    "web_response": "Te presentaremos el diseño inicial en 5 días hábiles.",
+    "music_welcome": "Hemos recibido tu solicitud para el jingle publicitario.",
+    "music_delivery": "Primera versión del jingle lista para revisión",
+    "voiceover_welcome": "Hemos recibido tu solicitud para la locución comercial."
+  },
+  "titles": {
+    "web_corporate": "Sitio Web Corporativo",
+    "music_jingle": "Jingle Publicitario",
+    "music_voiceover": "Locución Comercial"
+  },
+  "clients": {
+    "demo_company": "Empresa Demo",
+    "demo_brand": "Marca Demo",
+    "demo_radio": "Radio Demo"
+  }
+}

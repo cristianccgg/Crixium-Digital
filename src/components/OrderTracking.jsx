@@ -20,11 +20,12 @@ import {
   addOrderComment,
   uploadOrderFiles,
 } from "./OrderManagerFirebase";
-import { sampleOrders } from "../utils/sampleOrders";
+import { getSampleOrders } from "../utils/sampleOrders";
 import { useTranslation } from "react-i18next";
 
 const OrderTracking = () => {
-  const { t } = useTranslation("order-tracking");
+  const { t } = useTranslation(["order-tracking", "sampleOrders"]);
+  const sampleOrders = getSampleOrders();
   const navigate = useNavigate();
   const location = useLocation();
   const [orderNumber, setOrderNumber] = useState(() => {

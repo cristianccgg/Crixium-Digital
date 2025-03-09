@@ -1,0 +1,29 @@
+{
+  "steps": {
+    "received": "Order Received",
+    "design": "Design",
+    "development": "Development",
+    "concept": "Concept",
+    "production": "Production",
+    "review": "Review",
+    "completed": "Completed"
+  },
+  "comments": {
+    "web_welcome": "Welcome! We've received your order and will begin with the design.",
+    "web_client_question": "Thank you, when can I see the first drafts?",
+    "web_response": "We'll present the initial design in 5 business days.",
+    "music_welcome": "We've received your request for the advertising jingle.",
+    "music_delivery": "First version of the jingle ready for review",
+    "voiceover_welcome": "We've received your request for the commercial voiceover."
+  },
+  "titles": {
+    "web_corporate": "Corporate Website",
+    "music_jingle": "Advertising Jingle",
+    "music_voiceover": "Commercial Voiceover"
+  },
+  "clients": {
+    "demo_company": "Demo Company",
+    "demo_brand": "Demo Brand",
+    "demo_radio": "Demo Radio"
+  }
+}
