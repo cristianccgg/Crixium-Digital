@@ -21,8 +21,10 @@ import {
   uploadOrderFiles,
 } from "./OrderManagerFirebase";
 import { sampleOrders } from "../utils/sampleOrders";
+import { useTranslation } from "react-i18next";
 
 const OrderTracking = () => {
+  const { t } = useTranslation("order-tracking");
   const navigate = useNavigate();
   const location = useLocation();
   const [orderNumber, setOrderNumber] = useState(() => {
@@ -56,7 +58,7 @@ const OrderTracking = () => {
     setLoading(true);
 
     if (!orderNumber.trim()) {
-      setError("Por favor, ingresa un número de pedido");
+      setError(t("orderTracking.search.errors.required"));
       setLoading(false);
       return;
     }
@@ -78,16 +80,12 @@ const OrderTracking = () => {
         setOrderDetails(order);
         setOrderFound(true);
       } else {
-        setError(
-          "No se encontró ningún pedido con ese número. Por favor, verifica e intenta nuevamente."
-        );
+        setError(t("orderTracking.search.errors.not_found"));
         setOrderFound(false);
       }
     } catch (error) {
       console.error("Error al buscar pedido:", error);
-      setError(
-        "Hubo un problema al buscar el pedido. Por favor, intenta de nuevo."
-      );
+      setError(t("orderTracking.search.errors.error"));
       setOrderFound(false);
     }
 
@@ -157,16 +155,11 @@ const OrderTracking = () => {
         // Ocultar mensaje de éxito después de 3 segundos
         setTimeout(() => setCommentSuccess(false), 3000);
       } else {
-        setError(
-          result.message ||
-            "No se pudo enviar el comentario. Por favor, intenta de nuevo."
-        );
+        setError(result.message || t("orderTracking.search.errors.error"));
       }
     } catch (error) {
       console.error("Error al enviar comentario:", error);
-      setError(
-        "Hubo un error al procesar tu comentario. Por favor, intenta de nuevo."
-      );
+      setError(t("orderTracking.search.errors.error"));
     }
 
     setIsSubmitting(false);
@@ -176,7 +169,9 @@ const OrderTracking = () => {
   const renderOrderSteps = (steps) => {
     return (
       <div className="mt-8">
-        <h3 className="text-lg font-semibold mb-4">Progreso del proyecto</h3>
+        <h3 className="text-lg font-semibold mb-4">
+          {t("orderTracking.order.project_progress")}
+        </h3>
         <div className="relative">
           {steps.map((step, index) => (
             <div key={index} className="flex mb-6 relative">
@@ -220,7 +215,7 @@ const OrderTracking = () => {
                   </h4>
                   {step.currentStage && (
                     <span className="ml-2 text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded-full">
-                      Actual
+                      {t("orderTracking.order.current")}
                     </span>
                   )}
                 </div>
@@ -245,9 +240,11 @@ const OrderTracking = () => {
 
     return (
       <div className="mt-8 p-4 border border-purple-100 rounded-lg bg-purple-50">
-        <h3 className="text-lg font-semibold mb-2">Archivos disponibles</h3>
+        <h3 className="text-lg font-semibold mb-2">
+          {t("orderTracking.files.title")}
+        </h3>
         <p className="text-sm text-gray-600 mb-3">
-          Por favor, revisa el material y envía tus comentarios.
+          {t("orderTracking.files.description")}
         </p>
 
         {deliveryComments.map((comment, index) => (
@@ -256,7 +253,9 @@ const OrderTracking = () => {
             className="flex items-center justify-between p-3 bg-white rounded border border-gray-200 mb-2"
           >
             <div>
-              <span className="font-medium">Entrega #{index + 1}</span>
+              <span className="font-medium">
+                {t("orderTracking.files.delivery")} #{index + 1}
+              </span>
               <p className="text-sm text-gray-600">{comment.text}</p>
               <p className="text-xs text-gray-500 mt-1">
                 {new Date(comment.createdAt).toLocaleDateString()}
@@ -269,11 +268,11 @@ const OrderTracking = () => {
                 rel="noopener noreferrer"
                 className="text-purple-700 hover:text-coral-400 px-3 py-1 text-sm font-medium"
               >
-                Descargar
+                {t("orderTracking.files.download")}
               </a>
             ) : (
               <span className="text-gray-400 px-3 py-1 text-sm">
-                Archivo no disponible
+                {t("orderTracking.files.not_available")}
               </span>
             )}
           </div>
@@ -294,7 +293,7 @@ const OrderTracking = () => {
     return (
       <div className="mt-8">
         <h3 className="text-lg font-semibold mb-3">
-          Historial de comunicaciones
+          {t("orderTracking.comments.title")}
         </h3>
         <div className="space-y-4">
           {comments.map((comment, index) => (
@@ -308,7 +307,9 @@ const OrderTracking = () => {
             >
               <div className="flex justify-between mb-1">
                 <span className="text-sm font-medium">
-                  {comment.fromClient ? "Tú" : "Administrador"}
+                  {comment.fromClient
+                    ? t("orderTracking.comments.you")
+                    : t("orderTracking.comments.admin")}
                 </span>
                 <span className="text-xs text-gray-500">
                   {new Date(comment.createdAt).toLocaleString()}
@@ -320,7 +321,7 @@ const OrderTracking = () => {
                 comment.attachmentNames.length > 0 && (
                   <div className="mt-2">
                     <p className="text-xs text-gray-500 mb-1">
-                      Archivos adjuntos:
+                      {t("orderTracking.comments.attachments")}:
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {comment.attachmentNames.map((name, i) => (
@@ -346,27 +347,28 @@ const OrderTracking = () => {
   const renderCommentForm = () => {
     return (
       <div className="mt-8 border-t border-gray-200 pt-6">
-        <h3 className="text-lg font-semibold mb-3">Enviar mensaje</h3>
+        <h3 className="text-lg font-semibold mb-3">
+          {t("orderTracking.comment_form.title")}
+        </h3>
 
         {commentSuccess && (
           <div className="mb-4 p-3 bg-green-50 text-green-800 rounded-lg flex items-center text-sm">
             <CheckCircle size={16} className="mr-2" />
-            Mensaje enviado correctamente. Nos pondremos en contacto contigo
-            pronto.
+            {t("orderTracking.comment_form.success")}
           </div>
         )}
 
         <form onSubmit={handleSubmitComment} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Tu comentario o consulta
+              {t("orderTracking.comment_form.label")}
             </label>
             <textarea
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
               rows={3}
-              placeholder="Escribe aquí tus comentarios, preguntas o solicitudes adicionales..."
+              placeholder={t("orderTracking.comment_form.placeholder")}
               required
             ></textarea>
           </div>
@@ -374,7 +376,7 @@ const OrderTracking = () => {
           <div>
             <div className="flex items-center justify-between mb-1">
               <label className="block text-sm font-medium text-gray-700">
-                Archivos adjuntos (opcional)
+                {t("orderTracking.comment_form.attachments")}
               </label>
               <button
                 type="button"
@@ -382,7 +384,7 @@ const OrderTracking = () => {
                 className="text-sm text-purple-700 hover:text-coral-400 flex items-center"
               >
                 <Upload size={14} className="mr-1" />
-                Adjuntar archivo
+                {t("orderTracking.comment_form.attach")}
               </button>
               <input
                 ref={fileInputRef}
@@ -447,12 +449,12 @@ const OrderTracking = () => {
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                   ></path>
                 </svg>
-                Enviando...
+                {t("orderTracking.comment_form.sending")}
               </>
             ) : (
               <>
                 <Send size={16} className="mr-2" />
-                Enviar mensaje
+                {t("orderTracking.comment_form.button")}
               </>
             )}
           </button>
@@ -465,15 +467,15 @@ const OrderTracking = () => {
   const getStatusText = (status) => {
     switch (status) {
       case "received":
-        return "Recibido";
+        return t("orderTracking.order.status.received");
       case "in-progress":
-        return "En Progreso";
+        return t("orderTracking.order.status.in_progress");
       case "review":
-        return "En Revisión";
+        return t("orderTracking.order.status.review");
       case "completed":
-        return "Completado";
+        return t("orderTracking.order.status.completed");
       default:
-        return "Procesando";
+        return t("orderTracking.order.status.processing");
     }
   };
 
@@ -490,14 +492,14 @@ const OrderTracking = () => {
           <div className="text-center">
             <div className="flex w-fit items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-sm font-medium backdrop-blur-sm mb-6 mx-auto">
               <Package size={16} className="text-coral-400" />
-              <span>Seguimiento de Pedido</span>
+              <span>{t("orderTracking.hero.badge")}</span>
             </div>
 
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Consulta el Estado de tu Proyecto
+              {t("orderTracking.hero.title")}
             </h1>
             <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
-              Mantente al tanto del progreso de tu proyecto en tiempo real
+              {t("orderTracking.hero.description")}
             </p>
 
             {/* Formulario de búsqueda más compacto */}
@@ -513,7 +515,7 @@ const OrderTracking = () => {
                   <input
                     type="text"
                     className="block w-full pl-10 pr-3 py-3 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-coral-400 focus:border-coral-400 text-white placeholder-purple-200"
-                    placeholder="Ingresa tu número de pedido"
+                    placeholder={t("orderTracking.search.placeholder")}
                     value={orderNumber}
                     onChange={(e) => setOrderNumber(e.target.value)}
                   />
@@ -526,12 +528,12 @@ const OrderTracking = () => {
                   {loading ? (
                     <>
                       <Loader size={20} className="animate-spin" />
-                      <span>Buscando...</span>
+                      <span>{t("orderTracking.search.loading")}</span>
                     </>
                   ) : (
                     <>
                       <Search size={20} />
-                      <span>Buscar</span>
+                      <span>{t("orderTracking.search.button")}</span>
                     </>
                   )}
                 </button>
@@ -553,7 +555,7 @@ const OrderTracking = () => {
           <div className="bg-white border border-gray-100 p-6 rounded-xl shadow-sm">
             <h3 className="font-semibold mb-3 flex items-center text-gray-800">
               <Sparkles size={18} className="text-purple-700 mr-2" />
-              Ejemplos para probar
+              {t("orderTracking.examples.title")}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {Object.entries(sampleOrders).map(([number, order]) => (
@@ -604,14 +606,14 @@ const OrderTracking = () => {
                       }`}
                     ></span>
                     <h3 className="font-semibold text-lg">
-                      Pedido #{orderNumber}
+                      {t("orderTracking.order.title")} #{orderNumber}
                     </h3>
                   </div>
                   <h2 className="text-2xl font-bold mt-1">
                     {orderDetails.title}
                   </h2>
                   <p className="text-gray-600 mt-1">
-                    Cliente: {orderDetails.client}
+                    {t("orderTracking.order.client")}: {orderDetails.client}
                   </p>
                 </div>
 
@@ -630,7 +632,7 @@ const OrderTracking = () => {
                     {getStatusText(orderDetails.status)}
                   </div>
                   <p className="text-sm text-gray-500 mt-2">
-                    Última actualización:{" "}
+                    {t("orderTracking.order.last_update")}:{" "}
                     {orderDetails.lastUpdate && orderDetails.lastUpdate.toDate
                       ? orderDetails.lastUpdate.toDate().toLocaleDateString()
                       : new Date(orderDetails.lastUpdate).toLocaleDateString()}
@@ -653,14 +655,13 @@ const OrderTracking = () => {
               {/* Botón para contactar */}
               <div className="mt-10 pt-6 border-t border-gray-100"></div>
               <p className="text-sm text-gray-600 mb-4">
-                ¿Necesitas ponerte en contacto directo? Puedes hacerlo por
-                correo electrónico.
+                {t("orderTracking.contact.description")}
               </p>
               <Link
                 to="/contact"
                 className="inline-flex items-center text-purple-700 hover:text-coral-400 font-medium"
               >
-                Ir a la página de contacto{" "}
+                {t("orderTracking.contact.button")}{" "}
                 <ArrowRight size={16} className="ml-1" />
               </Link>
             </div>

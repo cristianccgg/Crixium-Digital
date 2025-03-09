@@ -1,0 +1,63 @@
+{
+  "orderTracking": {
+    "hero": {
+      "badge": "Order Tracking",
+      "title": "Check Your Project Status",
+      "description": "Stay updated on your project's progress in real time"
+    },
+    "search": {
+      "placeholder": "Enter your order number",
+      "button": "Search",
+      "loading": "Searching...",
+      "errors": {
+        "required": "Please enter an order number",
+        "not_found": "No order was found with that number. Please check and try again.",
+        "error": "There was a problem searching for the order. Please try again."
+      }
+    },
+    "examples": {
+      "title": "Examples to try"
+    },
+    "order": {
+      "title": "Order",
+      "client": "Client",
+      "last_update": "Last update",
+      "project_progress": "Project progress",
+      "current": "Current",
+      "status": {
+        "received": "Received",
+        "in_progress": "In Progress",
+        "review": "In Review",
+        "completed": "Completed",
+        "processing": "Processing"
+      }
+    },
+    "files": {
+      "title": "Available files",
+      "description": "Please review the material and send your feedback.",
+      "delivery": "Delivery",
+      "download": "Download",
+      "not_available": "File not available"
+    },
+    "comments": {
+      "title": "Communication history",
+      "you": "You",
+      "admin": "Administrator",
+      "attachments": "Attachments"
+    },
+    "comment_form": {
+      "title": "Send message",
+      "success": "Message sent successfully. We'll get back to you soon.",
+      "label": "Your comment or inquiry",
+      "placeholder": "Write your comments, questions, or additional requests here...",
+      "attachments": "Attachments (optional)",
+      "attach": "Attach file",
+      "button": "Send message",
+      "sending": "Sending..."
+    },
+    "contact": {
+      "description": "Need to get in direct contact? You can do so by email.",
+      "button": "Go to contact page"
+    }
+  }
+}

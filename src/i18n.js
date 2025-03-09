@@ -11,6 +11,7 @@ i18n
     fallbackLng: "es",
     debug: true,
     ns: [
+      "audio-portfolio",
       "checkout-web",
       "common",
       "contact-form",
@@ -21,6 +22,7 @@ i18n
       "hero",
       "music-production",
       "navbar",
+      "order-tracking",
       "pricing-section-web",
       "projects",
       "reviews",
