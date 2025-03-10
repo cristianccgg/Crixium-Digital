@@ -1,0 +1,85 @@
+{
+  "badge": "Diseño Web y E-commerce",
+  "title": {
+    "first": "Desarollo Web ",
+    "second": "Profesional"
+  },
+  "description": "Creamos sitios web atractivos y tiendas online funcionales para impulsar tu presencia digital y aumentar tus conversiones",
+  "button1": "Ver Paquetes Web",
+  "button2": "Ver Tiendas Online",
+
+  "customSolutions": "Soluciones Personalizadas",
+  "ourServices": "Nuestros Servicios",
+  "servicesDescription": "Ofrecemos una amplia gama de servicios de desarrollo web adaptados a tus necesidades específicas",
+
+  "services": {
+    "corporate": {
+      "title": "Sitios Web Corporativos",
+      "description": "La presencia digital de tu empresa con diseño a medida y optimizado para conversiones",
+      "features": {
+        "first": "Diseño profesional y personalizado",
+        "second": "100% responsivo en todos los dispositivos",
+        "third": "SEO optimizado para mejor posicionamiento",
+        "fourth": "CMS integrado para fácil gestión",
+        "fifth": "Optimización de velocidad de carga"
+      }
+    },
+    "ecommerce": {
+      "title": "Tiendas Online",
+      "description": "Plataformas e-commerce robustas y personalizadas para vender tus productos en internet",
+      "features": {
+        "first": "Catálogo de productos avanzado",
+        "second": "Carrito de compras intuitivo",
+        "third": "Múltiples pasarelas de pagos",
+        "fourth": "Gestión de inventario automatizada",
+        "fifth": "Panel de administración completo"
+      }
+    },
+    "redesign": {
+      "title": "Rediseño Web",
+      "description": "Actualiza tu sitio existente para mejorar su rendimiento, estética y conversiones",
+      "features": {
+        "first": "Diseño moderno y atractivo",
+        "second": "Mejora de rendimiento y velocidad",
+        "third": "Optimización completa de SEO",
+        "fourth": "Migración segura de contenido",
+        "fifth": "Integración de analytics avanzados"
+      }
+    }
+  },
+
+  "buttons": {
+    "requestQuote": "Solicitar Cotización",
+    "viewPackages": "Ver Paquetes"
+  },
+
+  "technology": {
+    "badge": "Stack Tecnológico",
+    "title": "Tecnologías",
+    "description": "Utilizamos las tecnologías más modernas para crear soluciones robustas y escalables que impulsan tu negocio"
+  },
+
+  "process": {
+    "badge": "Cómo Trabajamos",
+    "title": "Nuestro Proceso",
+    "description": "Un enfoque estructurado para garantizar resultados excepcionales en cada proyecto que desarrollamos",
+    "steps": {
+      "first": {
+        "title": "1. Planificación",
+        "description": "Definimos los objetivos y requerimientos específicos de tu proyecto"
+      },
+      "second": {
+        "title": "2. Diseño",
+        "description": "Creamos la arquitectura y diseño visual de la solución"
+      },
+      "third": {
+        "title": "3. Desarrollo",
+        "description": "Implementamos la solución con código limpio y eficiente"
+      },
+      "fourth": {
+        "title": "4. Lanzamiento",
+        "description": "Desplegamos y optimizamos tu proyecto para máximo rendimiento"
+      }
+    }
+  }
+}

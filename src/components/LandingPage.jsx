@@ -9,11 +9,17 @@ import TechnologiesSection from "./web_development/TechnologiesSection";
 import TrackingLanding from "./TrackingLanding.jsx";
 import WhyToChoose from "./WhyToChoose.jsx";
 import { useTranslation } from "react-i18next";
+// Importar los nuevos componentes SEO
+import SimpleSEO from "./SEO/SimpleSEO";
+import SimpleSchemaData from "./SEO/SimpleSchemaData";
 
-// Componente para los números/estadísticas
+// Componente para los números/estadísticas con atributos mejorados para accesibilidad
 const StatCard = ({ number, label }) => (
-  <div className="text-center">
-    <div className="text-4xl md:text-5xl font-bold text-white mb-2">
+  <div className="text-center" role="presentation">
+    <div
+      className="text-4xl md:text-5xl font-bold text-white mb-2"
+      aria-label={`${number} ${label}`}
+    >
       {number}
     </div>
     <p className="text-white">{label}</p>
@@ -31,8 +37,23 @@ const LandingPage = () => {
     }
   }, []);
 
+  // Título y descripción optimizados para SEO
+  const pageTitle =
+    "Desarrollo Web y Producción Musical Profesional | Crixium Digital";
+  const pageDescription =
+    "Expertos en desarrollo web con React y producción musical. Creamos sitios web modernos y jingles profesionales para hacer destacar tu negocio. ¡Consigue resultados excepcionales con Crixium Digital!";
+
   return (
     <>
+      {/* Componentes de SEO */}
+      <SimpleSEO
+        title={pageTitle}
+        description={pageDescription}
+        canonicalUrl="/"
+        ogType="website"
+      />
+      <SimpleSchemaData pageType="WebPage" />
+
       {/* Hero Section con tracking highlight */}
       <EnhancedHeroSection />
 
@@ -40,9 +61,9 @@ const LandingPage = () => {
       <section className="py-20 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">
               {t("servicios-profesionales")}
-            </h2>
+            </h1>
             <p className="text-gray-600 max-w-2xl mx-auto">
               {t("description")}
             </p>
@@ -59,9 +80,15 @@ const LandingPage = () => {
       <TrackingLanding />
 
       {/* Sección Stats/Cifras */}
-      <section className="py-16 px-4 bg-purple-700 ">
+      <section
+        className="py-16 px-4 bg-purple-700"
+        aria-labelledby="stats-heading"
+      >
+        <h2 id="stats-heading" className="sr-only">
+          Nuestros logros en números
+        </h2>
         <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 ">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <StatCard number="250+" label={t("label1")} />
             <StatCard number="600+" label={t("label2")} />
             <StatCard number="8+" label={t("label3")} />

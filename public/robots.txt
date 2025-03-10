@@ -1,0 +1,10 @@
+# robots.txt para Crixium Digital
+User-agent: *
+Allow: /
+
+# Excluir área de administración
+Disallow: /admin/
+Disallow: /payment-response
+
+# Sitemap
+Sitemap: https://crixiumdigital.com/sitemap.xml

@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prebuild": "node scripts/generate-sitemap.js"
   },
   "dependencies": {
     "@rive-app/react-canvas": "^4.18.3",
@@ -20,6 +21,7 @@
     "lucide": "^0.476.0",
     "lucide-react": "^0.476.0",
     "md5": "^2.3.0",
+    "prop-types": "^15.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-i18next": "^15.4.1",

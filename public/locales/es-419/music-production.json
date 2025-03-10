@@ -1,0 +1,82 @@
+{
+  "musicProduction": {
+    "hero": {
+      "badge": "Producción de Audio Profesional",
+      "title": "Producción ",
+      "title2": "Musical ",
+      "title3": "Profesional",
+      "description": "Creamos la identidad sonora perfecta para tu marca con música original y producción de alta calidad para todos tus proyectos",
+      "buttons": {
+        "viewPackages": "Ver Paquetes",
+        "listenSamples": "Escuchar Muestras"
+      }
+    },
+    "services": {
+      "title": "Nuestros Servicios",
+      "subtitle": "Soluciones Personalizadas",
+      "description": "Ofrecemos una amplia gama de servicios de producción musical adaptados a tus necesidades específicas",
+      "items": {
+        "jingles": {
+          "title": "Jingles Publicitarios",
+          "description": "Música memorable y efectiva para que tu marca resuene con tu audiencia y se quede en su memoria",
+          "features": {
+            "feature1": "Jingles originales a medida",
+            "feature2": "Adaptaciones de canciones existentes",
+            "feature3": "Múltiples duraciones y formatos",
+            "feature4": "Incluye derechos comerciales completos",
+            "feature5": "Voces profesionales opcionales"
+          }
+        },
+        "voiceover": {
+          "title": "Spots de Radio",
+          "description": "Producción completa para radio con guiones creativos y locución profesional que captan la atención",
+          "features": {
+            "feature1": "Guión creativo personalizado",
+            "feature2": "Locución profesional de alta calidad",
+            "feature3": "Música original o licenciada",
+            "feature4": "Efectos sonoros inmersivos",
+            "feature5": "Mezcla y masterización profesional"
+          }
+        },
+        "custom": {
+          "title": "Música Personalizada",
+          "description": "Soluciones musicales a medida para cualquier proyecto creativo o comercial que requiera identidad sonora",
+          "features": {
+            "feature1": "Música para cine, TV y publicidad",
+            "feature2": "Bandas sonoras para videojuegos",
+            "feature3": "Sonorización de audiolibros",
+            "feature4": "Música para contenido digital",
+            "feature5": "Proyectos especiales a medida"
+          }
+        }
+      },
+      "buttons": {
+        "viewPackages": "Ver Paquetes",
+        "requestQuote": "Solicitar Cotización"
+      }
+    },
+    "process": {
+      "title": "Nuestro Proceso",
+      "subtitle": "Cómo Trabajamos",
+      "description": "Un enfoque estructurado para garantizar resultados excepcionales en cada proyecto musical que desarrollamos",
+      "steps": {
+        "step1": {
+          "title": "1. Briefing",
+          "description": "Entendemos tu visión y objetivos para crear el concepto sonoro perfecto"
+        },
+        "step2": {
+          "title": "2. Composición",
+          "description": "Creamos la música original que mejor represente tu marca e identidad"
+        },
+        "step3": {
+          "title": "3. Producción",
+          "description": "Producimos y mezclamos hasta lograr un sonido profesional y de alta calidad"
+        },
+        "step4": {
+          "title": "4. Entrega",
+          "description": "Entregamos los archivos finales en todos los formatos que necesites"
+        }
+      }
+    }
+  }
+}

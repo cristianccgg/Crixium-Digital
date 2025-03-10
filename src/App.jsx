@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./components/SharedLayout";
 import LandingPage from "./components/LandingPage";
-import MusicProductionPage from "./components/MusicProduccionPage";
-import WebDevelopmentPage from "./components/WebDevelopomentPage";
+import MusicProductionPage from "./components/MusicProductionPage";
+import WebDevelopmentPage from "./components/WebDevelopmentPage";
 import ContactPage from "./components/ContactPage";
 import WhatsAppButton from "./components/WhatsAppButton"; // Importar el nuevo componente
 import OrderTracking from "./components/OrderTracking";
