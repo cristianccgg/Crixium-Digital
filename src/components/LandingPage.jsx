@@ -29,6 +29,10 @@ const StatCard = ({ number, label }) => (
 const LandingPage = () => {
   const { t } = useTranslation("stats");
   const heroRef = useRef(null);
+  const seoTitle =
+    "Crixium Digital | Desarrollo Web y Producción Musical Profesional";
+  const seoDescription =
+    "Soluciones digitales integrales para empresas. Especialistas en desarrollo web, e-commerce, producción musical y jingles publicitarios. Tu presencia digital en manos expertas.";
 
   // Efecto para la animación inicial
   useEffect(() => {
@@ -37,20 +41,24 @@ const LandingPage = () => {
     }
   }, []);
 
-  // Título y descripción optimizados para SEO
-  const pageTitle =
-    "Desarrollo Web y Producción Musical Profesional | Crixium Digital";
-  const pageDescription =
-    "Expertos en desarrollo web con React y producción musical. Creamos sitios web modernos y jingles profesionales para hacer destacar tu negocio. ¡Consigue resultados excepcionales con Crixium Digital!";
-
   return (
     <>
-      {/* Componentes de SEO */}
+      {/* SEO Components */}
       <SimpleSEO
-        title={pageTitle}
-        description={pageDescription}
+        title={seoTitle}
+        description={seoDescription}
         canonicalUrl="/"
         ogType="website"
+        ogImage="/logo.png"
+        lang="es"
+      />
+      <SimpleSchemaData
+        pageType="WebPage"
+        data={{
+          name: "Crixium Digital | Desarrollo Web y Producción Musical",
+          description: seoDescription,
+          url: "https://crixiumdigital.com",
+        }}
       />
       <SimpleSchemaData pageType="WebPage" />
 

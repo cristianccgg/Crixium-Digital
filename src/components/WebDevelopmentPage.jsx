@@ -21,6 +21,9 @@ import FeaturedProjects from "./web_development/FeaturedProjects";
 import LandingReviewsCarousel from "./LandingReviewsCarousel";
 import UnifiedPricingSection from "./web_development/UnifiedPricingSection";
 import { useTranslation } from "react-i18next";
+// Import SEO components
+import SimpleSEO from "./SEO/SimpleSEO";
+import SimpleSchemaData from "./SEO/SimpleSchemaData";
 
 const ServiceCard = ({
   icon: Icon,
@@ -238,8 +241,32 @@ const WebDevelopmentPage = () => {
     }
   };
 
+  // SEO title and description for the web development page
+  const seoTitle =
+    "Desarrollo Web Profesional | Sitios Web y E-commerce | Crixium Digital";
+  const seoDescription =
+    "Servicios profesionales de desarrollo web para empresas. Creamos sitios web modernos, tiendas online y rediseños con WordPress, React y WooCommerce. Presencia digital que convierte.";
+
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* SEO Components */}
+      <SimpleSEO
+        title={seoTitle}
+        description={seoDescription}
+        canonicalUrl="/web-development"
+        ogType="website"
+        ogImage="/logo.png"
+        lang="es"
+      />
+      <SimpleSchemaData
+        pageType="WebDevelopmentService"
+        data={{
+          name: "Desarrollo Web Profesional | Crixium Digital",
+          description: seoDescription,
+          url: "https://crixiumdigital.com/web-development",
+        }}
+      />
+
       {/* Hero Section */}
       <section className="relative sm:min-h-[60vh] min-h-screen flex items-center pt-16 px-4 bg-gradient-to-br from-purple-700 via-purple-800 to-purple-900 text-white overflow-hidden">
         {/* Elementos decorativos */}
@@ -397,13 +424,13 @@ const WebDevelopmentPage = () => {
         </div>
       </section>
 
-      {/* Unified Pricing Section 
-      <div ref={pricingSectionRef}>
+      {/* Unified Pricing Section */}
+      {/* <div ref={pricingSectionRef}>
         <UnifiedPricingSection
           initialService={selectedService}
           initialType={projectType}
         />
-      </div>*/}
+      </div> */}
 
       <LandingReviewsCarousel />
     </div>

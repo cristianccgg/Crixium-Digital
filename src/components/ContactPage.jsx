@@ -10,6 +10,8 @@ import {
 import ContactForm from "./ContactForm";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import SimpleSEO from "./SEO/SimpleSEO";
+import SimpleSchemaData from "./SEO/SimpleSchemaData";
 
 const ContactInfoCard = ({ icon: Icon, title, content, link, linkText }) => (
   <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all border border-gray-100 hover:border-purple-100 transform hover:scale-[1.02] duration-300">
@@ -39,9 +41,29 @@ const ContactInfoCard = ({ icon: Icon, title, content, link, linkText }) => (
 
 const ContactPage = () => {
   const { t } = useTranslation("contact-page");
+  const seoTitle = "Contáctanos | Servicios Digitales | Crixium Digital";
+  const seoDescription =
+    "Ponte en contacto con nuestro equipo para discutir tu próximo proyecto digital. Desarrollo web, producción musical y soluciones digitales personalizadas para tu negocio.";
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* SEO Components */}
+      <SimpleSEO
+        title={seoTitle}
+        description={seoDescription}
+        canonicalUrl="/contact"
+        ogType="website"
+        ogImage="/logo.png"
+        lang="es"
+      />
+      <SimpleSchemaData
+        pageType="ContactPage"
+        data={{
+          name: "Contacto | Crixium Digital",
+          description: seoDescription,
+          url: "https://crixiumdigital.com/contact",
+        }}
+      />
       {/* Hero Section */}
       <section className="relative md:min-h-[60vh] min-h-screen flex items-center pt-16 px-4 bg-gradient-to-br from-purple-700 via-purple-800 to-purple-900 text-white overflow-hidden">
         {/* Elementos decorativos */}

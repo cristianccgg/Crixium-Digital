@@ -22,6 +22,8 @@ import {
 } from "./OrderManagerFirebase";
 import { getSampleOrders } from "../utils/sampleOrders";
 import { useTranslation } from "react-i18next";
+import SimpleSEO from "./SEO/SimpleSEO";
+import SimpleSchemaData from "./SEO/SimpleSchemaData";
 
 const OrderTracking = () => {
   const { t } = useTranslation(["order-tracking", "sampleOrders"]);
@@ -44,6 +46,11 @@ const OrderTracking = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [commentSuccess, setCommentSuccess] = useState(false);
   const fileInputRef = useRef(null);
+
+  const seoTitle =
+    "Seguimiento de Proyecto | Estado de tu Proyecto | Crixium Digital";
+  const seoDescription =
+    "Consulta el estado y progreso de tu proyecto digital en tiempo real. Seguimiento transparente de tu desarrollo web o producción musical con Crixium Digital.";
 
   // Buscar el pedido automáticamente si viene en la URL
   useEffect(() => {
@@ -483,6 +490,23 @@ const OrderTracking = () => {
   // Vista principal con formulario de búsqueda
   return (
     <div className=" bg-gray-50">
+      {/* SEO Components */}
+      <SimpleSEO
+        title={seoTitle}
+        description={seoDescription}
+        canonicalUrl="/tracking"
+        ogType="website"
+        ogImage="/logo.png"
+        lang="es"
+      />
+      <SimpleSchemaData
+        pageType="WebPage"
+        data={{
+          name: "Seguimiento de Proyecto | Crixium Digital",
+          description: seoDescription,
+          url: "https://crixiumdigital.com/tracking",
+        }}
+      />
       {/* Hero Section con estilo similar a LandingPage */}
       <section className="relative flex flex-col justify-center md:min-h-[60vh] min-h-screen py-32 px-4 bg-gradient-to-br from-purple-700 via-purple-800 to-purple-900 text-white overflow-hidden">
         {/* Elementos decorativos */}

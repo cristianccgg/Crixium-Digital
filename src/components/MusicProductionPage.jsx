@@ -16,6 +16,8 @@ import { useTranslation } from "react-i18next";
 import PricingSection from "./music_production/PricingSection";
 import AudioPorfolio from "./music_production/AudioPorfolio";
 import LandingReviewsCarousel from "./LandingReviewsCarousel";
+import SimpleSEO from "./SEO/SimpleSEO";
+import SimpleSchemaData from "./SEO/SimpleSchemaData";
 
 const ServiceCard = ({
   icon: Icon,
@@ -163,6 +165,11 @@ const MusicProductionPage = () => {
   const audioPortfolioRef = useRef(null);
   const [selectedService, setSelectedService] = useState(null);
 
+  const seoTitle =
+    "Producción Musical Profesional | Jingles y Audio | Crixium Digital";
+  const seoDescription =
+    "Servicios de producción musical para empresas y artistas. Creamos jingles publicitarios, producción de audio profesional y música para contenido digital que conecta con tu audiencia.";
+
   // Ahora usamos un objeto en lugar de un array para los servicios
   const services = {
     jingles: {
@@ -257,6 +264,22 @@ const MusicProductionPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <SimpleSEO
+        title={seoTitle}
+        description={seoDescription}
+        canonicalUrl="/music-production"
+        ogType="website"
+        ogImage="/logo.png"
+        lang="es"
+      />
+      <SimpleSchemaData
+        pageType="MusicProductionService"
+        data={{
+          name: "Producción Musical Profesional | Crixium Digital",
+          description: seoDescription,
+          url: "https://crixiumdigital.com/music-production",
+        }}
+      />
       {/* Hero Section */}
       <section className="relative min-h-screen sm:min-h-[60vh] flex items-center py-16 px-4 bg-gradient-to-br from-purple-700 via-purple-800 to-purple-900 text-white overflow-hidden">
         {/* Elementos decorativos */}
