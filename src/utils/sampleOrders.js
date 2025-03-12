@@ -3,7 +3,7 @@ import i18next from "i18next";
 // Función para obtener traducciones con fallback
 const getTranslation = (key, defaultValue) => {
   // Intentar obtener la traducción usando el namespace sample-orders
-  const translation = i18next.t(key, { ns: "sample-orders" });
+  const translation = i18next.t(key, { ns: "sampleOrders" });
 
   // Verificar si la traducción existe y no es la misma que la clave
   if (translation && translation !== key) {
@@ -254,6 +254,4 @@ export const getSampleOrders = () => {
   };
 };
 
-// Exportamos una función getter para obtener los pedidos de ejemplo
-// Y una constante para la compatibilidad con el código existente
 export const sampleOrders = getSampleOrders();

@@ -4,7 +4,7 @@ import LandingPage from "./components/LandingPage";
 import MusicProductionPage from "./components/MusicProductionPage";
 import WebDevelopmentPage from "./components/WebDevelopmentPage";
 import ContactPage from "./components/ContactPage";
-import WhatsAppButton from "./components/WhatsAppButton"; // Importar el nuevo componente
+import WhatsAppButton from "./components/WhatsAppButton";
 import OrderTracking from "./components/OrderTracking";
 import AdminPanel from "./components/AdminPanel";
 import PrivateRoute from "./components/PrivateRoute";
@@ -27,27 +27,96 @@ function App() {
         {/* Ruta para manejar respuestas de pago */}
         <Route path="/payment-response" element={<PaymentResponseHandler />} />
 
-        {/* Rutas públicas con layout compartido */}
+        {/* Rutas públicas en español (sin prefijo) */}
         <Route
-          path="/*"
+          path="/"
           element={
             <Layout>
-              <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route
-                  path="/music-production"
-                  element={<MusicProductionPage />}
-                />
-                <Route
-                  path="/web-development"
-                  element={<WebDevelopmentPage />}
-                />
-                <Route path="/tracking" element={<OrderTracking />} />
-                <Route path="/contact" element={<ContactPage />} />
-                {/* Add more routes as needed */}
-              </Routes>
-              <WhatsAppButton />{" "}
-              {/* Reemplazar ChatbotAssistant por WhatsAppButton */}
+              <LandingPage />
+              <WhatsAppButton />
+            </Layout>
+          }
+        />
+        <Route
+          path="/music-production"
+          element={
+            <Layout>
+              <MusicProductionPage />
+              <WhatsAppButton />
+            </Layout>
+          }
+        />
+        <Route
+          path="/web-development"
+          element={
+            <Layout>
+              <WebDevelopmentPage />
+              <WhatsAppButton />
+            </Layout>
+          }
+        />
+        <Route
+          path="/tracking"
+          element={
+            <Layout>
+              <OrderTracking />
+              <WhatsAppButton />
+            </Layout>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <Layout>
+              <ContactPage />
+              <WhatsAppButton />
+            </Layout>
+          }
+        />
+
+        {/* Rutas públicas en inglés (con prefijo /en) */}
+        <Route
+          path="/en"
+          element={
+            <Layout>
+              <LandingPage />
+              <WhatsAppButton />
+            </Layout>
+          }
+        />
+        <Route
+          path="/en/music-production"
+          element={
+            <Layout>
+              <MusicProductionPage />
+              <WhatsAppButton />
+            </Layout>
+          }
+        />
+        <Route
+          path="/en/web-development"
+          element={
+            <Layout>
+              <WebDevelopmentPage />
+              <WhatsAppButton />
+            </Layout>
+          }
+        />
+        <Route
+          path="/en/tracking"
+          element={
+            <Layout>
+              <OrderTracking />
+              <WhatsAppButton />
+            </Layout>
+          }
+        />
+        <Route
+          path="/en/contact"
+          element={
+            <Layout>
+              <ContactPage />
+              <WhatsAppButton />
             </Layout>
           }
         />

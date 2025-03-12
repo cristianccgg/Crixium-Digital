@@ -1,25 +1,47 @@
 // src/components/LanguageSwitcher.jsx
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Globe } from "lucide-react";
 
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const changeLanguage = (lng) => {
+    // Cambiar el idioma en i18n
     i18n.changeLanguage(lng);
+
+    // Obtener la ruta actual
+    const currentPath = location.pathname;
+
+    // Construir la nueva URL basada en el idioma
+    let newPath;
+    if (lng === "en") {
+      // Si cambiamos a inglés, añadir /en/ al inicio (a menos que ya esté)
+      newPath = currentPath.startsWith("/en")
+        ? currentPath
+        : `/en${currentPath}`;
+    } else {
+      // Si cambiamos a español, quitar /en/ del inicio
+      newPath = currentPath.startsWith("/en")
+        ? currentPath.substring(3)
+        : currentPath;
+      if (newPath === "") newPath = "/"; // Si queda vacío, usar la raíz
+    }
+
+    // Navegar a la nueva URL
+    navigate(newPath);
+
+    // Cerrar el menú desplegable
     setIsOpen(false);
   };
 
   // Obtener texto del idioma actual para mostrar
   const getCurrentLanguageText = () => {
     return i18n.language === "es" ? "ES" : "EN";
-  };
-
-  // Obtener la bandera del idioma actual
-  const getCurrentLanguageFlag = () => {
-    return i18n.language === "es" ? "🇪🇸" : "🇺🇸";
   };
 
   return (

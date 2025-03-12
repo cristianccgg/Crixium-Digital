@@ -28,7 +28,16 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { t } = useTranslation("navbar");
+  const { t, i18n } = useTranslation("navbar"); // Añadimos i18n
+
+  // Función para generar URLs localizadas
+  const getLocalizedPath = (path) => {
+    if (i18n.language === "en") {
+      // Para inglés, añadir /en al inicio (excepto si ya está)
+      return path === "/" ? "/en" : `/en${path}`;
+    }
+    return path; // Para español, mantener la ruta original
+  };
 
   // Menú con links directos a las secciones principales
   const navItems = [
@@ -76,7 +85,8 @@ const Navbar = () => {
 
   const handleContactClick = (e) => {
     e.preventDefault();
-    navigate("/contact");
+    // Usar la versión localizada de la ruta
+    navigate(getLocalizedPath("/contact"));
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -86,13 +96,18 @@ const Navbar = () => {
     }
   };
 
-  // Determinar si estamos en una página con hero de fondo azul
+  // Modificar la detección de páginas con hero para incluir las versiones en inglés
   const hasHeroBackground = [
     "/",
+    "/en",
     "/web-development",
+    "/en/web-development",
     "/music-production",
+    "/en/music-production",
     "/contact",
+    "/en/contact",
     "/tracking",
+    "/en/tracking",
   ].includes(location.pathname);
 
   return (
@@ -105,11 +120,10 @@ const Navbar = () => {
         <div className="flex justify-between h-20">
           <div className="flex items-center">
             <Link
-              to="/"
+              to={getLocalizedPath("/")}
               className="text-2xl font-bold transition-colors duration-300"
             >
               <div className="flex items-center gap-2">
-                {/* Reduced logo size and gap */}
                 <img
                   src="/bombillo.PNG"
                   alt="bombillo"
@@ -127,12 +141,17 @@ const Navbar = () => {
             {navItems.map((item) => (
               <Link
                 key={item.name}
-                to={item.href}
+                to={getLocalizedPath(item.href)}
                 className={`flex items-center gap-1 text-xs lg:text-base transition-colors ${
                   isScrolled || !hasHeroBackground
                     ? "text-white font-semibold hover:text-coral-400 hover:scale-105 transition-transform duration-500 ease-in-out"
                     : "text-white font-semibold hover:text-coral-400 hover:scale-105 transition-transform duration-500 ease-in-out"
-                } ${location.pathname === item.href ? "font-semibold" : ""}`}
+                } ${
+                  location.pathname === item.href ||
+                  location.pathname === getLocalizedPath(item.href)
+                    ? "font-semibold"
+                    : ""
+                }`}
                 onClick={(e) => handleNavClick(e, item.href)}
               >
                 <item.icon size={14} className="md:mr-0.5 lg:mr-1" />
@@ -140,7 +159,7 @@ const Navbar = () => {
               </Link>
             ))}
             <a
-              href="/contact"
+              href={getLocalizedPath("/contact")}
               className={`px-2 md:px-3 lg:px-5 py-1.5 md:py-2 rounded-lg transition-all duration-300 flex items-center gap-1 text-xs md:text-sm lg:text-base whitespace-nowrap cursor-pointer ${
                 isScrolled || !hasHeroBackground
                   ? "bg-white/20 font-semibold backdrop-blur-sm text-white hover:bg-coral-400 border border-white/30 hover:text-white hover:scale-105 hover:shadow-coral-300/80 hover:shadow-lg hover:ring-2 hover:ring-coral-300 transition-all duration-300 ease-out"
@@ -178,7 +197,7 @@ const Navbar = () => {
             {navItems.map((item) => (
               <Link
                 key={item.name}
-                to={item.href}
+                to={getLocalizedPath(item.href)}
                 className="flex items-center gap-2 px-3 py-2 text-white hover:text-purple-700 hover:bg-blue-50 rounded-lg"
                 onClick={(e) => handleNavClick(e, item.href)}
               >
@@ -187,7 +206,7 @@ const Navbar = () => {
               </Link>
             ))}
             <a
-              href="/contact"
+              href={getLocalizedPath("/contact")}
               className="flex items-center gap-2 px-3 py-2 bg-coral-400 text-white rounded-lg hover:text-purple-700 hover:bg-white mt-2 cursor-pointer"
               onClick={handleContactClick}
             >
@@ -202,16 +221,20 @@ const Navbar = () => {
 };
 
 const CallToAction = () => {
-  const { t } = useTranslation("cta");
+  const { t, i18n } = useTranslation("cta"); // Añadimos i18n
   const navigate = useNavigate();
+
+  // Función para generar URLs localizadas (igual que en Navbar)
+  const getLocalizedPath = (path) => {
+    if (i18n.language === "en") {
+      return path === "/" ? "/en" : `/en${path}`;
+    }
+    return path;
+  };
 
   const handleContactClick = (e) => {
     e.preventDefault();
-
-    // Navegar a la página de contacto
-    navigate("/contact");
-
-    // Hacer scroll al inicio de la página
+    navigate(getLocalizedPath("/contact"));
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -226,7 +249,7 @@ const CallToAction = () => {
           {t("subtitle")}
         </p>
         <a
-          href="/contact"
+          href={getLocalizedPath("/contact")}
           onClick={handleContactClick}
           className="bg-coral-500 text-white px-8 py-4 rounded-lg hover:bg-coral-600 transition-all duration-300 inline-flex items-center gap-2 font-medium shadow-lg group cursor-pointer"
         >
@@ -243,13 +266,20 @@ const CallToAction = () => {
 
 // Footer component remains untouched as it's already translated
 const Footer = ({ children }) => {
-  // Original Footer component code...
-  const { t } = useTranslation("footer");
+  const { t, i18n } = useTranslation("footer"); // Añadimos i18n
   const navigate = useNavigate();
+
+  // Función para generar URLs localizadas (igual que en Navbar)
+  const getLocalizedPath = (path) => {
+    if (i18n.language === "en") {
+      return path === "/" ? "/en" : `/en${path}`;
+    }
+    return path;
+  };
 
   const handleContactClick = (e) => {
     e.preventDefault();
-    navigate("/contact");
+    navigate(getLocalizedPath("/contact"));
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -259,7 +289,7 @@ const Footer = ({ children }) => {
   return (
     <footer className="bg-gray-900 text-white py-12 px-4">
       <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-8">
-        <Link to="/">
+        <Link to={getLocalizedPath("/")}>
           <div className="flex flex-col items-start">
             <div className="flex flex-col items-center">
               <div className="flex gap-2">
@@ -276,10 +306,12 @@ const Footer = ({ children }) => {
           <h4 className="font-semibold mb-4">{t("services")}</h4>
           <ul className="space-y-2 text-gray-400">
             <li className="hover:text-white transition-colors">
-              <Link to="/web-development">{t("web")}</Link>
+              <Link to={getLocalizedPath("/web-development")}>{t("web")}</Link>
             </li>
             <li className="hover:text-white transition-colors">
-              <Link to="/music-production">{t("music")}</Link>
+              <Link to={getLocalizedPath("/music-production")}>
+                {t("music")}
+              </Link>
             </li>
           </ul>
         </div>
@@ -292,7 +324,7 @@ const Footer = ({ children }) => {
 
             <li className="mt-4">
               <a
-                href="/contact"
+                href={getLocalizedPath("/contact")}
                 onClick={handleContactClick}
                 className="px-4 py-2 bg-purple-700 text-white rounded-lg inline-block hover:bg-purple-800 transition-colors cursor-pointer"
               >
@@ -339,18 +371,25 @@ const Footer = ({ children }) => {
 
 const Layout = ({ children }) => {
   const location = useLocation();
+  const { i18n } = useTranslation(); // Añadimos i18n
 
   const fullScreenHeroPages = [
     "/",
+    "/en",
     "/web-development",
+    "/en/web-development",
     "/music-production",
+    "/en/music-production",
     "/contact",
+    "/en/contact",
     "/tracking",
+    "/en/tracking",
   ];
   const hasFullScreenHero = fullScreenHeroPages.includes(location.pathname);
 
-  // Verificar si la página actual es la de contacto
-  const isContactPage = location.pathname === "/contact";
+  // Verificar si la página actual es la de contacto (en cualquier idioma)
+  const isContactPage =
+    location.pathname === "/contact" || location.pathname === "/en/contact";
 
   return (
     <div className="min-h-screen flex flex-col">

@@ -38,7 +38,7 @@ const initI18n = () => {
         "pricing-section-web",
         "projects",
         "reviews",
-        "sample-orders",
+        "sampleOrders",
         "schema",
         "seo",
         "services",

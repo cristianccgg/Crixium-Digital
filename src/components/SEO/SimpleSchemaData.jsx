@@ -174,25 +174,22 @@ const SimpleSchemaData = ({ pageType = "WebPage", data = {} }) => {
     const finalSchema = { ...selectedSchema, ...data };
 
     // Función para insertar el script Schema.org
+    // Función modificada para insertar el script Schema.org
     const injectSchemaScript = (schemaData) => {
-      // Buscar si ya existe un script de schema para este tipo de página y lenguaje
-      let scriptTag = document.querySelector(
-        `script[data-schema-type="${pageType}"][data-schema-lang="${currentLang}"]`
+      // Primero, eliminar cualquier script de schema antiguo para este tipo de página,
+      // independientemente del idioma
+      const oldScripts = document.querySelectorAll(
+        `script[data-schema-type="${pageType}"]`
       );
+      oldScripts.forEach((script) => script.remove());
 
-      // Si existe, actualizarlo
-      if (scriptTag) {
-        scriptTag.innerHTML = JSON.stringify(schemaData);
-      }
-      // Si no existe, crear uno nuevo
-      else {
-        scriptTag = document.createElement("script");
-        scriptTag.setAttribute("type", "application/ld+json");
-        scriptTag.setAttribute("data-schema-type", pageType);
-        scriptTag.setAttribute("data-schema-lang", currentLang);
-        scriptTag.innerHTML = JSON.stringify(schemaData);
-        document.head.appendChild(scriptTag);
-      }
+      // Crear y añadir el nuevo script
+      const scriptTag = document.createElement("script");
+      scriptTag.setAttribute("type", "application/ld+json");
+      scriptTag.setAttribute("data-schema-type", pageType);
+      scriptTag.setAttribute("data-schema-lang", currentLang);
+      scriptTag.innerHTML = JSON.stringify(schemaData);
+      document.head.appendChild(scriptTag);
     };
 
     // Inyectar el schema
