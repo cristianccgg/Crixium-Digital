@@ -61,7 +61,8 @@ const initI18n = () => {
         useSuspense: true, // Habilitando suspense
       },
       detection: {
-        order: ["localStorage", "navigator"],
+        // Cambio en el orden: path primero para que la URL tenga prioridad
+        order: ["path", "localStorage", "navigator"],
         caches: ["localStorage"],
         lookupFromPathIndex: 0,
         checkWhitelist: true,
