@@ -25,36 +25,14 @@ export default async function handler(req, res) {
 
     // Verificar que tengamos las variables de entorno necesarias
     if (!MAILGUN_API_KEY || !MAILGUN_DOMAIN) {
-      console.error("Faltan variables de entorno: ", {
-        apiKeyExists: !!MAILGUN_API_KEY,
-        domainExists: !!MAILGUN_DOMAIN,
-      });
-
       return res.status(500).json({
         success: false,
         message:
           "Error de configuración del servidor: faltan variables de entorno",
-        debug: {
-          apiKeyExists: !!MAILGUN_API_KEY,
-          domainExists: !!MAILGUN_DOMAIN,
-          // Mostramos los primeros caracteres de la API key para depuración
-          apiKeyStart: MAILGUN_API_KEY
-            ? MAILGUN_API_KEY.substring(0, 5) + "..."
-            : null,
-        },
       });
     }
 
     const MAILGUN_API_URL = `https://api.mailgun.net/v3/${MAILGUN_DOMAIN}/messages`;
-
-    console.log("Enviando email con configuración:", {
-      url: MAILGUN_API_URL,
-      apiKeyExists: !!MAILGUN_API_KEY,
-      from,
-      to,
-      cc: cc || "No especificado",
-      replyTo: replyTo || "No especificado",
-    });
 
     // Crear form data para Mailgun
     const formData = new FormData();
@@ -87,25 +65,12 @@ export default async function handler(req, res) {
       id: response.data.id,
     });
   } catch (error) {
-    // Obtener información detallada del error
-    const errorDetails = {
-      message: error.message,
-      status: error.response?.status,
-      data: error.response?.data,
-      stack: error.stack,
-    };
+    console.error("Error al enviar correo:", error.message);
 
-    console.error(
-      "Error detallado al enviar correo:",
-      JSON.stringify(errorDetails, null, 2)
-    );
-
-    // Devolver error con más detalles
+    // Devolver error
     return res.status(500).json({
       success: false,
-      message: error.message || "Error al enviar correo",
-      errorDetails:
-        error.response?.data || "No hay detalles adicionales del error",
+      message: "Error al enviar correo",
     });
   }
 }
