@@ -264,20 +264,18 @@ const MusicProductionPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* SEO Components */}
       <SimpleSEO
-        title={seoTitle}
-        description={seoDescription}
+        titleKey="seo:music.title"
+        descriptionKey="seo:music.description"
         canonicalUrl="/music-production"
         ogType="website"
         ogImage="/logo.png"
-        lang="es"
       />
       <SimpleSchemaData
         pageType="MusicProductionService"
         data={{
-          name: "Producción Musical Profesional | Crixium Digital",
-          description: seoDescription,
-          url: "https://crixiumdigital.com/music-production",
+          path: "/music-production",
         }}
       />
       {/* Hero Section */}

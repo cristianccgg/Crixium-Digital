@@ -251,19 +251,16 @@ const WebDevelopmentPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* SEO Components */}
       <SimpleSEO
-        title={seoTitle}
-        description={seoDescription}
+        titleKey="seo:webdev.title"
+        descriptionKey="seo:webdev.description"
         canonicalUrl="/web-development"
         ogType="website"
         ogImage="/logo.png"
-        lang="es"
       />
       <SimpleSchemaData
         pageType="WebDevelopmentService"
         data={{
-          name: "Desarrollo Web Profesional | Crixium Digital",
-          description: seoDescription,
-          url: "https://crixiumdigital.com/web-development",
+          path: "/web-development",
         }}
       />
 

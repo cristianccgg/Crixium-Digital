@@ -1,22 +1,32 @@
 // src/components/SimpleSEO.jsx
 import { useEffect } from "react";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 /**
- * Componente SimpleSEO para manejar metadatos sin dependencias externas
+ * Componente SimpleSEO para manejar metadatos con soporte multilingüe
  * Compatible con React 19
  */
 const SimpleSEO = ({
-  title,
-  description,
+  titleKey = "seo.defaultTitle", // Clave de traducción para el título
+  descriptionKey = "seo.defaultDescription", // Clave de traducción para la descripción
   canonicalUrl,
   ogType = "website",
   ogImage = "/logo.png", // Logo PNG 500x500px en carpeta public
-  lang = "es",
 }) => {
-  // Construir la URL canónica
+  const { t, i18n } = useTranslation("seo"); // Asumiendo que tienes un namespace "seo"
+  const currentLang = i18n.language;
+
+  // Construir la URL canónica con soporte para idioma
   const siteUrl = "https://crixiumdigital.com"; // Reemplaza con tu dominio real
-  const canonical = canonicalUrl ? `${siteUrl}${canonicalUrl}` : siteUrl;
+  const langPath = currentLang === "es" ? "" : `/${currentLang}`; // Si es español (default), no añadir prefijo
+  const canonical = canonicalUrl
+    ? `${siteUrl}${langPath}${canonicalUrl}`
+    : `${siteUrl}${langPath}`;
+
+  // Obtener título y descripción traducidos
+  const title = t(titleKey);
+  const description = t(descriptionKey);
 
   useEffect(() => {
     // Actualizar el título de la página
@@ -61,7 +71,7 @@ const SimpleSEO = ({
     };
 
     // Establecer el atributo lang en el html
-    document.documentElement.setAttribute("lang", lang);
+    document.documentElement.setAttribute("lang", currentLang);
 
     // Metadatos básicos
     updateMetaTag("description", description);
@@ -73,6 +83,22 @@ const SimpleSEO = ({
     updateMetaTag("og:title", title, true);
     updateMetaTag("og:description", description, true);
     updateMetaTag("og:image", `${siteUrl}${ogImage}`, true);
+    updateMetaTag("og:locale", currentLang === "es" ? "es_ES" : "en_US", true);
+
+    // Añadir alternativas de idioma para Open Graph
+    const altLang = currentLang === "es" ? "en" : "es";
+    const altUrl = canonicalUrl
+      ? `${siteUrl}${altLang === "es" ? "" : `/${altLang}`}${canonicalUrl}`
+      : `${siteUrl}${altLang === "es" ? "" : `/${altLang}`}`;
+    updateMetaTag(
+      "og:locale:alternate",
+      altLang === "es" ? "es_ES" : "en_US",
+      true
+    );
+
+    // Agregar enlaces hreflang para SEO multilingüe
+    updateLink("alternate", altUrl);
+    updateLink("hreflang", altLang);
 
     // Twitter
     updateMetaTag("twitter:card", "summary_large_image");
@@ -85,19 +111,18 @@ const SimpleSEO = ({
       // No es necesario eliminar las meta tags, pero podría hacerse si es importante
       // Para este caso, simplemente dejamos que permanezcan hasta la próxima actualización
     };
-  }, [title, description, canonical, ogType, ogImage, lang, siteUrl]);
+  }, [title, description, canonical, ogType, ogImage, currentLang, siteUrl]);
 
   // Este componente no renderiza nada visible
   return null;
 };
 
 SimpleSEO.propTypes = {
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  titleKey: PropTypes.string,
+  descriptionKey: PropTypes.string,
   canonicalUrl: PropTypes.string,
   ogType: PropTypes.string,
   ogImage: PropTypes.string,
-  lang: PropTypes.string,
 };
 
 export default SimpleSEO;

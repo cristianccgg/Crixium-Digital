@@ -1,0 +1,24 @@
+{
+  "defaultTitle": "Crixium Digital - Web Development and Music Production",
+  "defaultDescription": "We offer professional web development and music production services tailored to your needs. Contact us for your next project.",
+  "home": {
+    "title": "Crixium Digital - Web Development and Music Production",
+    "description": "We create unique digital experiences for your business. Custom web development and professional music production."
+  },
+  "webdev": {
+    "title": "Web Development Services | Crixium Digital",
+    "description": "We design and develop modern, responsive, and SEO-optimized websites that will enhance your business's online presence."
+  },
+  "music": {
+    "title": "Professional Music Production | Crixium Digital",
+    "description": "We create jingles, advertising music, and professional audio production that will emotionally connect with your audience."
+  },
+  "contact": {
+    "title": "Contact | Crixium Digital",
+    "description": "Ready to start your next project? Contact us today to turn your ideas into reality."
+  },
+  "tracking": {
+    "title": "Project Tracking | Crixium Digital",
+    "description": "Track your project's progress in real-time. Stay informed about each stage of your web development or music production."
+  }
+}

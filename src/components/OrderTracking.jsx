@@ -492,19 +492,16 @@ const OrderTracking = () => {
     <div className=" bg-gray-50">
       {/* SEO Components */}
       <SimpleSEO
-        title={seoTitle}
-        description={seoDescription}
+        titleKey="seo:tracking.title" // Necesitarás añadir esta entrada en tus archivos de traducción
+        descriptionKey="seo:tracking.description" // Necesitarás añadir esta entrada en tus archivos de traducción
         canonicalUrl="/tracking"
         ogType="website"
         ogImage="/logo.png"
-        lang="es"
       />
       <SimpleSchemaData
         pageType="WebPage"
         data={{
-          name: "Seguimiento de Proyecto | Crixium Digital",
-          description: seoDescription,
-          url: "https://crixiumdigital.com/tracking",
+          path: "/tracking",
         }}
       />
       {/* Hero Section con estilo similar a LandingPage */}

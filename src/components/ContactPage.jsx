@@ -49,19 +49,16 @@ const ContactPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* SEO Components */}
       <SimpleSEO
-        title={seoTitle}
-        description={seoDescription}
+        titleKey="seo:contact.title"
+        descriptionKey="seo:contact.description"
         canonicalUrl="/contact"
         ogType="website"
         ogImage="/logo.png"
-        lang="es"
       />
       <SimpleSchemaData
         pageType="ContactPage"
         data={{
-          name: "Contacto | Crixium Digital",
-          description: seoDescription,
-          url: "https://crixiumdigital.com/contact",
+          path: "/contact",
         }}
       />
       {/* Hero Section */}

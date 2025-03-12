@@ -39,6 +39,8 @@ const initI18n = () => {
         "projects",
         "reviews",
         "sample-orders",
+        "schema",
+        "seo",
         "services",
         "stats",
         "technologies",

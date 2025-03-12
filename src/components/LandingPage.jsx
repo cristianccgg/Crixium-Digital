@@ -45,19 +45,16 @@ const LandingPage = () => {
     <>
       {/* SEO Components */}
       <SimpleSEO
-        title={seoTitle}
-        description={seoDescription}
+        titleKey="seo:home.title"
+        descriptionKey="seo:home.description"
         canonicalUrl="/"
         ogType="website"
         ogImage="/logo.png"
-        lang="es"
       />
       <SimpleSchemaData
         pageType="WebPage"
         data={{
-          name: "Crixium Digital | Desarrollo Web y Producción Musical",
-          description: seoDescription,
-          url: "https://crixiumdigital.com",
+          path: "/",
         }}
       />
       <SimpleSchemaData pageType="WebPage" />

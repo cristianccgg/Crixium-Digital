@@ -1,18 +1,27 @@
 import { useEffect } from "react";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 /**
- * Componente SimpleSchemaData para datos estructurados sin dependencias externas
+ * Componente SimpleSchemaData para datos estructurados con soporte multilingüe
  * Compatible con React 19
  */
 const SimpleSchemaData = ({ pageType = "WebPage", data = {} }) => {
+  const { t, i18n } = useTranslation(["common", "schema"]); // Usando ambos namespaces
+  const currentLang = i18n.language;
+
   useEffect(() => {
-    // Datos de la organización (usados en múltiples esquemas)
+    // Construir URLs con el idioma actual
+    const siteUrl = "https://crixiumdigital.com";
+    const langPath = currentLang === "es" ? "" : `/${currentLang}`; // Si es español (default), no añadir prefijo
+    const fullUrl = `${siteUrl}${langPath}${data.path || ""}`;
+
+    // Datos de la organización (usados en múltiples esquemas) con traducciones
     const organizationData = {
       "@type": "Organization",
       name: "Crixium Digital",
-      url: "https://crixiumdigital.com",
-      logo: "https://crixiumdigital.com/logo.png", // Logo PNG 500x500px en carpeta public
+      url: siteUrl,
+      logo: `${siteUrl}/logo.png`, // Logo PNG 500x500px en carpeta public
       sameAs: [
         "https://facebook.com/crixiumdigital", // Reemplaza con tus enlaces reales
         "https://instagram.com/crixiumdigital",
@@ -20,23 +29,31 @@ const SimpleSchemaData = ({ pageType = "WebPage", data = {} }) => {
       contactPoint: {
         "@type": "ContactPoint",
         telephone: "+573219746045", // Reemplaza con tu teléfono real
-        contactType: "customer service",
+        contactType: t("schema:organization.contactType", "customer service"),
       },
     };
 
-    // Esquemas disponibles
+    // Esquemas disponibles con traducciones
     const schemas = {
       // Esquema para la página principal
       WebPage: {
         "@context": "https://schema.org",
         "@type": "WebPage",
         name:
-          data.title || "Desarrollo Web y Producción Musical - Crixium Digital",
+          data.title ||
+          t(
+            "schema:webpage.title",
+            "Desarrollo Web y Producción Musical - Crixium Digital"
+          ),
         description:
           data.description ||
-          "Servicios de desarrollo web y producción musical. Creamos sitios web modernos y jingles profesionales para tu negocio.",
-        url: data.url || "https://crixiumdigital.com",
+          t(
+            "schema:webpage.description",
+            "Servicios de desarrollo web y producción musical. Creamos sitios web modernos y jingles profesionales para tu negocio."
+          ),
+        url: fullUrl,
         publisher: organizationData,
+        inLanguage: currentLang,
       },
 
       // Esquema para la página de servicios de desarrollo web
@@ -44,34 +61,43 @@ const SimpleSchemaData = ({ pageType = "WebPage", data = {} }) => {
         "@context": "https://schema.org",
         "@type": "Service",
         serviceType: "Web Development",
-        name: "Desarrollo Web Profesional",
-        description:
-          "Creamos sitios web modernos, responsivos y optimizados para SEO para tu negocio o proyecto personal.",
+        name: t("schema:webdev.title", "Desarrollo Web Profesional"),
+        description: t(
+          "schema:webdev.description",
+          "Creamos sitios web modernos, responsivos y optimizados para SEO para tu negocio o proyecto personal."
+        ),
         provider: organizationData,
         areaServed: "Global",
+        inLanguage: currentLang,
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "Servicios de Desarrollo Web",
+          name: t("schema:webdev.catalogName", "Servicios de Desarrollo Web"),
           itemListElement: [
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "Diseño y Desarrollo de Sitios Web",
+                name: t(
+                  "schema:webdev.service1",
+                  "Diseño y Desarrollo de Sitios Web"
+                ),
               },
             },
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "Desarrollo de Aplicaciones Web",
+                name: t(
+                  "schema:webdev.service2",
+                  "Desarrollo de Aplicaciones Web"
+                ),
               },
             },
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "E-commerce",
+                name: t("schema:webdev.service3", "E-commerce"),
               },
             },
           ],
@@ -83,34 +109,40 @@ const SimpleSchemaData = ({ pageType = "WebPage", data = {} }) => {
         "@context": "https://schema.org",
         "@type": "Service",
         serviceType: "Music Production",
-        name: "Producción Musical Profesional",
-        description:
-          "Creamos jingles, música para publicidad y producción de audio profesional para tu negocio.",
+        name: t("schema:music.title", "Producción Musical Profesional"),
+        description: t(
+          "schema:music.description",
+          "Creamos jingles, música para publicidad y producción de audio profesional para tu negocio."
+        ),
         provider: organizationData,
         areaServed: "Global",
+        inLanguage: currentLang,
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "Servicios de Producción Musical",
+          name: t(
+            "schema:music.catalogName",
+            "Servicios de Producción Musical"
+          ),
           itemListElement: [
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "Producción de Jingles",
+                name: t("schema:music.service1", "Producción de Jingles"),
               },
             },
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "Música para Publicidad",
+                name: t("schema:music.service2", "Música para Publicidad"),
               },
             },
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "Producción de Audio",
+                name: t("schema:music.service3", "Producción de Audio"),
               },
             },
           ],
@@ -121,10 +153,13 @@ const SimpleSchemaData = ({ pageType = "WebPage", data = {} }) => {
       ContactPage: {
         "@context": "https://schema.org",
         "@type": "ContactPage",
-        name: "Contacto - Crixium Digital",
-        description:
-          "Ponte en contacto con nosotros para discutir tu próximo proyecto de desarrollo web o producción musical.",
-        url: "https://crixiumdigital.com/contact",
+        name: t("schema:contact.title", "Contacto - Crixium Digital"),
+        description: t(
+          "schema:contact.description",
+          "Ponte en contacto con nosotros para discutir tu próximo proyecto de desarrollo web o producción musical."
+        ),
+        url: `${siteUrl}${langPath}/contact`,
+        inLanguage: currentLang,
         mainEntity: {
           "@type": "Organization",
           ...organizationData,
@@ -140,9 +175,9 @@ const SimpleSchemaData = ({ pageType = "WebPage", data = {} }) => {
 
     // Función para insertar el script Schema.org
     const injectSchemaScript = (schemaData) => {
-      // Buscar si ya existe un script de schema
+      // Buscar si ya existe un script de schema para este tipo de página y lenguaje
       let scriptTag = document.querySelector(
-        'script[data-schema-type="' + pageType + '"]'
+        `script[data-schema-type="${pageType}"][data-schema-lang="${currentLang}"]`
       );
 
       // Si existe, actualizarlo
@@ -154,6 +189,7 @@ const SimpleSchemaData = ({ pageType = "WebPage", data = {} }) => {
         scriptTag = document.createElement("script");
         scriptTag.setAttribute("type", "application/ld+json");
         scriptTag.setAttribute("data-schema-type", pageType);
+        scriptTag.setAttribute("data-schema-lang", currentLang);
         scriptTag.innerHTML = JSON.stringify(schemaData);
         document.head.appendChild(scriptTag);
       }
@@ -165,10 +201,10 @@ const SimpleSchemaData = ({ pageType = "WebPage", data = {} }) => {
     // Limpieza al desmontar
     return () => {
       // Opcional: eliminar el script al desmontar
-      // const scriptTag = document.querySelector('script[data-schema-type="' + pageType + '"]');
+      // const scriptTag = document.querySelector('script[data-schema-type="' + pageType + '"][data-schema-lang="' + currentLang + '"]');
       // if (scriptTag) document.head.removeChild(scriptTag);
     };
-  }, [pageType, data]); // Solo dependencias primitivas
+  }, [pageType, data, currentLang, t]); // Dependencias actualizadas
 
   // Este componente no renderiza nada visible
   return null;
