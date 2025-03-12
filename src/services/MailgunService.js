@@ -1,12 +1,5 @@
 import axios from "axios";
 
-// Configura tus credenciales de Mailgun aquí - Usando import.meta.env para Vite
-const MAILGUN_API_KEY = import.meta.env.VITE_MAILGUN_API_KEY;
-const MAILGUN_DOMAIN = import.meta.env.VITE_MAILGUN_DOMAIN;
-const MAILGUN_API_URL = `https://api.mailgun.net/v3/${MAILGUN_DOMAIN}/messages`;
-
-// Resto del archivo igual que antes
-
 /**
  * Formatea un mensaje para el formulario de contacto
  * @param {Object} formData - Datos del formulario
@@ -143,7 +136,7 @@ const formatContactMessage = (formData) => {
 };
 
 /**
- * Envía un correo electrónico a través de Mailgun API
+ * Envía un correo electrónico a través de la API route de Vercel
  * @param {Object} options - Opciones del correo
  * @returns {Promise<Object>} - Resultado de la operación
  */
@@ -151,43 +144,30 @@ export const sendEmail = async (options) => {
   try {
     const { from, to, subject, html, cc, bcc, replyTo } = options;
 
-    // Crear FormData para Mailgun
-    const formData = new FormData();
-    formData.append("from", from);
-    formData.append("to", to);
-    formData.append("subject", subject);
-    formData.append("html", html);
-
-    if (cc) formData.append("cc", cc);
-    if (bcc) formData.append("bcc", bcc);
-    if (replyTo) formData.append("h:Reply-To", replyTo);
-
-    // Enviar correo a través de Mailgun API
+    // Enviar correo a través de nuestra API route
     const response = await axios({
       method: "post",
-      url: MAILGUN_API_URL,
-      auth: {
-        username: "api",
-        password: MAILGUN_API_KEY,
+      url: "/api/send-email",
+      data: {
+        from,
+        to,
+        subject,
+        html,
+        cc,
+        bcc,
+        replyTo,
       },
-      data: formData,
-      headers: { "Content-Type": "multipart/form-data" },
     });
 
-    if (response.status === 200) {
-      return {
-        success: true,
-        message: "Correo enviado correctamente",
-        id: response.data.id,
-      };
-    } else {
-      throw new Error(`Mailgun respondió con código: ${response.status}`);
-    }
+    return response.data;
   } catch (error) {
     console.error("Error al enviar correo con Mailgun:", error);
     return {
       success: false,
-      message: error.message || "Error al enviar correo",
+      message:
+        error.response?.data?.message ||
+        error.message ||
+        "Error al enviar correo",
     };
   }
 };
