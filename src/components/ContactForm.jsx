@@ -14,19 +14,17 @@ import {
   FileText,
   Music,
   FileImage,
-  Loader,
 } from "lucide-react";
-import { getFunctions, httpsCallable } from "firebase/functions";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "./firebase"; // Asegúrate de importar el storage desde tu configuración de Firebase
 import { v4 as uuidv4 } from "uuid"; // Si no tienes uuid instalado: npm install uuid
 import { useTranslation } from "react-i18next";
+// Importa el nuevo servicio de Mailgun
+import { sendContactForm } from "../services/MailgunService";
 
 const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
   const { t } = useTranslation("contact-form");
   const fileInputRef = useRef(null);
-  const functions = getFunctions();
-  const sendContactFormEmail = httpsCallable(functions, "sendContactFormEmail");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -148,7 +146,8 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
 
   // Función para subir archivos a Firebase Storage
   const uploadFilesToStorage = async (files) => {
-    if (!files || files.length === 0) return { urls: [], fileNames: [] };
+    if (!files || files.length === 0)
+      return { urls: [], fileNames: [], fileDetails: [] };
 
     // Crear un ID único para el contacto
     const contactId = uuidv4();
@@ -240,10 +239,10 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         message: t("contactForm.statusMessages.sending"),
       }));
 
-      // Llamar a la Cloud Function
-      const result = await sendContactFormEmail(dataToSend);
+      // Usar el nuevo servicio de Mailgun en lugar de la Cloud Function
+      const result = await sendContactForm(dataToSend);
 
-      if (result.data && result.data.success) {
+      if (result.success) {
         // Éxito
         setFormStatus({
           submitted: true,
@@ -253,7 +252,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
           progress: 100,
         });
       } else {
-        throw new Error(result.data?.message || "Error al enviar el correo");
+        throw new Error(result.message || "Error al enviar el correo");
       }
     } catch (error) {
       console.error("Error:", error);
