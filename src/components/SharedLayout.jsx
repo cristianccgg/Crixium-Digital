@@ -28,7 +28,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation("navbar"); // Añadimos i18n
+  const { t, i18n } = useTranslation("navbar");
 
   // Función para generar URLs localizadas
   const getLocalizedPath = (path) => {
@@ -96,19 +96,28 @@ const Navbar = () => {
     }
   };
 
-  // Modificar la detección de páginas con hero para incluir las versiones en inglés
-  const hasHeroBackground = [
-    "/",
-    "/en",
-    "/web-development",
-    "/en/web-development",
-    "/music-production",
-    "/en/music-production",
-    "/contact",
-    "/en/contact",
-    "/tracking",
-    "/en/tracking",
-  ].includes(location.pathname);
+  // Función mejorada para detectar páginas con hero background
+  const hasHeroBackground = (pathname) => {
+    // Lista de rutas base que tienen hero background
+    const heroRoutes = [
+      "/",
+      "/web-development",
+      "/music-production",
+      "/contact",
+      "/tracking",
+    ];
+
+    // Comprueba si la ruta actual (sin importar el idioma) está en la lista de rutas con hero
+    return heroRoutes.some(
+      (route) =>
+        pathname === route || // Ruta española directa
+        pathname === `/en${route}` || // Ruta inglesa normal
+        (route === "/" && pathname === "/en") // Caso especial para home en inglés
+    );
+  };
+
+  // Usa la función para determinar si la página actual tiene hero
+  const pageHasHeroBackground = hasHeroBackground(location.pathname);
 
   return (
     <nav
@@ -143,7 +152,7 @@ const Navbar = () => {
                 key={item.name}
                 to={getLocalizedPath(item.href)}
                 className={`flex items-center gap-1 text-xs lg:text-base transition-colors ${
-                  isScrolled || !hasHeroBackground
+                  isScrolled || !pageHasHeroBackground
                     ? "text-white font-semibold hover:text-coral-400 hover:scale-105 transition-transform duration-500 ease-in-out"
                     : "text-white font-semibold hover:text-coral-400 hover:scale-105 transition-transform duration-500 ease-in-out"
                 } ${
@@ -161,7 +170,7 @@ const Navbar = () => {
             <a
               href={getLocalizedPath("/contact")}
               className={`px-2 md:px-3 lg:px-5 py-1.5 md:py-2 rounded-lg transition-all duration-300 flex items-center gap-1 text-xs md:text-sm lg:text-base whitespace-nowrap cursor-pointer ${
-                isScrolled || !hasHeroBackground
+                isScrolled || !pageHasHeroBackground
                   ? "bg-white/20 font-semibold backdrop-blur-sm text-white hover:bg-coral-400 border border-white/30 hover:text-white hover:scale-105 hover:shadow-coral-300/80 hover:shadow-lg hover:ring-2 hover:ring-coral-300 transition-all duration-300 ease-out"
                   : "bg-white/20 font-semibold backdrop-blur-sm text-white hover:bg-coral-400 border border-white/30 hover:text-white hover:scale-105 hover:shadow-coral-300/80 hover:shadow-lg hover:ring-2 hover:ring-coral-300 transition-all duration-300 ease-out"
               }`}
@@ -179,7 +188,7 @@ const Navbar = () => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={`${
-                isScrolled || !hasHeroBackground
+                isScrolled || !pageHasHeroBackground
                   ? "text-coral-400"
                   : "text-coral-400"
               } hover:text-white`}
@@ -221,7 +230,7 @@ const Navbar = () => {
 };
 
 const CallToAction = () => {
-  const { t, i18n } = useTranslation("cta"); // Añadimos i18n
+  const { t, i18n } = useTranslation("cta");
   const navigate = useNavigate();
 
   // Función para generar URLs localizadas (igual que en Navbar)
@@ -264,9 +273,9 @@ const CallToAction = () => {
   );
 };
 
-// Footer component remains untouched as it's already translated
+// Footer component
 const Footer = ({ children }) => {
-  const { t, i18n } = useTranslation("footer"); // Añadimos i18n
+  const { t, i18n } = useTranslation("footer");
   const navigate = useNavigate();
 
   // Función para generar URLs localizadas (igual que en Navbar)
@@ -371,21 +380,30 @@ const Footer = ({ children }) => {
 
 const Layout = ({ children }) => {
   const location = useLocation();
-  const { i18n } = useTranslation(); // Añadimos i18n
+  const { i18n } = useTranslation();
 
-  const fullScreenHeroPages = [
-    "/",
-    "/en",
-    "/web-development",
-    "/en/web-development",
-    "/music-production",
-    "/en/music-production",
-    "/contact",
-    "/en/contact",
-    "/tracking",
-    "/en/tracking",
-  ];
-  const hasFullScreenHero = fullScreenHeroPages.includes(location.pathname);
+  // Función mejorada para detectar páginas con hero background (misma que en Navbar)
+  const hasHeroBackground = (pathname) => {
+    // Lista de rutas base que tienen hero background
+    const heroRoutes = [
+      "/",
+      "/web-development",
+      "/music-production",
+      "/contact",
+      "/tracking",
+    ];
+
+    // Comprueba si la ruta actual (sin importar el idioma) está en la lista de rutas con hero
+    return heroRoutes.some(
+      (route) =>
+        pathname === route || // Ruta española directa
+        pathname === `/en${route}` || // Ruta inglesa normal
+        (route === "/" && pathname === "/en") // Caso especial para home en inglés
+    );
+  };
+
+  // Usa la función para determinar si la página actual tiene hero
+  const pageHasHeroBackground = hasHeroBackground(location.pathname);
 
   // Verificar si la página actual es la de contacto (en cualquier idioma)
   const isContactPage =
@@ -395,7 +413,7 @@ const Layout = ({ children }) => {
     <div className="min-h-screen flex flex-col">
       <ScrollToTop />
       <Navbar />
-      <main className={`flex-grow ${hasFullScreenHero ? "" : "pt-20"}`}>
+      <main className={`flex-grow ${pageHasHeroBackground ? "" : "pt-20"}`}>
         {children}
       </main>
 
