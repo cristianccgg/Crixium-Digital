@@ -142,6 +142,8 @@ const formatContactMessage = (formData) => {
  */
 export const sendEmail = async (options) => {
   try {
+    console.log("Enviando email mediante API route...");
+
     const { from, to, subject, html, cc, bcc, replyTo } = options;
 
     // Enviar correo a través de nuestra API route
@@ -159,15 +161,22 @@ export const sendEmail = async (options) => {
       },
     });
 
+    console.log("Respuesta de la API:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error al enviar correo con Mailgun:", error);
+    console.error(
+      "Error detallado:",
+      error.response?.data || "No hay datos de respuesta"
+    );
+
     return {
       success: false,
       message:
         error.response?.data?.message ||
         error.message ||
         "Error al enviar correo",
+      errorDetails: error.response?.data?.errorDetails || null,
     };
   }
 };
@@ -186,6 +195,12 @@ export const sendContactForm = async (formData) => {
         message: "Faltan datos requeridos para enviar el formulario",
       };
     }
+
+    console.log("Preparando envío de formulario de contacto", {
+      name: formData.name,
+      email: formData.email,
+      service: formData.service,
+    });
 
     // Formatear el HTML con los datos del formulario
     const htmlContent = formatContactMessage(formData);
