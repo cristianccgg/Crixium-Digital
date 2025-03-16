@@ -1,0 +1,267 @@
+{
+  "checkout": {
+    "steps": {
+      "customize": "Personaliza tu Proyecto",
+      "customizeEcommerce": "Personaliza tu Tienda Online",
+      "details": "Detalles del Proyecto",
+      "detailsEcommerce": "Detalles de la Tienda",
+      "contact": "Información de Contacto",
+      "payment": "Pago"
+    },
+    "general": {
+      "next": "Siguiente",
+      "previous": "Anterior",
+      "proceed": "Continuar al Pago",
+      "processing": "Procesando...",
+      "totalEstimate": "Total Estimado",
+      "orderSummary": "Resumen del Pedido",
+      "basePackage": "Paquete Base",
+      "total": "Total",
+      "attachedFiles": "Archivos Adjuntos",
+      "filesProcessing": "Los archivos serán procesados al enviar el formulario",
+      "webShop": "Sitio Web",
+      "ecommerceShop": "Tienda Online",
+      "basePrice": "precio base"
+    },
+    "ecommerce": {
+      "businessName": {
+        "label": "Nombre de tu Negocio",
+        "placeholder": "Nombre de tu empresa o proyecto"
+      },
+      "businessType": {
+        "label": "Tipo de Negocio"
+      },
+      "productCount": {
+        "label": "Número Aproximado de Productos",
+        "placeholder": "Ej: 50"
+      },
+      "domain": {
+        "label": "Dominio (si ya tienes uno)",
+        "placeholder": "tunegocio.com"
+      },
+      "designReference": {
+        "label": "¿Tienes alguna referencia de diseño?",
+        "placeholder": "Ej: Me gusta el estilo de example.com o link a Figma/PDF..."
+      },
+      "storeDescription": {
+        "label": "Descripción de tu Tienda y Requisitos",
+        "placeholder": "Describe tu tienda, objetivos, funcionalidades importantes, público objetivo, preferencias de diseño, etc..."
+      },
+      "uploadFiles": {
+        "label": "Referencias, Logo o Documentos de Diseño / Catálogo de Productos",
+        "description": "Adjunta logo, textos y cualquier referencia visual para tu tienda / Adjunta archivos CSV, Excel o imágenes de productos"
+      },
+      "types": {
+        "fashion": "Moda y Ropa",
+        "food": "Alimentos y Bebidas",
+        "electronics": "Electrónica y Tecnología",
+        "home": "Hogar y Decoración",
+        "beauty": "Belleza y Salud",
+        "crafts": "Artesanías",
+        "services": "Servicios",
+        "others": "Otros"
+      }
+    },
+    "website": {
+      "siteType": {
+        "label": "Tipo de Sitio Web"
+      },
+      "framework": {
+        "label": "Tecnología Preferida",
+        "reactNotice": "El uso de React está disponible como un servicio adicional en este plan. Se ha añadido a tus extras."
+      },
+      "features": {
+        "label": "Características Deseadas"
+      },
+      "designReference": {
+        "label": "¿Tienes alguna referencia de diseño?",
+        "placeholder": "Ej: Me gusta el estilo de example.com..."
+      },
+      "projectDescription": {
+        "label": "Descripción del Proyecto",
+        "placeholder": "Describe tu proyecto, objetivo del sitio, características importantes, público objetivo, preferencias de color, etc..."
+      },
+      "uploadFiles": {
+        "label": "Logo, Referencias o Documentos de Diseño",
+        "description": "Adjunta logo, mockups o cualquier referencia visual para tu sitio web"
+      },
+      "types": {
+        "blog": "Blog/Personal",
+        "localBusiness": "Negocio Local",
+        "portfolio": "Portfolio",
+        "corporate": "Corporativo",
+        "landing": "Landing de Ventas",
+        "educational": "Educativo",
+        "informative": "Informativo"
+      },
+      "frameworks": {
+        "premium": {
+          "htmlCssJs": "HTML/CSS/JS",
+          "htmlTailwind": "HTML/TailwindCSS/JS",
+          "reactTailwind": "React/TailwindCSS",
+          "indifferent": "Indiferente"
+        },
+        "standard": {
+          "htmlCssJs": "HTML/CSS/JS Vanilla",
+          "htmlTailwind": "HTML/TailwindCSS/JS",
+          "indifferent": "Indiferente"
+        }
+      },
+      "featureOptions": {
+        "contactForm": "Formulario de Contacto Avanzado",
+        "gallery": "Galería de Imágenes/Proyectos",
+        "blog": "Sección de Blog/Noticias",
+        "testimonials": "Carrusel de Testimonios",
+        "maps": "Integración de Mapas"
+      }
+    },
+    "contact": {
+      "fullName": { "label": "Nombre Completo" },
+      "email": { "label": "Email" },
+      "phone": { "label": "Teléfono" }
+    },
+    "extras": {
+      "ecommerce": {
+        "rush": {
+          "id": "rush",
+          "title": "Entrega Express",
+          "price": 50,
+          "description": "Entrega en 3 días menos del tiempo estimado (sujeto a disponibilidad)"
+        },
+        "seo": {
+          "id": "seo",
+          "title": "Configuración SEO Avanzada",
+          "price": 35,
+          "description": "Optimización para motores de búsqueda, meta tags y estrategia de palabras clave"
+        },
+        "analytics": {
+          "id": "analytics",
+          "title": "Integración de Analytics",
+          "price": 30,
+          "description": "Configuración de Google Analytics, Facebook Pixel y seguimiento avanzado"
+        },
+        "onboarding": {
+          "id": "onboarding",
+          "title": "Onboarding Personalizado",
+          "price": 45,
+          "description": "4 horas de entrenamiento para administrar tu tienda eficientemente"
+        },
+        "products": {
+          "id": "products",
+          "title": "Carga de Productos (50 unidades)",
+          "price": 50,
+          "description": "Configuración completa de hasta 50 productos con imágenes y descripciones"
+        }
+      },
+      "customCode": {
+        "rush": {
+          "id": "rush",
+          "title": "Entrega Express",
+          "price": 40,
+          "description": "Entrega en 7 días menos del tiempo estimado (sujeto a disponibilidad)"
+        },
+        "responsive": {
+          "id": "responsive",
+          "title": "Diseño Ultra-Responsive",
+          "price": 35,
+          "description": "Optimización adicional para todos los dispositivos y tamaños de pantalla"
+        },
+        "animations": {
+          "id": "animations",
+          "title": "Animaciones Avanzadas",
+          "price": 45,
+          "description": "Animaciones personalizadas y transiciones para una experiencia de usuario premium"
+        },
+        "api": {
+          "id": "api",
+          "title": "Integración API",
+          "price": 50,
+          "description": "Conexión con APIs externas (pagos, mapas, redes sociales, etc.)"
+        },
+        "deployment": {
+          "id": "deployment",
+          "title": "Despliegue Completo",
+          "price": 35,
+          "description": "Configuración de hosting, dominio y despliegue (no incluye costo del hosting/dominio)"
+        },
+        "multiLanguage": {
+          "id": "multi-language",
+          "title": "Soporte Multilenguaje",
+          "price": 40,
+          "description": "Traducción del sitio completo con selector"
+        },
+        "reactFramework": {
+          "id": "react-framework",
+          "title": "Framework React",
+          "price": 60,
+          "description": "Desarrollo utilizando React para una experiencia de usuario más dinámica e interactiva",
+          "hiddenInPremium": true
+        }
+      },
+      "wordpress": {
+        "rush": {
+          "id": "rush",
+          "title": "Entrega Express",
+          "price": 30,
+          "description": "Entrega en 8 días menos del tiempo estimado (sujeto a disponibilidad)"
+        },
+        "seo": {
+          "id": "seo",
+          "title": "SEO Avanzado",
+          "price": 40,
+          "description": "Optimización SEO completa, configuración de metadatos, schema markup y análisis de keywords"
+        },
+        "domain": {
+          "id": "domain",
+          "title": "Dominio y Hosting",
+          "price": 30,
+          "description": "Configuración de dominio y hosting por 1 año (no incluye costo del dominio)"
+        },
+        "maintenance": {
+          "id": "maintenance",
+          "title": "Mantenimiento (3 meses)",
+          "price": 60,
+          "description": "3 meses de mantenimiento, actualizaciones y soporte técnico"
+        }
+      }
+    },
+    "confirmation": {
+      "title": "¡Pedido Confirmado!",
+      "message": "Tu pedido ha sido recibido. Hemos enviado los detalles a tu correo. Si necesitamos información adicional, nos comunicaremos contigo en breve.",
+      "orderNumber": "Tu número de pedido es:",
+      "trackOrder": "Seguir mi Pedido",
+      "backToHome": "Volver al Inicio",
+      "wordpress": {
+        "title": "Próximos pasos para tu sitio WordPress",
+        "intro": "Para comenzar con tu proyecto, necesitamos acceso a tu sitio WordPress.",
+        "step1": "Crea un usuario administrador en tu panel de WordPress con el correo: contact@crixiumdigital.com.",
+        "step2": "Asigna el rol de 'Administrador' a esta cuenta.",
+        "step3": "Envíanos la información del sitio y contraseña a través del seguimiento de tu pedido o por correo a contact@crixiumdigital.com.",
+        "noWordPress": "Si aún no tienes un sitio WordPress, no te preocupes. Envíanos un mensaje a través del seguimiento de tu pedido y te ayudaremos a configurarlo."
+      },
+      "shopify": {
+        "title": "Próximos pasos para tu tienda Shopify",
+        "intro": "Para comenzar con tu proyecto, necesitamos acceso a tu tienda Shopify. Puedes elegir cualquiera de estas opciones.",
+        "option1_title": "Opción 1: Envíanos el código de tu tienda",
+        "option1_step1": "Ve a tu panel de Shopify → Configuración → Usuarios y permisos → Añadir colaborador.",
+        "option1_step2": "Copia el código de tu tienda (ej. store123.myshopify.com o 1234).",
+        "option1_step3": "Envíanos este código a través del seguimiento de tu pedido o por correo a contact@crixiumdigital.com.",
+        "option1_step4": "Te enviaremos una solicitud oficial que solo debes aceptar.",
+        "option2_title": "Opción 2: Agréganos directamente como colaborador",
+        "option2_step1": "Ve a Configuración → Usuarios y permisos.",
+        "option2_step2": "Agrega contact@crixiumdigital.com como staff con acceso completo.",
+        "noShopify": "Si todavía no tienes una tienda Shopify, envíanos un mensaje y te ayudaremos a configurarla."
+      }
+    },
+    "validation": {
+      "requiredBusinessName": "El nombre del negocio es obligatorio.",
+      "requiredBusinessType": "El tipo de negocio es obligatorio.",
+      "requiredProductCount": "El número aproximado de productos es obligatorio.",
+      "requiredStoreDescription": "La descripción de la tienda es obligatoria.",
+      "requiredProjectDescription": "La descripción del proyecto es obligatoria.",
+      "requiredName": "El nombre es obligatorio.",
+      "requiredEmail": "El email es obligatorio.",
+      "invalidEmail": "Por favor, introduce un email válido."
+    }
+  }
+}

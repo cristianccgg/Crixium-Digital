@@ -1,0 +1,43 @@
+{
+  "badge": "Preview de proyectos",
+  "title": {
+    "first": "Proyectos ",
+    "second": "Recientes"
+  },
+  "description": "Una selección de nuestros más recientes proyectos entregados",
+  "viewProject": "Ver proyecto",
+  "projects": {
+    "hoodlab": {
+      "title": "The Hood Lab Store",
+      "description": "Ecommerce para la venta de productos de moda urbana y accesorios"
+    },
+    "designo": {
+      "title": "Designo",
+      "description": "Sitio Web de una agencia de diseño que ofrece servicios de diseño web, diseño gráfico y branding"
+    },
+    "evapro": {
+      "title": "Eva Pro",
+      "description": "LMS empresarial diseñado para respaldar incluso los programas de capacitación más exigentes"
+    },
+    "automatehq": {
+      "title": "Automate HQ",
+      "description": "Aplicación para gestionar tareas diarias con inteligencia artificial"
+    },
+    "ciom": {
+      "title": "Ciom",
+      "description": "Sitio Web que proporciona una solución avanzada para la gestión de indicadores clave de desempeño (KPIs)"
+    },
+    "clout": {
+      "title": "Clout",
+      "description": "Plataforma de redes sociales para compartir y descubrir contenido"
+    },
+    "fbmedia": {
+      "title": "FB Media Digital",
+      "description": "Ventas y agendas automatizadas con IA"
+    }
+  },
+  "buttons": {
+    "prev": "Anterior",
+    "next": "Siguiente"
+  }
+}

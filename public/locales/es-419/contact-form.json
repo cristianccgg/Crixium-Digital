@@ -1,0 +1,120 @@
+{
+  "contactForm": {
+    "title": {
+      "default": "Contacta con Nosotros",
+      "custom": "Solicitud de Cotización Personalizada"
+    },
+    "description": {
+      "default": "Cuéntanos sobre tu proyecto y te responderemos en menos de 24 horas",
+      "custom": "Cuéntanos los detalles de tu proyecto musical y te enviaremos una cotización personalizada"
+    },
+    "fields": {
+      "fullName": {
+        "label": "Nombre Completo",
+        "placeholder": "Tu nombre completo"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "tu@email.com"
+      },
+      "phone": {
+        "label": "Teléfono (opcional)",
+        "placeholder": "+1 234 567 890"
+      },
+      "service": {
+        "label": "Tipo de Servicio",
+        "options": {
+          "web": "Desarrollo Web",
+          "music": "Producción Musical",
+          "other": "Otro Tipo de Proyecto"
+        }
+      },
+      "projectType": {
+        "label": "Tipo de Proyecto",
+        "placeholder": "Selecciona un tipo de proyecto",
+        "web": {
+          "corporate": "Sitio Web Corporativo",
+          "ecommerce": "Tienda en Línea",
+          "landing": "Landing Page",
+          "blog": "Blog",
+          "webApp": "Aplicación Web",
+          "redesign": "Rediseño Web",
+          "maintenance": "Mantenimiento Web",
+          "other": "Otro"
+        },
+        "music": {
+          "jingle": "Jingle Publicitario",
+          "corporate": "Música Corporativa",
+          "radio": "Spot de Radio",
+          "cinemaTV": "Música para Cine/TV",
+          "soundtrack": "Banda Sonora",
+          "audiobook": "Audiolibro",
+          "children": "Música Infantil",
+          "custom": "Proyecto Personalizado",
+          "other": "Otro"
+        },
+        "other": {
+          "custom": "Proyecto Personalizado"
+        }
+      },
+      "budget": {
+        "label": "Presupuesto Estimado",
+        "placeholder": "Selecciona un rango de presupuesto",
+        "options": {
+          "under500": "Menos de $500",
+          "500to1000": "$500 - $1000",
+          "1000to2000": "$1000 - $2000",
+          "2000to5000": "$2000 - $5000",
+          "over5000": "Más de $5000",
+          "undefined": "Por definir"
+        }
+      },
+      "description": {
+        "label": "Descripción del Proyecto",
+        "placeholder": {
+          "default": "Cuéntanos más sobre tu proyecto y tus objetivos...",
+          "custom": "Describe tu proyecto musical: duración estimada, estilo musical, instrumentación deseada, referencias similares, fechas límite si las hay..."
+        }
+      },
+      "files": {
+        "label": "Referencias o Archivos Adicionales",
+        "optional": "(opcional)",
+        "message": {
+          "default": "Adjunta cualquier documento, imagen o archivo que nos ayude a entender mejor tu proyecto",
+          "web": "Adjunta bocetos, diseños, imágenes o cualquier material relevante para tu proyecto web",
+          "music": "Adjunta muestras de música, letras, referencias o detalles relevantes para tu proyecto musical"
+        },
+        "dropzone": {
+          "text": "Haz clic para subir archivos o arrastra aquí",
+          "formats": "PDF, DOC, TXT, MP3, JPG, PNG (máx 10MB)"
+        },
+        "fileSize": "KB"
+      },
+      "dataConsent": {
+        "label": "Acepto el tratamiento de mis datos personales",
+        "description": "Al enviar este formulario, acepto que mis datos sean procesados según lo establecido en la",
+        "privacyLink": "Política de Privacidad"
+      }
+    },
+    "buttons": {
+      "submit": "Enviar Solicitud",
+      "retry": "Intentar Nuevamente",
+      "another": "Enviar Otro Mensaje"
+    },
+    "statusMessages": {
+      "processing": "Procesando tu solicitud...",
+      "uploading": "Subiendo archivos...",
+      "sending": "Enviando formulario...",
+      "success": "¡Mensaje Enviado!",
+      "thankYou": "¡Gracias por contactarnos! Te responderemos en breve.",
+      "loading": "Esto puede tomar un momento...",
+      "error": "Error al enviar",
+      "errorMessage": "Hubo un error al enviar tu mensaje. Por favor, intenta nuevamente o contáctanos directamente por WhatsApp.",
+      "consentRequired": "Debes aceptar la política de privacidad para continuar."
+    },
+    "infoNote": {
+      "default": "Te responderemos con una propuesta detallada en menos de 24 horas. Si necesitas asistencia inmediata, escribenos al Whatsapp al +57 321 974 60 45.",
+      "custom": "Para proyectos personalizados, evaluaremos tu solicitud y te contactaremos con una propuesta adaptada a tus necesidades específicas."
+    }
+  }
+}

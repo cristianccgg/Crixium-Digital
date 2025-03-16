@@ -1,0 +1,63 @@
+{
+  "orderTracking": {
+    "hero": {
+      "badge": "Seguimiento de Pedido",
+      "title": "Consulta el Estado de tu Proyecto",
+      "description": "Mantente al tanto del progreso de tu proyecto en tiempo real"
+    },
+    "search": {
+      "placeholder": "Ingresa tu número de pedido",
+      "button": "Buscar",
+      "loading": "Buscando...",
+      "errors": {
+        "required": "Por favor, ingresa un número de pedido",
+        "not_found": "No se encontró ningún pedido con ese número. Por favor, verifica e intenta nuevamente.",
+        "error": "Hubo un problema al buscar el pedido. Por favor, intenta de nuevo."
+      }
+    },
+    "examples": {
+      "title": "Ejemplos para probar"
+    },
+    "order": {
+      "title": "Pedido",
+      "client": "Cliente",
+      "last_update": "Última actualización",
+      "project_progress": "Progreso del proyecto",
+      "current": "Actual",
+      "status": {
+        "received": "Recibido",
+        "in_progress": "En Progreso",
+        "review": "En Revisión",
+        "completed": "Completado",
+        "processing": "Procesando"
+      }
+    },
+    "files": {
+      "title": "Archivos disponibles",
+      "description": "Por favor, revisa el material y envía tus comentarios.",
+      "delivery": "Entrega",
+      "download": "Descargar",
+      "not_available": "Archivo no disponible"
+    },
+    "comments": {
+      "title": "Historial de comunicaciones",
+      "you": "Tú",
+      "admin": "Administrador",
+      "attachments": "Archivos adjuntos"
+    },
+    "comment_form": {
+      "title": "Enviar mensaje",
+      "success": "Mensaje enviado correctamente. Nos pondremos en contacto contigo pronto.",
+      "label": "Tu comentario o consulta",
+      "placeholder": "Escribe aquí tus comentarios, preguntas o solicitudes adicionales...",
+      "attachments": "Archivos adjuntos (opcional)",
+      "attach": "Adjuntar archivo",
+      "button": "Enviar mensaje",
+      "sending": "Enviando..."
+    },
+    "contact": {
+      "description": "¿Necesitas ponerte en contacto directo? Puedes hacerlo por correo electrónico.",
+      "button": "Ir a la página de contacto"
+    }
+  }
+}
