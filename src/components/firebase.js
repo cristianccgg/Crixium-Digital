@@ -14,11 +14,21 @@ const firebaseConfig = {
   measurementId: "G-11J6Q97KD0",
 };
 
-// Initialize Firebase
+// Inicializa Firebase sin Analytics
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
 const auth = getAuth(app);
-const analytics = getAnalytics(app);
+
+// Espera el consentimiento antes de inicializar Analytics
+let analytics;
+window.OptanonWrapper = function () {
+  if (window.Osano && window.Osano.cm) {
+    const consent = window.Osano.cm.getConsent("analytics_storage");
+    if (consent === "granted") {
+      analytics = getAnalytics(app); // Inicializa Analytics solo si el usuario acepta cookies
+    }
+  }
+};
 
 export { db, storage, auth, analytics };
