@@ -35,6 +35,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
     budget: "",
     description: "",
     referenceFiles: [],
+    privacyPolicyAccepted: false, // Agregamos el nuevo campo para el checkbox
   });
 
   const [formStatus, setFormStatus] = useState({
@@ -202,6 +203,19 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Verificar que la política de privacidad ha sido aceptada
+    if (!formData.privacyPolicyAccepted) {
+      // Mostrar mensaje de error
+      setFormStatus({
+        submitted: false,
+        error: true,
+        message: "Debes aceptar la política de privacidad para continuar",
+        isLoading: false,
+        progress: 0,
+      });
+      return; // Detener el envío
+    }
+
     setFormStatus({
       submitted: false,
       error: false,
@@ -232,6 +246,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         fileDetails: fileDetails, // Información completa de los archivos
         timestamp: new Date().toISOString(),
         source: "contact_form",
+        privacyPolicyAccepted: formData.privacyPolicyAccepted, // Agregar esta información al envío
       };
 
       setFormStatus((prev) => ({
@@ -267,10 +282,10 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -345,6 +360,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
                 budget: "",
                 description: "",
                 referenceFiles: [],
+                privacyPolicyAccepted: false, // Reiniciar también este campo
               });
             }}
             className="px-6 py-3 bg-purple-700 text-white rounded-lg hover:bg-coral-400 transition-colors inline-flex items-center gap-2"
@@ -640,6 +656,45 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
                 })}
               </div>
             )}
+          </div>
+        </div>
+
+        {/* Checkbox de aceptación de política de privacidad */}
+        <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <div className="flex items-start gap-3">
+            <div className="flex-shrink-0 pt-1">
+              <input
+                type="checkbox"
+                id="privacyPolicy"
+                name="privacyPolicyAccepted"
+                checked={formData.privacyPolicyAccepted}
+                onChange={handleChange}
+                className="h-4 w-4 rounded border-gray-300 text-purple-700 focus:ring-purple-500"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="privacyPolicy" className="text-sm text-gray-700">
+                He leído y acepto la{" "}
+                <a
+                  href="/politica-privacidad"
+                  target="_blank"
+                  className="text-purple-700 hover:text-purple-900 underline"
+                >
+                  Política de Privacidad
+                </a>{" "}
+                y el{" "}
+                <a
+                  href="/aviso-legal"
+                  target="_blank"
+                  className="text-purple-700 hover:text-purple-900 underline"
+                >
+                  Aviso Legal
+                </a>
+                . Consiento el tratamiento de mis datos según lo establecido en
+                la política de privacidad.
+              </label>
+            </div>
           </div>
         </div>
 
