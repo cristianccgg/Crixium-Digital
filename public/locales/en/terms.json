@@ -1,0 +1,52 @@
+{
+  "title": "Terms and Conditions",
+  "lastUpdated": "Last updated",
+  "date": "March 15, 2025",
+
+  "section1": {
+    "title": "Introduction",
+    "p1": "These Terms and Conditions govern your use of Crixium Digital's website located at crixiumdigital.com and the services offered by Crixium Digital.",
+    "p2": "By accessing this website, we assume you accept these terms and conditions in full. Do not continue to use Crixium Digital's website if you do not accept all of the terms and conditions stated on this page."
+  },
+
+  "section2": {
+    "title": "Intellectual Property",
+    "p1": "Other than content you own, which you may have opted to include on this Website, all materials on this site including, without limitation, names, logos, trademarks, images, text, columns, graphics, videos, photographs, illustrations, software, audio files, and the content are proprietary to Crixium Digital or its licensors and are protected by copyright and trademark laws."
+  },
+
+  "section3": {
+    "title": "Services",
+    "p1": "Crixium Digital offers the following services subject to these Terms and Conditions:",
+    "list": {
+      "item1": "Web development and related services",
+      "item2": "Music production and advertising jingle creation",
+      "item3": "Digital consulting services"
+    }
+  },
+
+  "section4": {
+    "title": "Service Agreements",
+    "p1": "All services provided by Crixium Digital are subject to a separate service agreement which will outline the specific deliverables, timelines, payments, and other terms specific to that particular project. These agreements shall be considered part of these Terms and Conditions."
+  },
+
+  "section5": {
+    "title": "Payments",
+    "p1": "Pricing and payment terms will be set forth in the service agreement for each project. We generally require an initial deposit before beginning work, with additional payments scheduled at specific project milestones or upon completion."
+  },
+
+  "section6": {
+    "title": "Limitation of Liability",
+    "p1": "In no event shall Crixium Digital, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses."
+  },
+
+  "section7": {
+    "title": "Governing Law",
+    "p1": "These terms and conditions are governed by and construed in accordance with applicable laws and any dispute related to these terms and conditions shall be subject to the exclusive jurisdiction of the local courts."
+  },
+
+  "section8": {
+    "title": "Changes to Terms",
+    "p1": "We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material we will try to provide at least 30 days' notice prior to any new terms taking effect.",
+    "contact": "If you have any questions about our Terms and Conditions, please contact us at"
+  }
+}

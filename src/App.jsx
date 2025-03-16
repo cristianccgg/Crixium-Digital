@@ -9,14 +9,16 @@ import OrderTracking from "./components/OrderTracking";
 import AdminPanel from "./components/AdminPanel";
 import PrivateRoute from "./components/PrivateRoute";
 import PaymentResponseHandler from "./components/payments/PaymentResponseHandler";
-import LanguageRouter from "./components/LanguageRouter"; // Importar nuevo componente
+import LanguageRouter from "./components/LanguageRouter";
+import PrivacyPolicy from "./components/PrivacyPolicy";
+import TermsAndConditions from "./components/TermsAndConditions";
+import CookieConsent from "./components/CookieConsent"; // Importar componente de consentimiento de cookies
 
 function App() {
   return (
     <Router>
       <LanguageRouter>
         {" "}
-        {/* Añadir el LanguageRouter aquí */}
         <Routes>
           {/* Ruta protegida para el panel de administración */}
           <Route
@@ -80,6 +82,25 @@ function App() {
               </Layout>
             }
           />
+          {/* Nuevas rutas para páginas legales en español */}
+          <Route
+            path="/privacy-policy"
+            element={
+              <Layout>
+                <PrivacyPolicy />
+                <WhatsAppButton />
+              </Layout>
+            }
+          />
+          <Route
+            path="/terms-conditions"
+            element={
+              <Layout>
+                <TermsAndConditions />
+                <WhatsAppButton />
+              </Layout>
+            }
+          />
 
           {/* Rutas públicas en inglés (con prefijo /en) */}
           <Route
@@ -127,7 +148,28 @@ function App() {
               </Layout>
             }
           />
+          {/* Nuevas rutas para páginas legales en inglés */}
+          <Route
+            path="/en/privacy-policy"
+            element={
+              <Layout>
+                <PrivacyPolicy />
+                <WhatsAppButton />
+              </Layout>
+            }
+          />
+          <Route
+            path="/en/terms-conditions"
+            element={
+              <Layout>
+                <TermsAndConditions />
+                <WhatsAppButton />
+              </Layout>
+            }
+          />
         </Routes>
+        {/* El componente CookieConsent se muestra en todas las páginas */}
+        <CookieConsent />
       </LanguageRouter>
     </Router>
   );

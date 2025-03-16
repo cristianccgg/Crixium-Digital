@@ -105,6 +105,8 @@ const Navbar = () => {
       "/music-production",
       "/contact",
       "/tracking",
+      "/privacy-policy",
+      "/terms-conditions",
     ];
 
     // Comprueba si la ruta actual (sin importar el idioma) está en la lista de rutas con hero
@@ -322,6 +324,9 @@ const Footer = ({ children }) => {
                 {t("music")}
               </Link>
             </li>
+            <li className="hover:text-white transition-colors">
+              <Link to={getLocalizedPath("/tracking")}>{t("tracking")}</Link>
+            </li>
           </ul>
         </div>
         <div>
@@ -343,7 +348,20 @@ const Footer = ({ children }) => {
           </ul>
         </div>
         <div>
-          <h4 className="font-semibold mb-4">{t("social")}</h4>
+          <h4 className="font-semibold mb-4">{t("legal")}</h4>
+          <ul className="space-y-2 text-gray-400">
+            <li className="hover:text-white transition-colors">
+              <Link to={getLocalizedPath("/privacy-policy")}>
+                {t("privacy")}
+              </Link>
+            </li>
+            <li className="hover:text-white transition-colors">
+              <Link to={getLocalizedPath("/terms-conditions")}>
+                {t("terms")}
+              </Link>
+            </li>
+          </ul>
+          <h4 className="font-semibold mb-4 mt-6">{t("social")}</h4>
           <div className="flex space-x-4">
             <a
               href="https://www.instagram.com/crixiumdigital/"
@@ -391,6 +409,8 @@ const Layout = ({ children }) => {
       "/music-production",
       "/contact",
       "/tracking",
+      "/privacy-policy",
+      "/terms-conditions",
     ];
 
     // Comprueba si la ruta actual (sin importar el idioma) está en la lista de rutas con hero

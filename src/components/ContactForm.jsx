@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import {
   Mail,
   Send,
@@ -673,27 +674,22 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
                 required
               />
             </div>
-            <div>
-              <label htmlFor="privacyPolicy" className="text-sm text-gray-700">
-                He leído y acepto la{" "}
-                <a
-                  href="/politica-privacidad"
-                  target="_blank"
-                  className="text-purple-700 hover:text-purple-900 underline"
-                >
-                  Política de Privacidad
-                </a>{" "}
-                y el{" "}
-                <a
-                  href="/aviso-legal"
-                  target="_blank"
-                  className="text-purple-700 hover:text-purple-900 underline"
-                >
-                  Aviso Legal
-                </a>
-                . Consiento el tratamiento de mis datos según lo establecido en
-                la política de privacidad.
+            <div className="ml-3 text-sm">
+              <label
+                htmlFor="dataConsent"
+                className="font-medium text-gray-700"
+              >
+                {t("contactForm.fields.dataConsent.label")}
               </label>
+              <p className="text-gray-500">
+                {t("contactForm.fields.dataConsent.description")}{" "}
+                <Link
+                  to="/privacy-policy"
+                  className="text-purple-600 hover:text-purple-800 underline"
+                >
+                  {t("contactForm.fields.dataConsent.privacyLink")}
+                </Link>
+              </p>
             </div>
           </div>
         </div>

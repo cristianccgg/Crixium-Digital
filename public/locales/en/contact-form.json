@@ -89,6 +89,11 @@
           "formats": "PDF, DOC, TXT, MP3, JPG, PNG (max 10MB)"
         },
         "fileSize": "KB"
+      },
+      "dataConsent": {
+        "label": "I consent to the processing of my personal data",
+        "description": "By submitting this form, I agree that my data will be processed as described in the",
+        "privacyLink": "Privacy Policy"
       }
     },
     "buttons": {
@@ -104,7 +109,8 @@
       "thankYou": "Thank you for contacting us! We'll respond shortly.",
       "loading": "This may take a moment...",
       "error": "Error sending",
-      "errorMessage": "There was an error sending your message. Please try again or contact us directly via WhatsApp."
+      "errorMessage": "There was an error sending your message. Please try again or contact us directly via WhatsApp.",
+      "consentRequired": "You must accept the privacy policy to continue."
     },
     "infoNote": {
       "default": "We'll respond with a detailed proposal within 24 hours. If you need immediate assistance, text us on WhatsApp at +57 321 974 60 45.",

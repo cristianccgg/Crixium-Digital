@@ -1,9 +1,13 @@
 {
   "services": "Services",
-  "web": "Websites / Online Stores",
-  "music": "Jingles / Radio Spots",
+  "web": "Web Development",
+  "music": "Music Production",
+  "tracking": "Order Tracking",
   "contact": "Contact",
-  "button": "Contact Us",
-  "social": "Follow Us",
-  "rights": "All rights reserved."
+  "button": "Contact Now",
+  "social": "Social Media",
+  "rights": "All rights reserved",
+  "legal": "Legal",
+  "privacy": "Privacy Policy",
+  "terms": "Terms & Conditions"
 }

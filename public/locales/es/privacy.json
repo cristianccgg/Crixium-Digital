@@ -1,0 +1,101 @@
+{
+  "title": "Política de Privacidad",
+  "lastUpdated": "Última actualización",
+  "date": "15 de marzo, 2025",
+  "purpose": "Propósito",
+  "duration": "Duración",
+  "legal": "Base legal",
+  "examples": "Ejemplos específicos",
+
+  "section1": {
+    "title": "Introducción",
+    "p1": "En Crixium Digital, accesible desde crixiumdigital.com, una de nuestras principales prioridades es la privacidad de nuestros visitantes. Este documento de Política de Privacidad contiene los tipos de información que se recopilan y registran por Crixium Digital y cómo la utilizamos.",
+    "p2": "Si tienes preguntas adicionales o requieres más información sobre nuestra Política de Privacidad, no dudes en contactarnos."
+  },
+
+  "section2": {
+    "title": "Información que recopilamos",
+    "p1": "Cuando te registras en nuestro sitio o nos contactas, como parte del proceso, recopilamos la información personal que nos proporcionas como tu nombre, dirección y dirección de correo electrónico.",
+    "list": {
+      "item1": "Información de contacto como nombre, correo electrónico y número de teléfono",
+      "item2": "Información técnica como la dirección IP, tipo de navegador y sistema operativo",
+      "item3": "Información sobre cómo interactúas con nuestro sitio web a través de cookies",
+      "item4": "Cualquier otra información que elijas proporcionarnos a través de formularios de contacto o comunicaciones"
+    }
+  },
+
+  "section3": {
+    "title": "Cómo utilizamos tu información",
+    "p1": "Utilizamos la información que recopilamos de diversas formas, incluyendo para:",
+    "p2": "Proporcionar, operar y mantener nuestro sitio web; mejorar, personalizar y ampliar nuestro sitio web; entender y analizar cómo utilizas nuestro sitio web; desarrollar nuevos productos, servicios, características y funcionalidades; comunicarnos contigo para, entre otras cosas, proporcionarte actualizaciones y otra información relacionada con el sitio web, y para fines de marketing y promoción."
+  },
+
+  "section4": {
+    "title": "Cookies y Tecnologías de Seguimiento",
+    "p1": "Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo (computadora, tableta o móvil) cuando visitas sitios web. Son ampliamente utilizadas para hacer que los sitios web funcionen de manera más eficiente y proporcionar información a los propietarios del sitio.",
+    "p2": "En Crixium Digital utilizamos los siguientes tipos de cookies:",
+    "cookieTypes": {
+      "essential": {
+        "title": "Cookies esenciales (necesarias)",
+        "purpose": "Son imprescindibles para el funcionamiento básico del sitio web. Te permiten navegar por nuestro sitio y utilizar funciones esenciales como áreas seguras y carrito de compras.",
+        "duration": "Generalmente expiran cuando cierras el navegador (cookies de sesión).",
+        "legal": "Estas cookies son necesarias para la prestación de nuestros servicios, por lo que no es necesario tu consentimiento."
+      },
+      "preferences": {
+        "title": "Cookies de preferencias",
+        "purpose": "Permiten que nuestro sitio web recuerde información que cambia la forma en que se comporta o se ve, como tu idioma preferido o la región en la que te encuentras.",
+        "duration": "Generalmente persisten durante 1 año.",
+        "legal": "Consentimiento del usuario."
+      },
+      "statistics": {
+        "title": "Cookies estadísticas (análisis)",
+        "purpose": "Nos ayudan a entender cómo los visitantes interactúan con nuestro sitio web, recopilando y reportando información de manera anónima.",
+        "examples": "Utilizamos Google Analytics para analizar el uso de nuestro sitio.",
+        "duration": "Varían entre 1 día y 2 años dependiendo de la cookie específica.",
+        "legal": "Consentimiento del usuario."
+      },
+      "marketing": {
+        "title": "Cookies de marketing",
+        "purpose": "Rastrean tu actividad de navegación en nuestro sitio web y en otros sitios para entregar publicidad más relevante.",
+        "examples": "Utilizamos cookies de redes sociales (Facebook, Instagram) para integración y fines de marketing.",
+        "duration": "Generalmente persisten hasta 90 días.",
+        "legal": "Consentimiento del usuario."
+      }
+    },
+    "control": {
+      "title": "Control de cookies",
+      "p1": "Puedes gestionar tus preferencias de cookies a través de:",
+      "banner": "Nuestro banner de consentimiento de cookies: Aparece cuando visitas nuestro sitio por primera vez.",
+      "browser": "Configuración del navegador: Puedes configurar tu navegador para rechazar todas las cookies o indicarte cuando se está enviando una cookie. Sin embargo, si rechazas las cookies, es posible que algunas partes de nuestro sitio no funcionen correctamente.",
+      "more": "Para obtener más información sobre cómo gestionar las cookies en diferentes navegadores, visita:"
+    },
+    "thirdParty": {
+      "title": "Cookies de terceros",
+      "p1": "Nuestro sitio puede contener cookies de terceros, como Google Analytics, que nos ayudan a analizar cómo utilizas nuestro sitio web. La información generada por estas cookies sobre tu uso del sitio (incluyendo tu dirección IP) será transmitida y almacenada por Google en servidores en Estados Unidos. Google utilizará esta información con el propósito de evaluar tu uso del sitio, compilar informes sobre la actividad del sitio para los operadores del sitio y proporcionar otros servicios relacionados con la actividad del sitio y el uso de Internet."
+    },
+    "changes": {
+      "title": "Cambios en nuestra política de cookies",
+      "p1": "Podemos actualizar nuestra política de cookies ocasionalmente. Te recomendamos que revises periódicamente esta página para estar informado sobre cualquier cambio."
+    },
+    "contact": {
+      "title": "Contacto",
+      "p1": "Si tienes preguntas sobre nuestro uso de cookies, no dudes en contactarnos en contact@crixiumdigital.com"
+    }
+  },
+
+  "section5": {
+    "title": "Políticas de privacidad de terceros",
+    "p1": "La Política de Privacidad de Crixium Digital no se aplica a otros anunciantes o sitios web. Por lo tanto, te aconsejamos que consultes las respectivas Políticas de Privacidad de estos servidores de anuncios de terceros para obtener información más detallada."
+  },
+
+  "section6": {
+    "title": "Derechos de privacidad GDPR",
+    "p1": "Nos gustaría asegurarnos de que estás completamente consciente de todos tus derechos de protección de datos. Todo usuario tiene derecho a lo siguiente: El derecho de acceso, el derecho de rectificación, el derecho al olvido, el derecho a restringir el procesamiento, el derecho a la portabilidad de datos, el derecho a objetar, el derecho a no ser sujeto a decisión automatizada."
+  },
+
+  "section7": {
+    "title": "Contacto",
+    "p1": "Si tienes alguna pregunta sobre esta política de privacidad, puedes contactarnos:",
+    "contact": "Por correo electrónico"
+  }
+}

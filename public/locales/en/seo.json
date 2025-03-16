@@ -20,5 +20,13 @@
   "tracking": {
     "title": "Project Tracking | Crixium Digital",
     "description": "Track your project's progress in real-time. Stay informed about each stage of your web development or music production."
+  },
+  "privacy": {
+    "title": "Privacy Policy | Crixium Digital",
+    "description": "Learn about our privacy policy and how we protect your personal data. Information about data processing at Crixium Digital."
+  },
+  "terms": {
+    "title": "Terms and Conditions | Crixium Digital",
+    "description": "Terms and conditions for using our services. Legal information about contracting and providing services at Crixium Digital."
   }
 }
