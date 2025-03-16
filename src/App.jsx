@@ -12,7 +12,7 @@ import PaymentResponseHandler from "./components/payments/PaymentResponseHandler
 import LanguageRouter from "./components/LanguageRouter";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import TermsAndConditions from "./components/TermsAndConditions";
-import CookieConsent from "./components/CookieConsent"; // Importar componente de consentimiento de cookies
+import CookieConsent from "./components/CookieConsent";
 
 function App() {
   return (
@@ -168,7 +168,6 @@ function App() {
             }
           />
         </Routes>
-        {/* El componente CookieConsent se muestra en todas las páginas */}
         <CookieConsent />
       </LanguageRouter>
     </Router>
