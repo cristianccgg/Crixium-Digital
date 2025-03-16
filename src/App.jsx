@@ -168,7 +168,7 @@ function App() {
             }
           />
         </Routes>
-        <CookieConsent />
+        {/* <CookieConsent /> */}
       </LanguageRouter>
     </Router>
   );
