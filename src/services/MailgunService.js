@@ -27,6 +27,17 @@ const formatContactMessage = (formData) => {
     `;
   }
 
+  // Agregar información sobre la aceptación de la política de privacidad
+  const privacyPolicySection = `
+    <div class="section">
+      <span class="label">Política de privacidad:</span> ${
+        formData.privacyPolicyAccepted
+          ? '<span style="color: green; font-weight: bold;">Aceptada</span>'
+          : '<span style="color: red; font-weight: bold;">No aceptada</span>'
+      }
+    </div>
+  `;
+
   return `
     <!DOCTYPE html>
     <html>
@@ -122,6 +133,8 @@ const formatContactMessage = (formData) => {
             }
           </div>
         </div>
+        
+        ${privacyPolicySection}
         
         ${filesSection}
         
