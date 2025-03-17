@@ -169,9 +169,17 @@ const PrivacyPolicy = () => {
               </h3>
               <p className="mb-2">{t("section4.control.p1")}</p>
               <ol className="list-decimal pl-5 mb-4">
+                <li className="mb-1">{t("section4.control.osano")}</li>
                 <li className="mb-1">{t("section4.control.banner")}</li>
                 <li>{t("section4.control.browser")}</li>
               </ol>
+              <p className="mb-4">{t("section4.control.osano_manage")}</p>
+              <button
+                data-osano-cm-ui="preference_center"
+                className="mb-4 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+              >
+                {t("section4.control.osano_button")}
+              </button>
               <p className="mb-2">{t("section4.control.more")}</p>
               <ul className="list-disc pl-5 mb-6">
                 <li>

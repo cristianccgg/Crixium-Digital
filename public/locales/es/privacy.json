@@ -65,6 +65,9 @@
     "control": {
       "title": "Control de cookies",
       "p1": "Puedes gestionar tus preferencias de cookies a través de:",
+      "osano": "Nuestro Centro de Preferencias de Privacidad de Osano: Te permite personalizar tus preferencias de cookies en cualquier momento.",
+      "osano_manage": "Puedes acceder a tus preferencias de cookies en cualquier momento haciendo clic en el siguiente botón:",
+      "osano_button": "Administrar preferencias de cookies",
       "banner": "Nuestro banner de consentimiento de cookies: Aparece cuando visitas nuestro sitio por primera vez.",
       "browser": "Configuración del navegador: Puedes configurar tu navegador para rechazar todas las cookies o indicarte cuando se está enviando una cookie. Sin embargo, si rechazas las cookies, es posible que algunas partes de nuestro sitio no funcionen correctamente.",
       "more": "Para obtener más información sobre cómo gestionar las cookies en diferentes navegadores, visita:"

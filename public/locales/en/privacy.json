@@ -63,11 +63,14 @@
       }
     },
     "control": {
-      "title": "Cookie control",
+      "title": "Cookie Control",
       "p1": "You can manage your cookie preferences through:",
-      "banner": "Our cookie consent banner: Appears when you first visit our site.",
-      "browser": "Browser settings: You can set your browser to refuse all cookies or to alert you when a cookie is being sent. However, if you refuse cookies, some parts of our site may not function properly.",
-      "more": "For more information about how to manage cookies in different browsers, visit:"
+      "osano": "Our Osano Privacy Preferences Center: It allows you to customize your cookie preferences at any time.",
+      "osano_manage": "You can access your cookie preferences at any time by clicking on the following button:",
+      "osano_button": "Manage cookie preferences",
+      "banner": "Our cookie consent banner: Appears when you visit our site for the first time.",
+      "browser": "Browser settings: You can configure your browser to reject all cookies or notify you when a cookie is being sent. However, if you reject cookies, some parts of our site may not function properly.",
+      "more": "For more information on how to manage cookies in different browsers, visit:"
     },
     "thirdParty": {
       "title": "Third-party cookies",

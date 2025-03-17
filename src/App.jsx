@@ -12,7 +12,7 @@ import PaymentResponseHandler from "./components/payments/PaymentResponseHandler
 import LanguageRouter from "./components/LanguageRouter";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import TermsAndConditions from "./components/TermsAndConditions";
-import CookieConsent from "./components/CookieConsent";
+// import CookieConsent from "./components/CookieConsent";
 
 function App() {
   return (
