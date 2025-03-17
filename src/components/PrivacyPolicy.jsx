@@ -185,7 +185,6 @@ const PrivacyPolicy = () => {
                     Chrome
                   </a>
                 </li>
-
                 <li>
                   <a
                     href="https://support.mozilla.org/kb/enable-and-disable-cookies-website-preferences"
