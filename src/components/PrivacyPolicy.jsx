@@ -175,7 +175,28 @@ const PrivacyPolicy = () => {
               </ol>
               <p className="mb-4">{t("section4.control.osano_manage")}</p>
               <button
-                data-osano-cm-ui="preference_center"
+                onClick={() => {
+                  // Intenta abrir el panel usando métodos oficiales de Osano
+                  if (window.osano?.cm?.showDrawer) {
+                    window.osano.cm.showDrawer();
+                  } else if (window.osano?.cm?.showCP) {
+                    window.osano.cm.showCP();
+                  } else {
+                    // Fallback: Busca y simula un clic en cualquier elemento de Osano visible
+                    const osanoButton =
+                      document.querySelector(".osano-cm-button") ||
+                      document.querySelector(".osano-cm-save") ||
+                      document.querySelector(".osano-cm-disclosure__toggle");
+
+                    if (osanoButton) {
+                      osanoButton.click();
+                    } else {
+                      alert(
+                        "No se pudo abrir el panel de preferencias de cookies"
+                      );
+                    }
+                  }
+                }}
                 className="mb-4 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
               >
                 {t("section4.control.osano_button")}
