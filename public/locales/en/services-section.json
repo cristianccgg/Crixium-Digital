@@ -1,0 +1,110 @@
+{
+  "badge": "Our Services",
+  "sectionTitles": {
+    "website": "Web Design & Development",
+    "ecommerce": "E-commerce Solutions"
+  },
+  "sectionDescriptions": {
+    "website": "We create custom websites that highlight your brand and attract your ideal audience.",
+    "ecommerce": "We develop optimized online stores to increase your sales and improve the shopping experience."
+  },
+  "projectTypes": {
+    "website": "Website",
+    "ecommerce": "Online Store"
+  },
+  "services": {
+    "wordpress": "WordPress",
+    "custom": "Custom Code",
+    "shopify": "Shopify"
+  },
+  "general": {
+    "contact": "Contact Us",
+    "backToServices": "Back to services",
+    "selectPlan": "Select plan",
+    "requestInfo": "Request information",
+    "scheduleCall": "Schedule a call",
+    "requestQuote": "Request quote",
+    "needCustomSolution": "Need something different?",
+    "contactUs": "Contact us",
+    "forCustomSolutions": "for customized solutions."
+  },
+  "serviceInfo": {
+    "website": {
+      "wordpress": {
+        "title": "WordPress",
+        "description": "Professional WordPress websites, easy to manage and optimized for SEO.",
+        "features": {
+          "first": "Custom design",
+          "second": "Intuitive admin panel",
+          "third": "Contact forms",
+          "fourth": "Mobile optimization",
+          "fifth": "Social media integration",
+          "sixth": "Integrated blog option"
+        }
+      },
+      "custom": {
+        "title": "Custom Development",
+        "description": "Unique websites developed from scratch with the latest web technologies.",
+        "features": {
+          "first": "100% custom design",
+          "second": "HTML, CSS, JavaScript development",
+          "third": "Modern frameworks (React, Vue)",
+          "fourth": "Maximum performance and optimization",
+          "fifth": "Advanced animations and effects",
+          "sixth": "API integrations"
+        }
+      }
+    },
+    "ecommerce": {
+      "wordpress": {
+        "title": "WooCommerce",
+        "description": "Powerful online stores with WordPress and WooCommerce, customizable and scalable.",
+        "features": {
+          "first": "Complete product management",
+          "second": "Integrated payment gateways",
+          "third": "Configurable shipping options",
+          "fourth": "Inventory management",
+          "fifth": "Sales reports",
+          "sixth": "Automatic invoices"
+        }
+      },
+      "shopify": {
+        "title": "Shopify",
+        "description": "Shopify stores optimized for sales with custom design and advanced features.",
+        "features": {
+          "first": "Custom theme design",
+          "second": "Complete store setup",
+          "third": "Premium apps and extensions",
+          "fourth": "Conversion optimization",
+          "fifth": "Marketing automations",
+          "sixth": "SEO adjustments"
+        }
+      }
+    }
+  },
+  "contactForm": {
+    "title": "Contact Us",
+    "subtitle": "Tell us about your project and we'll help you make it a reality.",
+    "fullName": "Full Name",
+    "email": "Email",
+    "phone": "Phone",
+    "timeline": "When do you need to start the project?",
+    "timelineOptions": {
+      "notUrgent": "In the coming months",
+      "soon": "In the coming weeks",
+      "urgent": "As soon as possible",
+      "unsure": "I'm not sure"
+    },
+    "message": "Message",
+    "messagePlaceholder": "Tell us about your project, goals, important features...",
+    "privacyPolicy": "I accept the privacy policy and the processing of my personal data to respond to my request.",
+    "submit": "Send request",
+    "sending": "Sending...",
+    "errorMessage": "Could not send the form. Please try again later."
+  },
+  "confirmation": {
+    "title": "Thank you for contacting us!",
+    "message": "We have received your message. We will contact you shortly to discuss your project.",
+    "backButton": "Back to services"
+  }
+}

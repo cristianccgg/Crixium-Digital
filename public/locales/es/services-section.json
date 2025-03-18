@@ -1,0 +1,110 @@
+{
+  "badge": "Nuestros Servicios",
+  "sectionTitles": {
+    "website": "Diseño y Desarrollo Web",
+    "ecommerce": "Soluciones de Comercio Electrónico"
+  },
+  "sectionDescriptions": {
+    "website": "Creamos sitios web a medida que destacan tu marca y atraen a tu audiencia ideal.",
+    "ecommerce": "Desarrollamos tiendas online optimizadas para aumentar tus ventas y mejorar la experiencia de compra."
+  },
+  "projectTypes": {
+    "website": "Sitio Web",
+    "ecommerce": "Tienda Online"
+  },
+  "services": {
+    "wordpress": "WordPress",
+    "custom": "Código Personalizado",
+    "shopify": "Shopify"
+  },
+  "general": {
+    "contact": "Contáctanos",
+    "backToServices": "Volver a servicios",
+    "selectPlan": "Seleccionar plan",
+    "requestInfo": "Solicitar información",
+    "scheduleCall": "Agendar llamada",
+    "requestQuote": "Solicitar cotización",
+    "needCustomSolution": "¿Necesitas algo diferente?",
+    "contactUs": "Contáctanos",
+    "forCustomSolutions": "para soluciones personalizadas."
+  },
+  "serviceInfo": {
+    "website": {
+      "wordpress": {
+        "title": "WordPress",
+        "description": "Sitios web profesionales con WordPress, fáciles de gestionar y optimizados para SEO.",
+        "features": {
+          "first": "Diseño personalizado",
+          "second": "Panel de administración intuitivo",
+          "third": "Formularios de contacto",
+          "fourth": "Optimización para móviles",
+          "fifth": "Integración con redes sociales",
+          "sixth": "Posibilidad de blog integrado"
+        }
+      },
+      "custom": {
+        "title": "Desarrollo a Medida",
+        "description": "Sitios web únicos desarrollados desde cero con las últimas tecnologías web.",
+        "features": {
+          "first": "Diseño 100% personalizado",
+          "second": "Desarrollo HTML, CSS, JavaScript",
+          "third": "Frameworks modernos (React, Vue)",
+          "fourth": "Máximo rendimiento y optimización",
+          "fifth": "Animaciones y efectos avanzados",
+          "sixth": "Integraciones con APIs"
+        }
+      }
+    },
+    "ecommerce": {
+      "wordpress": {
+        "title": "WooCommerce",
+        "description": "Potentes tiendas online con WordPress y WooCommerce, personalizables y escalables.",
+        "features": {
+          "first": "Gestión completa de productos",
+          "second": "Pasarelas de pago integradas",
+          "third": "Opciones de envío configurables",
+          "fourth": "Gestión de inventario",
+          "fifth": "Informes de ventas",
+          "sixth": "Facturas automáticas"
+        }
+      },
+      "shopify": {
+        "title": "Shopify",
+        "description": "Tiendas en Shopify optimizadas para ventas con diseño a medida y funcionalidades avanzadas.",
+        "features": {
+          "first": "Diseño personalizado de tema",
+          "second": "Configuración completa de tienda",
+          "third": "Apps y extensiones premium",
+          "fourth": "Optimización para conversiones",
+          "fifth": "Automatizaciones de marketing",
+          "sixth": "Ajustes para SEO"
+        }
+      }
+    }
+  },
+  "contactForm": {
+    "title": "Contáctanos",
+    "subtitle": "Cuéntanos sobre tu proyecto y te ayudaremos a hacerlo realidad.",
+    "fullName": "Nombre Completo",
+    "email": "Email",
+    "phone": "Teléfono",
+    "timeline": "¿Cuándo necesitas iniciar el proyecto?",
+    "timelineOptions": {
+      "notUrgent": "En los próximos meses",
+      "soon": "En las próximas semanas",
+      "urgent": "Lo antes posible",
+      "unsure": "No estoy seguro"
+    },
+    "message": "Mensaje",
+    "messagePlaceholder": "Cuéntanos sobre tu proyecto, objetivos, características importantes...",
+    "privacyPolicy": "Acepto la política de privacidad y el tratamiento de mis datos personales para responder a mi solicitud.",
+    "submit": "Enviar solicitud",
+    "sending": "Enviando...",
+    "errorMessage": "No se pudo enviar el formulario. Por favor, inténtalo más tarde."
+  },
+  "confirmation": {
+    "title": "¡Gracias por contactarnos!",
+    "message": "Hemos recibido tu mensaje. Nos pondremos en contacto contigo en breve para discutir tu proyecto.",
+    "backButton": "Volver a servicios"
+  }
+}

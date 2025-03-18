@@ -19,7 +19,6 @@ import {
 } from "lucide-react";
 import FeaturedProjects from "./web_development/FeaturedProjects";
 import LandingReviewsCarousel from "./LandingReviewsCarousel";
-import UnifiedPricingSection from "./web_development/UnifiedPricingSection";
 import { useTranslation } from "react-i18next";
 // Import SEO components
 import SimpleSEO from "./SEO/SimpleSEO";
@@ -180,10 +179,10 @@ const TechnologyCard = ({ icon: Icon, name }) => (
 const WebDevelopmentPage = () => {
   const { t } = useTranslation("web-development");
   const navigate = useNavigate();
-  const pricingSectionRef = useRef(null);
+  const servicesSectionRef = useRef(null);
   const portfolioRef = useRef(null);
   const [selectedService, setSelectedService] = useState(null);
-  const [projectType, setProjectType] = useState("website"); // Nuevo estado para el tipo de proyecto
+  const [projectType, setProjectType] = useState("website");
 
   // Las claves para los pasos del proceso
   const processStepKeys = ["first", "second", "third", "fourth"];
@@ -232,11 +231,11 @@ const WebDevelopmentPage = () => {
     } else if (serviceType === "web") {
       setSelectedService("wordpress");
       setProjectType("website");
-      pricingSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+      servicesSectionRef.current?.scrollIntoView({ behavior: "smooth" });
     } else if (serviceType === "ecommerce") {
       setSelectedService("wordpress");
       setProjectType("ecommerce");
-      pricingSectionRef.current?.scrollIntoView({
+      servicesSectionRef.current?.scrollIntoView({
         behavior: "smooth",
       });
     }
@@ -291,7 +290,7 @@ const WebDevelopmentPage = () => {
                 onClick={() => {
                   setProjectType("website");
                   setSelectedService("wordpress");
-                  pricingSectionRef.current?.scrollIntoView({
+                  servicesSectionRef.current?.scrollIntoView({
                     behavior: "smooth",
                   });
                 }}
@@ -306,7 +305,7 @@ const WebDevelopmentPage = () => {
                 onClick={() => {
                   setProjectType("ecommerce");
                   setSelectedService("wordpress");
-                  pricingSectionRef.current?.scrollIntoView({
+                  servicesSectionRef.current?.scrollIntoView({
                     behavior: "smooth",
                   });
                 }}
@@ -422,15 +421,13 @@ const WebDevelopmentPage = () => {
         </div>
       </section>
 
-      <ServicesSection />
-
-      {/* Unified Pricing Section */}
-      {/* <div ref={pricingSectionRef}>
-        <UnifiedPricingSection
+      {/* ServicesSection Component */}
+      <div ref={servicesSectionRef}>
+        <ServicesSection
           initialService={selectedService}
           initialType={projectType}
         />
-      </div> */}
+      </div>
 
       <LandingReviewsCarousel />
     </div>
