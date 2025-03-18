@@ -4,5 +4,13 @@
   "privacyLink": "Política de Privacidad",
   "accept": "Aceptar",
   "decline": "Declinar",
-  "close": "Cerrar banner de cookies"
+  "close": "Cerrar banner de cookies",
+  "customize": "Personalizar",
+  "acceptAll": "Aceptar todo",
+  "rejectAll": "Rechazar todo",
+  "savePreferences": "Guardar preferencias",
+  "openSettings": "Abrir configuración de cookies",
+  "gdprSpecific": "De acuerdo con la legislación europea (GDPR), necesitamos tu consentimiento explícito para utilizar cookies.",
+  "ccpaSpecific": "Según la ley de California (CCPA), tienes derecho a opt-out de la venta de tu información personal.",
+  "lgpdSpecific": "De acuerdo con la LGPD brasileña, te informamos sobre la recopilación de tus datos."
 }

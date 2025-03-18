@@ -65,13 +65,14 @@
     "control": {
       "title": "Control de cookies",
       "p1": "Puedes gestionar tus preferencias de cookies a través de:",
+      "widget": "Nuestro panel de preferencias de cookies: Haz clic en el icono de configuración ubicado en la esquina inferior izquierda de cualquier página de nuestro sitio web para abrir el panel de preferencias de cookies.",
       "banner": "Nuestro banner de consentimiento de cookies: Aparece cuando visitas nuestro sitio por primera vez.",
       "browser": "Configuración del navegador: Puedes configurar tu navegador para rechazar todas las cookies o indicarte cuando se está enviando una cookie. Sin embargo, si rechazas las cookies, es posible que algunas partes de nuestro sitio no funcionen correctamente.",
       "more": "Para obtener más información sobre cómo gestionar las cookies en diferentes navegadores, visita:"
     },
     "thirdParty": {
       "title": "Cookies de terceros",
-      "p1": "Nuestro sitio puede contener cookies de terceros, como Google Analytics, que nos ayudan a analizar cómo utilizas nuestro sitio web. La información generada por estas cookies sobre tu uso del sitio (incluyendo tu dirección IP) será transmitida y almacenada por Google en servidores en Estados Unidos. Google utilizará esta información con el propósito de evaluar tu uso del sitio, compilar informes sobre la actividad del sitio para los operadores del sitio y proporcionar otros servicios relacionados con la actividad del sitio y el uso de Internet."
+      "p1": "Nuestro sitio utiliza Firebase Analytics, que nos ayuda a analizar cómo utilizas nuestro sitio web. La información generada por estas cookies sobre tu uso del sitio (incluyendo tu dirección IP) será procesada por Google. Firebase Analytics utiliza esta información con el propósito de evaluar tu uso del sitio, compilar informes sobre la actividad del sitio para nosotros y proporcionar otros servicios relacionados con la actividad del sitio."
     },
     "changes": {
       "title": "Cambios en nuestra política de cookies",

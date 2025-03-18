@@ -1,8 +1,16 @@
 {
   "title": "We use cookies",
-  "description": "This site uses cookies to enhance your experience. By continuing to browse, you consent to our use of cookies. Learn more in our",
+  "description": "This site uses cookies to improve your experience. By continuing to browse, you accept our use of cookies. You can get more information in our",
   "privacyLink": "Privacy Policy",
   "accept": "Accept",
   "decline": "Decline",
-  "close": "Close cookie banner"
+  "close": "Close cookie banner",
+  "customize": "Customize",
+  "acceptAll": "Accept all",
+  "rejectAll": "Reject all",
+  "savePreferences": "Save preferences",
+  "openSettings": "Open cookie settings",
+  "gdprSpecific": "In accordance with European legislation (GDPR), we need your explicit consent to use cookies.",
+  "ccpaSpecific": "According to California law (CCPA), you have the right to opt-out of the sale of your personal information.",
+  "lgpdSpecific": "In accordance with the Brazilian LGPD, we inform you about the collection of your data."
 }
