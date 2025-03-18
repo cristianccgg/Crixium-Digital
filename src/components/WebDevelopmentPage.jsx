@@ -24,6 +24,7 @@ import { useTranslation } from "react-i18next";
 // Import SEO components
 import SimpleSEO from "./SEO/SimpleSEO";
 import SimpleSchemaData from "./SEO/SimpleSchemaData";
+import ServicesSection from "./web_development/ServicesSection";
 
 const ServiceCard = ({
   icon: Icon,
@@ -420,6 +421,8 @@ const WebDevelopmentPage = () => {
           </div>
         </div>
       </section>
+
+      <ServicesSection />
 
       {/* Unified Pricing Section */}
       {/* <div ref={pricingSectionRef}>
