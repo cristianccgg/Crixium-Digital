@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Mail,
@@ -9,23 +9,13 @@ import {
   Phone,
   AlertCircle,
   CheckCircle,
-  Upload,
-  File,
-  X,
-  FileText,
-  Music,
-  FileImage,
 } from "lucide-react";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "./firebase"; // Asegúrate de importar el storage desde tu configuración de Firebase
-import { v4 as uuidv4 } from "uuid"; // Si no tienes uuid instalado: npm install uuid
 import { useTranslation } from "react-i18next";
-// Importa el nuevo servicio de Mailgun
 import { sendContactForm } from "../services/MailgunService";
+import { v4 as uuidv4 } from "uuid";
 
 const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
   const { t } = useTranslation("contact-form");
-  const fileInputRef = useRef(null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -35,8 +25,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
     projectType: initialProjectType,
     budget: "",
     description: "",
-    referenceFiles: [],
-    privacyPolicyAccepted: false, // Agregamos el nuevo campo para el checkbox
+    privacyPolicyAccepted: false,
   });
 
   const [formStatus, setFormStatus] = useState({
@@ -44,7 +33,6 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
     error: false,
     message: "",
     isLoading: false,
-    progress: 0,
   });
 
   useEffect(() => {
@@ -108,99 +96,6 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
     undefined: t("contactForm.fields.budget.options.undefined"),
   };
 
-  // Manejo de archivos
-  const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    // Limitamos el tamaño a 10MB
-    const validFiles = files.filter((file) => file.size <= 10 * 1024 * 1024);
-
-    if (validFiles.length < files.length) {
-      alert("Algunos archivos superan el límite de 10MB y no serán incluidos.");
-    }
-
-    setFormData((prev) => ({
-      ...prev,
-      referenceFiles: [...prev.referenceFiles, ...validFiles],
-    }));
-  };
-
-  const removeFile = (fileName) => {
-    setFormData((prev) => ({
-      ...prev,
-      referenceFiles: prev.referenceFiles.filter(
-        (file) => file.name !== fileName
-      ),
-    }));
-  };
-
-  // Función para determinar el icono del archivo según su tipo
-  const getFileIcon = (fileName) => {
-    const extension = fileName.split(".").pop().toLowerCase();
-
-    if (["pdf"].includes(extension)) return File;
-    if (["doc", "docx", "txt", "rtf"].includes(extension)) return FileText;
-    if (["mp3", "wav", "ogg", "flac"].includes(extension)) return Music;
-    if (["jpg", "jpeg", "png", "gif", "svg"].includes(extension))
-      return FileImage;
-
-    return File;
-  };
-
-  // Función para subir archivos a Firebase Storage
-  const uploadFilesToStorage = async (files) => {
-    if (!files || files.length === 0)
-      return { urls: [], fileNames: [], fileDetails: [] };
-
-    // Crear un ID único para el contacto
-    const contactId = uuidv4();
-    const currentDate = new Date();
-    const dateFormatted = currentDate.toISOString().split("T")[0];
-
-    const fileUrls = [];
-    const fileDetails = [];
-
-    setFormStatus((prev) => ({
-      ...prev,
-      message: t("contactForm.statusMessages.uploading"),
-      progress: 0,
-    }));
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-
-      // Crear la ruta en Storage
-      const storagePath = `contact-uploads/${
-        formData.service || "general"
-      }/${dateFormatted}/${contactId}/${file.name}`;
-      const storageRef = ref(storage, storagePath);
-
-      // Subir el archivo
-      await uploadBytes(storageRef, file);
-
-      // Obtener la URL
-      const downloadUrl = await getDownloadURL(storageRef);
-
-      // Guardar los detalles del archivo
-      fileUrls.push(downloadUrl);
-      fileDetails.push({
-        name: file.name,
-        size: file.size,
-        type: file.type,
-        url: downloadUrl,
-        path: storagePath,
-      });
-
-      // Actualizar progreso
-      const progress = Math.round(((i + 1) / files.length) * 100);
-      setFormStatus((prev) => ({
-        ...prev,
-        progress,
-      }));
-    }
-
-    return { urls: fileUrls, fileDetails };
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -212,7 +107,6 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         error: true,
         message: "Debes aceptar la política de privacidad para continuar",
         isLoading: false,
-        progress: 0,
       });
       return; // Detener el envío
     }
@@ -222,15 +116,9 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
       error: false,
       message: t("contactForm.statusMessages.processing"),
       isLoading: true,
-      progress: 0,
     });
 
     try {
-      // Subir archivos si existen
-      const { fileDetails } = await uploadFilesToStorage(
-        formData.referenceFiles
-      );
-
       // Crear un ID único para el mensaje
       const messageId = uuidv4();
 
@@ -244,10 +132,9 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         projectType: formData.projectType,
         budget: formData.budget,
         description: formData.description,
-        fileDetails: fileDetails, // Información completa de los archivos
         timestamp: new Date().toISOString(),
         source: "contact_form",
-        privacyPolicyAccepted: formData.privacyPolicyAccepted, // Agregar esta información al envío
+        privacyPolicyAccepted: formData.privacyPolicyAccepted,
       };
 
       setFormStatus((prev) => ({
@@ -255,7 +142,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         message: t("contactForm.statusMessages.sending"),
       }));
 
-      // Usar el nuevo servicio de Mailgun en lugar de la Cloud Function
+      // Usar el servicio de Mailgun
       const result = await sendContactForm(dataToSend);
 
       if (result.success) {
@@ -265,7 +152,6 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
           error: false,
           message: t("contactForm.statusMessages.thankYou"),
           isLoading: false,
-          progress: 100,
         });
       } else {
         throw new Error(result.message || "Error al enviar el correo");
@@ -277,7 +163,6 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         error: true,
         message: t("contactForm.statusMessages.errorMessage"),
         isLoading: false,
-        progress: 0,
       });
     }
   };
@@ -290,17 +175,6 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
     }));
   };
 
-  // Personalizar el mensaje de la sección de carga según el tipo de servicio
-  const getFileUploadMessage = () => {
-    if (formData.service === "music") {
-      return t("contactForm.fields.files.message.music");
-    } else if (formData.service === "web") {
-      return t("contactForm.fields.files.message.web");
-    } else {
-      return t("contactForm.fields.files.message.default");
-    }
-  };
-
   // Si el formulario se envió exitosamente o está procesando, mostramos un mensaje de confirmación
   if (formStatus.isLoading || (formStatus.submitted && !formStatus.error)) {
     return (
@@ -310,19 +184,6 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
             <div className="flex flex-col items-center justify-center">
               <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-700 mb-4"></div>
               <h2 className="text-2xl font-bold">{formStatus.message}</h2>
-              {formData.referenceFiles.length > 0 && (
-                <div className="w-full max-w-md mt-4">
-                  <div className="bg-gray-200 rounded-full h-2.5 mb-2">
-                    <div
-                      className="bg-purple-700 h-2.5 rounded-full"
-                      style={{ width: `${formStatus.progress}%` }}
-                    ></div>
-                  </div>
-                  <p className="text-sm text-gray-600">
-                    {formStatus.progress}%
-                  </p>
-                </div>
-              )}
               <p className="text-gray-600 mt-2">
                 {t("contactForm.statusMessages.loading")}
               </p>
@@ -350,7 +211,6 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
                 error: false,
                 message: "",
                 isLoading: false,
-                progress: 0,
               });
               setFormData({
                 name: "",
@@ -360,8 +220,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
                 projectType: initialProjectType,
                 budget: "",
                 description: "",
-                referenceFiles: [],
-                privacyPolicyAccepted: false, // Reiniciar también este campo
+                privacyPolicyAccepted: false,
               });
             }}
             className="px-6 py-3 bg-purple-700 text-white rounded-lg hover:bg-coral-400 transition-colors inline-flex items-center gap-2"
@@ -397,7 +256,6 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
                 error: false,
                 message: "",
                 isLoading: false,
-                progress: 0,
               });
             }}
             className="px-6 py-3 bg-purple-700 text-white rounded-lg hover:bg-coral-400 transition-colors inline-flex items-center gap-2"
@@ -590,76 +448,6 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
           />
         </div>
 
-        {/* File Upload Section */}
-        <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t("contactForm.fields.files.label")}{" "}
-            <span className="text-gray-400 text-xs">
-              {t("contactForm.fields.files.optional")}
-            </span>
-          </label>
-          <p className="text-sm text-gray-500 mb-4">{getFileUploadMessage()}</p>
-
-          <div className="mt-2 flex flex-col gap-3">
-            <div
-              onClick={() => fileInputRef.current.click()}
-              className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-purple-500 transition-colors"
-            >
-              <Upload className="text-gray-400 mb-2" size={24} />
-              <p className="text-sm text-gray-500">
-                {t("contactForm.fields.files.dropzone.text")}
-              </p>
-              <p className="text-xs text-gray-400 mt-1">
-                {t("contactForm.fields.files.dropzone.formats")}
-              </p>
-              <input
-                ref={fileInputRef}
-                type="file"
-                multiple
-                onChange={handleFileChange}
-                className="hidden"
-                accept=".pdf,.doc,.docx,.txt,.mp3,.jpg,.jpeg,.png"
-              />
-            </div>
-
-            {formData.referenceFiles.length > 0 && (
-              <div className="mt-3 space-y-3">
-                {formData.referenceFiles.map((file, index) => {
-                  const FileIcon = getFileIcon(file.name);
-                  return (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200"
-                    >
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-purple-50 flex items-center justify-center">
-                          <FileIcon size={16} className="text-purple-700" />
-                        </div>
-                        <div>
-                          <span className="text-sm truncate max-w-xs">
-                            {file.name}
-                          </span>
-                          <span className="text-xs text-gray-400 block">
-                            {(file.size / 1024).toFixed(1)}{" "}
-                            {t("contactForm.fields.files.fileSize")}
-                          </span>
-                        </div>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => removeFile(file.name)}
-                        className="text-gray-400 hover:text-red-500 transition-colors p-1"
-                      >
-                        <X size={16} />
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </div>
-
         {/* Checkbox de aceptación de política de privacidad */}
         <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
           <div className="flex items-start gap-3">
@@ -676,7 +464,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
             </div>
             <div className="ml-3 text-sm">
               <label
-                htmlFor="dataConsent"
+                htmlFor="privacyPolicy"
                 className="font-medium text-gray-700"
               >
                 {t("contactForm.fields.dataConsent.label")}
