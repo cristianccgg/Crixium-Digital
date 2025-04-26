@@ -24,14 +24,15 @@ const SimplifiedMusicForm = ({ selectedPackage, onCancel }) => {
     email: "",
     phone: "",
     message: "",
+    privacyPolicyAccepted: false,
   });
 
   // Input change handlers
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -118,6 +119,10 @@ const SimplifiedMusicForm = ({ selectedPackage, onCancel }) => {
       setError(t("errors.validEmail"));
       return false;
     }
+    if (!formData.privacyPolicyAccepted) {
+      setError(t("errors.privacyPolicy"));
+      return false;
+    }
     return true;
   };
 
@@ -144,7 +149,7 @@ const SimplifiedMusicForm = ({ selectedPackage, onCancel }) => {
         budget: `$${selectedPackage.price} USD`,
         description:
           formData.message || `Interesado en ${selectedPackage.title}`,
-        privacyPolicyAccepted: true,
+        privacyPolicyAccepted: formData.privacyPolicyAccepted,
       };
 
       // Enviar correo de contacto
@@ -175,7 +180,7 @@ const SimplifiedMusicForm = ({ selectedPackage, onCancel }) => {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <h3 className="text-xl font-semibold mb-4">{t("contactForm.title")}</h3>
 
         <div className="space-y-4">
@@ -218,6 +223,7 @@ const SimplifiedMusicForm = ({ selectedPackage, onCancel }) => {
               name="phone"
               value={formData.phone}
               onChange={handleInputChange}
+              placeholder="+1 123456789"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent"
             />
           </div>
@@ -239,11 +245,34 @@ const SimplifiedMusicForm = ({ selectedPackage, onCancel }) => {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent"
             />
           </div>
+
+          <div className="flex items-start gap-2 mt-2">
+            <input
+              type="checkbox"
+              id="privacyPolicyAccepted"
+              name="privacyPolicyAccepted"
+              checked={formData.privacyPolicyAccepted}
+              onChange={handleInputChange}
+              className="mt-1"
+              required
+            />
+            <label
+              htmlFor="privacyPolicyAccepted"
+              className="text-sm text-gray-700"
+            >
+              {t(
+                "contactForm.fields.privacyPolicy",
+                "Acepto la política de privacidad"
+              )}{" "}
+              <span className="text-red-500">*</span>
+            </label>
+          </div>
         </div>
 
         <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
           <p className="text-sm text-blue-700">
-            <strong>Nota:</strong> {t("contactForm.notes.contactOnly")}
+            <strong>{t("contactForm.notes.note")}</strong>{" "}
+            {t("contactForm.notes.contactOnly")}
           </p>
         </div>
 

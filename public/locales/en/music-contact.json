@@ -5,7 +5,8 @@
       "name": "Full Name",
       "email": "Email",
       "phone": "Phone",
-      "message": "Message - Tell us about your project"
+      "message": "Message - Tell us about your project",
+      "privacyPolicy": "I accept the privacy policy and the processing of my personal data to respond to my request."
     },
     "placeholders": {
       "jingleMessage": "Briefly describe how you imagine your jingle, references, desired duration, etc.",
@@ -17,7 +18,8 @@
       "processing": "Processing..."
     },
     "notes": {
-      "contactOnly": "Note: We will send you information about the selected package and payment options."
+      "note": "Note:",
+      "contactOnly": "We will send you information about the selected package and payment options."
     }
   },
   "confirmation": {

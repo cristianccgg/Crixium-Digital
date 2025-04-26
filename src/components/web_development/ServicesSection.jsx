@@ -361,7 +361,7 @@ const ContactForm = ({ projectType, technology, onBack }) => {
         <span>{t("general.backToServices")}</span>
       </button>
 
-      <div className="bg-white p-8 rounded-xl shadow-lg relative overflow-hidden">
+      <div className="max-w-2xl mx-auto p-8 bg-white rounded-xl shadow-lg relative overflow-hidden">
         <div className="absolute -right-32 -top-32 w-64 h-64 bg-purple-50 rounded-full opacity-60"></div>
         <div className="absolute -left-32 -bottom-32 w-64 h-64 bg-indigo-50 rounded-full opacity-60"></div>
 
@@ -369,11 +369,11 @@ const ContactForm = ({ projectType, technology, onBack }) => {
           <h2 className="text-2xl font-bold mb-2">{t("contactForm.title")}</h2>
           <p className="text-gray-600 mb-6">{t("contactForm.subtitle")}</p>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 mb-2"
               >
                 {t("contactForm.fullName")}{" "}
                 <span className="text-red-500">*</span>
@@ -385,16 +385,16 @@ const ContactForm = ({ projectType, technology, onBack }) => {
                 required
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent transition-all"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent"
                 placeholder={t("contactForm.fullName")}
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-gray-700 mb-2"
                 >
                   {t("contactForm.email")}{" "}
                   <span className="text-red-500">*</span>
@@ -406,7 +406,7 @@ const ContactForm = ({ projectType, technology, onBack }) => {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent transition-all"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent"
                   placeholder="tu@email.com"
                 />
               </div>
@@ -414,7 +414,7 @@ const ContactForm = ({ projectType, technology, onBack }) => {
               <div>
                 <label
                   htmlFor="phone"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-gray-700 mb-2"
                 >
                   {t("contactForm.phone")}
                 </label>
@@ -424,7 +424,7 @@ const ContactForm = ({ projectType, technology, onBack }) => {
                   type="tel"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent transition-all"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent"
                   placeholder="+1 234 567 890"
                 />
               </div>
@@ -433,7 +433,7 @@ const ContactForm = ({ projectType, technology, onBack }) => {
             <div>
               <label
                 htmlFor="howSoon"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 mb-2"
               >
                 {t("contactForm.timeline")}
               </label>
@@ -442,7 +442,7 @@ const ContactForm = ({ projectType, technology, onBack }) => {
                 name="howSoon"
                 value={formData.howSoon}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent transition-all"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent"
               >
                 <option value="not-urgent">
                   {t("contactForm.timelineOptions.notUrgent")}
@@ -462,7 +462,7 @@ const ContactForm = ({ projectType, technology, onBack }) => {
             <div>
               <label
                 htmlFor="description"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 mb-2"
               >
                 {t("contactForm.message")}{" "}
                 <span className="text-red-500">*</span>
@@ -474,7 +474,7 @@ const ContactForm = ({ projectType, technology, onBack }) => {
                 value={formData.description}
                 onChange={handleChange}
                 rows={4}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent transition-all"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-700 focus:border-transparent"
                 placeholder={t("contactForm.messagePlaceholder")}
               />
             </div>
@@ -499,7 +499,7 @@ const ContactForm = ({ projectType, technology, onBack }) => {
             </div>
 
             {error && (
-              <div className="bg-red-50 text-red-700 p-4 rounded-lg mt-4 text-sm">
+              <div className="bg-red-50 text-red-700 p-4 rounded-lg text-sm">
                 {error}
               </div>
             )}
@@ -507,7 +507,7 @@ const ContactForm = ({ projectType, technology, onBack }) => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-purple-600 to-indigo-700 text-white px-6 py-4 rounded-lg hover:shadow-lg transition-all disabled:opacity-70 flex items-center justify-center"
+              className="w-full bg-purple-700 text-white px-6 py-3 rounded-lg hover:bg-purple-600 transition-colors disabled:opacity-50 flex items-center justify-center"
             >
               {isSubmitting ? (
                 <>
