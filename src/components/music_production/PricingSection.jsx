@@ -73,6 +73,9 @@ const PricingCard = ({
       <div className="flex-grow">
         <h3 className="text-xl font-bold text-gray-900 mb-4">{title}</h3>
         <div className="flex items-baseline mb-6">
+          <span className="text-xl font-bold text-gray-600 mr-2">
+            {t("package.since")}
+          </span>
           <span className="text-4xl font-bold text-gray-900">US${price}</span>
           <span className="ml-1 text-gray-500">/{t("package.service")}</span>
         </div>

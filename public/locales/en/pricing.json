@@ -13,7 +13,8 @@
     "service": "service",
     "words": "Up to {count} words",
     "selectPlan": "Select Plan",
-    "backToPlans": "Back to plans"
+    "backToPlans": "Back to plans",
+    "since": "From"
   },
   "jingles": {
     "basic": {
