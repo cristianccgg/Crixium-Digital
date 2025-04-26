@@ -1,0 +1,111 @@
+{
+  "services": {
+    "jingles": "Jingles/Intros",
+    "voiceover": "Locución"
+  },
+  "pricing": {
+    "transparentPricing": "Precios Transparentes",
+    "plansAndPrices": "Planes y Precios",
+    "chooseService": "Elige el servicio y plan que mejor se adapte a tus necesidades"
+  },
+  "package": {
+    "popular": "Más Popular",
+    "service": "servicio",
+    "words": "Hasta {count} palabras",
+    "selectPlan": "Seleccionar Plan",
+    "backToPlans": "Volver a los planes"
+  },
+  "jingles": {
+    "basic": {
+      "title": "Your perfect Jingle!",
+      "price": "30",
+      "delivery": "5 días de entrega",
+      "features": {
+        "feature1": "Hasta 10 segundos de duración",
+        "feature2": "Grabación de voces",
+        "feature3": "Música original",
+        "feature4": "Mezcla y masterización",
+        "feature5": "Escritura de letras",
+        "feature6": "Uso comercial",
+        "feature7": "Revisiones ilimitadas"
+      }
+    },
+    "standard": {
+      "title": "All you need!",
+      "price": "50",
+      "delivery": "5 días de entrega",
+      "features": {
+        "feature1": "Hasta 20 segundos de duración",
+        "feature2": "Grabación de voces",
+        "feature3": "Música original",
+        "feature4": "Mezcla y masterización",
+        "feature5": "Escritura de letras",
+        "feature6": "Uso comercial",
+        "feature7": "Revisiones ilimitadas"
+      }
+    },
+    "premium": {
+      "title": "30 seconds, all inclusive!",
+      "price": "70",
+      "delivery": "6 días de entrega",
+      "features": {
+        "feature1": "Hasta 30 segundos de duración",
+        "feature2": "Grabación de voces",
+        "feature3": "Música original",
+        "feature4": "Mezcla y masterización",
+        "feature5": "Escritura de letras",
+        "feature6": "Uso comercial",
+        "feature7": "Revisiones ilimitadas"
+      }
+    }
+  },
+  "voiceover": {
+    "basic": {
+      "title": "Locución Básica",
+      "wordCount": "100",
+      "price": "30",
+      "delivery": "5 días de entrega",
+      "features": {
+        "feature1": "Locución profesional",
+        "feature2": "Edición y masterización",
+        "feature3": "2 revisiones incluidas",
+        "feature4": "Audio en formato WAV y MP3",
+        "feature5": "Uso comercial",
+        "feature6": "Calidad de estudio profesional"
+      }
+    },
+    "standard": {
+      "title": "Locución Standard",
+      "wordCount": "300",
+      "price": "50",
+      "delivery": "5 días de entrega",
+      "features": {
+        "feature1": "Locución profesional",
+        "feature2": "Música de fondo incluida",
+        "feature3": "Efectos de sonido básicos",
+        "feature4": "Edición y masterización",
+        "feature5": "3 revisiones incluidas",
+        "feature6": "Audio en formato WAV y MP3",
+        "feature7": "Uso comercial",
+        "feature8": "Calidad de estudio profesional"
+      }
+    },
+    "premium": {
+      "title": "Locución Premium",
+      "wordCount": "500",
+      "price": "70",
+      "delivery": "6 días de entrega",
+      "features": {
+        "feature1": "Locución profesional",
+        "feature2": "Música de fondo incluida",
+        "feature3": "Efectos de sonido premium",
+        "feature4": "Edición y masterización",
+        "feature5": "Revisiones ilimitadas",
+        "feature6": "Audio en formato WAV y MP3",
+        "feature7": "Uso comercial",
+        "feature8": "Calidad de estudio profesional",
+        "feature9": "Guión optimizado incluido"
+      }
+    }
+  }
+}

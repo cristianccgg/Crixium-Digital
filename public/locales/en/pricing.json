@@ -1,0 +1,111 @@
+{
+  "services": {
+    "jingles": "Jingles/Intros",
+    "voiceover": "Voice-over"
+  },
+  "pricing": {
+    "transparentPricing": "Transparent Pricing",
+    "plansAndPrices": "Plans and Prices",
+    "chooseService": "Choose the service and plan that best suits your needs"
+  },
+  "package": {
+    "popular": "Most Popular",
+    "service": "service",
+    "words": "Up to {count} words",
+    "selectPlan": "Select Plan",
+    "backToPlans": "Back to plans"
+  },
+  "jingles": {
+    "basic": {
+      "title": "Your perfect Jingle!",
+      "price": "30",
+      "delivery": "5-day delivery",
+      "features": {
+        "feature1": "Up to 10-second running time",
+        "feature2": "Vocals recording",
+        "feature3": "Original music",
+        "feature4": "Mixing & mastering",
+        "feature5": "Lyrics writing",
+        "feature6": "Commercial use",
+        "feature7": "Unlimited Revisions"
+      }
+    },
+    "standard": {
+      "title": "All you need!",
+      "price": "50",
+      "delivery": "5-day delivery",
+      "features": {
+        "feature1": "Up to 20-second running time",
+        "feature2": "Vocals recording",
+        "feature3": "Original music",
+        "feature4": "Mixing & mastering",
+        "feature5": "Lyrics writing",
+        "feature6": "Commercial use",
+        "feature7": "Unlimited Revisions"
+      }
+    },
+    "premium": {
+      "title": "30 seconds, all inclusive!",
+      "price": "70",
+      "delivery": "6-day delivery",
+      "features": {
+        "feature1": "Up to 30-second running time",
+        "feature2": "Vocals recording",
+        "feature3": "Original music",
+        "feature4": "Mixing & mastering",
+        "feature5": "Lyrics writing",
+        "feature6": "Commercial use",
+        "feature7": "Unlimited Revisions"
+      }
+    }
+  },
+  "voiceover": {
+    "basic": {
+      "title": "Basic Voice-over",
+      "wordCount": "100",
+      "price": "30",
+      "delivery": "5-day delivery",
+      "features": {
+        "feature1": "Professional voice-over",
+        "feature2": "Editing and mastering",
+        "feature3": "2 revisions included",
+        "feature4": "Audio in WAV and MP3 format",
+        "feature5": "Commercial use",
+        "feature6": "Professional studio quality"
+      }
+    },
+    "standard": {
+      "title": "Standard Voice-over",
+      "wordCount": "300",
+      "price": "50",
+      "delivery": "5-day delivery",
+      "features": {
+        "feature1": "Professional voice-over",
+        "feature2": "Background music included",
+        "feature3": "Basic sound effects",
+        "feature4": "Editing and mastering",
+        "feature5": "3 revisions included",
+        "feature6": "Audio in WAV and MP3 format",
+        "feature7": "Commercial use",
+        "feature8": "Professional studio quality"
+      }
+    },
+    "premium": {
+      "title": "Premium Voice-over",
+      "wordCount": "500",
+      "price": "70",
+      "delivery": "6-day delivery",
+      "features": {
+        "feature1": "Professional voice-over",
+        "feature2": "Background music included",
+        "feature3": "Premium sound effects",
+        "feature4": "Editing and mastering",
+        "feature5": "Unlimited revisions",
+        "feature6": "Audio in WAV and MP3 format",
+        "feature7": "Commercial use",
+        "feature8": "Professional studio quality",
+        "feature9": "Optimized script included"
+      }
+    }
+  }
+}

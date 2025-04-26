@@ -13,7 +13,7 @@ import {
 } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "./firebase";
-// Importar el nuevo cliente de email
+// Importamos el servicio de correo, pero recordamos que está desactivado para ahorrar costos
 import {
   sendOrderConfirmationEmail,
   sendOrderStatusEmail,
@@ -34,7 +34,19 @@ export const generateOrderNumber = (type) => {
     (typeof type === "object" && type.category === "locucion") ||
     (typeof type === "object" && type.type === "music");
 
-  const prefix = isMusicService ? "MUSIC" : "WEB";
+  // Para pedidos web/ecommerce ahora usaremos un prefijo diferente
+  const isInquiry =
+    type === "inquiry" ||
+    (typeof type === "object" && type.paymentStatus === "inquiry");
+
+  let prefix;
+  if (isMusicService) {
+    prefix = "MUSIC";
+  } else if (isInquiry) {
+    prefix = "INQ"; // Para solicitudes de información (no pagos)
+  } else {
+    prefix = "WEB"; // Para pedidos web normales
+  }
 
   const year = new Date().getFullYear();
   const randomNum = Math.floor(1000 + Math.random() * 9000);
@@ -48,26 +60,34 @@ export const generateOrderNumber = (type) => {
  */
 export const createOrder = async (formData) => {
   try {
-    // Better determination of order type - check for music-related types first
+    // Determinar tipo de pedido: música o solicitud web
     let orderType;
+    let isWebInquiry = false;
 
-    // Check if it's a music-related service
+    // Verificar si es un servicio de música
     if (
       formData.packageDetails?.type === "music" ||
       formData.packageDetails?.category === "jingle" ||
       formData.packageDetails?.category === "locucion"
     ) {
       orderType = "music";
-    }
-    // If not music, determine between web or ecommerce
-    else {
-      orderType = formData.projectType === "ecommerce" ? "ecommerce" : "web";
+    } else {
+      // Si el estado de pago es 'inquiry', es una solicitud web sin pago inmediato
+      if (formData.paymentStatus === "inquiry") {
+        orderType =
+          formData.projectType === "ecommerce"
+            ? "ecommerce-inquiry"
+            : "web-inquiry";
+        isWebInquiry = true;
+      } else {
+        orderType = formData.projectType === "ecommerce" ? "ecommerce" : "web";
+      }
     }
 
-    // Generate order number based on the determined type
+    // Generar número de pedido según el tipo
     const orderNumber = generateOrderNumber(orderType);
 
-    // Create basic structure of steps for tracking based on order type
+    // Crear estructura básica de pasos para seguimiento según el tipo de pedido
     let steps;
 
     if (orderType === "music") {
@@ -84,8 +104,22 @@ export const createOrder = async (formData) => {
         { name: "Revisión", completed: false },
         { name: "Finalizado", completed: false },
       ];
+    } else if (isWebInquiry) {
+      // Pasos para solicitudes web (sin pago inmediato)
+      steps = [
+        {
+          name: "Solicitud Recibida",
+          completed: true,
+          date: new Date().toLocaleDateString(),
+        },
+        { name: "Contacto Inicial", completed: false },
+        { name: "Propuesta", completed: false },
+        { name: "Contratación", completed: false },
+        { name: "Desarrollo", completed: false },
+        { name: "Finalizado", completed: false },
+      ];
     } else {
-      // Pasos para proyectos web
+      // Pasos para proyectos web con pago
       steps = [
         {
           name: "Pedido Recibido",
@@ -99,55 +133,55 @@ export const createOrder = async (formData) => {
       ];
     }
 
-    // Upload reference files if they exist
+    // Subir archivos de referencia si existen
     const referenceFileUrls = [];
     const referenceFileNames = [];
 
     if (formData.referenceFiles && formData.referenceFiles.length > 0) {
       for (const file of formData.referenceFiles) {
-        // Create a reference in Firebase Storage
+        // Crear una referencia en Firebase Storage
         const fileRef = ref(
           storage,
           `orders/${orderNumber}/references/${file.name}`
         );
 
-        // Upload file
+        // Subir archivo
         await uploadBytes(fileRef, file);
 
-        // Get download URL
+        // Obtener URL de descarga
         const downloadURL = await getDownloadURL(fileRef);
 
-        // Save URL and filename
+        // Guardar URL y nombre de archivo
         referenceFileUrls.push(downloadURL);
         referenceFileNames.push(file.name);
       }
     }
 
-    // Handle product files for ecommerce if they exist
+    // Manejar archivos de productos para ecommerce si existen
     const productFileUrls = [];
     const productFileNames = [];
 
     if (formData.productFiles && formData.productFiles.length > 0) {
       for (const file of formData.productFiles) {
-        // Create a reference in Firebase Storage
+        // Crear una referencia en Firebase Storage
         const fileRef = ref(
           storage,
           `orders/${orderNumber}/products/${file.name}`
         );
 
-        // Upload file
+        // Subir archivo
         await uploadBytes(fileRef, file);
 
-        // Get download URL
+        // Obtener URL de descarga
         const downloadURL = await getDownloadURL(fileRef);
 
-        // Save URL and filename
+        // Guardar URL y nombre de archivo
         productFileUrls.push(downloadURL);
         productFileNames.push(file.name);
       }
     }
 
-    // Create details object adapted to project type
+    // Crear objeto de detalles adaptado al tipo de proyecto
     let details = {
       package: formData.packageDetails,
       extras: formData.extras || [],
@@ -156,21 +190,19 @@ export const createOrder = async (formData) => {
       referenceFileUrls,
     };
 
-    // Add fields specific to project type
+    // Añadir campos específicos según el tipo de proyecto
     if (orderType === "music") {
-      // Special handling for music orders
+      // Manejo especial para pedidos de música
       details = {
         ...details,
         voiceType: formData.voiceType || "",
         reference: formData.reference || "",
-        briefing: formData.briefing || formData.script || "", // Support both field names
+        briefing: formData.briefing || formData.script || "", // Compatible con ambos nombres de campo
         tone: formData.tone || "",
         voiceAge: formData.voiceAge || "",
         language: formData.language || "",
       };
-    } else if (orderType === "web") {
-      console.log("Processing web project with features:", formData.features);
-
+    } else if (orderType.includes("web")) {
       details = {
         ...details,
         siteType: formData.siteType || "",
@@ -180,7 +212,7 @@ export const createOrder = async (formData) => {
           ? [...formData.features]
           : [],
       };
-    } else if (orderType === "ecommerce") {
+    } else if (orderType.includes("ecommerce")) {
       details = {
         ...details,
         businessName: formData.businessName || "",
@@ -194,10 +226,15 @@ export const createOrder = async (formData) => {
         productFileNames,
         productFileUrls,
       };
-      console.log("Features after processing:", details.features);
     }
 
-    // Create complete order object
+    // Determinar el estado inicial del pedido según el tipo
+    let initialStatus = "received";
+    if (isWebInquiry) {
+      initialStatus = "inquiry"; // Para solicitudes web sin pago
+    }
+
+    // Crear objeto de pedido completo
     const newOrder = {
       orderNumber,
       type: orderType,
@@ -205,39 +242,45 @@ export const createOrder = async (formData) => {
       client: formData.name,
       email: formData.email,
       phone: formData.phone || "",
-      status: "received", // Possible statuses: received, in-progress, review, completed
+      status: initialStatus,
       paymentStatus: formData.paymentStatus || "pending", // Nuevo campo para el estado del pago
       currentStep: 0,
       steps,
       details,
       comments: [],
       total: formData.total || 0,
-      serviceType: formData.serviceType || "wordpress", // service type (wordpress, custom, shopify)
-      projectType: formData.projectType || "website", // project type (website, ecommerce)
+      serviceType: formData.serviceType || "wordpress", // tipo de servicio (wordpress, custom, shopify)
+      projectType: formData.projectType || "website", // tipo de proyecto (website, ecommerce)
       createdAt: serverTimestamp(),
       lastUpdate: serverTimestamp(),
       emailSent: false, // Nuevo campo para rastrear si se ha enviado el correo
     };
 
-    // Save to Firestore
+    // Guardar en Firestore
     const ordersRef = collection(db, "orders");
     const docRef = await addDoc(ordersRef, newOrder);
 
-    // NUEVO: Enviar correo de confirmación si el pago ya está aprobado
-    // Ahora usa el nuevo cliente de email que se conecta con las Cloud Functions
-    if (formData.paymentStatus === "approved") {
+    // OPTIMIZADO: Solo enviar correo si es un pedido de música con pago aprobado
+    // Esto reduce las llamadas a Cloud Functions y ahorra costos
+    if (
+      !isWebInquiry &&
+      orderType === "music" &&
+      formData.paymentStatus === "approved"
+    ) {
       try {
         // Construir la URL de seguimiento
         const trackingUrl = `${window.location.origin}/tracking?order=${orderNumber}`;
 
-        // Enviar el correo de confirmación
+        // Intentar enviar el correo de confirmación
+        // Nota: La función sendOrderConfirmationEmail está desactivada en EmailClient.js
+        // así que realmente no se enviará, pero mantenemos el código por si se reactiva en el futuro
         const emailResult = await sendOrderConfirmationEmail({
           ...newOrder,
           trackingUrl,
         });
 
         // Actualizar el documento si el correo se envió correctamente
-        if (emailResult.success) {
+        if (emailResult.success && !emailResult.simulated) {
           await updateDoc(doc(db, "orders", docRef.id), {
             emailSent: true,
             emailSentDate: new Date().toISOString(),
@@ -278,7 +321,7 @@ export const getOrderByNumber = async (orderNumber) => {
       return null;
     }
 
-    // Return the first matching document
+    // Devolver el primer documento coincidente
     const orderDoc = querySnapshot.docs[0];
     return { firebaseId: orderDoc.id, ...orderDoc.data() };
   } catch (error) {
@@ -289,6 +332,7 @@ export const getOrderByNumber = async (orderNumber) => {
 
 /**
  * Actualiza el estado de pago de una orden
+ * OPTIMIZADO: Solo se usa para pedidos de música
  * @param {string} orderNumber - El número de orden
  * @param {string} paymentStatus - El estado del pago ('approved', 'rejected', 'pending')
  * @returns {Promise<Object>} - Objeto con el resultado de la operación
@@ -300,6 +344,15 @@ export const updateOrderPaymentStatus = async (orderNumber, paymentStatus) => {
 
     if (!order) {
       return { success: false, message: "Pedido no encontrado" };
+    }
+
+    // Comprobar si la orden ya tiene este estado de pago para evitar actualizaciones innecesarias
+    if (order.paymentStatus === paymentStatus) {
+      return {
+        success: true,
+        message: `El estado de pago ya era ${paymentStatus}`,
+        order,
+      };
     }
 
     // Preparar los datos a actualizar
@@ -349,8 +402,18 @@ export const updateOrderPaymentStatus = async (orderNumber, paymentStatus) => {
       ...updatedOrderDoc.data(),
     };
 
-    // MODIFICADO: Enviar correo de confirmación solo si el pago fue aprobado y no se ha enviado antes
-    if (paymentStatus === "approved" && !order.emailSent) {
+    // OPTIMIZADO: Enviar correo de confirmación solo si:
+    // 1. Es un pedido de música (no web/inquiry)
+    // 2. El pago fue aprobado
+    // 3. No se ha enviado un correo previamente
+    // Esto reduce significativamente las llamadas a Cloud Functions
+    if (
+      paymentStatus === "approved" &&
+      !order.emailSent &&
+      (order.type === "music" ||
+        order.type.includes("jingle") ||
+        order.type.includes("locucion"))
+    ) {
       try {
         // Verificar si se ha enviado un correo en los últimos 10 minutos
         // para evitar duplicados
@@ -365,14 +428,20 @@ export const updateOrderPaymentStatus = async (orderNumber, paymentStatus) => {
           // Construir la URL de seguimiento
           const trackingUrl = `${window.location.origin}/tracking?order=${orderNumber}`;
 
-          // Enviar el correo de confirmación usando el nuevo cliente
+          // Intentar enviar el correo de confirmación
+          // Nota: La función sendOrderConfirmationEmail está desactivada en EmailClient.js
+          // así que realmente no se enviará, pero mantenemos el código por si se reactiva
           const emailResult = await sendOrderConfirmationEmail({
             ...updatedOrder,
             trackingUrl,
           });
 
           // Marcar que el correo fue enviado si fue exitoso y actualizar el documento
-          if (emailResult.success && !emailResult.alreadySent) {
+          if (
+            emailResult.success &&
+            !emailResult.simulated &&
+            !emailResult.alreadySent
+          ) {
             await updateDoc(orderDocRef, {
               emailSent: true,
               emailSentDate: new Date().toISOString(),
@@ -429,6 +498,15 @@ export const updateOrderStatus = async (
       return { success: false, message: "Pedido no encontrado" };
     }
 
+    // Comprobar si el estado ya es el mismo para evitar actualizaciones innecesarias
+    if (order.status === newStatus && currentStepIndex === order.currentStep) {
+      return {
+        success: true,
+        message: "No se requieren cambios, el estado ya es el mismo",
+        order,
+      };
+    }
+
     // Prepare data to update
     const updateData = {
       status: newStatus,
@@ -478,8 +556,19 @@ export const updateOrderStatus = async (
       ...updatedOrderDoc.data(),
     };
 
-    // Enviar correo de actualización de estado si se solicitó y hay cambio de estado
-    if (notifyCustomer && order.status !== newStatus && order.email) {
+    // OPTIMIZADO: Solo enviar correo de actualización si:
+    // 1. Se solicitó notificar al cliente
+    // 2. Hubo cambio real de estado
+    // 3. Es un pedido de música (no web inquiry)
+    // 4. El cliente tiene un email
+    if (
+      notifyCustomer &&
+      order.status !== newStatus &&
+      order.email &&
+      (order.type === "music" ||
+        order.type.includes("jingle") ||
+        order.type.includes("locucion"))
+    ) {
       try {
         // Construir la URL de seguimiento
         const trackingUrl = `${window.location.origin}/tracking?order=${orderNumber}`;
@@ -497,7 +586,8 @@ export const updateOrderStatus = async (
             "¡Tu proyecto ha sido completado! Gracias por confiar en nosotros.";
         }
 
-        // Enviar correo de actualización usando el nuevo cliente
+        // Intentar enviar correo de actualización
+        // Nota: La función sendOrderStatusEmail está desactivada en EmailClient.js
         const emailResult = await sendOrderStatusEmail(
           {
             ...updatedOrder,
@@ -506,8 +596,8 @@ export const updateOrderStatus = async (
           statusMessage
         );
 
-        // Actualizar el registro de envío de correo si fue exitoso
-        if (emailResult.success) {
+        // Actualizar el registro de envío de correo si fue exitoso y no es simulado
+        if (emailResult.success && !emailResult.simulated) {
           await updateDoc(orderDocRef, {
             lastEmailSent: new Date().toISOString(),
             lastEmailType: "status_update",
@@ -610,48 +700,53 @@ export const addOrderComment = async (
       lastUpdate: serverTimestamp(),
     });
 
-    // Si el comentario es del administrador y contiene una entrega o es una actualización importante,
-    // enviar correo al cliente para notificarle
+    // OPTIMIZADO: Enviar correo solo si:
+    // 1. El comentario es del administrador (no del cliente)
+    // 2. Es una entrega o actualización importante
+    // 3. Es un pedido de música (no web inquiry)
+    // 4. El cliente tiene un email
     if (
       !fromClient &&
-      (isDelivery || newStatus === "review" || newStatus === "completed")
+      (isDelivery || newStatus === "review" || newStatus === "completed") &&
+      order.email &&
+      (order.type === "music" ||
+        order.type.includes("jingle") ||
+        order.type.includes("locucion"))
     ) {
-      // Solo enviar si tenemos un email al que enviar
-      if (order.email) {
-        try {
-          // Construir la URL de seguimiento
-          const trackingUrl = `${window.location.origin}/tracking?order=${orderNumber}`;
+      try {
+        // Construir la URL de seguimiento
+        const trackingUrl = `${window.location.origin}/tracking?order=${orderNumber}`;
 
-          // Preparar mensaje según el tipo de actualización
-          let message = comment;
-          if (isDelivery) {
-            message =
-              "Hemos subido una entrega para tu revisión. Por favor, revisa los detalles en tu panel de seguimiento.";
-          }
-
-          // Enviar correo de actualización usando el nuevo cliente
-          const emailResult = await sendOrderStatusEmail(
-            {
-              orderNumber,
-              client: order.client,
-              email: order.email,
-              status: newStatus,
-              trackingUrl,
-            },
-            message
-          );
-
-          // Actualizar el registro de envío de correo si fue exitoso
-          if (emailResult.success) {
-            await updateDoc(orderDocRef, {
-              lastEmailSent: new Date().toISOString(),
-              lastEmailType: isDelivery ? "delivery" : "comment",
-            });
-          }
-        } catch (emailError) {
-          console.error("Error al enviar correo de notificación:", emailError);
-          // No interrumpir el flujo principal si falla el envío de correo
+        // Preparar mensaje según el tipo de actualización
+        let message = comment;
+        if (isDelivery) {
+          message =
+            "Hemos subido una entrega para tu revisión. Por favor, revisa los detalles en tu panel de seguimiento.";
         }
+
+        // Intentar enviar correo de actualización
+        // Nota: La función sendOrderStatusEmail está desactivada en EmailClient.js
+        const emailResult = await sendOrderStatusEmail(
+          {
+            orderNumber,
+            client: order.client,
+            email: order.email,
+            status: newStatus,
+            trackingUrl,
+          },
+          message
+        );
+
+        // Actualizar el registro de envío de correo si fue exitoso y no es simulado
+        if (emailResult.success && !emailResult.simulated) {
+          await updateDoc(orderDocRef, {
+            lastEmailSent: new Date().toISOString(),
+            lastEmailType: isDelivery ? "delivery" : "comment",
+          });
+        }
+      } catch (emailError) {
+        console.error("Error al enviar correo de notificación:", emailError);
+        // No interrumpir el flujo principal si falla el envío de correo
       }
     }
 
@@ -667,6 +762,7 @@ export const addOrderComment = async (
 
 /**
  * Envía un correo de notificación al cliente sobre su pedido
+ * OPTIMIZADO: Solo usar para pedidos de música
  * @param {string} orderNumber - El número de orden
  * @param {string} subject - Asunto del correo
  * @param {string} message - Mensaje personalizado para incluir en el correo
@@ -685,10 +781,26 @@ export const sendOrderNotification = async (orderNumber, subject, message) => {
       return { success: false, message: "El pedido no tiene email asociado" };
     }
 
+    // OPTIMIZADO: Solo enviar notificaciones para pedidos de música
+    if (
+      !(
+        order.type === "music" ||
+        order.type.includes("jingle") ||
+        order.type.includes("locucion")
+      )
+    ) {
+      return {
+        success: false,
+        message:
+          "Las notificaciones por correo solo están disponibles para pedidos de música",
+      };
+    }
+
     // Construir la URL de seguimiento
     const trackingUrl = `${window.location.origin}/tracking?order=${orderNumber}`;
 
-    // Enviar correo de notificación usando el nuevo cliente
+    // Intentar enviar correo de notificación
+    // Nota: La función sendOrderStatusEmail está desactivada en EmailClient.js
     const result = await sendOrderStatusEmail(
       {
         orderNumber,
@@ -700,8 +812,8 @@ export const sendOrderNotification = async (orderNumber, subject, message) => {
       message
     );
 
-    // Actualizar el estado de envío de correo en la base de datos si fue exitoso
-    if (result.success) {
+    // Actualizar el estado de envío de correo en la base de datos si fue exitoso y no es simulado
+    if (result.success && !result.simulated) {
       const orderDocRef = doc(db, "orders", order.firebaseId);
       await updateDoc(orderDocRef, {
         lastEmailSent: new Date().toISOString(),
@@ -721,12 +833,14 @@ export const sendOrderNotification = async (orderNumber, subject, message) => {
 
 /**
  * Obtiene todos los pedidos
+ * OPTIMIZADO: Usa paginación para reducir lecturas de Firestore
+ * @param {number} limit - Límite de pedidos a recuperar (por defecto: 100)
  * @returns {Promise<Array>} - Lista de pedidos
  */
-export const getAllOrders = async () => {
+export const getAllOrders = async (limit = 100) => {
   try {
     const ordersRef = collection(db, "orders");
-    const q = query(ordersRef, orderBy("createdAt", "desc"));
+    const q = query(ordersRef, orderBy("createdAt", "desc"), limit(limit));
     const querySnapshot = await getDocs(q);
 
     const orders = [];
@@ -747,7 +861,7 @@ export const getAllOrders = async () => {
  */
 export const exportOrdersToJson = async () => {
   try {
-    const orders = await getAllOrders();
+    const orders = await getAllOrders(1000); // Limitar a 1000 pedidos por exportación
     const dataStr = JSON.stringify({ orders }, null, 2);
     const dataUri =
       "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);

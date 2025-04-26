@@ -763,9 +763,6 @@ const ServicesSection = ({ initialService, initialType }) => {
                 onClick={handleServiceSelect}
               />
 
-              {/* Reemplazado CTAButtons por CTAButton */}
-              <CTAButton onRequestQuote={handleRequestQuote} />
-
               <div className="mt-8 p-4 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg text-center text-sm text-gray-600 border border-purple-100 shadow-sm">
                 {t("general.needCustomSolution")}{" "}
                 <Link

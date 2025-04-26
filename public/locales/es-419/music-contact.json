@@ -1,0 +1,46 @@
+{
+  "contactForm": {
+    "title": "Formulario de Contacto",
+    "fields": {
+      "name": "Nombre Completo",
+      "email": "Correo Electrónico",
+      "phone": "Teléfono",
+      "message": "Mensaje - Cuéntanos sobre tu proyecto"
+    },
+    "placeholders": {
+      "jingleMessage": "Describe brevemente cómo te imaginas tu jingle, referencias, duración deseada, etc.",
+      "voiceoverMessage": "Describe brevemente cómo te imaginas tu locución, tipo de voz, estilo, etc."
+    },
+    "buttons": {
+      "back": "Volver",
+      "submit": "Enviar Solicitud",
+      "processing": "Procesando..."
+    },
+    "notes": {
+      "contactOnly": "Nota: Te enviaremos información sobre el paquete seleccionado y opciones de pago."
+    }
+  },
+  "confirmation": {
+    "title": "¡Solicitud Enviada!",
+    "message": "Hemos recibido tu solicitud. Te contactaremos pronto para discutir los detalles.",
+    "nextSteps": {
+      "jingle": "Próximos pasos para tu jingle",
+      "voiceover": "Próximos pasos para tu locución",
+      "description": "Gracias por tu interés en nuestros servicios musicales. Un miembro de nuestro equipo se pondrá en contacto contigo pronto para discutir los detalles de tu proyecto y opciones de pago.",
+      "contact": "Si tienes alguna pregunta, puedes contactarnos en"
+    },
+    "buttons": {
+      "backToHome": "Volver al Inicio"
+    }
+  },
+  "package": {
+    "basePrice": "precio base",
+    "upTo": "Hasta"
+  },
+  "errors": {
+    "nameRequired": "Por favor, ingresa tu nombre",
+    "emailRequired": "Por favor, ingresa tu correo electrónico",
+    "validEmail": "Por favor, ingresa un correo electrónico válido",
+    "general": "Hubo un problema al enviar tu solicitud. Por favor, intenta de nuevo o contáctanos directamente por correo."
+  }
+}

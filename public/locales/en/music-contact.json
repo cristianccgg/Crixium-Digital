@@ -1,0 +1,46 @@
+{
+  "contactForm": {
+    "title": "Contact Form",
+    "fields": {
+      "name": "Full Name",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message - Tell us about your project"
+    },
+    "placeholders": {
+      "jingleMessage": "Briefly describe how you imagine your jingle, references, desired duration, etc.",
+      "voiceoverMessage": "Briefly describe how you imagine your voiceover, voice type, style, etc."
+    },
+    "buttons": {
+      "back": "Back",
+      "submit": "Submit Request",
+      "processing": "Processing..."
+    },
+    "notes": {
+      "contactOnly": "Note: We will send you information about the selected package and payment options."
+    }
+  },
+  "confirmation": {
+    "title": "Request Sent!",
+    "message": "We have received your request. We will contact you soon to discuss the details.",
+    "nextSteps": {
+      "jingle": "Next steps for your jingle",
+      "voiceover": "Next steps for your voiceover",
+      "description": "Thank you for your interest in our music services. A member of our team will contact you soon to discuss the details of your project and payment options.",
+      "contact": "If you have any questions, you can contact us at"
+    },
+    "buttons": {
+      "backToHome": "Back to Home"
+    }
+  },
+  "package": {
+    "basePrice": "base price",
+    "upTo": "Up to"
+  },
+  "errors": {
+    "nameRequired": "Please enter your name",
+    "emailRequired": "Please enter your email",
+    "validEmail": "Please enter a valid email address",
+    "general": "There was a problem submitting your request. Please try again or contact us directly by email."
+  }
+}

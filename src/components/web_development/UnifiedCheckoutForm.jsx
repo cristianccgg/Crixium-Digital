@@ -16,6 +16,8 @@ import {
 } from "lucide-react";
 import SimpleFileUploadComponent from "../web_development/SimpleFileUploadComponent";
 import { createOrder } from "../OrderManagerFirebase";
+import { sendContactForm } from "../services/MailgunService"; // Para servicios web
+// Solo importar PaymentGateway para productos musicales
 import PaymentGateway from "../payments/PaymentGateway";
 
 const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
@@ -44,6 +46,13 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
   const isShopify = serviceType === "shopify";
   const isWordPress = serviceType === "wordpress";
   const isPremiumPlan = selectedPackage.id.includes("premium");
+
+  // Determinar si este es un proyecto web (no música)
+  const isWebProject = true; // Siempre true en este componente
+
+  // Definimos el número máximo de pasos según el tipo de proyecto
+  // Los proyectos web ahora solo tienen 3 pasos (sin pago), mientras que música tiene 4
+  const maxSteps = 3;
 
   const getServiceName = () => {
     if (isEcommerce) {
@@ -512,37 +521,18 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
               Próximos pasos para tu sitio WordPress
             </h3>
             <p className="text-sm text-gray-700 mb-2">
-              Para comenzar con tu proyecto, necesitamos acceso a tu sitio
-              WordPress:
+              Gracias por tu interés en nuestros servicios web. Un miembro de
+              nuestro equipo se pondrá en contacto contigo pronto para discutir
+              los detalles de tu proyecto.
             </p>
-            <ol className="list-decimal list-inside text-sm text-gray-700 space-y-1">
-              <li>
-                Crea un usuario administrador en tu panel de WordPress con el
-                correo:{" "}
-                <span className="font-medium">contact@crixiumdigital.com</span>
-              </li>
-              <li>Asigna el rol de "Administrador" a esta cuenta</li>
-              <li>
-                Envíanos la información del sitio y contraseña a través del{" "}
-                <Link
-                  to={`/tracking?order=${orderNumber}`}
-                  className="text-blue-700 hover:underline"
-                >
-                  seguimiento de tu pedido
-                </Link>{" "}
-                o por correo a contact@crixiumdigital.com
-              </li>
-            </ol>
-            <p className="text-sm text-gray-700 mt-2">
-              Si aún no tienes un sitio WordPress, no te preocupes, envíanos un
-              mensaje a traves del{" "}
-              <Link
-                to={`/tracking?order=${orderNumber}`}
+            <p className="text-sm text-gray-700">
+              Si tienes alguna pregunta, puedes contactarnos en{" "}
+              <a
+                href="mailto:contact@crixiumdigital.com"
                 className="text-blue-700 hover:underline"
               >
-                seguimiento de tu pedido
-              </Link>
-              y te ayudaremos a configurarlo.
+                contact@crixiumdigital.com
+              </a>
             </p>
           </div>
         );
@@ -553,60 +543,43 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
               Próximos pasos para tu tienda Shopify
             </h3>
             <p className="text-sm text-gray-700 mb-2">
-              Para comenzar con tu proyecto, necesitamos acceso a tu tienda
-              Shopify. Puedes elegir cualquiera de estas opciones:
+              Gracias por tu interés en nuestros servicios de ecommerce. Uno de
+              nuestros especialistas en Shopify revisará tu solicitud y te
+              contactará pronto para comenzar a trabajar.
             </p>
-            <ol className="list-decimal list-inside text-sm text-gray-700 space-y-1">
-              <li className="mb-2">
-                <span className="font-medium">Opción 1:</span> Envíanos el
-                código de tu tienda
-                <ul className="list-disc list-inside ml-5 mt-1">
-                  <li>
-                    Ve a tu panel de Shopify → Configuración → Usuarios y
-                    permisos → Añadir colaborador
-                  </li>
-                  <li>
-                    Copia el código de tu tienda (ej. store123.myshopify.com o
-                    1234)
-                  </li>
-                  <li>
-                    Envíanos este código a través del{" "}
-                    <Link
-                      to={`/tracking?order=${orderNumber}`}
-                      className="text-blue-700 hover:underline"
-                    >
-                      seguimiento de tu pedido
-                    </Link>{" "}
-                    o por correo a contact@crixiumdigital.com
-                  </li>
-                  <li>
-                    Te enviaremos una solicitud oficial que solo debes aceptar
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <span className="font-medium">Opción 2:</span> Agréganos
-                directamente como colaborador
-                <ul className="list-disc list-inside ml-5 mt-1">
-                  <li>Ve a Configuración → Usuarios y permisos</li>
-                  <li>
-                    Agrega{" "}
-                    <span className="font-medium">
-                      contact@crixiumdigital.com
-                    </span>{" "}
-                    como staff con acceso completo
-                  </li>
-                </ul>
-              </li>
-            </ol>
-            <p className="text-sm text-gray-700 mt-3">
-              Si todavía no tienes una tienda Shopify, envíanos un mensaje y te
-              ayudaremos a configurarla.
+            <p className="text-sm text-gray-700">
+              Si tienes alguna pregunta, puedes contactarnos en{" "}
+              <a
+                href="mailto:contact@crixiumdigital.com"
+                className="text-blue-700 hover:underline"
+              >
+                contact@crixiumdigital.com
+              </a>
             </p>
           </div>
         );
       } else {
-        return null; // Para código personalizado o servicios no relacionados con plataformas
+        return (
+          <div className="mt-6 p-4 bg-purple-50 border border-purple-200 rounded-lg text-left">
+            <h3 className="text-md font-semibold text-purple-700 mb-2">
+              Próximos pasos para tu proyecto
+            </h3>
+            <p className="text-sm text-gray-700 mb-2">
+              Gracias por tu interés en nuestros servicios. Un miembro de
+              nuestro equipo técnico revisará tu solicitud y te contactará
+              pronto para discutir los detalles del proyecto.
+            </p>
+            <p className="text-sm text-gray-700">
+              Si tienes alguna pregunta, puedes contactarnos en{" "}
+              <a
+                href="mailto:contact@crixiumdigital.com"
+                className="text-blue-700 hover:underline"
+              >
+                contact@crixiumdigital.com
+              </a>
+            </p>
+          </div>
+        );
       }
     };
 
@@ -615,31 +588,27 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
         <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
           <Check className="text-green-600" size={32} />
         </div>
-        <h2 className="text-2xl font-bold mb-2">¡Pedido Confirmado!</h2>
+        <h2 className="text-2xl font-bold mb-2">¡Solicitud Confirmada!</h2>
         <p className="text-gray-600 mb-6">
-          Tu pedido ha sido recibido. Hemos enviado los detalles a tu correo.{" "}
-          <br /> Si necesitamos información adicional nos comunicaremos contigo
-          en breve.
+          Tu solicitud ha sido recibida. Hemos enviado los detalles a tu correo.{" "}
+          <br /> Pronto nos pondremos en contacto contigo para discutir tu
+          proyecto.
         </p>
 
         <div className="p-4 bg-purple-50 rounded-lg inline-block mb-6">
-          <p className="text-sm text-gray-700 mb-1">Tu número de pedido es:</p>
+          <p className="text-sm text-gray-700 mb-1">
+            Tu número de referencia es:
+          </p>
           <p className="text-xl font-mono font-bold">{orderNumber}</p>
         </div>
 
         {/* Instrucciones específicas según la plataforma */}
-        {getCredentialsInstructions && getCredentialsInstructions()}
+        {getCredentialsInstructions()}
 
         <div className="flex flex-col gap-4 max-w-xs mx-auto mt-6">
           <button
-            onClick={() => navigate(`/tracking?order=${orderNumber}`)}
-            className="bg-purple-700 text-white px-6 py-3 rounded-lg hover:bg-purple-600 transition-colors"
-          >
-            Seguir mi Pedido
-          </button>
-          <button
             onClick={() => navigate("/")}
-            className="text-gray-600 px-6 py-2 hover:text-purple-700 transition-colors"
+            className="bg-purple-700 text-white px-6 py-3 rounded-lg hover:bg-purple-600 transition-colors"
           >
             Volver al Inicio
           </button>
@@ -655,81 +624,127 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
     setIsSubmitting(true);
 
     try {
-      // Crear un objeto limpio con todos los datos necesarios
-      const orderData = {
-        // Información del paquete
-        package: selectedPackage.id,
-        packageDetails: selectedPackage,
-        serviceType: serviceType,
-        projectType: projectType,
-        extras: formData.extras || [],
-        total: currentTotal,
+      // Si estamos en el último paso, completar el pedido
+      if (step === maxSteps) {
+        // Crear un objeto limpio con todos los datos necesarios
+        const orderData = {
+          // Información del paquete
+          package: selectedPackage.id,
+          packageDetails: selectedPackage,
+          serviceType: serviceType,
+          projectType: projectType,
+          extras: formData.extras || [],
+          total: currentTotal,
 
-        // Información de contacto
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone || "",
+          // Información de contacto
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || "",
 
-        // Información común
-        designReference: formData.designReference || "",
-        referenceFiles: formData.referenceFiles || [],
+          // Información común
+          designReference: formData.designReference || "",
+          referenceFiles: formData.referenceFiles || [],
 
-        // Campos específicos para web no-ecommerce
-        siteType: !isEcommerce ? formData.siteType : null,
-        projectDescription: !isEcommerce ? formData.projectDescription : null,
-        features: !isEcommerce ? [...formData.features] : [], // Forzar copia del array
-        framework: isCustomCode ? formData.framework : null,
+          // Campos específicos para web no-ecommerce
+          siteType: !isEcommerce ? formData.siteType : null,
+          projectDescription: !isEcommerce ? formData.projectDescription : null,
+          features: !isEcommerce ? [...formData.features] : [], // Forzar copia del array
+          framework: isCustomCode ? formData.framework : null,
 
-        // Campos específicos para ecommerce
-        businessName: isEcommerce ? formData.businessName : null,
-        businessType: isEcommerce ? formData.businessType : null,
-        productCount: isEcommerce ? formData.productCount : null,
-        storeDescription: isEcommerce ? formData.storeDescription : null,
-        productFiles: isEcommerce ? formData.productFiles : null,
+          // Campos específicos para ecommerce
+          businessName: isEcommerce ? formData.businessName : null,
+          businessType: isEcommerce ? formData.businessType : null,
+          productCount: isEcommerce ? formData.productCount : null,
+          storeDescription: isEcommerce ? formData.storeDescription : null,
+          productFiles: isEcommerce ? formData.productFiles : null,
 
-        paymentStatus: "pending",
-      };
+          paymentStatus: "inquiry", // Para proyectos web, marcamos como "inquiry" en lugar de "pending"
+        };
 
-      console.log("Objeto completo a enviar:", orderData);
-      console.log("Features en el objeto final:", orderData.features);
+        // Para proyectos web, utilizamos el servicio de contacto
+        // Crear orden en Firestore pero sin requerir pago inmediato
+        const result = await createOrder(orderData);
 
-      // Enviar el pedido
-      const result = await createOrder(orderData);
+        if (result.success) {
+          setOrderNumber(result.orderNumber);
 
-      if (result.success) {
-        setOrderNumber(result.orderNumber);
-        setOrderData({ ...orderData, orderNumber: result.orderNumber }); // Guardamos los datos completos
-        setOrderCreated(true); // La orden fue creada exitosamente
-        setStep(4); // Avanzamos al paso de pago (nuevo paso)
+          // También enviar el formulario al servicio de emails
+          try {
+            // Formatear los datos para el formulario de contacto
+            const contactFormData = {
+              name: formData.name,
+              email: formData.email,
+              phone: formData.phone || "",
+              service: `${projectType} - ${serviceType}`,
+              projectType: projectType,
+              budget: `$${currentTotal} USD`,
+              description: isEcommerce
+                ? formData.storeDescription
+                : formData.projectDescription,
+              privacyPolicyAccepted: true,
+              fileDetails: [],
+            };
+
+            // Intentar enviar correo de contacto (no bloquear flujo si falla)
+            await sendContactForm(contactFormData);
+          } catch (emailError) {
+            console.error(
+              "Error al enviar formulario de contacto:",
+              emailError
+            );
+            // No interrumpir el flujo por un error de correo
+          }
+
+          // Mostrar página de confirmación
+          setOrderComplete(true);
+        } else {
+          alert(
+            "Hubo un error al procesar tu solicitud. Por favor, intenta de nuevo."
+          );
+        }
       } else {
-        alert(
-          "Hubo un error al procesar tu pedido. Por favor, intenta de nuevo."
-        );
+        // Si no estamos en el último paso, avanzar al siguiente
+        setStep((prevStep) => prevStep + 1);
       }
     } catch (error) {
-      console.error("Error al crear el pedido:", error);
+      console.error("Error al procesar la solicitud:", error);
       alert(
-        "Hubo un error al procesar tu pedido. Por favor, intenta de nuevo."
+        "Hubo un error al procesar tu solicitud. Por favor, intenta de nuevo."
       );
     }
 
     setIsSubmitting(false);
   };
 
-  // Manejador para cuando el pago se completa exitosamente
-  const handlePaymentSuccess = () => {
-    setOrderComplete(true);
-  };
-
-  // Manejador para volver desde la pasarela de pago
-  const handleBackFromPayment = () => {
-    setStep(3); // Volver al paso anterior
-  };
-
   // Si el pedido está completo, mostrar la confirmación
   if (orderComplete) {
     return <OrderConfirmation />;
   }
+
+  const StepIndicator = () => (
+    <div className="flex items-center justify-center mb-8">
+      {[...Array(maxSteps)].map((_, num) => (
+        <div key={num} className="flex items-center">
+          <div
+            className={`w-8 h-8 rounded-full flex items-center justify-center ${
+              step >= num + 1
+                ? "bg-purple-700 text-white"
+                : "bg-gray-200 text-gray-600"
+            }`}
+          >
+            {num + 1}
+          </div>
+          {num < maxSteps - 1 && (
+            <div
+              className={`w-12 h-1 ${
+                step > num + 1 ? "bg-purple-700" : "bg-gray-200"
+              }`}
+            />
+          )}
+        </div>
+      ))}
+    </div>
+  );
 
   // Renderizar el paso actual
   const renderCurrentStep = () => {
@@ -740,43 +755,10 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
         return renderStep2();
       case 3:
         return renderStep3();
-      case 4: // Paso de pago
-        return (
-          <PaymentGateway
-            orderData={orderData}
-            onSuccess={handlePaymentSuccess}
-            onBack={handleBackFromPayment}
-          />
-        );
       default:
         return null;
     }
   };
-
-  const StepIndicator = () => (
-    <div className="flex items-center justify-center mb-8">
-      {[1, 2, 3, 4].map((num) => (
-        <div key={num} className="flex items-center">
-          <div
-            className={`w-8 h-8 rounded-full flex items-center justify-center ${
-              step >= num
-                ? "bg-purple-700 text-white"
-                : "bg-gray-200 text-gray-600"
-            }`}
-          >
-            {num}
-          </div>
-          {num < 4 && (
-            <div
-              className={`w-12 h-1 ${
-                step > num ? "bg-purple-700" : "bg-gray-200"
-              }`}
-            />
-          )}
-        </div>
-      ))}
-    </div>
-  );
 
   // Renderizado para el Paso 1: Personalización con extras
   const renderStep1 = () => (
@@ -824,7 +806,7 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
       </div>
       <div className="mt-6 p-4 bg-gray-50 rounded-lg">
         <div className="flex items-center justify-between">
-          <span className="font-medium">Total Estimado:</span>
+          <span className="font-medium">Precio Estimado:</span>
           <span className="text-xl font-bold">${currentTotal}</span>
         </div>
       </div>
@@ -1131,14 +1113,15 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
       </div>
 
       <div className="mt-6 p-4 bg-purple-50 rounded-lg">
-        <h4 className="font-medium mb-2">Resumen del Pedido</h4>
+        <h4 className="font-medium mb-2">Resumen del Proyecto</h4>
         <ul className="space-y-2 text-sm">
           <li className="flex justify-between">
-            <span>Paquete Base ({selectedPackage.title})</span>
+            <span>Paquete Seleccionado ({selectedPackage.title})</span>
             <span>${selectedPackage.price}</span>
           </li>
           {formData.extras.map((extraId) => {
             const extra = getExtraServices().find((e) => e.id === extraId);
+            if (!extra) return null;
             return (
               <li key={extraId} className="flex justify-between text-gray-600">
                 <span>{extra.title}</span>
@@ -1147,7 +1130,7 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
             );
           })}
           <li className="flex justify-between font-bold pt-2 border-t">
-            <span>Total</span>
+            <span>Precio Estimado</span>
             <span>${currentTotal}</span>
           </li>
         </ul>
@@ -1165,6 +1148,13 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
             </p>
           </div>
         )}
+
+        <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+          <p className="text-sm text-blue-700">
+            <strong>Nota:</strong> Este es un formulario de solicitud. Te
+            contactaremos para discutir detalles y opciones de pago.
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -1177,49 +1167,35 @@ const UnifiedCheckoutForm = ({ selectedPackage, onCancel }) => {
       <form onSubmit={handleSubmit} className="space-y-8">
         {renderCurrentStep()}
 
-        {step < 4 && (
-          <div className="flex justify-between gap-4">
-            {step > 1 && (
-              <button
-                type="button"
-                onClick={() => setStep(step - 1)}
-                disabled={isSubmitting}
-                className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
-              >
-                {t("steps.previous")}
-              </button>
-            )}
+        <div className="flex justify-between gap-4">
+          {step > 1 && (
+            <button
+              type="button"
+              onClick={() => setStep(step - 1)}
+              disabled={isSubmitting}
+              className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
+            >
+              {t("steps.previous")}
+            </button>
+          )}
 
-            {step < 3 ? (
-              <button
-                type="button"
-                onClick={() => {
-                  if (validateCurrentStep()) {
-                    setStep(step + 1);
-                  }
-                }}
-                className="flex-1 bg-purple-700 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors"
-              >
-                {t("steps.next")}
-              </button>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="flex-1 bg-purple-700 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors disabled:opacity-50 flex items-center justify-center"
+          >
+            {isSubmitting ? (
+              <>
+                <Loader size={18} className="animate-spin mr-2" />
+                <span>{t("steps.processing")}</span>
+              </>
+            ) : step < maxSteps ? (
+              <span>{t("steps.next")}</span>
             ) : (
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="flex-1 bg-purple-700 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors disabled:opacity-50 flex items-center justify-center"
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader size={18} className="animate-spin mr-2" />
-                    <span>{t("steps.processing")}</span>
-                  </>
-                ) : (
-                  <span>{t("steps.proceedToPayment")}</span>
-                )}
-              </button>
+              <span>Enviar Solicitud</span>
             )}
-          </div>
-        )}
+          </button>
+        </div>
       </form>
     </div>
   );
