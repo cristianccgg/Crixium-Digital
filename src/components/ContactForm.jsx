@@ -23,7 +23,6 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
     phone: "",
     service: initialService,
     projectType: initialProjectType,
-    budget: "",
     description: "",
     privacyPolicyAccepted: false,
   });
@@ -87,15 +86,6 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
     other: t("contactForm.fields.projectType.music.other"),
   };
 
-  const budgetRanges = {
-    under500: t("contactForm.fields.budget.options.under500"),
-    range500to1000: t("contactForm.fields.budget.options.500to1000"),
-    range1000to2000: t("contactForm.fields.budget.options.1000to2000"),
-    range2000to5000: t("contactForm.fields.budget.options.2000to5000"),
-    over5000: t("contactForm.fields.budget.options.over5000"),
-    undefined: t("contactForm.fields.budget.options.undefined"),
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -130,7 +120,6 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         phone: formData.phone || "No proporcionado",
         service: formData.service,
         projectType: formData.projectType,
-        budget: formData.budget,
         description: formData.description,
         timestamp: new Date().toISOString(),
         source: "contact_form",
@@ -218,7 +207,6 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
                 phone: "",
                 service: initialService,
                 projectType: initialProjectType,
-                budget: "",
                 description: "",
                 privacyPolicyAccepted: false,
               });
@@ -404,29 +392,6 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
             </select>
           </div>
         )}
-
-        {/* Presupuesto */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t("contactForm.fields.budget.label")}
-          </label>
-          <select
-            name="budget"
-            value={formData.budget}
-            onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
-            required
-          >
-            <option value="">
-              {t("contactForm.fields.budget.placeholder")}
-            </option>
-            {Object.values(budgetRanges).map((range) => (
-              <option key={range} value={range}>
-                {range}
-              </option>
-            ))}
-          </select>
-        </div>
 
         {/* Descripción del Proyecto */}
         <div>
