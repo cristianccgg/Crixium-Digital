@@ -6,11 +6,12 @@ import { useTranslation } from "react-i18next";
 import { Search, ArrowRight, Tag } from "lucide-react";
 import SimpleSEO from "../SEO/SimpleSEO";
 import SimpleSchemaData from "../SEO/SimpleSchemaData";
-import blogData from "../../data/blogPosts.json";
+import blogDataEs from "../../data/blogPosts.json";
+import blogDataEn from "../../data/blogPosts_en.json";
 
 // Componente para tarjeta de artículo destacado
 const FeaturedPostCard = ({ post }) => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation("blog");
 
   // Función para generar URLs localizadas
   const getLocalizedPath = (path) => {
@@ -55,7 +56,7 @@ const FeaturedPostCard = ({ post }) => {
               to={getLocalizedPath(`/blog/${post.slug}`)}
               className="inline-flex items-center text-coral-400 font-semibold hover:text-white transition-colors duration-300"
             >
-              <span>Leer más</span>
+              <span>{t("readMore")}</span>
               <ArrowRight size={16} className="ml-1" />
             </Link>
           </div>
@@ -67,7 +68,7 @@ const FeaturedPostCard = ({ post }) => {
 
 // Componente para tarjeta de artículo estándar
 const PostCard = ({ post }) => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation("blog");
 
   // Función para generar URLs localizadas
   const getLocalizedPath = (path) => {
@@ -107,7 +108,7 @@ const PostCard = ({ post }) => {
           to={getLocalizedPath(`/blog/${post.slug}`)}
           className="inline-flex items-center text-purple-700 text-sm font-medium hover:text-coral-500 transition-colors duration-300"
         >
-          <span>Leer más</span>
+          <span>{t("readMore")}</span>
           <ArrowRight size={14} className="ml-1" />
         </Link>
       </div>
@@ -118,16 +119,14 @@ const PostCard = ({ post }) => {
 // Componente principal de la página del blog
 const BlogPage = () => {
   // Modificar para incluir múltiples namespaces
-  const { t, i18n } = useTranslation(["blog", "common"]);
+  const { t, i18n } = useTranslation("blog");
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredPosts, setFilteredPosts] = useState([]);
 
-  // Filtrar posts según el idioma actual
+  // Obtener posts según el idioma actual
   useEffect(() => {
-    const currentLanguagePosts = blogData.filter(
-      (post) => post.language === i18n.language || !post.language
-    );
-    setFilteredPosts(currentLanguagePosts);
+    const blogData = i18n.language === 'en' ? blogDataEn : blogDataEs;
+    setFilteredPosts(blogData);
   }, [i18n.language]); // Actualizar cuando cambie el idioma
 
   // Seccionar posts para el diseño
@@ -167,6 +166,8 @@ const BlogPage = () => {
   // Manejar la búsqueda
   const handleSearch = (e) => {
     e.preventDefault();
+    const blogData = i18n.language === 'en' ? blogDataEn : blogDataEs;
+    
     if (!searchQuery.trim()) {
       setFilteredPosts(blogData);
       return;
@@ -212,10 +213,10 @@ const BlogPage = () => {
       <section className="pt-28 pb-16 px-4 bg-gradient-to-br from-purple-900 via-purple-800 to-purple-900 text-white">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            {t("title", { ns: "blog" })}
+            {t("title")}
           </h1>
           <p className="text-xl text-purple-100 mb-8 max-w-3xl">
-            {t("subtitle", { ns: "blog" })}
+            {t("subtitle")}
           </p>
 
           {/* Barra de búsqueda */}
@@ -224,7 +225,7 @@ const BlogPage = () => {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={t("searchPlaceholder", { ns: "blog" })}
+              placeholder={t("searchPlaceholder")}
               className="w-full px-5 py-3 pr-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-coral-400 focus:border-transparent"
             />
             <button
@@ -246,7 +247,7 @@ const BlogPage = () => {
             {featuredPosts.length > 0 && (
               <div className="mb-12">
                 <h2 className="text-2xl font-bold mb-6 text-gray-800">
-                  {t("featuredPosts", { ns: "blog" })}
+                  {t("featuredPosts")}
                 </h2>
                 <div className="grid gap-6">
                   {featuredPosts.map((post) => (
@@ -259,7 +260,7 @@ const BlogPage = () => {
             {/* Posts recientes */}
             <div>
               <h2 className="text-2xl font-bold mb-6 text-gray-800">
-                {t("recentPosts", { ns: "blog" })}
+                {t("recentPosts")}
               </h2>
               {recentPosts.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -269,7 +270,7 @@ const BlogPage = () => {
                 </div>
               ) : (
                 <p className="text-gray-600">
-                  {t("noArticles", { ns: "blog" })}
+                  {t("noResults")}
                 </p>
               )}
             </div>
@@ -282,7 +283,7 @@ const BlogPage = () => {
               {categories.length > 0 && (
                 <div className="bg-white rounded-xl p-6 shadow-md">
                   <h3 className="text-xl font-bold mb-4 text-gray-800">
-                    {t("categories", { ns: "blog" })}
+                    {t("categories")}
                   </h3>
                   <ul className="space-y-2">
                     {categories.map((category) => (
@@ -308,7 +309,7 @@ const BlogPage = () => {
               {popularTags.length > 0 && (
                 <div className="bg-white rounded-xl p-6 shadow-md">
                   <h3 className="text-xl font-bold mb-4 text-gray-800">
-                    {t("popularTags", { ns: "blog" })}
+                    {t("popularTags")}
                     <span className="text-sm text-gray-500 ml-2">
                       ({popularTags.length})
                     </span>
@@ -333,10 +334,10 @@ const BlogPage = () => {
               {/* CTA para servicios */}
               <div className="bg-gradient-to-br from-purple-700 to-purple-900 rounded-xl p-6 shadow-md text-white">
                 <h3 className="text-xl font-bold mb-3">
-                  {t("needHelp", { ns: "blog" })}
+                  {t("needHelp")}
                 </h3>
                 <p className="text-purple-100 mb-4">
-                  {t("needHelpText", { ns: "blog" })}
+                  {t("needHelpText")}
                 </p>
                 <div className="space-y-3">
                   <Link

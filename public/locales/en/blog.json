@@ -10,5 +10,26 @@
   "needHelpText": "Discover our services",
   "projectTypes.web": "Web Development",
   "projectTypes.music": "Music Production",
-  "projectTypes.contact": "Contact"
+  "projectTypes.contact": "Contact",
+  "readingTime": "min read",
+  "readMore": "Read More",
+  "backToBlog": "← Back to Blog",
+  "shareArticle": "Share Article",
+  "relatedPosts": "Related Posts",
+  "author": "Author",
+  "publishedOn": "Published on",
+  "category": "Category",
+  "tags": "Tags",
+  "noResults": "No articles found",
+  "noResultsText": "Try adjusting your search terms or browse our categories",
+  "filterBy": "Filter by",
+  "allCategories": "All Categories",
+  "categoriesNames": {
+    "web-development": "Web Development",
+    "music-production": "Music Production", 
+    "digital-marketing": "Digital Marketing",
+    "desarrollo-web": "Web Development",
+    "produccion-musical": "Music Production",
+    "marketing-digital": "Digital Marketing"
+  }
 }

@@ -12,7 +12,8 @@ import {
 } from "lucide-react";
 import SimpleSEO from "../SEO/SimpleSEO";
 import SimpleSchemaData from "../SEO/SimpleSchemaData";
-import blogData from "../../data/blogPosts.json";
+import blogDataEs from "../../data/blogPosts.json";
+import blogDataEn from "../../data/blogPosts_en.json";
 
 const BlogPostDetail = () => {
   const { slug } = useParams();
@@ -31,6 +32,8 @@ const BlogPostDetail = () => {
 
   // Buscar el post actual y posts relacionados
   useEffect(() => {
+    const blogData = i18n.language === 'en' ? blogDataEn : blogDataEs;
+    
     // Obtener el post actual por su slug
     const currentPost = blogData.find((p) => p.slug === slug);
 
