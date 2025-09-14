@@ -3,6 +3,7 @@
     "home": "Inicio",
     "web": "Desarrollo Web",
     "music": "Producción Musical",
+    "blog": "Blog", // Añadir esta entrada
     "tracking": "Seguimiento",
     "contact": "Contacto"
   },
@@ -11,7 +12,10 @@
     "viewMore": "Ver más",
     "viewAll": "Ver todos",
     "viewDetails": "Ver detalles",
-    "try": "Probar demo"
+    "try": "Probar demo",
+    "readMore": "Leer más",
+    "backToBlog": "Volver al blog",
+    "share": "Compartir"
   },
   "projectTypes": {
     "web": "Desarrollo Web",
@@ -20,5 +24,22 @@
     "jingle": "Jingle",
     "audioBranding": "Audio Branding",
     "spot": "Spot de Radio"
+  },
+  "blog": {
+    "title": "Blog de Crixium Digital",
+    "subtitle": "Artículos, tutoriales y recursos sobre desarrollo web, producción musical y marketing digital",
+    "featuredPosts": "Artículos destacados",
+    "recentPosts": "Artículos recientes",
+    "categories": "Categorías",
+    "popularTags": "Tags populares",
+    "searchPlaceholder": "Buscar artículos...",
+    "relatedPosts": "Artículos relacionados",
+    "noArticles": "No hay artículos disponibles en este momento. ¡Vuelve pronto!",
+    "noCategoryArticles": "No hay artículos en esta categoría",
+    "published": "Publicado",
+    "by": "por",
+    "categorySuffix": "Artículos sobre {{category}} para empresas y profesionales",
+    "needHelp": "¿Necesitas ayuda con tu proyecto?",
+    "needHelpText": "Ofrecemos servicios profesionales de desarrollo web y producción musical para llevar tu negocio al siguiente nivel."
   }
 }

@@ -1,3 +1,4 @@
+// Actualización del archivo App.jsx para añadir las rutas del blog
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./components/SharedLayout";
 import LandingPage from "./components/LandingPage";
@@ -13,6 +14,11 @@ import LanguageRouter from "./components/LanguageRouter";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import TermsAndConditions from "./components/TermsAndConditions";
 import CookieConsent from "./components/CookieConsent";
+
+// Importando componentes del blog
+import BlogPage from "./components/blog/BlogPage";
+import BlogPostDetail from "./components/blog/BlogPostDetail";
+import BlogCategory from "./components/blog/BlogCategory";
 
 function App() {
   return (
@@ -46,6 +52,36 @@ function App() {
               </Layout>
             }
           />
+
+          {/* Rutas del blog en español */}
+          <Route
+            path="/blog"
+            element={
+              <Layout>
+                <BlogPage />
+                <WhatsAppButton />
+              </Layout>
+            }
+          />
+          <Route
+            path="/blog/:slug"
+            element={
+              <Layout>
+                <BlogPostDetail />
+                <WhatsAppButton />
+              </Layout>
+            }
+          />
+          <Route
+            path="/blog/categoria/:category"
+            element={
+              <Layout>
+                <BlogCategory />
+                <WhatsAppButton />
+              </Layout>
+            }
+          />
+
           <Route
             path="/music-production"
             element={
@@ -112,6 +148,36 @@ function App() {
               </Layout>
             }
           />
+
+          {/* Rutas del blog en inglés */}
+          <Route
+            path="/en/blog"
+            element={
+              <Layout>
+                <BlogPage />
+                <WhatsAppButton />
+              </Layout>
+            }
+          />
+          <Route
+            path="/en/blog/:slug"
+            element={
+              <Layout>
+                <BlogPostDetail />
+                <WhatsAppButton />
+              </Layout>
+            }
+          />
+          <Route
+            path="/en/blog/categoria/:category"
+            element={
+              <Layout>
+                <BlogCategory />
+                <WhatsAppButton />
+              </Layout>
+            }
+          />
+
           <Route
             path="/en/music-production"
             element={

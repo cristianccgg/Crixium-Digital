@@ -11,7 +11,10 @@
     "viewMore": "Ver más",
     "viewAll": "Ver todos",
     "viewDetails": "Ver detalles",
-    "try": "Probar demo"
+    "try": "Probar demo",
+    "readMore": "Leer más",
+    "backToBlog": "Volver al blog",
+    "share": "Compartir"
   },
   "projectTypes": {
     "web": "Desarrollo Web",

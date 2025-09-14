@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 const SimpleSEO = ({
   titleKey = "seo.defaultTitle", // Clave de traducción para el título
   descriptionKey = "seo.defaultDescription", // Clave de traducción para la descripción
+  descriptionOptions = null, // Opciones para traducción de la descripción
   canonicalUrl,
   ogType = "website",
   ogImage = "/logo.png", // Logo PNG 500x500px en carpeta public
@@ -26,7 +27,9 @@ const SimpleSEO = ({
 
   // Obtener título y descripción traducidos
   const title = t(titleKey);
-  const description = t(descriptionKey);
+  const description = descriptionOptions
+    ? t(descriptionKey, descriptionOptions)
+    : t(descriptionKey);
 
   useEffect(() => {
     // Actualizar el título de la página
@@ -120,6 +123,7 @@ const SimpleSEO = ({
 SimpleSEO.propTypes = {
   titleKey: PropTypes.string,
   descriptionKey: PropTypes.string,
+  descriptionOptions: PropTypes.object, // Añadido para soportar opciones de traducción
   canonicalUrl: PropTypes.string,
   ogType: PropTypes.string,
   ogImage: PropTypes.string,

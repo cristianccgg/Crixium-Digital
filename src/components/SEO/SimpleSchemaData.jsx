@@ -165,6 +165,76 @@ const SimpleSchemaData = ({ pageType = "WebPage", data = {} }) => {
           ...organizationData,
         },
       },
+
+      // NUEVOS ESQUEMAS PARA EL BLOG
+
+      // Esquema para la página principal del blog
+      Blog: {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        name: t("schema:blog.title", "Blog - Crixium Digital"),
+        description: t(
+          "schema:blog.description",
+          "Artículos, tutoriales y recursos sobre desarrollo web, producción musical y marketing digital para empresas."
+        ),
+        url: `${siteUrl}${langPath}/blog`,
+        inLanguage: currentLang,
+        publisher: organizationData,
+        // Si proporcionamos datos de blogPosting, podríamos añadirlos aquí como:
+        // blogPosts: data.blogPosts || []
+      },
+
+      // Esquema para un artículo individual del blog
+      Article: {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline:
+          data.headline ||
+          t("schema:blog.defaultHeadline", "Artículo del Blog"),
+        description:
+          data.description ||
+          t(
+            "schema:blog.defaultDescription",
+            "Artículo del blog de Crixium Digital"
+          ),
+        url: fullUrl,
+        image: data.image ? `${siteUrl}${data.image}` : `${siteUrl}/logo.png`,
+        datePublished: data.datePublished || new Date().toISOString(),
+        dateModified:
+          data.dateModified || data.datePublished || new Date().toISOString(),
+        author: {
+          "@type": "Person",
+          name: data.author || "Crixium Digital",
+        },
+        publisher: organizationData,
+        inLanguage: currentLang,
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": fullUrl,
+        },
+      },
+
+      // Esquema para una página de categoría del blog
+      CollectionPage: {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: data.name
+          ? `${data.name} - Blog Crixium Digital`
+          : t("schema:blog.collection", "Categoría - Blog Crixium Digital"),
+        description:
+          data.description ||
+          t(
+            "schema:blog.collectionDescription",
+            "Colección de artículos de una categoría específica del blog de Crixium Digital"
+          ),
+        url: fullUrl,
+        inLanguage: currentLang,
+        publisher: organizationData,
+        mainEntity: {
+          "@type": "ItemList",
+          itemListElement: data.itemListElement || [],
+        },
+      },
     };
 
     // Obtener el esquema seleccionado o WebPage por defecto
@@ -213,6 +283,9 @@ SimpleSchemaData.propTypes = {
     "WebDevelopmentService",
     "MusicProductionService",
     "ContactPage",
+    "Blog", // Añadido para el blog
+    "Article", // Añadido para artículos del blog
+    "CollectionPage", // Añadido para categorías del blog
   ]),
   data: PropTypes.object,
 };

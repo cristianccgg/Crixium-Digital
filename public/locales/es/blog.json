@@ -1,0 +1,14 @@
+{
+  "title": "Crixium Digital Blog",
+  "subtitle": "Artículos, tutoriales y recursos sobre desarrollo web, producción musical y marketing digital",
+  "searchPlaceholder": "Buscar artículos...",
+  "featuredPosts": "Artículos destacados",
+  "recentPosts": "Publicaciones recientes",
+  "categories": "Categorías",
+  "popularTags": "Etiquetas populares",
+  "needHelp": "¿Necesitas ayuda?",
+  "needHelpText": "Descubre nuestros servicios",
+  "projectTypes.web": "Desarrollo Web",
+  "projectTypes.music": "Producción Musical",
+  "projectTypes.contact": "Contacto"
+}

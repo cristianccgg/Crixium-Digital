@@ -29,5 +29,13 @@
   "tracking": {
     "title": "Project Tracking | Crixium Digital",
     "description": "Track your project's progress in real-time. Tracking system for Crixium Digital clients."
+  },
+  "blog": {
+    "title": "Blog - Crixium Digital",
+    "description": "Articles, tutorials and resources about web development, music production and digital marketing for businesses.",
+    "defaultHeadline": "Blog Article",
+    "defaultDescription": "Crixium Digital blog article",
+    "collection": "Category - Crixium Digital Blog",
+    "collectionDescription": "Collection of articles from a specific category of the Crixium Digital blog"
   }
 }

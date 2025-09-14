@@ -3,7 +3,8 @@
     "home": "Home",
     "web": "Web Development",
     "music": "Music Production",
-    "tracking": "Order Tracking",
+    "blog": "Blog", // Añadir esta entrada
+    "tracking": "Tracking",
     "contact": "Contact"
   },
   "buttons": {
@@ -11,12 +12,15 @@
     "viewMore": "View more",
     "viewAll": "View all",
     "viewDetails": "View details",
-    "try": "Try demo"
+    "try": "Try demo",
+    "readMore": "Read more",
+    "backToBlog": "Back to blog",
+    "share": "Share"
   },
   "projectTypes": {
     "web": "Web Development",
     "music": "Music Production",
-    "video": "Promotional Video",
+    "video": "Promo Video",
     "jingle": "Jingle",
     "audioBranding": "Audio Branding",
     "spot": "Radio Spot"

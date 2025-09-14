@@ -9,6 +9,7 @@ import {
   Home,
   ScanSearch,
   ArrowRight,
+  FileText, // Añadir este import para el ícono del blog
 } from "lucide-react";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useTranslation } from "react-i18next";
@@ -48,6 +49,7 @@ const Navbar = () => {
       href: "/music-production",
       icon: Music2,
     },
+    { name: t("navbar.blog"), href: "/blog", icon: FileText },
     { name: t("navbar.orderTracking"), href: "/tracking", icon: ScanSearch },
   ];
 
@@ -107,13 +109,16 @@ const Navbar = () => {
       "/tracking",
       "/privacy-policy",
       "/terms-conditions",
+      "/blog",
     ];
 
     // Comprueba si la ruta actual (sin importar el idioma) está en la lista de rutas con hero
     return heroRoutes.some(
       (route) =>
         pathname === route || // Ruta española directa
+        pathname.startsWith(`${route}/`) || // Subrutas (como /blog/articulo)
         pathname === `/en${route}` || // Ruta inglesa normal
+        pathname.startsWith(`/en${route}/`) || // Subrutas en inglés
         (route === "/" && pathname === "/en") // Caso especial para home en inglés
     );
   };
@@ -159,7 +164,11 @@ const Navbar = () => {
                     : "text-white font-semibold hover:text-coral-400 hover:scale-105 transition-transform duration-500 ease-in-out"
                 } ${
                   location.pathname === item.href ||
-                  location.pathname === getLocalizedPath(item.href)
+                  location.pathname === getLocalizedPath(item.href) ||
+                  location.pathname.startsWith(`${item.href}/`) ||
+                  location.pathname.startsWith(
+                    `${getLocalizedPath(item.href)}/`
+                  )
                     ? "font-semibold"
                     : ""
                 }`}
@@ -434,13 +443,16 @@ const Layout = ({ children }) => {
       "/tracking",
       "/privacy-policy",
       "/terms-conditions",
+      "/blog",
     ];
 
     // Comprueba si la ruta actual (sin importar el idioma) está en la lista de rutas con hero
     return heroRoutes.some(
       (route) =>
         pathname === route || // Ruta española directa
+        pathname.startsWith(`${route}/`) || // Subrutas (como /blog/articulo)
         pathname === `/en${route}` || // Ruta inglesa normal
+        pathname.startsWith(`/en${route}/`) || // Subrutas en inglés
         (route === "/" && pathname === "/en") // Caso especial para home en inglés
     );
   };

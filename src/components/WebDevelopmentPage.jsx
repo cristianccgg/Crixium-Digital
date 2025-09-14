@@ -251,8 +251,8 @@ const WebDevelopmentPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* SEO Components */}
       <SimpleSEO
-        titleKey="seo:webdev.title"
-        descriptionKey="seo:webdev.description"
+        titleKey={seoTitle}
+        descriptionKey={seoDescription}
         canonicalUrl="/web-development"
         ogType="website"
         ogImage="/logo.png"

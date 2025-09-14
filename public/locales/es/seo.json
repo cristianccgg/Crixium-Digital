@@ -28,5 +28,17 @@
   "terms": {
     "title": "Términos y Condiciones | Crixium Digital",
     "description": "Términos y condiciones de uso de nuestros servicios. Información legal sobre contratación y prestación de servicios en Crixium Digital."
+  },
+  "blog": {
+    "title": "Blog | Crixium Digital - Desarrollo Web y Producción Musical",
+    "description": "Artículos y guías sobre desarrollo web, producción musical, marketing digital y tendencias tecnológicas para empresas.",
+    "post": {
+      "defaultTitle": "Artículo | Blog Crixium Digital",
+      "defaultDescription": "Artículo del blog de Crixium Digital sobre desarrollo web, producción musical o marketing digital"
+    },
+    "category": {
+      "defaultTitle": "Categoría | Blog Crixium Digital",
+      "defaultDescription": "Artículos de la categoría {{category}} en el blog de Crixium Digital"
+    }
   }
 }
