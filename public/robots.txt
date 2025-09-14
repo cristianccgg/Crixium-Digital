@@ -5,6 +5,17 @@ Allow: /
 # Excluir área de administración
 Disallow: /admin/
 Disallow: /payment-response
+Disallow: /api/
+Disallow: /_next/
+Disallow: /node_modules/
+Disallow: /.git/
+
+# Permitir específicamente el blog
+Allow: /blog/
+Allow: /en/blog/
 
 # Sitemap
 Sitemap: https://crixiumdigital.com/sitemap.xml
+
+# Crawl-delay para ser amigable con los bots
+Crawl-delay: 1

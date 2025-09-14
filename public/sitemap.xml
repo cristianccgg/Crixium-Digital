@@ -1,31 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://crixiumdigital.com/</loc>
     <lastmod>2025-09-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/" />
   </url>
   <url>
     <loc>https://crixiumdigital.com/web-development</loc>
     <lastmod>2025-09-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/web-development" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/web-development" />
   </url>
   <url>
     <loc>https://crixiumdigital.com/music-production</loc>
     <lastmod>2025-09-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/music-production" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/music-production" />
   </url>
   <url>
     <loc>https://crixiumdigital.com/contact</loc>
+    <lastmod>2025-09-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/contact" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/contact" />
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/tracking</loc>
+    <lastmod>2025-09-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/tracking" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/tracking" />
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/blog</loc>
+    <lastmod>2025-09-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog" />
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/en/blog</loc>
+    <lastmod>2025-09-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog" />
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/blog/identidad-sonora-profesional-presencia-digital</loc>
     <lastmod>2025-09-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://crixiumdigital.com/tracking</loc>
+    <loc>https://crixiumdigital.com/blog/elementos-web-empresa-musical</loc>
+    <lastmod>2025-09-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/blog/tendencias-diseno-web-estudios-produccion-2025</loc>
+    <lastmod>2025-09-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/blog/diseno-web-conversiones-servicios-musicales</loc>
+    <lastmod>2025-09-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/en/blog/professional-sound-identity-digital-presence</loc>
+    <lastmod>2025-09-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/en/blog/essential-elements-music-company-website</loc>
+    <lastmod>2025-09-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/en/blog/web-design-trends-production-studios-2025</loc>
+    <lastmod>2025-09-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/en/blog/web-design-conversions-music-services</loc>
     <lastmod>2025-09-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
