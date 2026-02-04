@@ -1,0 +1,19 @@
+{
+  "title": "Is your business losing customers by not having an online presence?",
+  "subtitle": "These are the most common problems we solve every day",
+  "problems": {
+    "first": {
+      "problem": "You don't have a website and your customers can't find you",
+      "solution": "We build your professional website from scratch, optimized so your customers find you on Google and social media."
+    },
+    "second": {
+      "problem": "Your current website looks outdated and doesn't build trust",
+      "solution": "We redesign your site with modern technology, attractive design, and an experience that turns visitors into customers."
+    },
+    "third": {
+      "problem": "You don't know where to start with your digital project",
+      "solution": "We guide you through the entire process. From the first conversation to delivery, with real-time tracking of every stage."
+    }
+  },
+  "cta": "Tell us about your project"
+}

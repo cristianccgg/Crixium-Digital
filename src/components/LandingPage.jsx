@@ -1,15 +1,12 @@
 import React, { useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { Code, Music2, Globe, ChevronRight } from "lucide-react";
 import LandingReviewsCarousel from "./LandingReviewsCarousel";
 import EnhancedHeroSection from "./web_development/EnhancedHeroSection";
 import EnhancedServices from "./web_development/EnhancedServices";
 import FeaturedProjectsLanding from "./web_development/FeaturedProjectsLanding";
-import TechnologiesSection from "./web_development/TechnologiesSection";
-import TrackingLanding from "./TrackingLanding.jsx";
+import ProblemSolution from "./web_development/ProblemSolution";
+import PricingPreview from "./web_development/PricingPreview";
 import WhyToChoose from "./WhyToChoose.jsx";
 import { useTranslation } from "react-i18next";
-// Importar los nuevos componentes SEO
 import SimpleSEO from "./SEO/SimpleSEO";
 import SimpleSchemaData from "./SEO/SimpleSchemaData";
 
@@ -29,12 +26,7 @@ const StatCard = ({ number, label }) => (
 const LandingPage = () => {
   const { t } = useTranslation("stats");
   const heroRef = useRef(null);
-  const seoTitle =
-    "Crixium Digital | Desarrollo Web y Producción Musical Profesional";
-  const seoDescription =
-    "Soluciones digitales integrales para empresas. Especialistas en desarrollo web, e-commerce, producción musical y jingles publicitarios. Tu presencia digital en manos expertas.";
 
-  // Efecto para la animación inicial
   useEffect(() => {
     if (heroRef.current) {
       heroRef.current.classList.add("animate-fade-in");
@@ -57,18 +49,20 @@ const LandingPage = () => {
           path: "/",
         }}
       />
-      <SimpleSchemaData pageType="WebPage" />
 
-      {/* Hero Section con tracking highlight */}
+      {/* 1. Hero - Propuesta de valor + CTA WhatsApp */}
       <EnhancedHeroSection />
 
-      {/* Sección de servicios principales */}
-      <section className="py-20 px-4 bg-gray-50">
+      {/* 2. Problema/Solución - Conectar con el dolor del cliente */}
+      <ProblemSolution />
+
+      {/* 3. Servicios principales */}
+      <section className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               {t("servicios-profesionales")}
-            </h1>
+            </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               {t("description")}
             </p>
@@ -78,13 +72,12 @@ const LandingPage = () => {
         </div>
       </section>
 
-      <FeaturedProjectsLanding />
+      {/* 4. Proyectos destacados como casos de éxito */}
+      <div id="proyectos">
+        <FeaturedProjectsLanding />
+      </div>
 
-      <TechnologiesSection />
-
-      <TrackingLanding />
-
-      {/* Sección Stats/Cifras */}
+      {/* 5. Stats/Cifras - Prueba social */}
       <section
         className="py-16 px-4 bg-purple-700"
         aria-labelledby="stats-heading"
@@ -102,10 +95,13 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Carrusel de Reseñas */}
+      {/* 6. Reviews */}
       <LandingReviewsCarousel />
 
-      {/* Sección de propuesta única de valor */}
+      {/* 7. Precios de referencia */}
+      <PricingPreview />
+
+      {/* 8. Por qué elegirnos */}
       <WhyToChoose />
     </>
   );

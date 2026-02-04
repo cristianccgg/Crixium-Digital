@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Sparkles, Globe, Music2, Package, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next"; // Importamos useTranslation
+import { Sparkles, ArrowRight, Clock, Eye, Palette, CheckCircle } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
+const WHATSAPP_NUMBER = "573219746045";
 
 const EnhancedHeroSection = () => {
   const [loaded, setLoaded] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const { t } = useTranslation("hero"); // Especificamos que usamos el namespace 'hero'
+  const { t, i18n } = useTranslation("hero");
+
+  const whatsappMessage = encodeURIComponent(
+    i18n.language === "en"
+      ? "Hi, I'm interested in getting a quote for a web development project."
+      : "Hola, me interesa una cotización para un proyecto de desarrollo web."
+  );
 
   useEffect(() => {
     setLoaded(true);
@@ -44,17 +51,6 @@ const EnhancedHeroSection = () => {
             }px)`,
           }}
         ></div>
-        <div
-          className={`absolute top-1/3 left-1/3 w-40 h-40 bg-blue-300/20 rounded-full blur-3xl transition-all duration-2000 ${
-            loaded ? "opacity-100" : "opacity-0"
-          }`}
-          style={{
-            transform: `translate(${scrollPosition * 0.02}px, ${
-              scrollPosition * 0.03
-            }px)`,
-          }}
-        ></div>
-
         {/* Floating elements */}
         <div className="absolute top-1/4 right-1/4 animate-float">
           <div className="w-12 h-12 border border-white/20 rounded-lg rotate-12 opacity-60"></div>
@@ -62,12 +58,9 @@ const EnhancedHeroSection = () => {
         <div className="absolute bottom-1/4 left-1/3 animate-float-delay">
           <div className="w-8 h-8 border border-white/20 rounded-full opacity-60"></div>
         </div>
-        <div className="absolute top-1/3 left-1/4 animate-float-slow">
-          <div className="w-10 h-10 border border-white/20 rounded-md rotate-45 opacity-60"></div>
-        </div>
 
-        {/* Particles */}
-        {Array.from({ length: 20 }).map((_, i) => (
+        {/* Reduced particles for better mobile performance */}
+        {Array.from({ length: 8 }).map((_, i) => (
           <div
             key={i}
             className="absolute rounded-full bg-white/30 animate-particle"
@@ -96,7 +89,7 @@ const EnhancedHeroSection = () => {
               <span>{t("badge")}</span>
             </div>
 
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
               {t("title.part1")}
               <span className="relative inline-block text-coral-400">
                 {t("title.highlight1")}
@@ -133,42 +126,35 @@ const EnhancedHeroSection = () => {
               </span>
             </h1>
 
-            <p className="text-xl md:text-2xl mb-10 text-purple-100 max-w-lg">
+            <p className="text-lg md:text-xl mb-8 text-purple-100 max-w-lg">
               {t("subtitle")}
             </p>
 
-            {/* Improved Button Layout - grid with equal sizing and responsive behavior */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              <Link
-                to="/web-development"
-                className="group bg-white text-purple-900 px-6 py-4 rounded-lg hover:bg-coral-400 transition-all duration-300 flex items-center justify-center gap-2 font-medium shadow-lg hover:shadow-xl relative overflow-hidden"
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-coral-500 text-white px-8 py-4 rounded-lg hover:bg-coral-600 transition-all duration-300 flex items-center justify-center gap-2 font-medium shadow-lg hover:shadow-xl"
               >
-                <span className="absolute inset-0 w-full h-full bg-white/30 transform -translate-x-full transition-transform group-hover:translate-x-0"></span>
-                <Globe size={20} className="relative z-10" />
-                <span className="relative z-10">{t("buttons.web")}</span>
-              </Link>
+                <span>{t("buttons.primary")}</span>
+                <ArrowRight
+                  size={18}
+                  className="transition-transform group-hover:translate-x-1"
+                />
+              </a>
 
-              <Link
-                to="/music-production"
-                className="group bg-white text-purple-900 px-6 py-4 rounded-lg hover:bg-coral-400 transition-all duration-300 flex items-center justify-center gap-2 font-medium shadow-lg hover:shadow-xl relative overflow-hidden"
+              <a
+                href="#proyectos"
+                className="group bg-white/10 text-white border border-white/20 px-8 py-4 rounded-lg hover:bg-white/20 transition-all duration-300 flex items-center justify-center gap-2 font-medium backdrop-blur-sm"
               >
-                <span className="absolute inset-0 w-full h-full bg-white/30 transform -translate-x-full transition-transform group-hover:translate-x-0"></span>
-                <Music2 size={20} className="relative z-10" />
-                <span className="relative z-10">{t("buttons.music")}</span>
-              </Link>
-
-              <Link
-                to="/tracking"
-                className="group bg-purple-600 text-white border border-white/20 px-6 py-4 rounded-lg hover:bg-coral-400 transition-all duration-300 flex items-center justify-center gap-2 font-medium shadow-lg hover:shadow-xl relative overflow-hidden sm:col-span-2 lg:col-span-1"
-              >
-                <span className="absolute inset-0 w-full h-full bg-white/10 transform -translate-x-full transition-transform group-hover:translate-x-0"></span>
-                <Package size={20} className="relative z-10" />
-                <span className="relative z-10">{t("buttons.tracking")}</span>
-              </Link>
+                <span>{t("buttons.secondary")}</span>
+              </a>
             </div>
           </div>
 
-          {/* Right side content */}
+          {/* Right side - Key benefits card */}
           <div
             className={`hidden md:flex items-center justify-center relative transition-all duration-1000 delay-300 ${
               loaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
@@ -176,118 +162,50 @@ const EnhancedHeroSection = () => {
           >
             <div className="absolute w-64 h-64 bg-purple-500/30 rounded-full blur-3xl"></div>
 
-            {/* Preview card with animated elements */}
-            <div className="bg-white rounded-xl shadow-xl overflow-hidden w-full max-w-sm transform rotate-3 hover:rotate-0 transition-transform duration-500 border border-purple-100 relative">
-              {/* Header */}
-              <div className="bg-purple-700 text-white p-3 flex items-center gap-2">
-                <Package size={18} />
-                <h3 className="font-medium">{t("trackingPreview.title")}</h3>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 w-full max-w-sm border border-white/20">
+              <h3 className="text-xl font-bold mb-6 text-white">
+                {i18n.language === "en" ? "Why choose us?" : "¿Por qué elegirnos?"}
+              </h3>
+
+              <div className="space-y-5">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-coral-400/20 flex items-center justify-center">
+                    <Clock size={20} className="text-coral-400" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-white">{t("heroFeatures.first")}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-coral-400/20 flex items-center justify-center">
+                    <Eye size={20} className="text-coral-400" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-white">{t("heroFeatures.second")}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-coral-400/20 flex items-center justify-center">
+                    <Palette size={20} className="text-coral-400" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-white">{t("heroFeatures.third")}</p>
+                  </div>
+                </div>
               </div>
 
-              {/* Body with animated elements */}
-              <div className="p-4">
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <h4 className="font-semibold">
-                      {t("trackingPreview.projectId")}
-                    </h4>
-                    <p className="text-sm text-gray-600">
-                      {t("trackingPreview.projectType")}
-                    </p>
-                  </div>
-                  <span className="px-2 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-medium">
-                    {t("trackingPreview.status")}
+              {/* Mini social proof */}
+              <div className="mt-6 pt-6 border-t border-white/20">
+                <div className="flex items-center gap-2">
+                  <CheckCircle size={16} className="text-green-400" />
+                  <span className="text-sm text-purple-100">
+                    {i18n.language === "en"
+                      ? "600+ satisfied clients worldwide"
+                      : "600+ clientes satisfechos en todo el mundo"}
                   </span>
                 </div>
-
-                {/* Timeline with enhanced animations */}
-                <div className="relative space-y-4 my-6 pl-6 before:absolute before:left-[9px] before:top-1 before:bottom-1 before:w-0.5 before:bg-purple-100">
-                  <div className="relative">
-                    <div className="absolute left-[-24px] w-5 h-5 rounded-full bg-purple-700 flex items-center justify-center">
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 12 12"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="text-white"
-                      >
-                        <path
-                          d="M10 3L4.5 8.5L2 6"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </div>
-                    <p className="text-sm font-medium">
-                      {t("trackingPreview.steps.design.text")}
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      {t("trackingPreview.steps.design.date")}
-                    </p>
-                  </div>
-
-                  <div className="relative animate-pulse">
-                    <div className="absolute left-[-24px] w-5 h-5 rounded-full bg-purple-100 border-2 border-purple-700 flex items-center justify-center">
-                      <svg
-                        className="animate-spin text-purple-700"
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        <path
-                          d="M12 6V12L16 14"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </div>
-                    <p className="text-sm font-medium text-purple-700">
-                      {t("trackingPreview.steps.frontend.text")}
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      {t("trackingPreview.steps.frontend.status")}
-                    </p>
-                  </div>
-
-                  <div className="relative opacity-50">
-                    <div className="absolute left-[-24px] w-5 h-5 rounded-full bg-gray-200"></div>
-                    <p className="text-sm font-medium">
-                      {t("trackingPreview.steps.testing.text")}
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      {t("trackingPreview.steps.testing.status")}
-                    </p>
-                  </div>
-                </div>
-
-                {/* CTA with animated hover effect */}
-                <Link
-                  to="/tracking"
-                  className="group w-full bg-purple-700 text-white py-2 rounded-lg hover:bg-coral-400 transition-colors text-sm flex items-center justify-center gap-2 relative overflow-hidden"
-                >
-                  <span className="absolute inset-0 w-full h-full bg-white/20 transform -translate-x-full transition-transform group-hover:translate-x-0"></span>
-                  <span className="relative z-10">
-                    {t("trackingPreview.viewDetails")}
-                  </span>
-                  <ArrowRight
-                    size={14}
-                    className="relative z-10 transition-transform group-hover:translate-x-1"
-                  />
-                </Link>
               </div>
             </div>
           </div>

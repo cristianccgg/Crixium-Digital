@@ -1,0 +1,19 @@
+{
+  "title": "¿Tu negocio está perdiendo clientes por no tener presencia online?",
+  "subtitle": "Estos son los problemas más comunes que resolvemos todos los días",
+  "problems": {
+    "first": {
+      "problem": "No tienes página web y tus clientes no te encuentran",
+      "solution": "Creamos tu sitio web profesional desde cero, optimizado para que tus clientes te encuentren en Google y redes sociales."
+    },
+    "second": {
+      "problem": "Tu web actual se ve anticuada y no genera confianza",
+      "solution": "Rediseñamos tu sitio con tecnología moderna, diseño atractivo y una experiencia que convierte visitantes en clientes."
+    },
+    "third": {
+      "problem": "No sabes por dónde empezar con tu proyecto digital",
+      "solution": "Te guiamos en todo el proceso. Desde la primera conversación hasta la entrega, con seguimiento en tiempo real de cada etapa."
+    }
+  },
+  "cta": "Cuéntanos tu proyecto"
+}

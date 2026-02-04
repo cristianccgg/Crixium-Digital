@@ -240,37 +240,31 @@ const Navbar = () => {
   );
 };
 
+const WHATSAPP_NUMBER = "573219746045";
+
 const CallToAction = () => {
   const { t, i18n } = useTranslation("cta");
-  const navigate = useNavigate();
 
-  // Función para generar URLs localizadas (igual que en Navbar)
-  const getLocalizedPath = (path) => {
-    if (i18n.language === "en") {
-      return path === "/" ? "/en" : `/en${path}`;
-    }
-    return path;
-  };
-
-  const handleContactClick = (e) => {
-    e.preventDefault();
-    navigate(getLocalizedPath("/contact"));
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+  const whatsappMessage = encodeURIComponent(
+    i18n.language === "en"
+      ? "Hi, I'd like to get a free quote for a web project."
+      : "Hola, me gustaría obtener una cotización gratuita para un proyecto web."
+  );
 
   return (
     <section className="py-16 px-4 bg-purple-900 text-white">
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-6">{t("title")}</h2>
-        <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("title")}</h2>
+        <p className="text-xl text-purple-100 mb-3 max-w-2xl mx-auto">
           {t("subtitle")}
         </p>
+        <p className="text-sm text-purple-300 mb-8">
+          {t("benefit")}
+        </p>
         <a
-          href={getLocalizedPath("/contact")}
-          onClick={handleContactClick}
+          href={`https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`}
+          target="_blank"
+          rel="noopener noreferrer"
           className="bg-coral-500 text-white px-8 py-4 rounded-lg hover:bg-coral-600 transition-all duration-300 inline-flex items-center gap-2 font-medium shadow-lg group cursor-pointer"
         >
           <span>{t("button")}</span>

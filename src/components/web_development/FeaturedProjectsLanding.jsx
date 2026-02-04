@@ -1,34 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Globe, Music2, ArrowRight, Play, Pause } from "lucide-react";
+import { Globe, ArrowRight, ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import hoodlabImage from "../../assets/web_projects/hoodlab.png";
-import jingleAudio from "../../assets/jingles/AI_United_English.wav";
-import promovideo from "../../assets/jingles/jinglepromo.MP4";
-import fiverr from "../../assets/users_pictures/fiverr.webp";
-import audioimg from "../../assets/users_pictures/audioimg.jpg";
+import harvvestImage from "../../assets/web_projects/harvvest.app.jpg";
+import tempestImage from "../../assets/web_projects/Tempest Digital - www.tempest-digital.io.jpg";
+import hanahomesImage from "../../assets/web_projects/www.hanahomes.co.jpg";
 
-const FeaturedProject = ({ title, description, media, type, isEven, tags }) => {
+const FeaturedProject = ({ title, description, image, url, isEven, tags }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [ref, setRef] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [error, setError] = useState(null);
-  const audioRef = useRef(null);
-  const videoRef = useRef(null);
   const { t } = useTranslation("projects");
-
-  // Determinar la ruta según el tipo de proyecto
-  const getProjectRoute = () => {
-    switch (type) {
-      case "web":
-        return "web-development";
-      case "music":
-      case "video":
-        return "music-production";
-      default:
-        return "web-development";
-    }
-  };
 
   useEffect(() => {
     if (!ref) return;
@@ -40,7 +21,7 @@ const FeaturedProject = ({ title, description, media, type, isEven, tags }) => {
           observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
 
     observer.observe(ref);
@@ -49,144 +30,6 @@ const FeaturedProject = ({ title, description, media, type, isEven, tags }) => {
       if (ref) observer.unobserve(ref);
     };
   }, [ref]);
-
-  // Manejar eventos de reproducción para actualizar estados
-  useEffect(() => {
-    if (type === "music" && audioRef.current) {
-      const audio = audioRef.current;
-
-      const handlePlay = () => setIsPlaying(true);
-      const handlePause = () => setIsPlaying(false);
-      const handleEnded = () => setIsPlaying(false);
-
-      audio.addEventListener("play", handlePlay);
-      audio.addEventListener("pause", handlePause);
-      audio.addEventListener("ended", handleEnded);
-
-      return () => {
-        audio.removeEventListener("play", handlePlay);
-        audio.removeEventListener("pause", handlePause);
-        audio.removeEventListener("ended", handleEnded);
-      };
-    }
-
-    if (type === "video" && videoRef.current) {
-      const video = videoRef.current;
-
-      const handlePlay = () => setIsPlaying(true);
-      const handlePause = () => setIsPlaying(false);
-      const handleEnded = () => setIsPlaying(false);
-
-      video.addEventListener("play", handlePlay);
-      video.addEventListener("pause", handlePause);
-      video.addEventListener("ended", handleEnded);
-
-      return () => {
-        video.removeEventListener("play", handlePlay);
-        video.removeEventListener("pause", handlePause);
-        video.removeEventListener("ended", handleEnded);
-      };
-    }
-  }, [type]);
-
-  // Reproducir/pausar audio
-  const toggleAudio = () => {
-    setError(null);
-
-    if (!audioRef.current) return;
-
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      // Mostrar debug
-      console.log("Intentando reproducir audio:", media.audio);
-
-      const playPromise = audioRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            console.log("Audio reproduciendo correctamente");
-          })
-          .catch((err) => {
-            console.error("Error reproduciendo audio:", err);
-            setError(
-              `Error: ${err.message || "No se pudo reproducir el audio"}`
-            );
-          });
-      }
-    }
-  };
-
-  // Reproducir/pausar video
-  const toggleVideo = () => {
-    setError(null);
-
-    if (!videoRef.current) return;
-
-    // Siempre mostrar controles nativos
-    videoRef.current.controls = true;
-
-    if (isPlaying) {
-      videoRef.current.pause();
-    } else {
-      // Mostrar debug
-      console.log("Intentando reproducir video:", media.videoUrl);
-
-      const playPromise = videoRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            console.log("Video reproduciendo correctamente");
-          })
-          .catch((err) => {
-            console.error("Error reproduciendo video:", err);
-            setError(
-              `Error: ${err.message || "No se pudo reproducir el video"}`
-            );
-          });
-      }
-    }
-  };
-
-  // Manejar errores de medios
-  const handleMediaError = (e) => {
-    console.error("Error de reproducción:", e);
-    setIsPlaying(false);
-
-    // Mostrar mensaje de error más descriptivo
-    let errorMsg = "Error al cargar el medio.";
-    if (e?.target?.error) {
-      switch (e.target.error.code) {
-        case 1:
-          errorMsg = "Operación abortada.";
-          break;
-        case 2:
-          errorMsg = "Error de red o medio no encontrado.";
-          break;
-        case 3:
-          errorMsg = "Formato no soportado.";
-          break;
-        case 4:
-          errorMsg = "Contenido protegido.";
-          break;
-        default:
-          errorMsg = `Error ${e.target.error.code}: No se pudo cargar el medio.`;
-      }
-    }
-
-    setError(errorMsg);
-  };
-
-  // Limpiar reproducción al desmontar
-  useEffect(() => {
-    return () => {
-      if (type === "music" && audioRef.current) {
-        audioRef.current.pause();
-      } else if (type === "video" && videoRef.current) {
-        videoRef.current.pause();
-      }
-    };
-  }, [type]);
 
   return (
     <div
@@ -197,126 +40,39 @@ const FeaturedProject = ({ title, description, media, type, isEven, tags }) => {
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
       }`}
     >
-      {/* Project media (image, audio, or video) */}
+      {/* Project image */}
       <div className="w-full md:w-1/2 relative">
         <div className="relative overflow-hidden rounded-xl shadow-xl group">
-          {/* Display appropriate media based on type */}
-          {type === "web" && (
-            <div className="aspect-video w-full overflow-hidden group-hover:scale-105 transition-all duration-700">
-              {media.image ? (
-                <img
-                  src={media.image}
-                  alt={title}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div className="flex items-center justify-center bg-gradient-to-br from-purple-200 to-purple-100 w-full h-full">
-                  <Globe size={64} className="text-purple-500 opacity-40" />
-                </div>
-              )}
-
-              {/* View project overlay */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
-                <div className="opacity-0 group-hover:opacity-100 transition-all duration-500 transform group-hover:translate-y-0 translate-y-4">
-                  <a
-                    href="https://thehoodlab.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <button className="bg-white text-purple-900 px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-coral-400 transition-all duration-300">
-                      Ver pagina web
-                      <ArrowRight size={16} />
-                    </button>
-                  </a>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {type === "music" && (
-            <div className="aspect-video w-full relative overflow-hidden group-hover:scale-105 transition-all duration-700 bg-gradient-to-br from-purple-300 to-purple-100">
-              {/* Fondo decorativo */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <img src={audioimg} alt="audio-img" />
-              </div>
-
-              {/* Audio player */}
-              <audio
-                ref={audioRef}
-                src={media.audio}
-                onError={handleMediaError}
-                preload="auto"
-                className="hidden"
+          <div className="aspect-video w-full overflow-hidden group-hover:scale-105 transition-all duration-700">
+            {image ? (
+              <img
+                src={image}
+                alt={title}
+                className="w-full h-full object-cover object-top"
               />
+            ) : (
+              <div className="flex items-center justify-center bg-gradient-to-br from-purple-200 to-purple-100 w-full h-full">
+                <Globe size={64} className="text-purple-500 opacity-40" />
+              </div>
+            )}
 
-              {/* Play/Pause button */}
-              <button
-                onClick={toggleAudio}
-                className="absolute inset-0 w-full h-full flex items-center justify-center z-20"
-              >
-                <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-lg transition-transform duration-300 hover:scale-110">
-                  {isPlaying ? (
-                    <Pause size={28} className="text-purple-700" />
-                  ) : (
-                    <Play size={28} className="text-purple-700 ml-1" />
-                  )}
-                </div>
-              </button>
-
-              {/* Indicador de estado */}
-              <div className="absolute bottom-4 left-0 right-0 flex justify-center">
-                {isPlaying && (
-                  <div className="bg-white/80 px-3 py-1 rounded-full text-xs font-medium text-purple-700">
-                    Reproduciendo...
-                  </div>
-                )}
+            {/* View project overlay */}
+            <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
+              <div className="opacity-0 group-hover:opacity-100 transition-all duration-500 transform group-hover:translate-y-0 translate-y-4">
+                <a href={url} target="_blank" rel="noopener noreferrer">
+                  <button className="bg-white text-purple-900 px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-coral-400 transition-all duration-300">
+                    {t("viewWebsite")}
+                    <ExternalLink size={16} />
+                  </button>
+                </a>
               </div>
             </div>
-          )}
-
-          {type === "video" && (
-            <div className="aspect-video w-full overflow-hidden relative">
-              {/* Video con controles nativos siempre visibles */}
-              <video
-                ref={videoRef}
-                src={media.videoUrl}
-                poster={media.poster}
-                onError={handleMediaError}
-                className="w-full h-full object-contain"
-                playsInline
-                preload="auto"
-                controls
-              />
-
-              {/* Overlay de reproducción - solo visible cuando el video no está reproduciéndose */}
-              {!isPlaying && (
-                <button
-                  onClick={toggleVideo}
-                  className="absolute inset-0 w-full h-full flex items-center justify-center z-20 bg-black/30"
-                >
-                  <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-lg transition-transform duration-300 hover:scale-110">
-                    <Play size={28} className="text-purple-700 ml-1" />
-                  </div>
-                </button>
-              )}
-            </div>
-          )}
-
-          {/* Error message if present */}
-          {error && (
-            <div className="absolute bottom-4 left-0 right-0 bg-red-500/80 text-white text-center py-2 text-sm mx-4 rounded-lg">
-              {error}
-            </div>
-          )}
+          </div>
         </div>
 
         {/* Badge */}
         <div className="absolute -top-3 -left-3 px-4 py-2 bg-purple-700 text-white rounded-lg shadow-lg z-20">
-          {type === "web"
-            ? t("webDevelopment")
-            : type === "music"
-            ? t("musicProduction")
-            : t("promotionalVideo")}
+          {t("webDevelopment")}
         </div>
       </div>
 
@@ -339,7 +95,7 @@ const FeaturedProject = ({ title, description, media, type, isEven, tags }) => {
         </div>
 
         <Link
-          to={getProjectRoute()}
+          to="web-development"
           className="text-purple-700 flex items-center gap-2 font-medium hover:text-purple-900 transition-colors"
         >
           {t("viewMoreProjects")}
@@ -355,8 +111,6 @@ const FeaturedProject = ({ title, description, media, type, isEven, tags }) => {
 
 const FeaturedProjectsLanding = () => {
   const { t } = useTranslation("projects");
-
-  console.log("Traducción de proyectos:", t("ourWork"));
 
   return (
     <section className="py-20 px-4 bg-gray-50 relative overflow-hidden">
@@ -381,37 +135,30 @@ const FeaturedProjectsLanding = () => {
         {/* Projects list */}
         <div className="space-y-24">
           <FeaturedProject
-            title={t("hoodlabTitle")}
-            description={t("hoodlabDescription")}
-            media={{
-              image: hoodlabImage,
-            }}
-            type="web"
+            title={t("harvvestTitle")}
+            description={t("harvvestDescription")}
+            image={harvvestImage}
+            url="https://harvvest.app"
             isEven={false}
-            tags={["WordPress", "WooCommerce", "Custom CSS", "Responsive"]}
+            tags={["Landing Page", "Conversion", "UI/UX", "Responsive"]}
           />
 
           <FeaturedProject
-            title={t("jingleTitle")}
-            description={t("jingleDescription")}
-            media={{
-              audio: jingleAudio,
-            }}
-            type="music"
+            title={t("tempestTitle")}
+            description={t("tempestDescription")}
+            image={tempestImage}
+            url="https://www.tempest-digital.io"
             isEven={true}
-            tags={["Jingle", "Audio Branding", "Producción"]}
+            tags={["Immersive Web", "Animation", "Branding", "Interactive"]}
           />
 
           <FeaturedProject
-            title={t("videoTitle")}
-            description={t("videoDescription")}
-            media={{
-              videoUrl: promovideo,
-              poster: fiverr,
-            }}
-            type="video"
+            title={t("hanahomesTitle")}
+            description={t("hanahomesDescription")}
+            image={hanahomesImage}
+            url="https://www.hanahomes.co"
             isEven={false}
-            tags={["Producción Audiovisual", "Promoción", "Identidad de Marca"]}
+            tags={["Lead Generation", "Real Estate", "Conversion", "UX"]}
           />
         </div>
 

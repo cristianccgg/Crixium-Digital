@@ -1,36 +1,19 @@
 {
-  "badge": "Servicio único con seguimiento en tiempo real",
+  "badge": "8+ años creando sitios web que generan resultados",
   "title": {
-    "part1": "Eleva tu Marca con ",
-    "highlight1": "Creatividad",
-    "and": " y ",
-    "highlight2": "Tecnología"
+    "part1": "Diseñamos la Web que tu Negocio ",
+    "highlight1": "Necesita",
+    "and": " para ",
+    "highlight2": "Vender Más"
   },
-  "subtitle": "Desarrollo web impactante y producción musical de primer nivel para hacer destacar tu negocio",
+  "subtitle": "Sitios web profesionales, rápidos y optimizados para convertir visitantes en clientes. Desde landing pages hasta e-commerce completo.",
   "buttons": {
-    "web": "Desarrollo Web",
-    "music": "Producción Musical",
-    "tracking": "Ver Ejemplos de Tracking"
+    "primary": "Solicita tu Cotización Gratis",
+    "secondary": "Ver Nuestro Trabajo"
   },
-  "trackingPreview": {
-    "title": "Sistema de Seguimiento",
-    "projectId": "Proyecto #ORD12345",
-    "projectType": "Sitio Web Corporativo",
-    "status": "En Progreso",
-    "steps": {
-      "design": {
-        "text": "Diseño Aprobado",
-        "date": "Completado 12/02"
-      },
-      "frontend": {
-        "text": "Desarrollo Frontend",
-        "status": "En curso"
-      },
-      "testing": {
-        "text": "Pruebas Finales",
-        "status": "Próximamente"
-      }
-    },
-    "viewDetails": "Ver detalles del proyecto"
+  "heroFeatures": {
+    "first": "Entrega en 10-20 días",
+    "second": "Seguimiento en tiempo real",
+    "third": "100% adaptado a tu marca"
   }
 }

@@ -1,36 +1,19 @@
 {
-  "badge": "Unique service with real-time tracking",
+  "badge": "8+ years building websites that deliver results",
   "title": {
-    "part1": "Elevate Your Brand with ",
-    "highlight1": "Creativity",
-    "and": " and ",
-    "highlight2": "Technology"
+    "part1": "We Design the Website Your Business ",
+    "highlight1": "Needs",
+    "and": " to ",
+    "highlight2": "Sell More"
   },
-  "subtitle": "Impactful web development and top-tier music production to make your business stand out",
+  "subtitle": "Professional, fast, and optimized websites that turn visitors into customers. From landing pages to full e-commerce.",
   "buttons": {
-    "web": "Web Development",
-    "music": "Music Production",
-    "tracking": "View Tracking Examples"
+    "primary": "Get a Free Quote",
+    "secondary": "See Our Work"
   },
-  "trackingPreview": {
-    "title": "Tracking System",
-    "projectId": "Project #ORD12345",
-    "projectType": "Corporate Website",
-    "status": "In Progress",
-    "steps": {
-      "design": {
-        "text": "Design Approved",
-        "date": "Completed 02/12"
-      },
-      "frontend": {
-        "text": "Frontend Development",
-        "status": "In progress"
-      },
-      "testing": {
-        "text": "Final Testing",
-        "status": "Coming soon"
-      }
-    },
-    "viewDetails": "View project details"
+  "heroFeatures": {
+    "first": "Delivery in 10-20 days",
+    "second": "Real-time project tracking",
+    "third": "100% tailored to your brand"
   }
 }
