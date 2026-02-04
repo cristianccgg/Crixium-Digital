@@ -1,13 +1,10 @@
 {
-  "title": "Plans & Pricing",
-  "subtitle": "Transparent pricing, no surprises. Every project includes custom design, SEO optimization, and real-time tracking.",
+  "title": "Our Packages",
+  "subtitle": "Choose the type of project you need and get a free quote. Every project is tailored to your goals and brand.",
   "packages": {
     "starter": {
       "name": "Landing Page",
       "description": "Ideal for entrepreneurs and businesses that need a quick online presence",
-      "price": "120",
-      "currency": "USD",
-      "from": "From",
       "features": {
         "first": "1 optimized page",
         "second": "Responsive design",
@@ -18,9 +15,6 @@
     "professional": {
       "name": "Professional Website",
       "description": "For businesses that need a complete and professional digital presence",
-      "price": "250",
-      "currency": "USD",
-      "from": "From",
       "popular": "Most Popular",
       "features": {
         "first": "Up to 3 optimized pages",
@@ -32,9 +26,6 @@
     "ecommerce": {
       "name": "Online Store",
       "description": "For businesses that want to sell their products or services online",
-      "price": "350",
-      "currency": "USD",
-      "from": "From",
       "features": {
         "first": "Product catalog",
         "second": "Shopping cart",
@@ -43,14 +34,14 @@
       }
     }
   },
-  "cta": "Get a quote for this plan",
+  "cta": "Get a free quote",
   "viewAll": "See all plans and details",
   "whatsappMessages": {
-    "starter": "Hi, I'm interested in the Landing Page plan for my web project. Could you give me more information?",
-    "professional": "Hi, I'm interested in the Professional Website plan. Could you give me more information?",
-    "ecommerce": "Hi, I'm interested in the Online Store plan. Could you give me more information?"
+    "starter": "Hi, I'd like a quote for a Landing Page. Could you give me more information?",
+    "professional": "Hi, I'd like a quote for a Professional Website. Could you give me more information?",
+    "ecommerce": "Hi, I'd like a quote for an Online Store. Could you give me more information?"
   },
-  "includes": "All plans include:",
+  "includes": "All packages include:",
   "globalFeatures": {
     "first": "Real-time project tracking",
     "second": "Post-delivery support",

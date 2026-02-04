@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 
 const WHATSAPP_NUMBER = "573219746045";
 
-const PricingCard = ({ name, description, price, from, currency, features, cta, whatsappMessage, isPopular, popularLabel, index }) => {
+const PricingCard = ({ name, description, features, cta, whatsappMessage, isPopular, popularLabel, index }) => {
   const encodedMessage = encodeURIComponent(whatsappMessage);
 
   return (
@@ -31,14 +31,6 @@ const PricingCard = ({ name, description, price, from, currency, features, cta, 
       <div className="mb-6">
         <h3 className="text-xl font-bold text-gray-800 mb-2">{name}</h3>
         <p className="text-gray-500 text-sm">{description}</p>
-      </div>
-
-      <div className="mb-6">
-        <div className="flex items-baseline gap-1">
-          <span className="text-sm text-gray-500">{from}</span>
-          <span className="text-4xl font-bold text-purple-700">${price}</span>
-          <span className="text-sm text-gray-500">{currency}</span>
-        </div>
       </div>
 
       <div className="space-y-3 mb-8 flex-grow">
@@ -84,9 +76,6 @@ const PricingPreview = () => {
     {
       name: t("packages.starter.name"),
       description: t("packages.starter.description"),
-      price: t("packages.starter.price"),
-      from: t("packages.starter.from"),
-      currency: t("packages.starter.currency"),
       features: [
         t("packages.starter.features.first"),
         t("packages.starter.features.second"),
@@ -99,9 +88,6 @@ const PricingPreview = () => {
     {
       name: t("packages.professional.name"),
       description: t("packages.professional.description"),
-      price: t("packages.professional.price"),
-      from: t("packages.professional.from"),
-      currency: t("packages.professional.currency"),
       features: [
         t("packages.professional.features.first"),
         t("packages.professional.features.second"),
@@ -115,9 +101,6 @@ const PricingPreview = () => {
     {
       name: t("packages.ecommerce.name"),
       description: t("packages.ecommerce.description"),
-      price: t("packages.ecommerce.price"),
-      from: t("packages.ecommerce.from"),
-      currency: t("packages.ecommerce.currency"),
       features: [
         t("packages.ecommerce.features.first"),
         t("packages.ecommerce.features.second"),

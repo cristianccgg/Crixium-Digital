@@ -1,13 +1,10 @@
 {
-  "title": "Planes y Precios",
-  "subtitle": "Precios transparentes, sin sorpresas. Cada proyecto incluye diseño personalizado, optimización SEO y seguimiento en tiempo real.",
+  "title": "Nuestros Paquetes",
+  "subtitle": "Escoge el tipo de proyecto que necesitas y cotiza gratis. Cada proyecto se adapta a tus objetivos y tu marca.",
   "packages": {
     "starter": {
       "name": "Landing Page",
       "description": "Ideal para emprendedores y negocios que necesitan presencia online rápida",
-      "price": "120",
-      "currency": "USD",
-      "from": "Desde",
       "features": {
         "first": "1 página optimizada",
         "second": "Diseño responsive",
@@ -18,9 +15,6 @@
     "professional": {
       "name": "Sitio Web Profesional",
       "description": "Para empresas que necesitan una presencia digital completa y profesional",
-      "price": "250",
-      "currency": "USD",
-      "from": "Desde",
       "popular": "Más Popular",
       "features": {
         "first": "Hasta 3 páginas optimizadas",
@@ -32,9 +26,6 @@
     "ecommerce": {
       "name": "Tienda Online",
       "description": "Para negocios que quieren vender sus productos o servicios en línea",
-      "price": "350",
-      "currency": "USD",
-      "from": "Desde",
       "features": {
         "first": "Catálogo de productos",
         "second": "Carrito de compras",
@@ -43,14 +34,14 @@
       }
     }
   },
-  "cta": "Cotizar este plan",
+  "cta": "Cotizar gratis",
   "viewAll": "Ver todos los planes y detalles",
   "whatsappMessages": {
-    "starter": "Hola, me interesa el plan Landing Page para mi proyecto web. ¿Podrían darme más información?",
-    "professional": "Hola, me interesa el plan Sitio Web Profesional. ¿Podrían darme más información?",
-    "ecommerce": "Hola, me interesa el plan Tienda Online. ¿Podrían darme más información?"
+    "starter": "Hola, me interesa una cotización para una Landing Page. ¿Podrían darme más información?",
+    "professional": "Hola, me interesa una cotización para un Sitio Web Profesional. ¿Podrían darme más información?",
+    "ecommerce": "Hola, me interesa una cotización para una Tienda Online. ¿Podrían darme más información?"
   },
-  "includes": "Todos los planes incluyen:",
+  "includes": "Todos los paquetes incluyen:",
   "globalFeatures": {
     "first": "Seguimiento en tiempo real de tu proyecto",
     "second": "Soporte post-entrega",
