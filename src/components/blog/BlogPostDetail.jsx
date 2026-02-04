@@ -151,6 +151,7 @@ const BlogPostDetail = () => {
               <img
                 src={post.image || "/blog/placeholder.jpg"}
                 alt={post.title}
+                loading="lazy"
                 className="w-full h-auto object-cover"
               />
             </div>
@@ -335,6 +336,7 @@ const BlogPostDetail = () => {
                       <img
                         src={relatedPost.image || "/blog/placeholder.jpg"}
                         alt={relatedPost.title}
+                        loading="lazy"
                         className="w-full h-full object-cover"
                       />
                     </div>

@@ -48,6 +48,7 @@ const FeaturedProject = ({ title, description, image, url, isEven, tags }) => {
               <img
                 src={image}
                 alt={title}
+                loading="lazy"
                 className="w-full h-full object-cover object-top"
               />
             ) : (

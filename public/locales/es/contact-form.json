@@ -33,13 +33,9 @@
         "label": "Tipo de Proyecto",
         "placeholder": "Selecciona un tipo de proyecto",
         "web": {
-          "corporate": "Sitio Web Corporativo",
-          "ecommerce": "Tienda en Línea",
-          "landing": "Landing Page",
-          "blog": "Blog",
-          "webApp": "Aplicación Web",
-          "redesign": "Rediseño Web",
-          "maintenance": "Mantenimiento Web",
+          "newWebsite": "Página Web Nueva",
+          "redesign": "Rediseño",
+          "ecommerce": "E-commerce",
           "other": "Otro"
         },
         "music": {

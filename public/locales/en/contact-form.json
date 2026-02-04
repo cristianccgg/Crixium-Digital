@@ -33,13 +33,9 @@
         "label": "Project Type",
         "placeholder": "Select a project type",
         "web": {
-          "corporate": "Corporate Website",
-          "ecommerce": "Online Store",
-          "landing": "Landing Page",
-          "blog": "Blog",
-          "webApp": "Web Application",
-          "redesign": "Website Redesign",
-          "maintenance": "Website Maintenance",
+          "newWebsite": "New Website",
+          "redesign": "Redesign",
+          "ecommerce": "E-commerce",
           "other": "Other"
         },
         "music": {

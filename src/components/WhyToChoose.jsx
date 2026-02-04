@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Globe, Zap, Target, ArrowRight } from "lucide-react";
+import { TrendingUp, Zap, Target, ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const FeatureCard = ({
@@ -13,7 +13,7 @@ const FeatureCard = ({
 }) => {
   // Renderizar explícitamente según el tipo de icono
   const renderIcon = () => {
-    if (icon === Globe) return <Globe className={`w-8 h-8 ${colorClass}`} />;
+    if (icon === TrendingUp) return <TrendingUp className={`w-8 h-8 ${colorClass}`} />;
     if (icon === Zap) return <Zap className={`w-8 h-8 ${colorClass}`} />;
     if (icon === Target) return <Target className={`w-8 h-8 ${colorClass}`} />;
     return null;
@@ -111,7 +111,7 @@ const WhyToChoose = () => {
   const { t } = useTranslation("whytochoose");
   const features = [
     {
-      icon: Globe,
+      icon: TrendingUp,
       title: t("soluciones"),
       description: t("soluciones-description"),
       color: "bg-blue-100",

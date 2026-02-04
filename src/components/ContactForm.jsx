@@ -64,13 +64,9 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
 
   // Definimos los tipos de proyecto como objetos en lugar de arrays
   const webProjectTypes = {
-    corporate: t("contactForm.fields.projectType.web.corporate"),
-    ecommerce: t("contactForm.fields.projectType.web.ecommerce"),
-    landing: t("contactForm.fields.projectType.web.landing"),
-    blog: t("contactForm.fields.projectType.web.blog"),
-    webApp: t("contactForm.fields.projectType.web.webApp"),
+    newWebsite: t("contactForm.fields.projectType.web.newWebsite"),
     redesign: t("contactForm.fields.projectType.web.redesign"),
-    maintenance: t("contactForm.fields.projectType.web.maintenance"),
+    ecommerce: t("contactForm.fields.projectType.web.ecommerce"),
     other: t("contactForm.fields.projectType.web.other"),
   };
 

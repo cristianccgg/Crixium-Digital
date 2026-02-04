@@ -24,6 +24,7 @@ const ProjectCard = ({
         <img
           src={imageUrl}
           alt={title}
+          loading="lazy"
           className="w-full h-full object-cover object-top"
         />
       ) : (

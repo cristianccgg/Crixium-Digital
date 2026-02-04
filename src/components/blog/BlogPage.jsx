@@ -28,6 +28,7 @@ const FeaturedPostCard = ({ post }) => {
         <img
           src={post.image || "/blog/placeholder.jpg"}
           alt={post.title}
+          loading="lazy"
           className="w-full h-full object-cover"
         />
         <div className="absolute bottom-0 left-0 p-6 z-20 w-full">
@@ -84,6 +85,7 @@ const PostCard = ({ post }) => {
         <img
           src={post.image || "/blog/placeholder.jpg"}
           alt={post.title}
+          loading="lazy"
           className="w-full h-full object-cover"
         />
         <span className="absolute top-3 left-3 px-2 py-1 bg-coral-500 text-white text-xs font-semibold rounded-md">

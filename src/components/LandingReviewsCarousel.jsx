@@ -125,6 +125,7 @@ const ReviewCard = ({ review }) => {
                   <img
                     src={review.userImage}
                     alt={review.userName}
+                    loading="lazy"
                     className="w-full h-full object-cover"
                   />
                 </div>

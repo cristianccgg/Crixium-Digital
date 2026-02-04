@@ -113,7 +113,7 @@ const TrackingLanding = () => {
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <div className="w-14 h-14 rounded-full overflow-hidden bg-purple-200 flex items-center justify-center">
-                  <img src={ana} alt="avatar" />
+                  <img src={ana} alt="avatar" loading="lazy" />
                 </div>
               </div>
               <div>

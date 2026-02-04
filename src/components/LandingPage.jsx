@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import LandingReviewsCarousel from "./LandingReviewsCarousel";
 import EnhancedHeroSection from "./web_development/EnhancedHeroSection";
-import EnhancedServices from "./web_development/EnhancedServices";
+
 import FeaturedProjectsLanding from "./web_development/FeaturedProjectsLanding";
 import ProblemSolution from "./web_development/ProblemSolution";
 import PricingPreview from "./web_development/PricingPreview";
@@ -56,23 +56,7 @@ const LandingPage = () => {
       {/* 2. Problema/Solución - Conectar con el dolor del cliente */}
       <ProblemSolution />
 
-      {/* 3. Servicios principales */}
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              {t("servicios-profesionales")}
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              {t("description")}
-            </p>
-          </div>
-
-          <EnhancedServices />
-        </div>
-      </section>
-
-      {/* 4. Proyectos destacados como casos de éxito */}
+      {/* 3. Proyectos destacados como casos de éxito */}
       <div id="proyectos">
         <FeaturedProjectsLanding />
       </div>
