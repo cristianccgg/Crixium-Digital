@@ -123,19 +123,19 @@ El sitio fue transformado de portafolio a sitio de venta enfocado en desarrollo 
 ### FASE 7: Performance y Quality Score
 
 #### 7.1 Code Splitting
-- [ ] Implementar `React.lazy()` para todas las rutas en `App.jsx`
-- [ ] Agregar `<Suspense>` con fallback de loading
-- [ ] Rutas a lazy-load: WebDevelopmentPage, MusicProductionPage, ContactPage, BlogPage, OrderTracking, AdsLandingPage, AdminPanel
+- [x] Implementar `React.lazy()` para todas las rutas en `App.jsx`
+- [x] Agregar `<Suspense>` con fallback de loading (PageLoader con spinner purple)
+- [x] Rutas lazy-loaded: WebDevelopmentPage, MusicProductionPage, ContactPage, BlogPage, BlogPostDetail, BlogCategory, OrderTracking, AdsLandingPage, AdminPanel, PrivacyPolicy, TermsAndConditions, PaymentResponseHandler
 
 #### 7.2 Headers de Vercel
-- [ ] Agregar en `vercel.json`:
-  - `Cache-Control` para assets estáticos
+- [x] Agregar en `vercel.json`:
+  - `Cache-Control: public, max-age=31536000, immutable` para `/assets/*`
   - `X-Content-Type-Options: nosniff`
   - `X-Frame-Options: DENY`
   - `Referrer-Policy: strict-origin-when-cross-origin`
 
 #### 7.3 Preconnect hints
-- [ ] Agregar en `index.html`:
+- [x] Agregar en `index.html`:
   - `<link rel="preconnect" href="https://firebaseapp.com">`
   - `<link rel="dns-prefetch" href="https://wa.me">`
 
@@ -147,13 +147,17 @@ El sitio fue transformado de portafolio a sitio de venta enfocado en desarrollo 
 ### FASE 8: Mejoras Secundarias
 
 #### 8.1 Página 404
-- [ ] Crear componente `NotFound.jsx`
-- [ ] CTA de regreso a home o WhatsApp
-- [ ] Agregar ruta catch-all en App.jsx
+- [x] Crear componente `NotFound.jsx` con "404" grande, título, descripción
+- [x] CTA de regreso a home + CTA WhatsApp (verde)
+- [x] Agregar ruta catch-all `*` en App.jsx
+- [x] Traducciones es/en (`not-found.json`)
+- [x] SEO con `noIndex: true`
 
 #### 8.2 Sitemap actualizado
-- [ ] Agregar `/servicios/desarrollo-web` al script `generate-sitemap.js`
-- [ ] Agregar `/privacy-policy` y `/terms-conditions`
+- [x] Agregar `/servicios/desarrollo-web` al script `generate-sitemap.js`
+- [x] Agregar `/privacy-policy` y `/terms-conditions`
+- [x] Versiones `/en/` incluidas con hreflang
+- [x] Sitemap regenerado
 
 #### 8.3 Blog SEO
 - [ ] Agregar BreadcrumbList schema para posts

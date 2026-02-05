@@ -56,6 +56,8 @@ const initI18n = () => {
         "web-development",
         "whatsapp",
         "whytochoose",
+        "ads-landing",
+        "not-found",
       ],
       defaultNS: "common",
       backend: {

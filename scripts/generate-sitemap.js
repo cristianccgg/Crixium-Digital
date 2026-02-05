@@ -18,12 +18,18 @@ const blogPostsEn = JSON.parse(fs.readFileSync(path.join(__dirname, "../src/data
 // Rutas del sitio
 const routes = [
   "/",
-  "/web-development", 
+  "/web-development",
   "/music-production",
   "/contact",
   "/tracking",
   "/blog",
+  "/privacy-policy",
+  "/terms-conditions",
+  "/servicios/desarrollo-web",
   "/en/blog",
+  "/en/privacy-policy",
+  "/en/terms-conditions",
+  "/en/servicios/desarrollo-web",
 ];
 
 // Agregar rutas de posts del blog

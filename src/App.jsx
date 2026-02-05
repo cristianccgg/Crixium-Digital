@@ -1,33 +1,40 @@
-// Actualización del archivo App.jsx para añadir las rutas del blog
+import React, { Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./components/SharedLayout";
 import LandingPage from "./components/LandingPage";
-import MusicProductionPage from "./components/MusicProductionPage";
-import WebDevelopmentPage from "./components/WebDevelopmentPage";
-import ContactPage from "./components/ContactPage";
 import WhatsAppButton from "./components/WhatsAppButton";
-import OrderTracking from "./components/OrderTracking";
-import AdminPanel from "./components/AdminPanel";
-import PrivateRoute from "./components/PrivateRoute";
-import PaymentResponseHandler from "./components/payments/PaymentResponseHandler";
 import LanguageRouter from "./components/LanguageRouter";
-import PrivacyPolicy from "./components/PrivacyPolicy";
-import TermsAndConditions from "./components/TermsAndConditions";
 import CookieConsent from "./components/CookieConsent";
 
-// Importando componentes del blog
-import BlogPage from "./components/blog/BlogPage";
-import BlogPostDetail from "./components/blog/BlogPostDetail";
-import BlogCategory from "./components/blog/BlogCategory";
+// Lazy-loaded pages (code splitting)
+const MusicProductionPage = React.lazy(() => import("./components/MusicProductionPage"));
+const WebDevelopmentPage = React.lazy(() => import("./components/WebDevelopmentPage"));
+const ContactPage = React.lazy(() => import("./components/ContactPage"));
+const OrderTracking = React.lazy(() => import("./components/OrderTracking"));
+const AdminPanel = React.lazy(() => import("./components/AdminPanel"));
+const PrivateRoute = React.lazy(() => import("./components/PrivateRoute"));
+const PaymentResponseHandler = React.lazy(() => import("./components/payments/PaymentResponseHandler"));
+const PrivacyPolicy = React.lazy(() => import("./components/PrivacyPolicy"));
+const TermsAndConditions = React.lazy(() => import("./components/TermsAndConditions"));
+const BlogPage = React.lazy(() => import("./components/blog/BlogPage"));
+const BlogPostDetail = React.lazy(() => import("./components/blog/BlogPostDetail"));
+const BlogCategory = React.lazy(() => import("./components/blog/BlogCategory"));
+const AdsLandingPage = React.lazy(() => import("./components/web_development/AdsLandingPage"));
+const NotFound = React.lazy(() => import("./components/NotFound"));
 
-// Landing page dedicada para Google Ads
-import AdsLandingPage from "./components/web_development/AdsLandingPage";
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="flex flex-col items-center gap-4">
+      <div className="w-10 h-10 border-4 border-purple-200 border-t-purple-700 rounded-full animate-spin"></div>
+    </div>
+  </div>
+);
 
 function App() {
   return (
     <Router>
       <LanguageRouter>
-        {" "}
+        <Suspense fallback={<PageLoader />}>
         <Routes>
           {/* Ruta protegida para el panel de administración */}
           <Route
@@ -246,7 +253,11 @@ function App() {
               </Layout>
             }
           />
+
+          {/* 404 catch-all */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
+        </Suspense>
         <CookieConsent />
       </LanguageRouter>
     </Router>
