@@ -4,23 +4,22 @@
     "voiceover": "Voice-over"
   },
   "pricing": {
-    "transparentPricing": "Transparent Pricing",
-    "plansAndPrices": "Plans and Prices",
-    "chooseService": "Choose the service and plan that best suits your needs"
+    "badge": "Our Services",
+    "title": "Music Production",
+    "subtitle": "Tell us what you need and we'll send you a personalized quote"
   },
   "package": {
     "popular": "Most Popular",
     "service": "service",
     "words": "Up to {count} words",
-    "selectPlan": "Select Plan",
-    "backToPlans": "Back to plans",
-    "since": "From"
+    "requestQuote": "Request Quote",
+    "backToPlans": "Back to plans"
   },
   "jingles": {
     "basic": {
-      "title": "Your perfect Jingle!",
-      "price": "30",
-      "delivery": "5-day delivery",
+      "title": "Basic Jingle",
+      "delivery": "Estimated delivery: 5 days",
+      "whatsappMessage": "Hi, I'm interested in a quote for a Basic Jingle (up to 10 seconds). Can we talk?",
       "features": {
         "feature1": "Up to 10-second running time",
         "feature2": "Vocals recording",
@@ -32,9 +31,9 @@
       }
     },
     "standard": {
-      "title": "All you need!",
-      "price": "50",
-      "delivery": "5-day delivery",
+      "title": "Standard Jingle",
+      "delivery": "Estimated delivery: 5 days",
+      "whatsappMessage": "Hi, I'm interested in a quote for a Standard Jingle (up to 20 seconds). Can we talk?",
       "features": {
         "feature1": "Up to 20-second running time",
         "feature2": "Vocals recording",
@@ -46,9 +45,9 @@
       }
     },
     "premium": {
-      "title": "30 seconds, all inclusive!",
-      "price": "70",
-      "delivery": "6-day delivery",
+      "title": "Premium Jingle",
+      "delivery": "Estimated delivery: 6 days",
+      "whatsappMessage": "Hi, I'm interested in a quote for a Premium Jingle (up to 30 seconds). Can we talk?",
       "features": {
         "feature1": "Up to 30-second running time",
         "feature2": "Vocals recording",
@@ -64,8 +63,8 @@
     "basic": {
       "title": "Basic Voice-over",
       "wordCount": "100",
-      "price": "30",
-      "delivery": "5-day delivery",
+      "delivery": "Estimated delivery: 5 days",
+      "whatsappMessage": "Hi, I'm interested in a quote for a Basic Voice-over (up to 100 words). Can we talk?",
       "features": {
         "feature1": "Professional voice-over",
         "feature2": "Editing and mastering",
@@ -78,8 +77,8 @@
     "standard": {
       "title": "Standard Voice-over",
       "wordCount": "300",
-      "price": "50",
-      "delivery": "5-day delivery",
+      "delivery": "Estimated delivery: 5 days",
+      "whatsappMessage": "Hi, I'm interested in a quote for a Standard Voice-over (up to 300 words). Can we talk?",
       "features": {
         "feature1": "Professional voice-over",
         "feature2": "Background music included",
@@ -94,8 +93,8 @@
     "premium": {
       "title": "Premium Voice-over",
       "wordCount": "500",
-      "price": "70",
-      "delivery": "6-day delivery",
+      "delivery": "Estimated delivery: 6 days",
+      "whatsappMessage": "Hi, I'm interested in a quote for a Premium Voice-over (up to 500 words). Can we talk?",
       "features": {
         "feature1": "Professional voice-over",
         "feature2": "Background music included",

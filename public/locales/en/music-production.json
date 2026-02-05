@@ -7,14 +7,14 @@
       "title3": "Production",
       "description": "We create the perfect sound identity for your brand with original music and high-quality production for all your projects",
       "buttons": {
-        "viewPackages": "View Packages",
+        "viewPackages": "Request a Quote",
         "listenSamples": "Listen to Samples"
       }
     },
     "services": {
       "title": "Our Services",
       "subtitle": "Customized Solutions",
-      "description": "We offer a wide range of music production services tailored to your specific needs",
+      "description": "Tell us what you need and we'll send you a personalized proposal, no strings attached",
       "items": {
         "jingles": {
           "title": "Advertising Jingles",
@@ -51,7 +51,7 @@
         }
       },
       "buttons": {
-        "viewPackages": "View Packages",
+        "viewPackages": "Request a Quote",
         "requestQuote": "Request Quote"
       }
     },

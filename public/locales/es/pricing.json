@@ -4,23 +4,22 @@
     "voiceover": "Locución"
   },
   "pricing": {
-    "transparentPricing": "Precios Transparentes",
-    "plansAndPrices": "Planes y Precios",
-    "chooseService": "Elige el servicio y plan que mejor se adapte a tus necesidades"
+    "badge": "Nuestros Servicios",
+    "title": "Producción Musical",
+    "subtitle": "Cuéntanos qué necesitas y te enviamos una cotización personalizada"
   },
   "package": {
     "popular": "Más Popular",
     "service": "servicio",
     "words": "Hasta {count} palabras",
-    "selectPlan": "Seleccionar Plan",
-    "backToPlans": "Volver a los planes",
-    "since": "Desde"
+    "requestQuote": "Solicitar Cotización",
+    "backToPlans": "Volver a los planes"
   },
   "jingles": {
     "basic": {
-      "title": "Your perfect Jingle!",
-      "price": "30",
-      "delivery": "5 días de entrega",
+      "title": "Jingle Básico",
+      "delivery": "Entrega estimada: 5 días",
+      "whatsappMessage": "Hola, me interesa una cotización para un Jingle Básico (hasta 10 segundos). ¿Podemos hablar?",
       "features": {
         "feature1": "Hasta 10 segundos de duración",
         "feature2": "Grabación de voces",
@@ -32,9 +31,9 @@
       }
     },
     "standard": {
-      "title": "All you need!",
-      "price": "50",
-      "delivery": "5 días de entrega",
+      "title": "Jingle Estándar",
+      "delivery": "Entrega estimada: 5 días",
+      "whatsappMessage": "Hola, me interesa una cotización para un Jingle Estándar (hasta 20 segundos). ¿Podemos hablar?",
       "features": {
         "feature1": "Hasta 20 segundos de duración",
         "feature2": "Grabación de voces",
@@ -46,9 +45,9 @@
       }
     },
     "premium": {
-      "title": "30 seconds, all inclusive!",
-      "price": "70",
-      "delivery": "6 días de entrega",
+      "title": "Jingle Premium",
+      "delivery": "Entrega estimada: 6 días",
+      "whatsappMessage": "Hola, me interesa una cotización para un Jingle Premium (hasta 30 segundos). ¿Podemos hablar?",
       "features": {
         "feature1": "Hasta 30 segundos de duración",
         "feature2": "Grabación de voces",
@@ -64,8 +63,8 @@
     "basic": {
       "title": "Locución Básica",
       "wordCount": "100",
-      "price": "30",
-      "delivery": "5 días de entrega",
+      "delivery": "Entrega estimada: 5 días",
+      "whatsappMessage": "Hola, me interesa una cotización para una Locución Básica (hasta 100 palabras). ¿Podemos hablar?",
       "features": {
         "feature1": "Locución profesional",
         "feature2": "Edición y masterización",
@@ -76,10 +75,10 @@
       }
     },
     "standard": {
-      "title": "Locución Standard",
+      "title": "Locución Estándar",
       "wordCount": "300",
-      "price": "50",
-      "delivery": "5 días de entrega",
+      "delivery": "Entrega estimada: 5 días",
+      "whatsappMessage": "Hola, me interesa una cotización para una Locución Estándar (hasta 300 palabras). ¿Podemos hablar?",
       "features": {
         "feature1": "Locución profesional",
         "feature2": "Música de fondo incluida",
@@ -94,8 +93,8 @@
     "premium": {
       "title": "Locución Premium",
       "wordCount": "500",
-      "price": "70",
-      "delivery": "6 días de entrega",
+      "delivery": "Entrega estimada: 6 días",
+      "whatsappMessage": "Hola, me interesa una cotización para una Locución Premium (hasta 500 palabras). ¿Podemos hablar?",
       "features": {
         "feature1": "Locución profesional",
         "feature2": "Música de fondo incluida",

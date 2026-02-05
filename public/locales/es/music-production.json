@@ -7,14 +7,14 @@
       "title3": "Profesional",
       "description": "Creamos la identidad sonora perfecta para tu marca con música original y producción de alta calidad para todos tus proyectos",
       "buttons": {
-        "viewPackages": "Ver Paquetes",
+        "viewPackages": "Solicitar Cotización",
         "listenSamples": "Escuchar Muestras"
       }
     },
     "services": {
       "title": "Nuestros Servicios",
       "subtitle": "Soluciones Personalizadas",
-      "description": "Ofrecemos una amplia gama de servicios de producción musical adaptados a tus necesidades específicas",
+      "description": "Cuéntanos qué necesitas y te enviamos una propuesta personalizada sin compromiso",
       "items": {
         "jingles": {
           "title": "Jingles Publicitarios",
@@ -51,7 +51,7 @@
         }
       },
       "buttons": {
-        "viewPackages": "Ver Paquetes",
+        "viewPackages": "Solicitar Cotización",
         "requestQuote": "Solicitar Cotización"
       }
     },

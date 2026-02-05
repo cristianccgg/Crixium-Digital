@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Check, Music, Mic, Sparkles, ArrowRight } from "lucide-react";
-import SimplifiedMusicForm from "./SimplifiedMusicForm"; // Importamos el formulario simplificado
+import {
+  Check,
+  Music,
+  Mic,
+  Sparkles,
+  ArrowRight,
+  MessageCircle,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const ServiceSelector = ({ activeService, onServiceChange }) => {
@@ -42,15 +48,21 @@ const ServiceSelector = ({ activeService, onServiceChange }) => {
 
 const PricingCard = ({
   title,
-  price,
   delivery,
   features,
   isPopular,
-  onSelect,
-  id,
+  whatsappMessage,
 }) => {
-  const { t } = useTranslation("pricing");
+  const { t, i18n } = useTranslation("pricing");
   const [hovering, setHovering] = useState(false);
+  const isES = i18n.language?.startsWith("es");
+
+  const whatsappUrl = `https://wa.me/573219746045?text=${encodeURIComponent(
+    whatsappMessage ||
+      (isES
+        ? `Hola, me interesa una cotización para ${title}. ¿Podemos hablar?`
+        : `Hi, I'm interested in a quote for ${title}. Can we talk?`)
+  )}`;
 
   return (
     <div
@@ -72,13 +84,6 @@ const PricingCard = ({
       )}
       <div className="flex-grow">
         <h3 className="text-xl font-bold text-gray-900 mb-4">{title}</h3>
-        <div className="flex items-baseline mb-6">
-          <span className="text-xl font-bold text-gray-600 mr-2">
-            {t("package.since")}
-          </span>
-          <span className="text-4xl font-bold text-gray-900">US${price}</span>
-          <span className="ml-1 text-gray-500">/{t("package.service")}</span>
-        </div>
         <div
           className={`${
             isPopular
@@ -111,22 +116,25 @@ const PricingCard = ({
           ))}
         </ul>
       </div>
-      <button
-        onClick={() => onSelect(id)}
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
         className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg transition-all duration-300 ${
           isPopular || hovering
-            ? "bg-purple-700 text-white hover:bg-coral-400"
-            : "bg-purple-50 text-purple-700 hover:bg-purple-700 hover:text-white"
+            ? "bg-green-600 text-white hover:bg-green-700"
+            : "bg-green-50 text-green-700 hover:bg-green-600 hover:text-white"
         }`}
       >
-        <span>{t("package.selectPlan")}</span>
+        <MessageCircle size={18} />
+        <span>{t("package.requestQuote")}</span>
         <ArrowRight
           size={16}
           className={`transition-transform duration-300 ${
             hovering ? "translate-x-1" : ""
           }`}
         />
-      </button>
+      </a>
     </div>
   );
 };
@@ -134,15 +142,21 @@ const PricingCard = ({
 const VoiceoverCard = ({
   title,
   wordCount,
-  price,
   delivery,
   features,
   isPopular,
-  onSelect,
-  id,
+  whatsappMessage,
 }) => {
-  const { t } = useTranslation("pricing");
+  const { t, i18n } = useTranslation("pricing");
   const [hovering, setHovering] = useState(false);
+  const isES = i18n.language?.startsWith("es");
+
+  const whatsappUrl = `https://wa.me/573219746045?text=${encodeURIComponent(
+    whatsappMessage ||
+      (isES
+        ? `Hola, me interesa una cotización para ${title}. ¿Podemos hablar?`
+        : `Hi, I'm interested in a quote for ${title}. Can we talk?`)
+  )}`;
 
   return (
     <div
@@ -164,10 +178,6 @@ const VoiceoverCard = ({
       )}
       <div className="flex-grow">
         <h3 className="text-xl font-bold text-gray-900 mb-4">{title}</h3>
-        <div className="flex items-baseline mb-6">
-          <span className="text-4xl font-bold text-gray-900">US${price}</span>
-          <span className="ml-1 text-gray-500">/{t("package.service")}</span>
-        </div>
         <div
           className={`${
             isPopular
@@ -203,22 +213,25 @@ const VoiceoverCard = ({
           ))}
         </ul>
       </div>
-      <button
-        onClick={() => onSelect(id)}
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
         className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg transition-all duration-300 ${
           isPopular || hovering
-            ? "bg-purple-700 text-white hover:bg-coral-400"
-            : "bg-purple-50 text-purple-700 hover:bg-purple-700 hover:text-white"
+            ? "bg-green-600 text-white hover:bg-green-700"
+            : "bg-green-50 text-green-700 hover:bg-green-600 hover:text-white"
         }`}
       >
-        <span>{t("package.selectPlan")}</span>
+        <MessageCircle size={18} />
+        <span>{t("package.requestQuote")}</span>
         <ArrowRight
           size={16}
           className={`transition-transform duration-300 ${
             hovering ? "translate-x-1" : ""
           }`}
         />
-      </button>
+      </a>
     </div>
   );
 };
@@ -228,16 +241,13 @@ const PricingSection = ({ initialService }) => {
   const [activeService, setActiveService] = useState(
     initialService || "jingles"
   );
-  const [selectedPackage, setSelectedPackage] = useState(null);
-  const [showCheckout, setShowCheckout] = useState(false);
 
-  // Definición de paquetes usando las traducciones
   const packages = [
     {
       id: "basic",
       title: t("jingles.basic.title"),
-      price: t("jingles.basic.price"),
       delivery: t("jingles.basic.delivery"),
+      whatsappMessage: t("jingles.basic.whatsappMessage"),
       features: [
         t("jingles.basic.features.feature1"),
         t("jingles.basic.features.feature2"),
@@ -247,14 +257,12 @@ const PricingSection = ({ initialService }) => {
         t("jingles.basic.features.feature6"),
         t("jingles.basic.features.feature7"),
       ],
-      type: "music",
-      category: "jingle",
     },
     {
       id: "standard",
       title: t("jingles.standard.title"),
-      price: t("jingles.standard.price"),
       delivery: t("jingles.standard.delivery"),
+      whatsappMessage: t("jingles.standard.whatsappMessage"),
       features: [
         t("jingles.standard.features.feature1"),
         t("jingles.standard.features.feature2"),
@@ -265,14 +273,12 @@ const PricingSection = ({ initialService }) => {
         t("jingles.standard.features.feature7"),
       ],
       isPopular: true,
-      type: "music",
-      category: "jingle",
     },
     {
       id: "premium",
       title: t("jingles.premium.title"),
-      price: t("jingles.premium.price"),
       delivery: t("jingles.premium.delivery"),
+      whatsappMessage: t("jingles.premium.whatsappMessage"),
       features: [
         t("jingles.premium.features.feature1"),
         t("jingles.premium.features.feature2"),
@@ -282,8 +288,6 @@ const PricingSection = ({ initialService }) => {
         t("jingles.premium.features.feature6"),
         t("jingles.premium.features.feature7"),
       ],
-      type: "music",
-      category: "jingle",
     },
   ];
 
@@ -292,8 +296,8 @@ const PricingSection = ({ initialService }) => {
       id: "vo-basic",
       title: t("voiceover.basic.title"),
       wordCount: t("voiceover.basic.wordCount"),
-      price: t("voiceover.basic.price"),
       delivery: t("voiceover.basic.delivery"),
+      whatsappMessage: t("voiceover.basic.whatsappMessage"),
       features: [
         t("voiceover.basic.features.feature1"),
         t("voiceover.basic.features.feature2"),
@@ -302,15 +306,13 @@ const PricingSection = ({ initialService }) => {
         t("voiceover.basic.features.feature5"),
         t("voiceover.basic.features.feature6"),
       ],
-      type: "music",
-      category: "locucion",
     },
     {
       id: "vo-standard",
       title: t("voiceover.standard.title"),
       wordCount: t("voiceover.standard.wordCount"),
-      price: t("voiceover.standard.price"),
       delivery: t("voiceover.standard.delivery"),
+      whatsappMessage: t("voiceover.standard.whatsappMessage"),
       features: [
         t("voiceover.standard.features.feature1"),
         t("voiceover.standard.features.feature2"),
@@ -322,15 +324,13 @@ const PricingSection = ({ initialService }) => {
         t("voiceover.standard.features.feature8"),
       ],
       isPopular: true,
-      type: "music",
-      category: "locucion",
     },
     {
       id: "vo-premium",
       title: t("voiceover.premium.title"),
       wordCount: t("voiceover.premium.wordCount"),
-      price: t("voiceover.premium.price"),
       delivery: t("voiceover.premium.delivery"),
+      whatsappMessage: t("voiceover.premium.whatsappMessage"),
       features: [
         t("voiceover.premium.features.feature1"),
         t("voiceover.premium.features.feature2"),
@@ -342,24 +342,8 @@ const PricingSection = ({ initialService }) => {
         t("voiceover.premium.features.feature8"),
         t("voiceover.premium.features.feature9"),
       ],
-      type: "music",
-      category: "locucion",
     },
   ];
-
-  const handlePackageSelect = (packageId) => {
-    const selected =
-      activeService === "jingles"
-        ? packages.find((pkg) => pkg.id === packageId)
-        : voiceoverPackages.find((pkg) => pkg.id === packageId);
-    setSelectedPackage(selected);
-    setShowCheckout(true);
-  };
-
-  const handleCloseCheckout = () => {
-    setShowCheckout(false);
-    setSelectedPackage(null);
-  };
 
   useEffect(() => {
     if (initialService) {
@@ -372,64 +356,26 @@ const PricingSection = ({ initialService }) => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <div className="inline-block mb-2 px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
-            {t("pricing.transparentPricing")}
+            {t("pricing.badge")}
           </div>
-          <h2 className="text-3xl font-bold mb-4">
-            {t("pricing.plansAndPrices")}
-          </h2>
+          <h2 className="text-3xl font-bold mb-4">{t("pricing.title")}</h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            {t("pricing.chooseService")}
+            {t("pricing.subtitle")}
           </p>
         </div>
 
-        {!showCheckout && (
-          <>
-            <ServiceSelector
-              activeService={activeService}
-              onServiceChange={setActiveService}
-            />
+        <ServiceSelector
+          activeService={activeService}
+          onServiceChange={setActiveService}
+        />
 
-            <div className="grid md:grid-cols-3 gap-8">
-              {activeService === "jingles"
-                ? packages.map((pkg) => (
-                    <PricingCard
-                      key={pkg.id}
-                      {...pkg}
-                      onSelect={handlePackageSelect}
-                    />
-                  ))
-                : voiceoverPackages.map((pkg) => (
-                    <VoiceoverCard
-                      key={pkg.id}
-                      {...pkg}
-                      onSelect={handlePackageSelect}
-                    />
-                  ))}
-            </div>
-          </>
-        )}
-
-        {showCheckout && (
-          <div className="animate-fadeIn">
-            <button
-              onClick={handleCloseCheckout}
-              className="mb-6 text-gray-600 hover:text-purple-700 flex items-center gap-2 transition-colors duration-200 group bg-white py-2 px-4 rounded-lg shadow-sm"
-            >
-              <ArrowRight
-                size={16}
-                className="transform rotate-180 group-hover:-translate-x-1 transition-transform duration-200"
-              />
-              <span>{t("package.backToPlans")}</span>
-            </button>
-            <div className="bg-white p-6 rounded-xl shadow-lg">
-              {/* Usamos el nuevo formulario simplificado */}
-              <SimplifiedMusicForm
-                selectedPackage={selectedPackage}
-                onCancel={handleCloseCheckout}
-              />
-            </div>
-          </div>
-        )}
+        <div className="grid md:grid-cols-3 gap-8">
+          {activeService === "jingles"
+            ? packages.map((pkg) => <PricingCard key={pkg.id} {...pkg} />)
+            : voiceoverPackages.map((pkg) => (
+                <VoiceoverCard key={pkg.id} {...pkg} />
+              ))}
+        </div>
       </div>
     </section>
   );

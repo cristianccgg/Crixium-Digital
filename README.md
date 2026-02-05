@@ -1,196 +1,213 @@
-# Crixium Digital - Reestructuración para Venta
+# Crixium Digital - Sitio de Venta
 
 ## Contexto
 
-El sitio lleva meses en vivo como portafolio sin promoción activa. Google Search Console muestra 228 impresiones, 1 clic, CTR 0.4%, posición media 7.5 en 3 meses. El trabajo en Fiverr ha bajado y necesitamos que el sitio funcione como herramienta de venta activa, tanto con Google Ads como orgánicamente.
+El sitio fue transformado de portafolio a sitio de venta enfocado en desarrollo web. La producción musical queda como servicio secundario. Todo el flujo apunta a WhatsApp o formulario de contacto para cotización directa con el cliente.
 
-**Decisión:** Enfocar en **desarrollo y diseño web** como servicio principal de venta. La producción musical queda como servicio secundario.
-
-## Objetivo
-
-Transformar el sitio de portafolio a sitio de venta enfocado en desarrollo web, manteniendo los proyectos como prueba social/casos de éxito. Debe funcionar como landing para ads Y generar tráfico orgánico.
-
-## Estrategia de Venta
-
-- **NO checkout/PayPal en el flujo de desarrollo web.** Los servicios web son personalizados y requieren conversación previa.
-- **CTA principal:** WhatsApp y formulario de contacto. El objetivo es iniciar una conversación, no un pago inmediato.
-- **Precios de referencia** ("Desde $XXX") para filtrar clientes y generar expectativa, pero no para cobrar directamente.
-- **PayPal** se mantiene solo para producción musical (jingles, voiceovers) que son más estandarizados.
-- **Sistema de tracking:** Se saca de la landing principal. Se menciona como beneficio dentro de los paquetes ("Incluye seguimiento en tiempo real"). La página `/tracking` sigue existiendo para clientes activos.
-- **Flujo de conversión esperado:** Landing → WhatsApp/Formulario → Conversación → Cotización personalizada → Pago por transferencia/PayPal directo.
+**Stack:** React 19 + Vite 6 + Tailwind CSS 4 + i18next + Framer Motion
+**Deployment:** Vercel
+**WhatsApp:** +573219746045
+**Analytics:** Firebase Analytics (G-11J6Q97KD0)
 
 ---
 
-## Plan de Trabajo
+## Estado Actual
 
-### FASE 1: Reestructurar Landing Principal (LandingPage.jsx)
+### Completado
 
-**Estado:** [ ] Pendiente
+#### Landing Principal (`/`)
+- [x] Hero enfocado en venta ("Diseñamos la Web que tu Negocio Necesita para Vender Más")
+- [x] CTA principal a WhatsApp, CTA secundario a proyectos
+- [x] Sección Problema/Solución (ProblemSolution.jsx)
+- [x] Servicios con web como principal, música como secundario
+- [x] Proyectos destacados como casos de éxito
+- [x] Stats de prueba social (600+, 250+, 8+, 100%)
+- [x] Reviews/testimonios
+- [x] PricingPreview sin precios fijos, con CTA WhatsApp por paquete
+- [x] CTA final con beneficio ("Respuesta en menos de 24 horas")
+- [x] Partículas reducidas a 8 (performance mobile)
+- [x] TechnologiesSection y TrackingLanding eliminados de landing
 
-El flujo actual no tiene embudo de venta. Hay que reordenar las secciones para guiar al visitante hacia la conversión.
+#### Página Web Development (`/web-development`)
+- [x] Hero con CTA "Solicitar Cotización Gratis" → WhatsApp
+- [x] Servicios: Corporativo, E-commerce, Rediseño
+- [x] ServicesSection con formulario de contacto integrado
+- [x] Sin precios fijos - todo por cotización
+- [x] Tecnologías, proyectos, proceso, reviews
 
-#### 1.1 Nuevo Hero Section (EnhancedHeroSection.jsx)
-- [ ] Cambiar propuesta de valor genérica ("Eleva tu Marca con Creatividad y Tecnología") por una enfocada en el beneficio para el cliente
-  - Ejemplo: "Diseñamos la web que tu negocio necesita para vender más"
-- [ ] CTA principal: "Solicita tu cotización gratis" → enlace a WhatsApp o formulario de contacto
-- [ ] CTA secundario: "Ver nuestro trabajo" → scroll a proyectos
-- [ ] Eliminar botones de tracking y música del hero
-- [ ] Reemplazar la preview card de tracking por beneficios clave o estadísticas de impacto
-- [ ] Reducir partículas de 20 a ~8 (performance mobile)
-- [ ] Actualizar traducciones en `public/locales/es/hero.json` y `public/locales/en/hero.json`
+#### Página Music Production (`/music-production`)
+- [x] Sin precios fijos - CTA WhatsApp por paquete
+- [x] Jingles y Locución con mensaje WhatsApp pre-armado
+- [x] Hero "Solicitar Cotización" en vez de "Ver Paquetes"
+- [x] Sin checkout form - todo por WhatsApp/contacto directo
 
-#### 1.2 Nuevo orden de secciones en LandingPage.jsx
-- [ ] **Hero** — Propuesta de valor + CTA a WhatsApp/contacto
-- [ ] **Problema/Solución** (NUEVO) — Conectar con el dolor del cliente y cómo lo resolvemos
-- [ ] **Servicios** — Web como principal, música como secundario
-- [ ] **Proyectos destacados** — Como casos de éxito con resultados
-- [ ] **Stats/Cifras** — Prueba social con números
-- [ ] **Reviews** — Testimonios de clientes
-- [ ] **Precios de Referencia** (NUEVO) — Paquetes con "Desde $XXX" y CTA a WhatsApp/contacto
-- [ ] **CTA Final** — Cierre con beneficio ("Respuesta en menos de 24 horas")
-- [ ] **ELIMINAR** `TechnologiesSection` de la landing
-- [ ] **ELIMINAR** `TrackingLanding` de la landing (mover a feature mencionado en paquetes)
+#### Landing Google Ads (`/servicios/desarrollo-web`)
+- [x] Página standalone sin navegación completa
+- [x] Header mínimo con logo + CTA
+- [x] Hero ultra-enfocado con un solo CTA (WhatsApp)
+- [x] Stats de confianza, beneficios, qué incluye
+- [x] Testimonial, garantía, CTA final
+- [x] Footer mínimo
+- [x] Traducciones es/en completas
 
-#### 1.3 Sección Problema/Solución (Componente NUEVO)
-- [ ] Crear componente `ProblemSolution.jsx` en `src/components/web_development/`
-- [ ] 3 problemas comunes del cliente objetivo:
-  - "No tienes presencia online y pierdes clientes"
-  - "Tu web actual se ve anticuada y no genera confianza"
-  - "No sabes por dónde empezar con tu proyecto digital"
-- [ ] Para cada problema, mostrar cómo Crixium lo resuelve
-- [ ] Agregar traducciones es/en
+#### SEO
+- [x] Meta tags enfocados en desarrollo web (sin precios)
+- [x] Schema.org: LocalBusiness, WebDevelopmentService, MusicProductionService, BlogPosting
+- [x] Open Graph y Twitter Cards dinámicos
+- [x] robots.txt configurado
+- [x] Sitemap XML con hreflang
 
-#### 1.4 Precios de Referencia en Landing (Componente NUEVO)
-- [ ] Crear componente `PricingPreview.jsx` con 2-3 paquetes
-- [ ] Precios como "Desde $XXX" (no precio fijo)
-- [ ] CTA de cada paquete → WhatsApp con mensaje pre-armado ("Hola, me interesa el paquete [X] para mi proyecto web")
-- [ ] Mencionar "Incluye seguimiento en tiempo real de tu proyecto" como feature
-- [ ] Enlace a página completa de web-development para más detalles
+#### Flujo de Conversión
+- [x] Todo CTA → WhatsApp o formulario de contacto
+- [x] Sin checkout/PayPal en ningún flujo activo
+- [x] Mensajes WhatsApp pre-armados por servicio/paquete
+- [x] Formulario de contacto con campos: nombre, email, teléfono, servicio, tipo de proyecto, mensaje
 
-### FASE 2: Optimización de CTAs y Conversión
+#### CTA Global (SharedLayout)
+- [x] "Solicita tu Cotización Gratuita — Respuesta en menos de 24 horas"
+- [x] Botón → WhatsApp
 
-**Estado:** [ ] Pendiente
-
-#### 2.1 CallToAction global (SharedLayout.jsx)
-- [ ] Cambiar texto genérico por algo directo con beneficio
-  - "Solicita tu cotización gratuita — Respuesta en menos de 24 horas"
-- [ ] CTA → WhatsApp o formulario de contacto
-- [ ] Actualizar traducciones en `public/locales/es/cta.json` y `en/cta.json`
-
-#### 2.2 WhatsApp Button
-- [ ] Mensaje desde landing: "Hola, me interesa una cotización para desarrollo web"
-- [ ] Mensaje desde precios: "Hola, me interesa el paquete [X]"
-- [ ] Verificar que todos los mensajes están orientados a venta
-
-#### 2.3 Formulario de contacto
-- [ ] Campos mínimos: nombre, email, tipo de proyecto, mensaje
-- [ ] Opciones de tipo de proyecto: "Página web nueva", "Rediseño", "E-commerce", "Otro"
-
-### FASE 3: SEO y Preparación para Ads
-
-**Estado:** [ ] Pendiente
-
-#### 3.1 Meta tags y SEO on-page
-- [ ] Title: "Diseño y Desarrollo Web Profesional | Crixium Digital"
-- [ ] Description enfocada en desarrollo web con call to action
-- [ ] h1, h2 con keywords: "diseño web", "desarrollo web", "páginas web para empresas"
-- [ ] Actualizar `public/locales/es/seo.json` y `en/seo.json`
-
-#### 3.2 Optimización para Google Ads
-- [ ] Reducir partículas animadas para mejorar velocidad
-- [ ] Verificar lazy loading de imágenes
-- [ ] Verificar que Google Analytics/Tag Manager está configurado
-- [ ] Contenido above-the-fold debe coincidir con lo que promete el ad
-
-#### 3.3 PayPal
-- [ ] Mantener PayPal solo en flujo de producción musical
-- [ ] Remover PayPal del flujo de desarrollo web (si estaba integrado)
-- [ ] Cambiar a producción cuando se necesite para música
-
-### FASE 4: Landing Pages Dedicadas para Ads (Futuro)
-
-**Estado:** [ ] Pendiente
-
-#### 4.1 Landing page para Google Ads
-- [ ] Ruta `/servicios/desarrollo-web` ultra-enfocada en conversión
-- [ ] Sin navegación completa (reduce distracciones)
-- [ ] Un solo servicio, un solo CTA (WhatsApp), prueba social mínima
-- [ ] Optimizada para Quality Score de Google Ads
+#### Traducciones (es/en)
+- [x] hero.json, cta.json, seo.json
+- [x] problem-solution.json, pricing-preview.json
+- [x] pricing-section-web.json (sin precios)
+- [x] pricing.json (música, sin precios)
+- [x] web-development.json, music-production.json
+- [x] ads-landing.json
 
 ---
 
-## Estructura Actual vs. Propuesta
+## Pendiente - Próximas Fases
 
-### Landing Actual:
-```
-Hero (genérico: creatividad + tecnología)
-  → 3 botones: Web, Música, Tracking
-Servicios (Web + Música al mismo nivel)
-Proyectos Destacados (web + música + video)
-Tecnologías (React, Node, etc.)
-Tracking Landing (sección entera dedicada)
-Stats (250+ proyectos, 600+ clientes...)
-Reviews
-Por qué elegirnos
-CTA global (genérico → contacto)
-```
+### FASE 5: Tracking de Conversiones (CRITICO para Google Ads)
 
-### Landing Propuesta:
-```
-Hero (enfocado: "Diseñamos la web que vende")
-  → CTA principal: WhatsApp / Cotizar gratis
-  → CTA secundario: Ver nuestro trabajo
-Problema/Solución (NUEVO - dolor del cliente → nuestra solución)
-Servicios (Web principal, música secundario)
-Proyectos como Casos de Éxito (con resultados)
-Stats (mismos números, mejor contexto)
-Reviews (testimonios)
-Precios de Referencia (NUEVO - "Desde $XXX" + CTA WhatsApp)
-CTA final (con beneficio: "Respuesta en menos de 24h")
-```
+**Sin esto, no se puede medir ROI de Google Ads.**
+
+#### 5.1 Google Tag Manager (GTM)
+- [ ] Crear contenedor GTM
+- [ ] Agregar script GTM en `index.html`
+- [ ] Configurar triggers para:
+  - Clics en botón WhatsApp (todos los CTAs)
+  - Envío de formulario de contacto
+  - Clics en CTA de paquetes
+  - Page views de landing de ads
+
+#### 5.2 Eventos de conversión en WhatsAppButton.jsx
+- [ ] Agregar `gtag("event", "contact", { method: "whatsapp", page: currentPage })` al click
+- [ ] O usar Firebase Analytics: `logEvent(analytics, "whatsapp_click", { page, service })`
+- [ ] Trackear en TODOS los botones de WhatsApp (hero, pricing cards, CTA global, ads landing)
+
+#### 5.3 Eventos de conversión en ContactForm.jsx
+- [ ] Agregar `gtag("event", "generate_lead", { service, projectType })` al submit exitoso
+- [ ] Trackear en el formulario de ServicesSection.jsx también
+
+#### 5.4 Google Ads Conversion Tracking
+- [ ] Configurar conversión en Google Ads panel
+- [ ] Vincular GTM con Google Ads
+- [ ] Definir valor de conversión por tipo de lead
+
+### FASE 6: FAQ Schema y Componente
+
+**Impacta directamente el Quality Score de Google Ads (= menor costo por clic).**
+
+#### 6.1 Componente FAQ
+- [ ] Crear `src/components/FAQ.jsx` con accordion
+- [ ] Preguntas sobre: proceso de trabajo, tiempos de entrega, qué incluye, soporte, tecnologías
+- [ ] Agregar en landing principal y/o página web-development
+- [ ] Traducciones es/en
+
+#### 6.2 FAQ Schema
+- [ ] Agregar tipo "FAQ" en `SimpleSchemaData.jsx`
+- [ ] Generar JSON-LD con preguntas/respuestas
+
+### FASE 7: Performance y Quality Score
+
+#### 7.1 Code Splitting
+- [ ] Implementar `React.lazy()` para todas las rutas en `App.jsx`
+- [ ] Agregar `<Suspense>` con fallback de loading
+- [ ] Rutas a lazy-load: WebDevelopmentPage, MusicProductionPage, ContactPage, BlogPage, OrderTracking, AdsLandingPage, AdminPanel
+
+#### 7.2 Headers de Vercel
+- [ ] Agregar en `vercel.json`:
+  - `Cache-Control` para assets estáticos
+  - `X-Content-Type-Options: nosniff`
+  - `X-Frame-Options: DENY`
+  - `Referrer-Policy: strict-origin-when-cross-origin`
+
+#### 7.3 Preconnect hints
+- [ ] Agregar en `index.html`:
+  - `<link rel="preconnect" href="https://firebaseapp.com">`
+  - `<link rel="dns-prefetch" href="https://wa.me">`
+
+#### 7.4 Optimización de imágenes
+- [ ] Convertir imágenes de proyectos a WebP
+- [ ] Agregar `srcset` para responsive images
+- [ ] Comprimir logo.png (actualmente 40KB)
+
+### FASE 8: Mejoras Secundarias
+
+#### 8.1 Página 404
+- [ ] Crear componente `NotFound.jsx`
+- [ ] CTA de regreso a home o WhatsApp
+- [ ] Agregar ruta catch-all en App.jsx
+
+#### 8.2 Sitemap actualizado
+- [ ] Agregar `/servicios/desarrollo-web` al script `generate-sitemap.js`
+- [ ] Agregar `/privacy-policy` y `/terms-conditions`
+
+#### 8.3 Blog SEO
+- [ ] Agregar BreadcrumbList schema para posts
+- [ ] Agregar Person schema para autor
+- [ ] Agregar estimated reading time
 
 ---
 
-## Archivos Principales a Modificar
+## Estructura de Rutas
 
-| Archivo | Cambio |
-|---|---|
-| `src/components/LandingPage.jsx` | Reordenar secciones, quitar Technologies/Tracking, agregar nuevos |
-| `src/components/web_development/EnhancedHeroSection.jsx` | Nuevo copy + CTAs a WhatsApp/contacto |
-| `src/components/web_development/EnhancedServices.jsx` | Priorizar web sobre música |
-| `src/components/web_development/FeaturedProjectsLanding.jsx` | Reframe como casos de éxito |
-| `src/components/SharedLayout.jsx` | CTA global → WhatsApp/contacto con beneficio |
-| `src/components/WhyToChoose.jsx` | Ajustar propuestas de valor |
-| `public/locales/es/hero.json` | Nuevo copy de venta en español |
-| `public/locales/en/hero.json` | Nuevo copy de venta en inglés |
-| `public/locales/es/cta.json` | CTA directo con beneficio |
-| `public/locales/en/cta.json` | CTA directo con beneficio |
-| `public/locales/es/seo.json` | Meta tags enfocados en desarrollo web |
-| `public/locales/en/seo.json` | Meta tags enfocados en desarrollo web |
-| **NUEVO** `src/components/web_development/ProblemSolution.jsx` | Sección problema/solución |
-| **NUEVO** `src/components/web_development/PricingPreview.jsx` | Precios de referencia + CTA WhatsApp |
-| **NUEVO** `public/locales/es/problem-solution.json` | Traducciones problema/solución |
-| **NUEVO** `public/locales/en/problem-solution.json` | Traducciones problema/solución |
-| **NUEVO** `public/locales/es/pricing-preview.json` | Traducciones precios landing |
-| **NUEVO** `public/locales/en/pricing-preview.json` | Traducciones precios landing |
+| Ruta | Componente | Propósito |
+|------|-----------|-----------|
+| `/` | LandingPage | Landing principal de venta |
+| `/web-development` | WebDevelopmentPage | Servicios de desarrollo web |
+| `/music-production` | MusicProductionPage | Servicios de producción musical |
+| `/servicios/desarrollo-web` | AdsLandingPage | Landing dedicada Google Ads (sin nav) |
+| `/contact` | ContactPage | Formulario de contacto |
+| `/tracking` | OrderTracking | Seguimiento para clientes activos |
+| `/blog` | BlogPage | Blog con artículos |
+| `/blog/:slug` | BlogPostDetail | Artículo individual |
+| `/privacy-policy` | PrivacyPolicy | Política de privacidad |
+| `/terms-conditions` | TermsAndConditions | Términos y condiciones |
+| `/admin/*` | AdminPanel | Panel de administración (protegido) |
+
+Todas las rutas tienen versión `/en/` para inglés.
+
+---
+
+## Archivos Clave
+
+| Archivo | Qué hace |
+|---------|----------|
+| `src/App.jsx` | Router con todas las rutas |
+| `src/components/LandingPage.jsx` | Landing principal con secciones de venta |
+| `src/components/SharedLayout.jsx` | Layout con header, footer, CTA global |
+| `src/components/web_development/EnhancedHeroSection.jsx` | Hero de venta con WhatsApp CTA |
+| `src/components/web_development/ProblemSolution.jsx` | Sección problema/solución |
+| `src/components/web_development/PricingPreview.jsx` | Paquetes sin precios en landing |
+| `src/components/web_development/UnifiedPricingSection.jsx` | Paquetes web detallados (sin precios, WhatsApp CTA) |
+| `src/components/web_development/ServicesSection.jsx` | Servicios web con formulario integrado |
+| `src/components/web_development/AdsLandingPage.jsx` | Landing standalone para Google Ads |
+| `src/components/music_production/PricingSection.jsx` | Paquetes música (sin precios, WhatsApp CTA) |
+| `src/components/WhatsAppButton.jsx` | Botón flotante WhatsApp |
+| `src/components/ContactForm.jsx` | Formulario de contacto |
+| `src/components/SEO/SimpleSEO.jsx` | Meta tags, OG, Twitter Cards |
+| `src/components/SEO/SimpleSchemaData.jsx` | Schema.org JSON-LD |
 
 ---
 
 ## Notas Técnicas
 
-- **Stack:** React 19 + Vite 6 + Tailwind CSS 4 + i18next + Framer Motion
-- **Deployment:** Vercel
-- **i18n:** Todas las modificaciones de texto en AMBOS idiomas (es/en)
-- **Paleta:** Purple (#5e2ca5 principal), Coral (#ff4d4d acento)
-- **WhatsApp:** +573219746045
-- **Conversión:** Todo CTA principal va a WhatsApp o formulario de contacto, NO a checkout
-
-## Prioridad de Implementación
-
-1. **Hero + copy de venta** (impacto inmediato, above the fold)
-2. **Reorden de secciones** en LandingPage.jsx
-3. **Sección Problema/Solución** (nuevo componente)
-4. **Precios de referencia** en landing (nuevo componente)
-5. **SEO meta tags** actualizados
-6. **CTA global** mejorado
-7. **Landing dedicada para ads** (fase futura)
+- **i18n:** TODAS las modificaciones de texto van en AMBOS idiomas (es/en) en `public/locales/`
+- **Paleta:** Purple (#5e2ca5 principal), Coral (#ff4d4d acento), Green (#16a34a WhatsApp CTAs)
+- **Conversión:** Todo CTA principal → WhatsApp o formulario, NO checkout
+- **Sin precios fijos** en ninguna parte del sitio (ni web ni música)
+- **PaymentGateway.jsx** existe pero no se usa en ningún flujo activo
+- **Firebase Analytics** configurado pero sin eventos de conversión (pendiente FASE 5)
