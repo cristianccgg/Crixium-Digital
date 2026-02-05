@@ -20,6 +20,9 @@ import BlogPage from "./components/blog/BlogPage";
 import BlogPostDetail from "./components/blog/BlogPostDetail";
 import BlogCategory from "./components/blog/BlogCategory";
 
+// Landing page dedicada para Google Ads
+import AdsLandingPage from "./components/web_development/AdsLandingPage";
+
 function App() {
   return (
     <Router>
@@ -40,6 +43,16 @@ function App() {
           <Route
             path="/payment-response"
             element={<PaymentResponseHandler />}
+          />
+
+          {/* Landing page para Google Ads - sin navegación completa */}
+          <Route
+            path="/servicios/desarrollo-web"
+            element={<AdsLandingPage />}
+          />
+          <Route
+            path="/en/servicios/desarrollo-web"
+            element={<AdsLandingPage />}
           />
 
           {/* Rutas públicas en español (sin prefijo) */}

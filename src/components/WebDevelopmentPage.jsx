@@ -24,6 +24,7 @@ import { useTranslation } from "react-i18next";
 import SimpleSEO from "./SEO/SimpleSEO";
 import SimpleSchemaData from "./SEO/SimpleSchemaData";
 import ServicesSection from "./web_development/ServicesSection";
+import { MessageCircle } from "lucide-react";
 
 const ServiceCard = ({
   icon: Icon,
@@ -149,7 +150,25 @@ const ProcessStep = ({ icon: Icon, title, description, index }) => {
   );
 };
 
-const HeroButton = ({ children, primary = false, onClick, to }) => {
+const HeroButton = ({ children, primary = false, onClick, to, href }) => {
+  // External links use <a>, internal use <Link>, otherwise <button>
+  if (href) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center gap-2 shadow-md group ${
+          primary
+            ? "bg-purple-700 text-white hover:bg-coral-400 hover:shadow-lg"
+            : "bg-white text-purple-700 border border-purple-200 hover:bg-purple-50"
+        }`}
+      >
+        {children}
+      </a>
+    );
+  }
+
   const Component = to ? Link : "button";
   const props = to ? { to } : { onClick };
 
@@ -177,7 +196,7 @@ const TechnologyCard = ({ icon: Icon, name }) => (
 );
 
 const WebDevelopmentPage = () => {
-  const { t } = useTranslation("web-development");
+  const { t, i18n } = useTranslation("web-development");
   const navigate = useNavigate();
   const servicesSectionRef = useRef(null);
   const portfolioRef = useRef(null);
@@ -287,14 +306,13 @@ const WebDevelopmentPage = () => {
             <div className="flex flex-wrap gap-4 justify-center">
               <HeroButton
                 primary
-                onClick={() => {
-                  setProjectType("website");
-                  setSelectedService("wordpress");
-                  servicesSectionRef.current?.scrollIntoView({
-                    behavior: "smooth",
-                  });
-                }}
+                href={`https://wa.me/573219746045?text=${encodeURIComponent(
+                  i18n.language?.startsWith("es")
+                    ? "Hola, me interesa una cotización para un proyecto de desarrollo web. ¿Podemos hablar?"
+                    : "Hi, I'm interested in a quote for a web development project. Can we talk?"
+                )}`}
               >
+                <MessageCircle size={18} />
                 <span>{t("button1")}</span>
                 <ArrowRight
                   size={18}
@@ -303,14 +321,12 @@ const WebDevelopmentPage = () => {
               </HeroButton>
               <HeroButton
                 onClick={() => {
-                  setProjectType("ecommerce");
-                  setSelectedService("wordpress");
                   servicesSectionRef.current?.scrollIntoView({
                     behavior: "smooth",
                   });
                 }}
               >
-                <ShoppingCart size={18} />
+                <Sparkles size={18} />
                 <span>{t("button2")}</span>
               </HeroButton>
             </div>

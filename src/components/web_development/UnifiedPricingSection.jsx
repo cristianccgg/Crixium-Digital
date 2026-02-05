@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Check,
   Code,
   Sparkles,
   ArrowRight,
   Globe,
-  Layers,
   ShoppingCart,
   Monitor,
-  Database,
+  MessageCircle,
 } from "lucide-react";
-import UnifiedCheckoutForm from "./UnifiedCheckoutForm";
 import { useTranslation } from "react-i18next";
 import { packageFeaturesEN } from "../packageFeatures.en";
 import { packageFeaturesES } from "../packageFeatures.es";
@@ -57,7 +55,6 @@ const ProjectTypeSelector = ({ activeType, onTypeChange }) => {
 const ServiceSelector = ({ activeService, onServiceChange, projectType }) => {
   const { t } = useTranslation("pricing-section-web");
 
-  // Opciones de plataforma basadas en el tipo de proyecto
   const options =
     projectType === "website"
       ? [
@@ -109,16 +106,19 @@ const ServiceSelector = ({ activeService, onServiceChange, projectType }) => {
 
 const PricingCard = ({
   title,
-  price,
   delivery,
   features,
   isPopular,
-  onSelect,
-  id,
+  whatsappMessage,
   popularText,
-  selectPlanText,
 }) => {
+  const { t, i18n } = useTranslation("pricing-section-web");
   const [hovering, setHovering] = useState(false);
+  const isES = i18n.language?.startsWith("es");
+
+  const whatsappUrl = `https://wa.me/573219746045?text=${encodeURIComponent(
+    whatsappMessage || (isES ? `Hola, me interesa una cotización para ${title}` : `Hi, I'm interested in a quote for ${title}`)
+  )}`;
 
   return (
     <div
@@ -140,10 +140,6 @@ const PricingCard = ({
       )}
       <div className="flex-grow">
         <h3 className="text-xl font-bold text-gray-900 mb-4">{title}</h3>
-        <div className="flex items-baseline mb-6">
-          <span className="text-4xl font-bold text-gray-900">US${price}</span>
-          <span className="ml-1 text-gray-500">/proyecto</span>
-        </div>
         <div
           className={`${
             isPopular
@@ -176,22 +172,25 @@ const PricingCard = ({
           ))}
         </ul>
       </div>
-      <button
-        onClick={() => onSelect(id)}
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
         className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg transition-all duration-300 ${
           isPopular || hovering
-            ? "bg-purple-700 text-white hover:bg-coral-400"
-            : "bg-purple-50 text-purple-700 hover:bg-purple-700 hover:text-white"
+            ? "bg-green-600 text-white hover:bg-green-700"
+            : "bg-green-50 text-green-700 hover:bg-green-600 hover:text-white"
         }`}
       >
-        <span>{selectPlanText}</span>
+        <MessageCircle size={18} />
+        <span>{t("buttons.requestQuote")}</span>
         <ArrowRight
           size={16}
           className={`transition-transform duration-300 ${
             hovering ? "translate-x-1" : ""
           }`}
         />
-      </button>
+      </a>
     </div>
   );
 };
@@ -202,10 +201,7 @@ const UnifiedPricingSection = ({ initialService, initialType }) => {
   const [activeService, setActiveService] = useState(
     initialService || "wordpress"
   );
-  const [selectedPackage, setSelectedPackage] = useState(null);
-  const [showCheckout, setShowCheckout] = useState(false);
 
-  // Get current locale's package features
   const getFeatures = () => {
     const currentLanguage = i18n.language;
     return currentLanguage.startsWith("es")
@@ -213,83 +209,26 @@ const UnifiedPricingSection = ({ initialService, initialType }) => {
       : packageFeaturesEN;
   };
 
-  const handlePackageSelect = (packageId) => {
-    // Parse packageId to determine type and tier
-    // Format: 'serviceType-tier' (e.g., 'wp-basic', 'custom-premium')
-    const [servicePrefix, tier] = packageId.split("-");
-
-    // Map service prefix to full service name if needed
-    let serviceType = activeService;
-    if (servicePrefix === "woo") {
-      serviceType = "wordpress"; // For WooCommerce
-    } else if (servicePrefix === "wp") {
-      serviceType = "wordpress";
-    }
-
-    // Get features from the correct translation object
-    const features = getFeatures();
-
-    // Get translated info for pricing
-    const translatedInfo = t(
-      `packageBasicInfo.${projectType}.${serviceType}.${tier}`,
-      { returnObjects: true }
-    );
-
-    const selected = {
-      id: packageId,
-      title: translatedInfo.title,
-      price: translatedInfo.price,
-      delivery: translatedInfo.delivery,
-      tier,
-      projectType,
-      serviceType,
-      features: features[projectType][serviceType][tier],
-      isPopular: tier === "standard",
-    };
-
-    setSelectedPackage(selected);
-    setShowCheckout(true);
-  };
-
-  const handleCloseCheckout = () => {
-    setShowCheckout(false);
-    setSelectedPackage(null);
-  };
-
   const getPackageOptions = () => {
     const features = getFeatures();
     const packageTiers = ["basic", "standard", "premium"];
 
     return packageTiers.map((tier, index) => {
-      // Get features from the translation files
       const featuresForTier = features[projectType][activeService][tier];
 
-      // Generate ID based on service and tier
-      let id;
-      if (activeService === "wordpress" && projectType === "ecommerce") {
-        id = `woo-${tier}`;
-      } else if (activeService === "wordpress") {
-        id = `wp-${tier}`;
-      } else {
-        id = `${activeService}-${tier}`;
-      }
-
-      // Determine if this package is the popular option (middle one)
       const isPopular = index === 1;
 
-      // Get translated basic info
       const translatedInfo = t(
         `packageBasicInfo.${projectType}.${activeService}.${tier}`,
         { returnObjects: true }
       );
 
       return {
-        id,
         title: translatedInfo.title,
-        price: translatedInfo.price,
         delivery: translatedInfo.delivery,
         features: featuresForTier,
         isPopular,
+        whatsappMessage: translatedInfo.whatsappMessage || "",
         popularText: isPopular
           ? translatedInfo.popular ||
             t("packageBasicInfo.website.wordpress.standard.popular")
@@ -352,56 +291,25 @@ const UnifiedPricingSection = ({ initialService, initialType }) => {
           </p>
         </div>
 
-        {!showCheckout && (
-          <>
-            <ProjectTypeSelector
-              activeType={projectType}
-              onTypeChange={(type) => {
-                setProjectType(type);
-                // Reiniciar el servicio activo cuando cambia el tipo de proyecto
-                setActiveService("wordpress");
-              }}
-            />
+        <ProjectTypeSelector
+          activeType={projectType}
+          onTypeChange={(type) => {
+            setProjectType(type);
+            setActiveService("wordpress");
+          }}
+        />
 
-            <ServiceSelector
-              activeService={activeService}
-              onServiceChange={setActiveService}
-              projectType={projectType}
-            />
+        <ServiceSelector
+          activeService={activeService}
+          onServiceChange={setActiveService}
+          projectType={projectType}
+        />
 
-            <div className="grid md:grid-cols-3 gap-8">
-              {getPackageOptions().map((pkg) => (
-                <PricingCard
-                  key={pkg.id}
-                  {...pkg}
-                  onSelect={handlePackageSelect}
-                  selectPlanText={t("buttons.selectPlan")}
-                />
-              ))}
-            </div>
-          </>
-        )}
-
-        {showCheckout && (
-          <div className="animate-fadeIn">
-            <button
-              onClick={handleCloseCheckout}
-              className="mb-6 text-gray-600 hover:text-purple-700 flex items-center gap-2 transition-colors duration-200 group bg-white py-2 px-4 rounded-lg shadow-sm"
-            >
-              <ArrowRight
-                size={16}
-                className="transform rotate-180 group-hover:-translate-x-1 transition-transform duration-200"
-              />
-              <span>{t("buttons.backToPlans")}</span>
-            </button>
-            <div className="bg-white p-6 rounded-xl shadow-lg">
-              <UnifiedCheckoutForm
-                selectedPackage={selectedPackage}
-                onCancel={handleCloseCheckout}
-              />
-            </div>
-          </div>
-        )}
+        <div className="grid md:grid-cols-3 gap-8">
+          {getPackageOptions().map((pkg, index) => (
+            <PricingCard key={index} {...pkg} />
+          ))}
+        </div>
 
         {getAdviceBanner()}
       </div>

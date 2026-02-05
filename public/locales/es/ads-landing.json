@@ -1,0 +1,71 @@
+{
+  "seo": {
+    "title": "Desarrollo Web Profesional | Cotización Gratis | Crixium Digital",
+    "description": "Diseñamos sitios web que convierten visitantes en clientes. Entrega en 10-20 días. Cotización gratis y personalizada. 600+ clientes satisfechos."
+  },
+  "header": {
+    "cta": "Cotizar Ahora"
+  },
+  "hero": {
+    "title": {
+      "part1": "Tu negocio necesita una web que ",
+      "highlight": "venda por ti",
+      "part2": ""
+    },
+    "subtitle": "Diseñamos y desarrollamos sitios web profesionales, rápidos y optimizados para que tu negocio crezca online.",
+    "cta": "Solicitar Cotización Gratis",
+    "ctaSubtext": "Respuesta en menos de 24 horas — Sin compromiso"
+  },
+  "stats": {
+    "clients": "Clientes satisfechos",
+    "years": "Años de experiencia",
+    "projects": "Proyectos entregados",
+    "satisfaction": "Satisfacción garantizada"
+  },
+  "benefits": {
+    "title": "¿Por qué elegirnos?",
+    "fast": {
+      "title": "Entrega Rápida",
+      "description": "Tu sitio web listo en 10 a 20 días. Sin demoras innecesarias."
+    },
+    "tracking": {
+      "title": "Seguimiento en Tiempo Real",
+      "description": "Sigue el avance de tu proyecto paso a paso desde tu panel."
+    },
+    "custom": {
+      "title": "Diseño a Tu Medida",
+      "description": "100% adaptado a tu marca, tu industria y tus objetivos."
+    }
+  },
+  "included": {
+    "title": "Todo lo que incluye tu sitio web",
+    "subtitle": "Cada proyecto incluye todo lo necesario para que tu negocio tenga presencia profesional online.",
+    "items": {
+      "responsive": "Diseño responsive para móviles y tablets",
+      "seo": "Optimización SEO para Google",
+      "ssl": "Certificado SSL de seguridad",
+      "speed": "Optimización de velocidad de carga",
+      "analytics": "Google Analytics integrado",
+      "support": "Soporte post-lanzamiento",
+      "contact": "Formularios de contacto funcionales",
+      "social": "Integración con redes sociales"
+    }
+  },
+  "testimonial": {
+    "quote": "Excelente trabajo, entregaron mi sitio web antes de lo esperado y el diseño superó mis expectativas. 100% recomendados.",
+    "author": "— Cliente verificado en Fiverr"
+  },
+  "guarantee": {
+    "title": "Satisfacción garantizada",
+    "description": "Si no estás conforme con el resultado, trabajamos contigo hasta que quede perfecto. Así de simple."
+  },
+  "finalCta": {
+    "title": "¿Listo para tener la web que tu negocio merece?",
+    "subtitle": "Cuéntanos sobre tu proyecto y te enviamos una propuesta personalizada.",
+    "cta": "Escríbenos por WhatsApp",
+    "benefit": "Respuesta en menos de 24 horas — Cotización gratis"
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados."
+  }
+}

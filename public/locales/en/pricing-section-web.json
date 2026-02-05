@@ -1,12 +1,12 @@
 {
-  "badge": "Transparent Pricing",
+  "badge": "Tailored Solutions",
   "sectionTitles": {
     "website": "Web Development",
     "ecommerce": "Online Stores"
   },
   "sectionDescriptions": {
-    "website": "Choose the technology and plan that best suits your needs",
-    "ecommerce": "Choose the platform and plan that best suits your business"
+    "website": "Tell us about your project and we'll send you a personalized quote",
+    "ecommerce": "Choose the ideal platform for your store and request your quote"
   },
   "projectTypes": {
     "website": "Website",
@@ -22,37 +22,38 @@
       "wordpress": {
         "basic": {
           "title": "Landing Page",
-          "price": "120",
-          "delivery": "10 days delivery"
+          "delivery": "Estimated delivery: 10 days",
+          "whatsappMessage": "Hi, I'm interested in a quote for a WordPress Landing Page. Can we talk?",
+          "popular": "Most Popular"
         },
         "standard": {
-          "title": "3-Page Website",
-          "price": "250",
-          "delivery": "14 days delivery",
+          "title": "Multi-page Website",
+          "delivery": "Estimated delivery: 14 days",
+          "whatsappMessage": "Hi, I'm interested in a quote for a Multi-page WordPress Website. Can we talk?",
           "popular": "Most Popular"
         },
         "premium": {
           "title": "Complete Website",
-          "price": "350",
-          "delivery": "20 days delivery"
+          "delivery": "Estimated delivery: 20 days",
+          "whatsappMessage": "Hi, I'm interested in a quote for a Complete WordPress Website. Can we talk?"
         }
       },
       "custom": {
         "basic": {
           "title": "Landing Page",
-          "price": "150",
-          "delivery": "10 days delivery"
+          "delivery": "Estimated delivery: 10 days",
+          "whatsappMessage": "Hi, I'm interested in a quote for a custom-coded Landing Page. Can we talk?"
         },
         "standard": {
-          "title": "3-Page Website",
-          "price": "280",
-          "delivery": "14 days delivery",
+          "title": "Multi-page Website",
+          "delivery": "Estimated delivery: 14 days",
+          "whatsappMessage": "Hi, I'm interested in a quote for a custom-coded Multi-page Website. Can we talk?",
           "popular": "Most Popular"
         },
         "premium": {
           "title": "Complete Website",
-          "price": "550",
-          "delivery": "20 days delivery"
+          "delivery": "Estimated delivery: 20 days",
+          "whatsappMessage": "Hi, I'm interested in a quote for a custom-coded Complete Website. Can we talk?"
         }
       }
     },
@@ -60,54 +61,51 @@
       "wordpress": {
         "basic": {
           "title": "Basic Store",
-          "price": "350",
-          "delivery": "10 days delivery"
+          "delivery": "Estimated delivery: 10 days",
+          "whatsappMessage": "Hi, I'm interested in a quote for a Basic WooCommerce Store. Can we talk?"
         },
         "standard": {
           "title": "Standard Store",
-          "price": "550",
-          "delivery": "15 days delivery",
+          "delivery": "Estimated delivery: 15 days",
+          "whatsappMessage": "Hi, I'm interested in a quote for a Standard WooCommerce Store. Can we talk?",
           "popular": "Most Popular"
         },
         "premium": {
           "title": "Premium Store",
-          "price": "850",
-          "delivery": "21 days delivery"
+          "delivery": "Estimated delivery: 21 days",
+          "whatsappMessage": "Hi, I'm interested in a quote for a Premium WooCommerce Store. Can we talk?"
         }
       },
       "shopify": {
         "basic": {
           "title": "Basic Store",
-          "price": "300",
-          "delivery": "7 days delivery"
+          "delivery": "Estimated delivery: 7 days",
+          "whatsappMessage": "Hi, I'm interested in a quote for a Basic Shopify Store. Can we talk?"
         },
         "standard": {
           "title": "Standard Store",
-          "price": "450",
-          "delivery": "12 days delivery",
+          "delivery": "Estimated delivery: 12 days",
+          "whatsappMessage": "Hi, I'm interested in a quote for a Standard Shopify Store. Can we talk?",
           "popular": "Most Popular"
         },
         "premium": {
           "title": "Premium Store",
-          "price": "750",
-          "delivery": "18 days delivery"
+          "delivery": "Estimated delivery: 18 days",
+          "whatsappMessage": "Hi, I'm interested in a quote for a Premium Shopify Store. Can we talk?"
         }
       }
     }
   },
   "buttons": {
-    "selectPlan": "Select Plan",
+    "requestQuote": "Request Quote",
     "backToPlans": "Back to plans"
   },
   "ecommerceBanner": {
     "title": "Important Considerations",
     "points": {
-      "first": "WooCommerce: Prices do not include hosting costs, which can vary between $5-$30/month depending on your needs.",
-      "second": "Shopify: Prices do not include the monthly Shopify subscription (from $29/month) or transaction fees.",
-      "third": "Premium themes or additional plugins may have extra costs depending on your specific needs."
+      "first": "WooCommerce: The final price may vary depending on the plugins and features you need. We'll advise you with no obligation.",
+      "second": "Shopify: The monthly Shopify subscription (from $29/month) and transaction fees are independent of our service.",
+      "third": "Premium themes or additional features are quoted separately based on your specific needs."
     }
-  },
-  "wordpressF": {
-    "first": "Profesional responsive design"
   }
 }

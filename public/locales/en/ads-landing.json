@@ -1,0 +1,71 @@
+{
+  "seo": {
+    "title": "Professional Web Development | Free Quote | Crixium Digital",
+    "description": "We design websites that turn visitors into customers. Delivery in 10-20 days. Free personalized quote. 600+ satisfied clients."
+  },
+  "header": {
+    "cta": "Get a Quote"
+  },
+  "hero": {
+    "title": {
+      "part1": "Your business needs a website that ",
+      "highlight": "sells for you",
+      "part2": ""
+    },
+    "subtitle": "We design and develop professional, fast, and optimized websites to grow your business online.",
+    "cta": "Get a Free Quote",
+    "ctaSubtext": "Response in less than 24 hours — No strings attached"
+  },
+  "stats": {
+    "clients": "Satisfied clients",
+    "years": "Years of experience",
+    "projects": "Projects delivered",
+    "satisfaction": "Satisfaction guaranteed"
+  },
+  "benefits": {
+    "title": "Why choose us?",
+    "fast": {
+      "title": "Fast Delivery",
+      "description": "Your website ready in 10 to 20 days. No unnecessary delays."
+    },
+    "tracking": {
+      "title": "Real-time Tracking",
+      "description": "Follow your project's progress step by step from your dashboard."
+    },
+    "custom": {
+      "title": "Custom Design",
+      "description": "100% tailored to your brand, your industry, and your goals."
+    }
+  },
+  "included": {
+    "title": "Everything included with your website",
+    "subtitle": "Every project includes everything your business needs for a professional online presence.",
+    "items": {
+      "responsive": "Responsive design for mobile and tablets",
+      "seo": "SEO optimization for Google",
+      "ssl": "SSL security certificate",
+      "speed": "Page load speed optimization",
+      "analytics": "Google Analytics integration",
+      "support": "Post-launch support",
+      "contact": "Functional contact forms",
+      "social": "Social media integration"
+    }
+  },
+  "testimonial": {
+    "quote": "Excellent work, they delivered my website ahead of schedule and the design exceeded my expectations. 100% recommended.",
+    "author": "— Verified Fiverr client"
+  },
+  "guarantee": {
+    "title": "Satisfaction guaranteed",
+    "description": "If you're not happy with the result, we'll work with you until it's perfect. It's that simple."
+  },
+  "finalCta": {
+    "title": "Ready for the website your business deserves?",
+    "subtitle": "Tell us about your project and we'll send you a personalized proposal.",
+    "cta": "Message us on WhatsApp",
+    "benefit": "Response in less than 24 hours — Free quote"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  }
+}
