@@ -1,0 +1,26 @@
+{
+  "title": "Frequently Asked Questions",
+  "subtitle": "We answer your questions before getting started",
+  "items": [
+    {
+      "question": "What is the process to start a project?",
+      "answer": "Our process begins with a free consultation via WhatsApp or email where we understand your needs. Then we prepare a detailed proposal with timelines and costs. Once approved, we start the design and development with periodic reviews to ensure everything aligns with your vision."
+    },
+    {
+      "question": "How long does it take to develop a website?",
+      "answer": "Timelines vary depending on the project complexity. A landing page can be ready in 1-2 weeks. A corporate website takes about 3-4 weeks. An e-commerce site may require 4-8 weeks. We always establish clear deadlines from the start."
+    },
+    {
+      "question": "What do the web development packages include?",
+      "answer": "All our packages include responsive design, basic SEO optimization, SSL certificate, 1-year hosting, and post-launch technical support. Specific details vary by plan, but we always guarantee a fast, secure, and search-engine-optimized website."
+    },
+    {
+      "question": "Do you offer support after launch?",
+      "answer": "Yes, all our plans include post-launch technical support. This covers bug fixes, minor adjustments, and technical assistance. We also offer monthly maintenance plans for ongoing updates, new features, and performance monitoring."
+    },
+    {
+      "question": "What technologies do you use for development?",
+      "answer": "We work with the most modern and efficient technologies on the market, including React, Next.js, WordPress, and Shopify depending on the project needs. For the backend, we use Node.js and Firebase. We always choose the technology that best fits each client's goals and budget."
+    }
+  ]
+}

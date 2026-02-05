@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import {
   Mail,
@@ -13,6 +13,8 @@ import {
 import { useTranslation } from "react-i18next";
 import { sendContactForm } from "../services/MailgunService";
 import { v4 as uuidv4 } from "uuid";
+import { trackEvent } from "../utils/analytics";
+import { getUTMParams } from "../hooks/useUTM";
 
 const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
   const { t } = useTranslation("contact-form");
@@ -33,6 +35,8 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
     message: "",
     isLoading: false,
   });
+
+  const formStarted = useRef(false);
 
   useEffect(() => {
     if (initialService) {
@@ -109,6 +113,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
       const messageId = uuidv4();
 
       // Datos para enviar
+      const utmParams = getUTMParams();
       const dataToSend = {
         messageId,
         name: formData.name,
@@ -120,6 +125,7 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
         timestamp: new Date().toISOString(),
         source: "contact_form",
         privacyPolicyAccepted: formData.privacyPolicyAccepted,
+        ...utmParams,
       };
 
       setFormStatus((prev) => ({
@@ -131,6 +137,12 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
       const result = await sendContactForm(dataToSend);
 
       if (result.success) {
+        trackEvent("generate_lead", {
+          service: formData.service,
+          project_type: formData.projectType,
+          source: "contact_form",
+        });
+
         // Éxito
         setFormStatus({
           submitted: true,
@@ -153,6 +165,13 @@ const ContactForm = ({ initialService = "", initialProjectType = "" }) => {
   };
 
   const handleChange = (e) => {
+    if (!formStarted.current) {
+      formStarted.current = true;
+      trackEvent("form_start", {
+        source: "contact_form",
+      });
+    }
+
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,

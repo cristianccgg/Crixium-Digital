@@ -5,6 +5,7 @@ import LandingPage from "./components/LandingPage";
 import WhatsAppButton from "./components/WhatsAppButton";
 import LanguageRouter from "./components/LanguageRouter";
 import CookieConsent from "./components/CookieConsent";
+import { useUTM } from "./hooks/useUTM";
 
 // Lazy-loaded pages (code splitting)
 const MusicProductionPage = React.lazy(() => import("./components/MusicProductionPage"));
@@ -31,6 +32,8 @@ const PageLoader = () => (
 );
 
 function App() {
+  useUTM();
+
   return (
     <Router>
       <LanguageRouter>

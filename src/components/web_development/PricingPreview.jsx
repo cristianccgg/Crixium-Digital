@@ -3,11 +3,9 @@ import { motion } from "framer-motion";
 import { Check, ArrowRight, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
-const WHATSAPP_NUMBER = "573219746045";
+import { buildWhatsAppUrl, trackWhatsAppClick } from "../../utils/whatsapp";
 
 const PricingCard = ({ name, description, features, cta, whatsappMessage, isPopular, popularLabel, index }) => {
-  const encodedMessage = encodeURIComponent(whatsappMessage);
 
   return (
     <motion.div
@@ -43,9 +41,10 @@ const PricingCard = ({ name, description, features, cta, whatsappMessage, isPopu
       </div>
 
       <a
-        href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`}
+        href={buildWhatsAppUrl(whatsappMessage)}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackWhatsAppClick("pricing_preview", name)}
         className={`group w-full py-3 rounded-lg flex items-center justify-center gap-2 font-medium transition-all duration-300 ${
           isPopular
             ? "bg-purple-700 text-white hover:bg-purple-800"

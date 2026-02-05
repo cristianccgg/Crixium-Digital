@@ -12,6 +12,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { packageFeaturesEN } from "../packageFeatures.en";
 import { packageFeaturesES } from "../packageFeatures.es";
+import { buildWhatsAppUrl, trackWhatsAppClick } from "../../utils/whatsapp";
 
 // Selector de tipo de proyecto (Web o Ecommerce)
 const ProjectTypeSelector = ({ activeType, onTypeChange }) => {
@@ -116,9 +117,8 @@ const PricingCard = ({
   const [hovering, setHovering] = useState(false);
   const isES = i18n.language?.startsWith("es");
 
-  const whatsappUrl = `https://wa.me/573219746045?text=${encodeURIComponent(
-    whatsappMessage || (isES ? `Hola, me interesa una cotización para ${title}` : `Hi, I'm interested in a quote for ${title}`)
-  )}`;
+  const finalMessage = whatsappMessage || (isES ? `Hola, me interesa una cotización para ${title}` : `Hi, I'm interested in a quote for ${title}`);
+  const whatsappUrl = buildWhatsAppUrl(finalMessage);
 
   return (
     <div
@@ -176,6 +176,7 @@ const PricingCard = ({
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackWhatsAppClick("web_pricing", title)}
         className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg transition-all duration-300 ${
           isPopular || hovering
             ? "bg-green-600 text-white hover:bg-green-700"

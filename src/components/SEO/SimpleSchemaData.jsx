@@ -214,6 +214,23 @@ const SimpleSchemaData = ({ pageType = "WebPage", data = {} }) => {
         },
       },
 
+      // Esquema para páginas con FAQ
+      FAQPage: {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        name: data.title || t("schema:webpage.title", "FAQ - Crixium Digital"),
+        url: fullUrl,
+        inLanguage: currentLang,
+        mainEntity: (data.faqItems || []).map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.answer,
+          },
+        })),
+      },
+
       // Esquema para una página de categoría del blog
       CollectionPage: {
         "@context": "https://schema.org",
@@ -283,9 +300,10 @@ SimpleSchemaData.propTypes = {
     "WebDevelopmentService",
     "MusicProductionService",
     "ContactPage",
-    "Blog", // Añadido para el blog
-    "Article", // Añadido para artículos del blog
-    "CollectionPage", // Añadido para categorías del blog
+    "Blog",
+    "Article",
+    "CollectionPage",
+    "FAQPage",
   ]),
   data: PropTypes.object,
 };

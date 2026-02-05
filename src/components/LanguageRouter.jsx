@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { trackPageView } from "../utils/analytics";
 
 /**
  * Componente para sincronizar el idioma con la ruta actual
@@ -25,6 +26,8 @@ const LanguageRouter = ({ children }) => {
       i18n.changeLanguage("es");
       console.log("Cambiando idioma a español basado en la URL");
     }
+
+    trackPageView(path);
   }, [location.pathname, i18n]);
 
   return <>{children}</>;

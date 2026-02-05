@@ -96,6 +96,13 @@ const CookieConsent = () => {
 
   // Aplicar Firebase Analytics basado en las preferencias del usuario
   const applyGoogleAnalytics = (enabled) => {
+    // Push consent state to GTM dataLayer
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "consent_update",
+      analytics_consent: enabled ? "granted" : "denied",
+    });
+
     if (enabled) {
       // Habilitar Firebase Analytics
       // Importamos dinámicamente las funciones de Firebase Analytics

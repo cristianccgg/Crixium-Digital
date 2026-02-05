@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Sparkles, ArrowRight, Clock, Eye, Palette, CheckCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
-
-const WHATSAPP_NUMBER = "573219746045";
+import { buildWhatsAppUrl, trackWhatsAppClick } from "../../utils/whatsapp";
 
 const EnhancedHeroSection = () => {
   const [loaded, setLoaded] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
   const { t, i18n } = useTranslation("hero");
 
-  const whatsappMessage = encodeURIComponent(
+  const whatsappMessage =
     i18n.language === "en"
       ? "Hi, I'm interested in getting a quote for a web development project."
-      : "Hola, me interesa una cotización para un proyecto de desarrollo web."
-  );
+      : "Hola, me interesa una cotización para un proyecto de desarrollo web.";
 
   useEffect(() => {
     setLoaded(true);
@@ -133,9 +131,10 @@ const EnhancedHeroSection = () => {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <a
-                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`}
+                href={buildWhatsAppUrl(whatsappMessage)}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick("hero", "web")}
                 className="group bg-coral-500 text-white px-8 py-4 rounded-lg hover:bg-coral-600 transition-all duration-300 flex items-center justify-center gap-2 font-medium shadow-lg hover:shadow-xl"
               >
                 <span>{t("buttons.primary")}</span>

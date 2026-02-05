@@ -241,16 +241,15 @@ const Navbar = () => {
   );
 };
 
-const WHATSAPP_NUMBER = "573219746045";
+import { buildWhatsAppUrl, trackWhatsAppClick } from "../utils/whatsapp";
 
 const CallToAction = () => {
   const { t, i18n } = useTranslation("cta");
 
-  const whatsappMessage = encodeURIComponent(
+  const whatsappMessage =
     i18n.language === "en"
       ? "Hi, I'd like to get a free quote for a web project."
-      : "Hola, me gustaría obtener una cotización gratuita para un proyecto web."
-  );
+      : "Hola, me gustaría obtener una cotización gratuita para un proyecto web.";
 
   return (
     <section className="py-16 px-4 bg-purple-900 text-white">
@@ -263,9 +262,10 @@ const CallToAction = () => {
           {t("benefit")}
         </p>
         <a
-          href={`https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`}
+          href={buildWhatsAppUrl(whatsappMessage)}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackWhatsAppClick("cta_global", "web")}
           className="bg-coral-500 text-white px-8 py-4 rounded-lg hover:bg-coral-600 transition-all duration-300 inline-flex items-center gap-2 font-medium shadow-lg group cursor-pointer"
         >
           <span>{t("button")}</span>

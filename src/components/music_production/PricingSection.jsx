@@ -8,6 +8,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { buildWhatsAppUrl, trackWhatsAppClick } from "../../utils/whatsapp";
 
 const ServiceSelector = ({ activeService, onServiceChange }) => {
   const { t } = useTranslation("pricing");
@@ -57,12 +58,11 @@ const PricingCard = ({
   const [hovering, setHovering] = useState(false);
   const isES = i18n.language?.startsWith("es");
 
-  const whatsappUrl = `https://wa.me/573219746045?text=${encodeURIComponent(
-    whatsappMessage ||
-      (isES
-        ? `Hola, me interesa una cotización para ${title}. ¿Podemos hablar?`
-        : `Hi, I'm interested in a quote for ${title}. Can we talk?`)
-  )}`;
+  const finalMessage = whatsappMessage ||
+    (isES
+      ? `Hola, me interesa una cotización para ${title}. ¿Podemos hablar?`
+      : `Hi, I'm interested in a quote for ${title}. Can we talk?`);
+  const whatsappUrl = buildWhatsAppUrl(finalMessage);
 
   return (
     <div
@@ -120,6 +120,7 @@ const PricingCard = ({
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackWhatsAppClick("music_pricing", title)}
         className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg transition-all duration-300 ${
           isPopular || hovering
             ? "bg-green-600 text-white hover:bg-green-700"
@@ -151,12 +152,11 @@ const VoiceoverCard = ({
   const [hovering, setHovering] = useState(false);
   const isES = i18n.language?.startsWith("es");
 
-  const whatsappUrl = `https://wa.me/573219746045?text=${encodeURIComponent(
-    whatsappMessage ||
-      (isES
-        ? `Hola, me interesa una cotización para ${title}. ¿Podemos hablar?`
-        : `Hi, I'm interested in a quote for ${title}. Can we talk?`)
-  )}`;
+  const finalMessage = whatsappMessage ||
+    (isES
+      ? `Hola, me interesa una cotización para ${title}. ¿Podemos hablar?`
+      : `Hi, I'm interested in a quote for ${title}. Can we talk?`);
+  const whatsappUrl = buildWhatsAppUrl(finalMessage);
 
   return (
     <div
@@ -217,6 +217,7 @@ const VoiceoverCard = ({
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackWhatsAppClick("voiceover_pricing", title)}
         className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg transition-all duration-300 ${
           isPopular || hovering
             ? "bg-green-600 text-white hover:bg-green-700"

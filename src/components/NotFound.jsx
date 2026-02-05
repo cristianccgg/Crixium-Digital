@@ -3,17 +3,17 @@ import { Link } from "react-router-dom";
 import { Home, MessageCircle, ArrowLeft } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import SimpleSEO from "./SEO/SimpleSEO";
+import { buildWhatsAppUrl, trackWhatsAppClick } from "../utils/whatsapp";
 
 const NotFound = () => {
   const { t, i18n } = useTranslation("not-found");
   const isES = i18n.language?.startsWith("es");
   const homeUrl = isES ? "/" : "/en";
 
-  const whatsappUrl = `https://wa.me/573219746045?text=${encodeURIComponent(
-    isES
-      ? "Hola, estaba navegando en su sitio web y no encontré lo que buscaba. ¿Pueden ayudarme?"
-      : "Hi, I was browsing your website and couldn't find what I was looking for. Can you help me?"
-  )}`;
+  const whatsappMessage = isES
+    ? "Hola, estaba navegando en su sitio web y no encontré lo que buscaba. ¿Pueden ayudarme?"
+    : "Hi, I was browsing your website and couldn't find what I was looking for. Can you help me?";
+  const whatsappUrl = buildWhatsAppUrl(whatsappMessage);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white px-4">
@@ -42,6 +42,7 @@ const NotFound = () => {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackWhatsAppClick("404_page", "general")}
             className="flex items-center justify-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-300"
           >
             <MessageCircle size={18} />

@@ -2,8 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Globe, RefreshCw, Compass, ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
-
-const WHATSAPP_NUMBER = "573219746045";
+import { buildWhatsAppUrl, trackWhatsAppClick } from "../../utils/whatsapp";
 
 const ProblemSolutionCard = ({ icon: Icon, problem, solution, index }) => {
   return (
@@ -30,11 +29,10 @@ const ProblemSolutionCard = ({ icon: Icon, problem, solution, index }) => {
 const ProblemSolution = () => {
   const { t, i18n } = useTranslation("problem-solution");
 
-  const whatsappMessage = encodeURIComponent(
+  const whatsappMessage =
     i18n.language === "en"
       ? "Hi, I'd like to discuss a web project. Can you help me?"
-      : "Hola, me gustaría hablar sobre un proyecto web. ¿Pueden ayudarme?"
-  );
+      : "Hola, me gustaría hablar sobre un proyecto web. ¿Pueden ayudarme?";
 
   const problems = [
     {
@@ -86,9 +84,10 @@ const ProblemSolution = () => {
           className="text-center"
         >
           <a
-            href={`https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`}
+            href={buildWhatsAppUrl(whatsappMessage)}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackWhatsAppClick("problem_solution", "web")}
             className="group inline-flex items-center gap-2 bg-purple-700 text-white px-8 py-4 rounded-lg hover:bg-purple-800 transition-all duration-300 font-medium shadow-lg"
           >
             <span>{t("cta")}</span>

@@ -12,16 +12,16 @@ import {
 import { useTranslation } from "react-i18next";
 import SimpleSEO from "../SEO/SimpleSEO";
 import WhatsAppButton from "../WhatsAppButton";
+import { buildWhatsAppUrl, trackWhatsAppClick } from "../../utils/whatsapp";
 
 const AdsLandingPage = () => {
   const { t, i18n } = useTranslation("ads-landing");
   const isES = i18n.language?.startsWith("es");
 
-  const whatsappUrl = `https://wa.me/573219746045?text=${encodeURIComponent(
-    isES
-      ? "Hola, vi su anuncio y me interesa una cotización para desarrollo web. ¿Podemos hablar?"
-      : "Hi, I saw your ad and I'm interested in a quote for web development. Can we talk?"
-  )}`;
+  const whatsappMessage = isES
+    ? "Hola, vi su anuncio y me interesa una cotización para desarrollo web. ¿Podemos hablar?"
+    : "Hi, I saw your ad and I'm interested in a quote for web development. Can we talk?";
+  const whatsappUrl = buildWhatsAppUrl(whatsappMessage);
 
   return (
     <div className="min-h-screen bg-white">
@@ -51,6 +51,7 @@ const AdsLandingPage = () => {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackWhatsAppClick("ads_header", "web")}
             className="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-colors flex items-center gap-2"
           >
             <MessageCircle size={16} />
@@ -75,6 +76,7 @@ const AdsLandingPage = () => {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackWhatsAppClick("ads_hero", "web")}
             className="inline-flex items-center gap-3 bg-green-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-700 transition-all transform hover:scale-105 shadow-lg"
           >
             <MessageCircle size={22} />
@@ -234,6 +236,7 @@ const AdsLandingPage = () => {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackWhatsAppClick("ads_final_cta", "web")}
             className="inline-flex items-center gap-3 bg-green-600 text-white px-10 py-5 rounded-lg text-lg font-semibold hover:bg-green-700 transition-all transform hover:scale-105 shadow-lg"
           >
             <MessageCircle size={22} />

@@ -1,0 +1,26 @@
+{
+  "title": "Preguntas Frecuentes",
+  "subtitle": "Resolvemos tus dudas antes de empezar",
+  "items": [
+    {
+      "question": "¿Cuál es el proceso para iniciar un proyecto?",
+      "answer": "Nuestro proceso comienza con una consulta gratuita por WhatsApp o email donde entendemos tus necesidades. Luego preparamos una propuesta detallada con tiempos y costos. Una vez aprobada, comenzamos el diseño y desarrollo con revisiones periódicas para asegurar que todo esté alineado con tu visión."
+    },
+    {
+      "question": "¿Cuánto tiempo toma desarrollar un sitio web?",
+      "answer": "Los tiempos varían según la complejidad del proyecto. Una landing page puede estar lista en 1-2 semanas. Un sitio web corporativo toma entre 3-4 semanas. Un e-commerce puede requerir de 4-8 semanas. Siempre establecemos plazos claros desde el inicio."
+    },
+    {
+      "question": "¿Qué incluyen los paquetes de desarrollo web?",
+      "answer": "Todos nuestros paquetes incluyen diseño responsivo, optimización SEO básica, certificado SSL, hosting por 1 año y soporte técnico post-lanzamiento. Los detalles específicos varían según el plan elegido, pero siempre garantizamos un sitio rápido, seguro y optimizado para buscadores."
+    },
+    {
+      "question": "¿Ofrecen soporte después del lanzamiento?",
+      "answer": "Sí, todos nuestros planes incluyen soporte técnico post-lanzamiento. Esto cubre corrección de errores, ajustes menores y asistencia técnica. También ofrecemos planes de mantenimiento mensual para actualizaciones continuas, nuevas funcionalidades y monitoreo del rendimiento."
+    },
+    {
+      "question": "¿Qué tecnologías utilizan para el desarrollo?",
+      "answer": "Trabajamos con las tecnologías más modernas y eficientes del mercado, incluyendo React, Next.js, WordPress y Shopify según las necesidades del proyecto. Para el backend utilizamos Node.js y Firebase. Siempre elegimos la tecnología que mejor se adapte a los objetivos y presupuesto de cada cliente."
+    }
+  ]
+}

@@ -12,6 +12,8 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import SimpleSEO from "./SEO/SimpleSEO";
 import SimpleSchemaData from "./SEO/SimpleSchemaData";
+import { buildWhatsAppUrl, trackWhatsAppClick } from "../utils/whatsapp";
+import FAQ from "./FAQ";
 
 const ContactInfoCard = ({ icon: Icon, title, content, link, linkText }) => (
   <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all border border-gray-100 hover:border-purple-100 transform hover:scale-[1.02] duration-300">
@@ -41,6 +43,8 @@ const ContactInfoCard = ({ icon: Icon, title, content, link, linkText }) => (
 
 const ContactPage = () => {
   const { t } = useTranslation("contact-page");
+  const { t: tFaq } = useTranslation("faq");
+  const faqItems = tFaq("items", { returnObjects: true });
   const seoTitle = "Contáctanos | Servicios Digitales | Crixium Digital";
   const seoDescription =
     "Ponte en contacto con nuestro equipo para discutir tu próximo proyecto digital. Desarrollo web, producción musical y soluciones digitales personalizadas para tu negocio.";
@@ -160,7 +164,7 @@ const ContactPage = () => {
               icon={Phone}
               title={t("contact.infoSection.whatsapp.title")}
               content={t("contact.infoSection.whatsapp.content")}
-              link="https://wa.me/573219746045?text=Hola,%20me%20gustaría%20obtener%20más%20información%20sobre%20tus%20servicios."
+              link={buildWhatsAppUrl("Hola, me gustaría obtener más información sobre tus servicios.")}
               linkText={t("contact.infoSection.whatsapp.linkText")}
             />
 
@@ -175,38 +179,15 @@ const ContactPage = () => {
         </div>
       </section>
 
-      {/* FAQ or Additional Information */}
-      <section className="py-16 px-4 bg-purple-900 text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-full h-full overflow-hidden opacity-10">
-          <div className="absolute -right-40 -top-40 w-80 h-80 bg-purple-300 rounded-full"></div>
-          <div className="absolute -left-20 -bottom-20 w-60 h-60 bg-purple-400 rounded-full"></div>
-        </div>
-
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium mb-6">
-            <Sparkles size={16} className="text-coral-400" />
-            <span>{t("contact.faqSection.badge")}</span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            {t("contact.faqSection.title")}
-          </h2>
-          <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
-            {t("contact.faqSection.description")}
-          </p>
-          <a
-            href="https://wa.me/573219746045?text=Hola,%20me%20gustaría%20obtener%20más%20información%20sobre%20tus%20servicios."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-white text-purple-900 px-8 py-4 rounded-lg hover:bg-purple-50 transition-all duration-300 hover:shadow-lg transform hover:scale-105 font-medium shadow-md group"
-          >
-            <span>{t("contact.faqSection.button")}</span>
-            <ArrowRight
-              size={18}
-              className="transition-transform duration-300 group-hover:translate-x-1"
-            />
-          </a>
-        </div>
-      </section>
+      {/* FAQ */}
+      <FAQ />
+      <SimpleSchemaData
+        pageType="FAQPage"
+        data={{
+          path: "/contact",
+          faqItems: Array.isArray(faqItems) ? faqItems : [],
+        }}
+      />
     </div>
   );
 };

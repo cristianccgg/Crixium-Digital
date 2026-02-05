@@ -6,6 +6,7 @@ import FeaturedProjectsLanding from "./web_development/FeaturedProjectsLanding";
 import ProblemSolution from "./web_development/ProblemSolution";
 import PricingPreview from "./web_development/PricingPreview";
 import WhyToChoose from "./WhyToChoose.jsx";
+import FAQ from "./FAQ";
 import { useTranslation } from "react-i18next";
 import SimpleSEO from "./SEO/SimpleSEO";
 import SimpleSchemaData from "./SEO/SimpleSchemaData";
@@ -25,7 +26,9 @@ const StatCard = ({ number, label }) => (
 
 const LandingPage = () => {
   const { t } = useTranslation("stats");
+  const { t: tFaq } = useTranslation("faq");
   const heroRef = useRef(null);
+  const faqItems = tFaq("items", { returnObjects: true });
 
   useEffect(() => {
     if (heroRef.current) {
@@ -87,6 +90,16 @@ const LandingPage = () => {
 
       {/* 8. Por qué elegirnos */}
       <WhyToChoose />
+
+      {/* 9. FAQ */}
+      <FAQ />
+      <SimpleSchemaData
+        pageType="FAQPage"
+        data={{
+          path: "/",
+          faqItems: Array.isArray(faqItems) ? faqItems : [],
+        }}
+      />
     </>
   );
 };

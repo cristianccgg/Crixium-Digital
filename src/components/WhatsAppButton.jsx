@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { X } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { buildWhatsAppUrl, trackWhatsAppClick } from "../utils/whatsapp";
 
 const WhatsAppButton = () => {
   const { t } = useTranslation("whatsapp");
@@ -15,25 +16,24 @@ const WhatsAppButton = () => {
   }, []);
 
   const openWhatsApp = () => {
-    // Número con código de país (personalizar según ubicación)
-    const phoneNumber = "573219746045";
-
     // Mensaje predefinido dinámico según la página
     let message = t("message");
+    let service = "general";
 
     if (currentPage.includes("web-development")) {
       message = t("message-web");
+      service = "web";
     } else if (currentPage.includes("music-production")) {
       message = t("message-music");
+      service = "music";
     } else if (currentPage.includes("contact")) {
       message = t("message-contact");
+      service = "contact";
     }
 
-    // URL de WhatsApp
-    window.open(
-      `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`,
-      "_blank"
-    );
+    trackWhatsAppClick("floating_button", service);
+
+    window.open(buildWhatsAppUrl(message), "_blank");
   };
 
   return (
