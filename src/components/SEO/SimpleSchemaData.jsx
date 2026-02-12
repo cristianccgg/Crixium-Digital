@@ -205,6 +205,12 @@ const SimpleSchemaData = ({ pageType = "WebPage", data = {} }) => {
         author: {
           "@type": "Person",
           name: data.author || "Crixium Digital",
+          jobTitle: data.authorRole || "",
+          url: siteUrl,
+          worksFor: {
+            "@type": "Organization",
+            name: "Crixium Digital",
+          },
         },
         publisher: organizationData,
         inLanguage: currentLang,
@@ -212,6 +218,18 @@ const SimpleSchemaData = ({ pageType = "WebPage", data = {} }) => {
           "@type": "WebPage",
           "@id": fullUrl,
         },
+      },
+
+      // Esquema BreadcrumbList para navegación jerárquica
+      BreadcrumbList: {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: (data.breadcrumbs || []).map((crumb, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: crumb.name,
+          item: crumb.path ? `${siteUrl}${langPath}${crumb.path}` : undefined,
+        })),
       },
 
       // Esquema para páginas con FAQ
@@ -304,6 +322,7 @@ SimpleSchemaData.propTypes = {
     "Article",
     "CollectionPage",
     "FAQPage",
+    "BreadcrumbList",
   ]),
   data: PropTypes.object,
 };

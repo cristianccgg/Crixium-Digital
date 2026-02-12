@@ -210,6 +210,15 @@ const BlogPage = () => {
           path: "/blog",
         }}
       />
+      <SimpleSchemaData
+        pageType="BreadcrumbList"
+        data={{
+          breadcrumbs: [
+            { name: "Inicio", path: "/" },
+            { name: "Blog" },
+          ],
+        }}
+      />
 
       {/* Hero Section */}
       <section className="pt-28 pb-16 px-4 bg-gradient-to-br from-purple-900 via-purple-800 to-purple-900 text-white">

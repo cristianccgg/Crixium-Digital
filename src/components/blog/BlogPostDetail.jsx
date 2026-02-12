@@ -80,10 +80,23 @@ const BlogPostDetail = () => {
         data={{
           path: `/blog/${post.slug}`,
           headline: post.title,
+          description: post.summary,
           datePublished: post.publishDate,
           author: post.author,
+          authorRole: post.authorRole,
           publisher: "Crixium Digital",
           image: post.image,
+        }}
+      />
+      <SimpleSchemaData
+        pageType="BreadcrumbList"
+        data={{
+          breadcrumbs: [
+            { name: "Inicio", path: "/" },
+            { name: "Blog", path: "/blog" },
+            { name: post.categoryName, path: `/blog/categoria/${post.category}` },
+            { name: post.title },
+          ],
         }}
       />
 
