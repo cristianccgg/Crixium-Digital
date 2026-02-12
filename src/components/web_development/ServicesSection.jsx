@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Monitor,
   ShoppingCart,
@@ -13,6 +13,8 @@ import {
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { sendContactForm } from "../../services/MailgunService";
+import { trackEvent } from "../../utils/analytics";
+import { getUTMParams } from "../../hooks/useUTM";
 
 // Selector de tipo de proyecto (Web o Ecommerce)
 const ProjectTypeSelector = ({ activeType, onTypeChange }) => {
@@ -246,6 +248,7 @@ const ContactForm = ({ projectType, technology, onBack }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState(null);
+  const formStarted = useRef(false);
 
   // Función para obtener etiqueta legible de tecnología
   function getTechnologyLabel(tech, type) {
@@ -264,6 +267,14 @@ const ContactForm = ({ projectType, technology, onBack }) => {
   }
 
   const handleChange = (e) => {
+    if (!formStarted.current) {
+      formStarted.current = true;
+      trackEvent("form_start", {
+        source: "services_section",
+        project_type: projectType,
+        technology: technology,
+      });
+    }
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -277,6 +288,7 @@ const ContactForm = ({ projectType, technology, onBack }) => {
     setError(null);
 
     // Datos del formulario con contexto añadido
+    const utmParams = getUTMParams();
     const formDataToSubmit = {
       ...formData,
       service: `Servicio ${getTechnologyLabel(
@@ -292,6 +304,8 @@ const ContactForm = ({ projectType, technology, onBack }) => {
           ? t("contactForm.timelineOptions.notUrgent")
           : t("contactForm.timelineOptions.unsure")
       }\nViene desde: Sección de Servicios`,
+      source: "services_section",
+      ...utmParams,
     };
 
     // Versión para desarrollo local
@@ -311,6 +325,11 @@ const ContactForm = ({ projectType, technology, onBack }) => {
       const result = await sendContactForm(formDataToSubmit);
 
       if (result.success) {
+        trackEvent("generate_lead", {
+          service: getTechnologyLabel(technology, projectType),
+          project_type: getProjectTypeLabel(projectType),
+          source: "services_section",
+        });
         setIsSubmitted(true);
       } else {
         setError(result.message || t("contactForm.errorMessage"));

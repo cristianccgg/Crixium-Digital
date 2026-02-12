@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Layout, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
-import automateHQ from "../../assets/web_projects/automateHQ.png";
-import EvaPro from "../../assets/web_projects/EvaPro.png";
-import ciom from "../../assets/web_projects/ciom.png";
-import designo from "../../assets/web_projects/designo.png";
-import clout from "../../assets/web_projects/clout.png";
-import hoodLab from "../../assets/web_projects/hoodlab.png";
-import FB from "../../assets/web_projects/FB.png";
+import automateHQ from "../../assets/web_projects/automateHQ.webp";
+import EvaPro from "../../assets/web_projects/EvaPro.webp";
+import ciom from "../../assets/web_projects/ciom.webp";
+import designo from "../../assets/web_projects/designo.webp";
+import clout from "../../assets/web_projects/clout.webp";
+import hoodLab from "../../assets/web_projects/hoodlab.webp";
+import FB from "../../assets/web_projects/FB.webp";
 import { useTranslation } from "react-i18next";
 
 const ProjectCard = ({

@@ -10,7 +10,7 @@
     "authorRole": "Especialista en Producción Musical",
     "category": "produccion-musical",
     "categoryName": "Producción Musical",
-    "image": "/blog/identidad-sonora.jpg",
+    "image": "/blog/identidad-sonora.webp",
     "tags": [
       "branding sonoro",
       "experiencia de usuario",
@@ -30,7 +30,7 @@
     "authorRole": "Diseñadora Web",
     "category": "desarrollo-web",
     "categoryName": "Desarrollo Web",
-    "image": "/blog/web-musical.jpg",
+    "image": "/blog/web-musical.webp",
     "tags": ["diseño web", "UX/UI", "empresas musicales"],
     "featured": true
   },
@@ -45,7 +45,7 @@
     "authorRole": "CTO Crixium Digital",
     "category": "desarrollo-web",
     "categoryName": "Desarrollo Web",
-    "image": "/blog/conversion-web.jpg",
+    "image": "/blog/conversion-web.webp",
 
     "tags": ["tendencias", "diseño web", "UX/UI", "estudios de producción"],
     "featured": false
@@ -61,7 +61,7 @@
     "authorRole": "Especialista en Conversión Web",
     "category": "marketing-digital",
     "categoryName": "Marketing Digital",
-    "image": "/blog/tendencias-web.jpg",
+    "image": "/blog/tendencias-web.webp",
     "tags": [
       "conversiones",
       "optimización",

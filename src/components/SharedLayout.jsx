@@ -141,7 +141,7 @@ const Navbar = () => {
             >
               <div className="flex items-center gap-2">
                 <img
-                  src="/bombillo.PNG"
+                  src="/bombillo.webp"
                   alt="bombillo"
                   loading="lazy"
                   className="w-8  md:w-10 "
@@ -308,7 +308,7 @@ const Footer = ({ children }) => {
           <div className="flex flex-col items-start">
             <div className="flex flex-col items-center">
               <div className="flex gap-2">
-                <img src="/bombillo.PNG" alt="bombillo" loading="lazy" className="w-8" />
+                <img src="/bombillo.webp" alt="bombillo" loading="lazy" className="w-8" />
                 <h1 className="text-coral-400 text-bold text-2xl md:text-md lg:text-3xl">
                   Crixium Digital
                 </h1>

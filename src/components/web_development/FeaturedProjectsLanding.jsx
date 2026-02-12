@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Globe, ArrowRight, ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import harvvestImage from "../../assets/web_projects/harvvest.app.jpg";
-import tempestImage from "../../assets/web_projects/Tempest Digital - www.tempest-digital.io.jpg";
-import hanahomesImage from "../../assets/web_projects/www.hanahomes.co.jpg";
+import harvvestImage from "../../assets/web_projects/harvvest.app.webp";
+import tempestImage from "../../assets/web_projects/Tempest Digital - www.tempest-digital.io.webp";
+import hanahomesImage from "../../assets/web_projects/www.hanahomes.co.webp";
 
 const FeaturedProject = ({ title, description, image, url, isEven, tags }) => {
   const [isVisible, setIsVisible] = useState(false);
