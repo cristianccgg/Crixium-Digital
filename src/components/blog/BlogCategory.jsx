@@ -5,7 +5,8 @@ import { useTranslation } from "react-i18next";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import SimpleSEO from "../SEO/SimpleSEO";
 import SimpleSchemaData from "../SEO/SimpleSchemaData";
-import blogData from "../../data/blogPosts.json";
+import blogDataEs from "../../data/blogPosts.json";
+import blogDataEn from "../../data/blogPosts_en.json";
 
 const BlogCategory = () => {
   const { category } = useParams();
@@ -24,6 +25,7 @@ const BlogCategory = () => {
 
   // Cargar artículos de la categoría
   useEffect(() => {
+    const blogData = i18n.language === "en" ? blogDataEn : blogDataEs;
     const categoryPosts = blogData.filter((p) => p.category === category);
 
     if (categoryPosts.length > 0) {
@@ -42,14 +44,14 @@ const BlogCategory = () => {
         titleKey="blog.category.defaultTitle"
         descriptionKey={`blog.category.defaultDescription`}
         descriptionOptions={{ category: categoryName?.toLowerCase() }}
-        canonicalUrl={`/blog/categoria/${category}`}
+        canonicalUrl={getLocalizedPath(`/blog/categoria/${category}`)}
         ogType="website"
         ogImage="/logo.png"
       />
       <SimpleSchemaData
         pageType="CollectionPage"
         data={{
-          path: `/blog/categoria/${category}`,
+          path: getLocalizedPath(`/blog/categoria/${category}`),
           name: categoryName,
         }}
       />
@@ -57,8 +59,8 @@ const BlogCategory = () => {
         pageType="BreadcrumbList"
         data={{
           breadcrumbs: [
-            { name: "Inicio", path: "/" },
-            { name: "Blog", path: "/blog" },
+            { name: i18n.language === "en" ? "Home" : "Inicio", path: getLocalizedPath("/") },
+            { name: "Blog", path: getLocalizedPath("/blog") },
             { name: categoryName || category },
           ],
         }}
@@ -72,13 +74,14 @@ const BlogCategory = () => {
             className="inline-flex items-center text-white/80 hover:text-coral-400 mb-4 transition-colors"
           >
             <ArrowLeft size={16} className="mr-1" />
-            <span>Volver al blog</span>
+            <span>{i18n.language === "en" ? "Back to blog" : "Volver al blog"}</span>
           </Link>
 
           <h1 className="text-4xl font-bold mb-4">{categoryName}</h1>
           <p className="text-xl text-purple-100 mb-8 max-w-3xl">
-            Artículos sobre {categoryName.toLowerCase()} para empresas y
-            profesionales
+            {i18n.language === "en"
+              ? `Articles about ${categoryName.toLowerCase()} for businesses and professionals`
+              : `Artículos sobre ${categoryName.toLowerCase()} para empresas y profesionales`}
           </p>
         </div>
       </section>
@@ -127,7 +130,7 @@ const BlogCategory = () => {
                       to={getLocalizedPath(`/blog/${post.slug}`)}
                       className="text-purple-700 text-sm font-medium hover:text-coral-500 transition-colors inline-flex items-center"
                     >
-                      <span>Leer más</span>
+                      <span>{i18n.language === "en" ? "Read more" : "Leer más"}</span>
                       <ArrowRight size={14} className="ml-1" />
                     </Link>
                   </div>
@@ -137,18 +140,19 @@ const BlogCategory = () => {
           ) : (
             <div className="text-center py-12">
               <h2 className="text-2xl font-bold mb-4 text-gray-900">
-                No hay artículos en esta categoría
+                {i18n.language === "en" ? "No articles in this category" : "No hay artículos en esta categoría"}
               </h2>
               <p className="text-gray-600 mb-6">
-                Estamos trabajando en crear contenido para esta categoría.
-                ¡Vuelve pronto!
+                {i18n.language === "en"
+                  ? "We're working on creating content for this category. Check back soon!"
+                  : "Estamos trabajando en crear contenido para esta categoría. ¡Vuelve pronto!"}
               </p>
               <Link
                 to={getLocalizedPath("/blog")}
                 className="inline-flex items-center text-white bg-purple-700 px-4 py-2 rounded-lg hover:bg-purple-800 transition-colors"
               >
                 <ArrowLeft size={16} className="mr-1" />
-                <span>Volver al blog</span>
+                <span>{i18n.language === "en" ? "Back to blog" : "Volver al blog"}</span>
               </Link>
             </div>
           )}

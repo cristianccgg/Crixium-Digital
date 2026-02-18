@@ -71,14 +71,14 @@ const BlogPostDetail = () => {
       <SimpleSEO
         titleKey={`${post.title} | Blog Crixium Digital`}
         descriptionKey={post.summary}
-        canonicalUrl={`/blog/${post.slug}`}
+        canonicalUrl={getLocalizedPath(`/blog/${post.slug}`)}
         ogType="article"
         ogImage={post.image || "/logo.png"}
       />
       <SimpleSchemaData
         pageType="Article"
         data={{
-          path: `/blog/${post.slug}`,
+          path: getLocalizedPath(`/blog/${post.slug}`),
           headline: post.title,
           description: post.summary,
           datePublished: post.publishDate,
@@ -92,9 +92,9 @@ const BlogPostDetail = () => {
         pageType="BreadcrumbList"
         data={{
           breadcrumbs: [
-            { name: "Inicio", path: "/" },
-            { name: "Blog", path: "/blog" },
-            { name: post.categoryName, path: `/blog/categoria/${post.category}` },
+            { name: i18n.language === "en" ? "Home" : "Inicio", path: getLocalizedPath("/") },
+            { name: "Blog", path: getLocalizedPath("/blog") },
+            { name: post.categoryName, path: getLocalizedPath(`/blog/categoria/${post.category}`) },
             { name: post.title },
           ],
         }}
@@ -109,7 +109,7 @@ const BlogPostDetail = () => {
             className="inline-flex items-center text-white/80 hover:text-coral-400 mb-4 transition-colors"
           >
             <ArrowLeft size={16} className="mr-1" />
-            <span>Volver al blog</span>
+            <span>{i18n.language === "en" ? "Back to blog" : "Volver al blog"}</span>
           </Link>
 
           <div className="flex items-center space-x-3 mb-4">
@@ -213,7 +213,7 @@ const BlogPostDetail = () => {
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <span className="text-gray-700">Compartir:</span>
+                  <span className="text-gray-700">{i18n.language === "en" ? "Share:" : "Compartir:"}</span>
                   <button
                     className="p-2 rounded-full bg-gray-100 hover:bg-purple-100 text-gray-700 hover:text-purple-700 transition-colors"
                     aria-label="Compartir en Twitter"
@@ -305,14 +305,12 @@ const BlogPostDetail = () => {
               {/* CTA para servicios relacionados */}
               <div className="bg-purple-50 rounded-xl p-6 border border-purple-100">
                 <h3 className="text-lg font-semibold mb-3 text-purple-900">
-                  ¿Interesado en nuestros servicios?
+                  {i18n.language === "en" ? "Interested in our services?" : "¿Interesado en nuestros servicios?"}
                 </h3>
                 <p className="text-sm text-gray-700 mb-4">
-                  Ofrecemos soluciones profesionales de{" "}
-                  {post.category === "produccion-musical"
-                    ? "producción musical"
-                    : "desarrollo web"}{" "}
-                  adaptadas a tus necesidades.
+                  {i18n.language === "en"
+                    ? `We offer professional ${post.category === "produccion-musical" ? "music production" : "web development"} solutions tailored to your needs.`
+                    : `Ofrecemos soluciones profesionales de ${post.category === "produccion-musical" ? "producción musical" : "desarrollo web"} adaptadas a tus necesidades.`}
                 </p>
                 <Link
                   to={getLocalizedPath(
@@ -322,7 +320,7 @@ const BlogPostDetail = () => {
                   )}
                   className="block w-full py-2 px-4 bg-purple-700 hover:bg-purple-800 text-white rounded-lg text-center text-sm font-medium transition-colors"
                 >
-                  Ver servicios
+                  {i18n.language === "en" ? "View services" : "Ver servicios"}
                 </Link>
               </div>
             </div>
@@ -335,7 +333,7 @@ const BlogPostDetail = () => {
         <section className="py-12 px-4 bg-gray-50">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-2xl font-bold mb-8 text-gray-900">
-              Artículos relacionados
+              {i18n.language === "en" ? "Related articles" : "Artículos relacionados"}
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -372,7 +370,7 @@ const BlogPostDetail = () => {
                         to={getLocalizedPath(`/blog/${relatedPost.slug}`)}
                         className="text-purple-700 text-sm font-medium hover:text-coral-500 transition-colors inline-flex items-center"
                       >
-                        <span>Leer más</span>
+                        <span>{i18n.language === "en" ? "Read more" : "Leer más"}</span>
                         <ArrowRight size={14} className="ml-1" />
                       </Link>
                     </div>
