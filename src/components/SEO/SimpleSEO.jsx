@@ -14,6 +14,7 @@ const SimpleSEO = ({
   canonicalUrl,
   ogType = "website",
   ogImage = "/logo.png", // Logo PNG 500x500px en carpeta public
+  noIndex = false, // Si true, agrega noindex,nofollow
 }) => {
   const { t, i18n } = useTranslation("seo"); // Asumiendo que tienes un namespace "seo"
   const currentLang = i18n.language;
@@ -76,6 +77,9 @@ const SimpleSEO = ({
     // Establecer el atributo lang en el html
     document.documentElement.setAttribute("lang", currentLang);
 
+    // noindex para páginas que no deben indexarse
+    updateMetaTag("robots", noIndex ? "noindex,nofollow" : "index,follow");
+
     // Metadatos básicos
     updateMetaTag("description", description);
     updateLink("canonical", canonical);
@@ -99,9 +103,34 @@ const SimpleSEO = ({
       true
     );
 
-    // Agregar enlaces hreflang para SEO multilingüe
-    updateLink("alternate", altUrl);
-    updateLink("hreflang", altLang);
+    // Hreflang correcto: <link rel="alternate" hreflang="es" href="...">
+    // Eliminar hreflang anteriores para evitar duplicados
+    document.querySelectorAll('link[hreflang]').forEach(el => el.remove());
+
+    const esUrl = canonicalUrl
+      ? `${siteUrl}${canonicalUrl}`
+      : siteUrl;
+    const enUrl = canonicalUrl
+      ? `${siteUrl}/en${canonicalUrl}`
+      : `${siteUrl}/en`;
+
+    const hreflangEs = document.createElement("link");
+    hreflangEs.setAttribute("rel", "alternate");
+    hreflangEs.setAttribute("hreflang", "es");
+    hreflangEs.setAttribute("href", esUrl);
+    document.head.appendChild(hreflangEs);
+
+    const hreflangEn = document.createElement("link");
+    hreflangEn.setAttribute("rel", "alternate");
+    hreflangEn.setAttribute("hreflang", "en");
+    hreflangEn.setAttribute("href", enUrl);
+    document.head.appendChild(hreflangEn);
+
+    const hreflangDefault = document.createElement("link");
+    hreflangDefault.setAttribute("rel", "alternate");
+    hreflangDefault.setAttribute("hreflang", "x-default");
+    hreflangDefault.setAttribute("href", esUrl);
+    document.head.appendChild(hreflangDefault);
 
     // Twitter
     updateMetaTag("twitter:card", "summary_large_image");
@@ -114,7 +143,7 @@ const SimpleSEO = ({
       // No es necesario eliminar las meta tags, pero podría hacerse si es importante
       // Para este caso, simplemente dejamos que permanezcan hasta la próxima actualización
     };
-  }, [title, description, canonical, ogType, ogImage, currentLang, siteUrl]);
+  }, [title, description, canonical, ogType, ogImage, currentLang, siteUrl, noIndex]);
 
   // Este componente no renderiza nada visible
   return null;
@@ -123,10 +152,11 @@ const SimpleSEO = ({
 SimpleSEO.propTypes = {
   titleKey: PropTypes.string,
   descriptionKey: PropTypes.string,
-  descriptionOptions: PropTypes.object, // Añadido para soportar opciones de traducción
+  descriptionOptions: PropTypes.object,
   canonicalUrl: PropTypes.string,
   ogType: PropTypes.string,
   ogImage: PropTypes.string,
+  noIndex: PropTypes.bool,
 };
 
 export default SimpleSEO;

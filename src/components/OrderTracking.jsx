@@ -492,11 +492,12 @@ const OrderTracking = () => {
     <div className=" bg-gray-50">
       {/* SEO Components */}
       <SimpleSEO
-        titleKey="seo:tracking.title" // Necesitarás añadir esta entrada en tus archivos de traducción
-        descriptionKey="seo:tracking.description" // Necesitarás añadir esta entrada en tus archivos de traducción
+        titleKey="seo:tracking.title"
+        descriptionKey="seo:tracking.description"
         canonicalUrl="/tracking"
         ogType="website"
         ogImage="/logo.png"
+        noIndex={true}
       />
       <SimpleSchemaData
         pageType="WebPage"
