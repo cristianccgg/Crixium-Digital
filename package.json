@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@rive-app/react-canvas": "^4.18.3",
+    "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.0.7",
     "axios": "^1.8.2",
     "firebase": "^11.3.1",

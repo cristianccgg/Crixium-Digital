@@ -132,8 +132,9 @@ const BlogPage = () => {
   }, [i18n.language]); // Actualizar cuando cambie el idioma
 
   // Seccionar posts para el diseño
-  const featuredPosts = filteredPosts
+  const featuredPosts = [...filteredPosts]
     .filter((post) => post.featured)
+    .sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate))
     .slice(0, 3);
   const recentPosts = [...filteredPosts]
     .sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate))
