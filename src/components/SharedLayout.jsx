@@ -119,7 +119,7 @@ const Navbar = () => {
         pathname.startsWith(`${route}/`) || // Subrutas (como /blog/articulo)
         pathname === `/en${route}` || // Ruta inglesa normal
         pathname.startsWith(`/en${route}/`) || // Subrutas en inglés
-        (route === "/" && pathname === "/en") // Caso especial para home en inglés
+        (route === "/" && pathname === "/en"), // Caso especial para home en inglés
     );
   };
 
@@ -154,7 +154,7 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Navigation - Modified breakpoints */}
-          <div className="hidden md:flex items-center md:space-x-2 lg:space-x-4 xl:space-x-8">
+          <div className="hidden lg:flex items-center md:space-x-2 lg:space-x-4 xl:space-x-8">
             {navItems.map((item) => (
               <Link
                 key={item.name}
@@ -168,7 +168,7 @@ const Navbar = () => {
                   location.pathname === getLocalizedPath(item.href) ||
                   location.pathname.startsWith(`${item.href}/`) ||
                   location.pathname.startsWith(
-                    `${getLocalizedPath(item.href)}/`
+                    `${getLocalizedPath(item.href)}/`,
                   )
                     ? "font-semibold"
                     : ""
@@ -195,7 +195,7 @@ const Navbar = () => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center justify-between gap-2">
+          <div className="lg:hidden flex items-center justify-between gap-2">
             <LanguageSwitcher />
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -258,9 +258,7 @@ const CallToAction = () => {
         <p className="text-xl text-purple-100 mb-3 max-w-2xl mx-auto">
           {t("subtitle")}
         </p>
-        <p className="text-sm text-purple-300 mb-8">
-          {t("benefit")}
-        </p>
+        <p className="text-sm text-purple-300 mb-8">{t("benefit")}</p>
         <a
           href={buildWhatsAppUrl(whatsappMessage)}
           target="_blank"
@@ -308,7 +306,12 @@ const Footer = ({ children }) => {
           <div className="flex flex-col items-start">
             <div className="flex flex-col items-center">
               <div className="flex gap-2">
-                <img src="/bombillo.webp" alt="bombillo" loading="lazy" className="w-8" />
+                <img
+                  src="/bombillo.webp"
+                  alt="bombillo"
+                  loading="lazy"
+                  className="w-8"
+                />
                 <h1 className="text-coral-400 text-bold text-2xl md:text-md lg:text-3xl">
                   Crixium Digital
                 </h1>
@@ -448,7 +451,7 @@ const Layout = ({ children }) => {
         pathname.startsWith(`${route}/`) || // Subrutas (como /blog/articulo)
         pathname === `/en${route}` || // Ruta inglesa normal
         pathname.startsWith(`/en${route}/`) || // Subrutas en inglés
-        (route === "/" && pathname === "/en") // Caso especial para home en inglés
+        (route === "/" && pathname === "/en"), // Caso especial para home en inglés
     );
   };
 

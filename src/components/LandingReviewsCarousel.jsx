@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import {
@@ -150,32 +151,7 @@ const ReviewCard = ({ review }) => {
 };
 
 const LandingReviewsCarousel = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef(null);
   const { t } = useTranslation("reviews");
-
-  // Observer para detectar cuando el carrusel está visible
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
 
   const reviews = [
     {
@@ -324,30 +300,34 @@ const LandingReviewsCarousel = () => {
   };
 
   return (
-    <section
-      ref={sectionRef}
-      className="py-20 px-4 bg-gray-50 relative overflow-hidden"
-    >
+    <section className="py-20 px-4 bg-gray-50 relative overflow-hidden">
       {/* Elementos decorativos */}
-      <div className="absolute top-20 right-10 w-32 h-32 bg-purple-200 rounded-full opacity-20 animate-pulse"></div>
-      <div
-        className="absolute bottom-10 left-10 w-24 h-24 bg-purple-300 rounded-full opacity-20 animate-pulse"
-        style={{ animationDelay: "1s" }}
-      ></div>
+      <motion.div
+        className="absolute top-20 right-10 w-32 h-32 bg-purple-200 rounded-full opacity-20"
+        animate={{ scale: [1, 1.1, 1] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute bottom-10 left-10 w-24 h-24 bg-purple-300 rounded-full opacity-20"
+        animate={{ scale: [1, 1.15, 1] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+      />
 
-      <div
-        className={`max-w-7xl mx-auto relative z-10 transition-all duration-1000 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }`}
-      >
-        <div className="text-center mb-12">
+      <div className="max-w-7xl mx-auto relative z-10">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.4 }}
+        >
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">
             <Sparkles size={16} className="text-coral-500" />
             <span>{t("badge")}</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("title")}</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">{t("description")}</p>
-        </div>
+        </motion.div>
 
         <Carousel
           responsive={responsive}

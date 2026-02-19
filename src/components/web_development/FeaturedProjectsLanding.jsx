@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { Globe, ArrowRight, ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import harvvestImage from "../../assets/web_projects/harvvest.app.webp";
@@ -7,55 +7,40 @@ import tempestImage from "../../assets/web_projects/Tempest Digital - www.tempes
 import hanahomesImage from "../../assets/web_projects/www.hanahomes.co.webp";
 
 const FeaturedProject = ({ title, description, image, url, isEven, tags }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [ref, setRef] = useState(null);
   const { t } = useTranslation("projects");
 
-  useEffect(() => {
-    if (!ref) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 },
-    );
-
-    observer.observe(ref);
-
-    return () => {
-      if (ref) observer.unobserve(ref);
-    };
-  }, [ref]);
-
   return (
-    <div
-      ref={setRef}
-      className={`flex flex-col md:flex-row items-center gap-8 py-16 transition-all duration-1000 ${
+    <motion.div
+      initial={{ opacity: 0, x: isEven ? 40 : -40 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, amount: 0.2 }}
+      className={`flex flex-col md:flex-row items-center gap-8 py-16 ${
         isEven ? "md:flex-row-reverse" : ""
-      } ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
       }`}
     >
       {/* Project image */}
       <div className="w-full md:w-1/2 relative">
         <div className="relative overflow-hidden rounded-xl shadow-xl group">
-          <div className="aspect-video w-full overflow-hidden group-hover:scale-105 transition-all duration-700">
-            {image ? (
-              <img
-                src={image}
-                alt={title}
-                loading="lazy"
-                className="w-full h-full object-cover object-top"
-              />
-            ) : (
-              <div className="flex items-center justify-center bg-gradient-to-br from-purple-200 to-purple-100 w-full h-full">
-                <Globe size={64} className="text-purple-500 opacity-40" />
-              </div>
-            )}
+          <div className="aspect-video w-full overflow-hidden">
+            <motion.div
+              className="w-full h-full"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            >
+              {image ? (
+                <img
+                  src={image}
+                  alt={title}
+                  loading="lazy"
+                  className="w-full h-full object-cover object-top"
+                />
+              ) : (
+                <div className="flex items-center justify-center bg-gradient-to-br from-purple-200 to-purple-100 w-full h-full">
+                  <Globe size={64} className="text-purple-500 opacity-40" />
+                </div>
+              )}
+            </motion.div>
 
             {/* View project overlay */}
             <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
@@ -78,7 +63,13 @@ const FeaturedProject = ({ title, description, image, url, isEven, tags }) => {
       </div>
 
       {/* Project details */}
-      <div className="w-full md:w-1/2">
+      <motion.div
+        className="w-full md:w-1/2"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+        viewport={{ once: true, amount: 0.2 }}
+      >
         <h3 className="text-3xl font-bold mb-4 text-gray-800">{title}</h3>
         <p className="text-gray-600 mb-6">{description}</p>
 
@@ -86,18 +77,22 @@ const FeaturedProject = ({ title, description, image, url, isEven, tags }) => {
         <div className="flex flex-wrap gap-2 mb-6">
           {tags &&
             tags.map((tag, index) => (
-              <span
+              <motion.span
                 key={index}
                 className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium"
+                initial={{ opacity: 0, scale: 0.85 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: 0.3 + index * 0.07 }}
+                viewport={{ once: true }}
               >
                 {tag}
-              </span>
+              </motion.span>
             ))}
         </div>
 
         <Link
           to="web-development"
-          className="text-purple-700 flex items-center gap-2 font-medium hover:text-purple-900 transition-colors"
+          className="group text-purple-700 flex items-center gap-2 font-medium hover:text-purple-900 transition-colors"
         >
           {t("viewMoreProjects")}
           <ArrowRight
@@ -105,8 +100,8 @@ const FeaturedProject = ({ title, description, image, url, isEven, tags }) => {
             className="transition-transform group-hover:translate-x-1"
           />
         </Link>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
@@ -117,21 +112,33 @@ const FeaturedProjectsLanding = () => {
     <section className="py-20 px-4 bg-gray-50 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-40 pointer-events-none">
-        <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full border-8 border-purple-200 opacity-20"></div>
-        <div className="absolute bottom-20 left-10 w-40 h-40 rounded-full border-8 border-purple-200 opacity-20"></div>
+        <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full border-8 border-purple-200 opacity-20" />
+        <div className="absolute bottom-20 left-10 w-40 h-40 rounded-full border-8 border-purple-200 opacity-20" />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section header */}
-        <div className="text-center mb-16">
-          <div className="inline-block px-4 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.5 }}
+        >
+          <motion.div
+            className="inline-block px-4 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4 }}
+            viewport={{ once: true }}
+          >
             {t("ourWork")}
-          </div>
+          </motion.div>
           <h2 className="text-4xl font-bold mb-4">{t("featuredProjects")}</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
             {t("featuredProjectsDescription")}
           </p>
-        </div>
+        </motion.div>
 
         {/* Projects list */}
         <div className="space-y-24">
@@ -164,18 +171,26 @@ const FeaturedProjectsLanding = () => {
         </div>
 
         {/* View all projects button */}
-        <div className="flex justify-center mt-16">
-          <Link
-            to="web-development"
-            className="group bg-purple-700 text-white px-8 py-4 rounded-lg hover:bg-purple-800 transition-all duration-300 flex items-center gap-2 font-medium shadow-lg"
-          >
-            {t("viewAllProjects")}
-            <ArrowRight
-              size={18}
-              className="transition-transform duration-300 group-hover:translate-x-1"
-            />
-          </Link>
-        </div>
+        <motion.div
+          className="flex justify-center mt-16"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+            <Link
+              to="web-development"
+              className="group bg-purple-700 text-white px-8 py-4 rounded-lg hover:bg-purple-800 transition-colors duration-300 flex items-center gap-2 font-medium shadow-lg"
+            >
+              {t("viewAllProjects")}
+              <ArrowRight
+                size={18}
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

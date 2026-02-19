@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import LandingReviewsCarousel from "./LandingReviewsCarousel";
 import EnhancedHeroSection from "./web_development/EnhancedHeroSection";
-
 import FeaturedProjectsLanding from "./web_development/FeaturedProjectsLanding";
 import ProblemSolution from "./web_development/ProblemSolution";
 import PricingPreview from "./web_development/PricingPreview";
@@ -11,30 +11,61 @@ import { useTranslation } from "react-i18next";
 import SimpleSEO from "./SEO/SimpleSEO";
 import SimpleSchemaData from "./SEO/SimpleSchemaData";
 
-// Componente para los números/estadísticas con atributos mejorados para accesibilidad
-const StatCard = ({ number, label }) => (
-  <div className="text-center" role="presentation">
-    <div
-      className="text-4xl md:text-5xl font-bold text-white mb-2"
-      aria-label={`${number} ${label}`}
+// Animated counter hook
+const useCounter = (target, duration = 1800, isActive = false) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!isActive) return;
+    const numeric = parseInt(target.replace(/\D/g, ""), 10);
+    if (!numeric) return;
+
+    const start = performance.now();
+    const tick = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * numeric));
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [isActive, target, duration]);
+
+  return count;
+};
+
+const StatCard = ({ number, label, index }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.5 });
+  const suffix = number.replace(/[0-9]/g, "");
+  const animated = useCounter(number, 1600, isInView);
+
+  return (
+    <motion.div
+      ref={ref}
+      className="text-center"
+      role="presentation"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      viewport={{ once: true }}
     >
-      {number}
-    </div>
-    <p className="text-white">{label}</p>
-  </div>
-);
+      <div
+        className="text-4xl md:text-5xl font-bold text-white mb-2"
+        aria-label={`${number} ${label}`}
+      >
+        {isInView ? `${animated}${suffix}` : "0"}
+      </div>
+      <p className="text-white">{label}</p>
+    </motion.div>
+  );
+};
 
 const LandingPage = () => {
   const { t } = useTranslation("stats");
   const { t: tFaq } = useTranslation("faq");
-  const heroRef = useRef(null);
   const faqItems = tFaq("items", { returnObjects: true });
-
-  useEffect(() => {
-    if (heroRef.current) {
-      heroRef.current.classList.add("animate-fade-in");
-    }
-  }, []);
 
   return (
     <>
@@ -74,10 +105,10 @@ const LandingPage = () => {
         </h2>
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <StatCard number="250+" label={t("label1")} />
-            <StatCard number="600+" label={t("label2")} />
-            <StatCard number="8+" label={t("label3")} />
-            <StatCard number="100%" label={t("label4")} />
+            <StatCard number="250+" label={t("label1")} index={0} />
+            <StatCard number="600+" label={t("label2")} index={1} />
+            <StatCard number="8+" label={t("label3")} index={2} />
+            <StatCard number="100%" label={t("label4")} index={3} />
           </div>
         </div>
       </section>
