@@ -1,0 +1,99 @@
+{
+  "seo": {
+    "title": "Página Web para Restaurantes en Colombia | Crixium Digital",
+    "description": "Diseñamos páginas web para restaurantes, cafés y negocios de comida. Menú digital, reservas online y presencia en Google. Cotización gratis."
+  },
+  "header": {
+    "cta": "Cotizar Ahora"
+  },
+  "hero": {
+    "badge": "Especialistas en webs para negocios de comida",
+    "title": {
+      "part1": "Tu restaurante en Google,",
+      "highlight": " llenando mesas",
+      "part2": " todos los días"
+    },
+    "subtitle": "Creamos la página web de tu restaurante con menú digital, reservas y todo optimizado para que los clientes te encuentren en Google — en 10 a 20 días.",
+    "cta": "Quiero mi página web",
+    "ctaSubtext": "Cotización gratis y sin compromiso — Respuesta en menos de 24 horas"
+  },
+  "stats": {
+    "clients": "Negocios con web activa",
+    "years": "Años de experiencia",
+    "projects": "Proyectos entregados",
+    "satisfaction": "Satisfacción garantizada"
+  },
+  "pain": {
+    "title": "¿Te identificas con alguno de estos problemas?",
+    "items": [
+      {
+        "icon": "search",
+        "text": "Tus clientes no te encuentran en Google Maps ni en búsquedas locales"
+      },
+      {
+        "icon": "phone",
+        "text": "Recibes pedidos solo por llamada o WhatsApp, sin organización"
+      },
+      {
+        "icon": "menu",
+        "text": "No tienes un menú digital actualizado que puedas compartir fácilmente"
+      },
+      {
+        "icon": "compete",
+        "text": "Tu competencia ya tiene web y tú todavía no"
+      }
+    ]
+  },
+  "benefits": {
+    "title": "Lo que incluye tu página web para restaurante",
+    "fast": {
+      "title": "Lista en 10-20 días",
+      "description": "Tu web funcionando antes de fin de mes. Sin demoras ni excusas."
+    },
+    "menu": {
+      "title": "Menú Digital Atractivo",
+      "description": "Muestra tus platos con fotos, descripciones y precios. Actualizable cuando quieras."
+    },
+    "reservations": {
+      "title": "Reservas y Pedidos",
+      "description": "Formulario de reservas o integración con WhatsApp para recibir pedidos sin caos."
+    }
+  },
+  "included": {
+    "title": "Todo incluido, sin sorpresas",
+    "subtitle": "Tu página web para restaurante lista con todo lo que necesitas para atraer más clientes.",
+    "items": {
+      "menu": "Menú digital con fotos y precios",
+      "seo": "SEO local para Google Maps y búsquedas",
+      "responsive": "Perfecta en celular (donde buscan tus clientes)",
+      "whatsapp": "Botón de WhatsApp para pedidos y reservas",
+      "speed": "Carga rápida para no perder visitas",
+      "ssl": "Certificado de seguridad SSL incluido",
+      "analytics": "Google Analytics para ver cuánta gente te visita",
+      "support": "Soporte post-lanzamiento incluido"
+    }
+  },
+  "showcase": {
+    "title": "Ya lo hicimos para otros negocios de comida",
+    "subtitle": "Este es el tipo de resultado que obtendrás para tu restaurante.",
+    "cta": "Quiero algo así para mi negocio"
+  },
+  "testimonial": {
+    "title": "Lo que dicen nuestros clientes",
+    "quote": "Desde que lancé mi página web, recibo mensajes de WhatsApp de clientes nuevos todas las semanas. El proceso fue rápido y quedó mejor de lo que esperaba.",
+    "author": "— Propietario de restaurante, cliente verificado"
+  },
+  "guarantee": {
+    "title": "Si no queda perfecto, seguimos trabajando",
+    "description": "Trabajamos contigo hasta que el resultado te convenza al 100%. Sin costos adicionales."
+  },
+  "finalCta": {
+    "title": "¿Listo para llenar más mesas con tu web?",
+    "subtitle": "Cuéntanos sobre tu restaurante y te enviamos una propuesta en menos de 24 horas.",
+    "cta": "Solicitar cotización gratis",
+    "benefit": "Sin compromiso — Respuesta en menos de 24 horas"
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados."
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "seo": {
+    "title": "Restaurant Website Design | Get More Customers | Crixium Digital",
+    "description": "We build websites for restaurants, cafes and food businesses. Digital menu, online reservations and Google visibility. Free quote."
+  },
+  "header": {
+    "cta": "Get a Quote"
+  },
+  "hero": {
+    "badge": "Specialists in websites for food businesses",
+    "title": {
+      "part1": "Your restaurant on Google,",
+      "highlight": " filling tables",
+      "part2": " every day"
+    },
+    "subtitle": "We build your restaurant website with a digital menu, reservations and full Google optimization — so customers find you first. Ready in 10 to 20 days.",
+    "cta": "I want my website",
+    "ctaSubtext": "Free quote, no strings attached — Response in less than 24 hours"
+  },
+  "stats": {
+    "clients": "Businesses with live websites",
+    "years": "Years of experience",
+    "projects": "Projects delivered",
+    "satisfaction": "Satisfaction guaranteed"
+  },
+  "pain": {
+    "title": "Do any of these sound familiar?",
+    "items": [
+      {
+        "icon": "search",
+        "text": "Customers can't find you on Google Maps or local searches"
+      },
+      {
+        "icon": "phone",
+        "text": "You only take orders by phone or WhatsApp with no system"
+      },
+      {
+        "icon": "menu",
+        "text": "You don't have an updated digital menu to share easily"
+      },
+      {
+        "icon": "compete",
+        "text": "Your competitors already have a website and you don't"
+      }
+    ]
+  },
+  "benefits": {
+    "title": "What your restaurant website includes",
+    "fast": {
+      "title": "Ready in 10-20 Days",
+      "description": "Your website live before the end of the month. No delays, no excuses."
+    },
+    "menu": {
+      "title": "Attractive Digital Menu",
+      "description": "Showcase your dishes with photos, descriptions and prices. Update it anytime."
+    },
+    "reservations": {
+      "title": "Reservations & Orders",
+      "description": "Reservation form or WhatsApp integration to take orders without chaos."
+    }
+  },
+  "included": {
+    "title": "Everything included, no surprises",
+    "subtitle": "Your restaurant website ready with everything you need to attract more customers.",
+    "items": {
+      "menu": "Digital menu with photos and prices",
+      "seo": "Local SEO for Google Maps and searches",
+      "responsive": "Perfect on mobile (where your customers search)",
+      "whatsapp": "WhatsApp button for orders and reservations",
+      "speed": "Fast loading so you don't lose visitors",
+      "ssl": "SSL security certificate included",
+      "analytics": "Google Analytics to track your visitors",
+      "support": "Post-launch support included"
+    }
+  },
+  "showcase": {
+    "title": "We've done it for other food businesses",
+    "subtitle": "This is the type of result you'll get for your restaurant.",
+    "cta": "I want something like this for my business"
+  },
+  "testimonial": {
+    "title": "What our clients say",
+    "quote": "Since launching my website, I get new WhatsApp inquiries from new customers every week. The process was fast and the result exceeded my expectations.",
+    "author": "— Restaurant owner, verified client"
+  },
+  "guarantee": {
+    "title": "If it's not perfect, we keep working",
+    "description": "We work with you until you're 100% happy with the result. No extra charges."
+  },
+  "finalCta": {
+    "title": "Ready to fill more tables with your website?",
+    "subtitle": "Tell us about your restaurant and we'll send you a proposal in less than 24 hours.",
+    "cta": "Get a free quote",
+    "benefit": "No strings attached — Response in less than 24 hours"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  }
+}

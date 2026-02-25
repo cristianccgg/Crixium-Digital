@@ -21,6 +21,7 @@ const BlogPage = React.lazy(() => import("./components/blog/BlogPage"));
 const BlogPostDetail = React.lazy(() => import("./components/blog/BlogPostDetail"));
 const BlogCategory = React.lazy(() => import("./components/blog/BlogCategory"));
 const AdsLandingPage = React.lazy(() => import("./components/web_development/AdsLandingPage"));
+const RestaurantLandingPage = React.lazy(() => import("./components/web_development/RestaurantLandingPage"));
 const NotFound = React.lazy(() => import("./components/NotFound"));
 
 const PageLoader = () => (
@@ -63,6 +64,14 @@ function App() {
           <Route
             path="/en/servicios/desarrollo-web"
             element={<AdsLandingPage />}
+          />
+          <Route
+            path="/servicios/web-para-restaurantes"
+            element={<RestaurantLandingPage />}
+          />
+          <Route
+            path="/en/servicios/web-para-restaurantes"
+            element={<RestaurantLandingPage />}
           />
 
           {/* Rutas públicas en español (sin prefijo) */}
