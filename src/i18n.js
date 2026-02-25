@@ -33,7 +33,6 @@ const initI18n = () => {
         "featured-projects",
         "footer",
         "hero",
-        "jinglecheckout",
         "music-production",
         "navbar",
         "order-tracking",
@@ -52,7 +51,6 @@ const initI18n = () => {
         "terms",
         "tracking-preview",
         "tracking",
-        "voiceovercheckout",
         "web-development",
         "whatsapp",
         "whytochoose",
@@ -75,7 +73,10 @@ const initI18n = () => {
         caches: ["localStorage"],
         lookupFromPathIndex: 0,
         checkWhitelist: true,
+        // Ignorar segmentos de ruta que no son idiomas
+        excludeCacheFor: ["cimode"],
       },
+      supportedLngs: ["es", "en", "es-419"],
       load: "languageOnly",
       preload: ["es", "en"], // Precarga estos idiomas
     });
