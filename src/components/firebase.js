@@ -5,13 +5,13 @@ import { getAuth } from "firebase/auth";
 import { getAnalytics, isSupported } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD_sRrRlRuDrAfDdRGfb8dC_u0K6sq5Y0c",
-  authDomain: "philo-studio.firebaseapp.com",
-  projectId: "philo-studio",
-  storageBucket: "philo-studio.firebasestorage.app",
-  messagingSenderId: "976158688326",
-  appId: "1:976158688326:web:5ed5eb2e5eadfc318ff647",
-  measurementId: "G-11J6Q97KD0",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 // Inicializa Firebase
