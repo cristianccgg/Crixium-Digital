@@ -1,7 +1,7 @@
 // Este componente muestra la página principal del blog, con listado de posts
 // Importa el JSON directamente para evitar dependencias de CMS
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Search, ArrowRight, Tag } from "lucide-react";
 import SimpleSEO from "../SEO/SimpleSEO";
@@ -122,6 +122,8 @@ const PostCard = ({ post }) => {
 const BlogPage = () => {
   // Modificar para incluir múltiples namespaces
   const { t, i18n } = useTranslation("blog");
+  const location = useLocation();
+  const isTagPage = new URLSearchParams(location.search).has("tag");
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredPosts, setFilteredPosts] = useState([]);
 
@@ -204,6 +206,7 @@ const BlogPage = () => {
         canonicalUrl="/blog"
         ogType="blog"
         ogImage="/logo.png"
+        noIndex={isTagPage}
       />
       <SimpleSchemaData
         pageType="Blog"

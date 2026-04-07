@@ -1,150 +1,339 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Páginas principales -->
   <url>
     <loc>https://crixiumdigital.com/</loc>
-    <lastmod>2026-02-12</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en" />
     <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/" />
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/en</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/" />
   </url>
   <url>
     <loc>https://crixiumdigital.com/web-development</loc>
-    <lastmod>2026-02-12</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/web-development" />
     <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/web-development" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/web-development" />
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/en/web-development</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/web-development" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/web-development" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/web-development" />
   </url>
   <url>
     <loc>https://crixiumdigital.com/music-production</loc>
-    <lastmod>2026-02-12</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/music-production" />
     <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/music-production" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/music-production" />
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/en/music-production</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/music-production" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/music-production" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/music-production" />
   </url>
   <url>
     <loc>https://crixiumdigital.com/contact</loc>
-    <lastmod>2026-02-12</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/contact" />
     <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/contact" />
   </url>
   <url>
-    <loc>https://crixiumdigital.com/tracking</loc>
-    <lastmod>2026-02-12</lastmod>
+    <loc>https://crixiumdigital.com/en/contact</loc>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/tracking" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/tracking" />
-  </url>
-  <url>
-    <loc>https://crixiumdigital.com/blog</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/contact" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/contact" />
   </url>
   <url>
     <loc>https://crixiumdigital.com/privacy-policy</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/privacy-policy" />
     <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/privacy-policy" />
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/en/privacy-policy</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/privacy-policy" />
   </url>
   <url>
     <loc>https://crixiumdigital.com/terms-conditions</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/terms-conditions" />
     <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/terms-conditions" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/terms-conditions" />
   </url>
   <url>
-    <loc>https://crixiumdigital.com/servicios/desarrollo-web</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/servicios/desarrollo-web" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/servicios/desarrollo-web" />
+    <loc>https://crixiumdigital.com/en/terms-conditions</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/terms-conditions" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/terms-conditions" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/terms-conditions" />
   </url>
+
+  <!-- Blog principal -->
   <url>
-    <loc>https://crixiumdigital.com/en/blog</loc>
-    <lastmod>2026-02-12</lastmod>
+    <loc>https://crixiumdigital.com/blog</loc>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog" />
     <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog" />
   </url>
   <url>
-    <loc>https://crixiumdigital.com/en/privacy-policy</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://crixiumdigital.com/en/blog</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog" />
+  </url>
+
+  <!-- Categorías del blog (ES) -->
+  <url>
+    <loc>https://crixiumdigital.com/blog/categoria/produccion-musical</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/categoria/music-production" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/categoria/produccion-musical" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/categoria/produccion-musical" />
   </url>
   <url>
-    <loc>https://crixiumdigital.com/en/terms-conditions</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://crixiumdigital.com/blog/categoria/desarrollo-web</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/categoria/web-development" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/categoria/desarrollo-web" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/categoria/desarrollo-web" />
   </url>
   <url>
-    <loc>https://crixiumdigital.com/en/servicios/desarrollo-web</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://crixiumdigital.com/blog/categoria/marketing-digital</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/categoria/digital-marketing" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/categoria/marketing-digital" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/categoria/marketing-digital" />
   </url>
+
+  <!-- Categorías del blog (EN) -->
+  <url>
+    <loc>https://crixiumdigital.com/en/blog/categoria/music-production</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/categoria/music-production" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/categoria/produccion-musical" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/categoria/produccion-musical" />
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/en/blog/categoria/web-development</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/categoria/web-development" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/categoria/desarrollo-web" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/categoria/desarrollo-web" />
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/en/blog/categoria/digital-marketing</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/categoria/digital-marketing" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/categoria/marketing-digital" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/categoria/marketing-digital" />
+  </url>
+
+  <!-- Posts del blog (ES) -->
   <url>
     <loc>https://crixiumdigital.com/blog/identidad-sonora-profesional-presencia-digital</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2025-05-10</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/professional-sound-identity-digital-presence" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/identidad-sonora-profesional-presencia-digital" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/identidad-sonora-profesional-presencia-digital" />
   </url>
   <url>
     <loc>https://crixiumdigital.com/blog/elementos-web-empresa-musical</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2025-05-05</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/essential-elements-music-company-website" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/elementos-web-empresa-musical" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/elementos-web-empresa-musical" />
   </url>
   <url>
     <loc>https://crixiumdigital.com/blog/tendencias-diseno-web-estudios-produccion-2025</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2025-04-28</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/web-design-trends-production-studios-2025" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/tendencias-diseno-web-estudios-produccion-2025" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/tendencias-diseno-web-estudios-produccion-2025" />
   </url>
   <url>
     <loc>https://crixiumdigital.com/blog/diseno-web-conversiones-servicios-musicales</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2025-04-20</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/web-design-conversions-music-services" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/diseno-web-conversiones-servicios-musicales" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/diseno-web-conversiones-servicios-musicales" />
   </url>
   <url>
-    <loc>https://crixiumdigital.com/en/blog/professional-sound-identity-digital-presence</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://crixiumdigital.com/blog/senales-sitio-web-pierde-clientes</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/signs-website-losing-clients" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/senales-sitio-web-pierde-clientes" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/senales-sitio-web-pierde-clientes" />
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/blog/pagina-web-vs-instagram-que-necesita-tu-negocio</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/website-vs-instagram-what-does-your-business-need" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/pagina-web-vs-instagram-que-necesita-tu-negocio" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/pagina-web-vs-instagram-que-necesita-tu-negocio" />
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/blog/vale-la-pena-tienda-online-guia-para-decidir</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/is-online-store-worth-it-guide-to-decide" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/vale-la-pena-tienda-online-guia-para-decidir" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/vale-la-pena-tienda-online-guia-para-decidir" />
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/blog/cuanto-cuesta-pagina-web-profesional-colombia-2025</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/how-much-does-professional-website-cost-2025" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/cuanto-cuesta-pagina-web-profesional-colombia-2025" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/cuanto-cuesta-pagina-web-profesional-colombia-2025" />
+  </url>
+
+  <!-- Posts del blog (EN) -->
+  <url>
+    <loc>https://crixiumdigital.com/en/blog/professional-sound-identity-digital-presence</loc>
+    <lastmod>2025-05-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/professional-sound-identity-digital-presence" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/identidad-sonora-profesional-presencia-digital" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/identidad-sonora-profesional-presencia-digital" />
   </url>
   <url>
     <loc>https://crixiumdigital.com/en/blog/essential-elements-music-company-website</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2025-05-05</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/essential-elements-music-company-website" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/elementos-web-empresa-musical" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/elementos-web-empresa-musical" />
   </url>
   <url>
     <loc>https://crixiumdigital.com/en/blog/web-design-trends-production-studios-2025</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2025-04-28</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/web-design-trends-production-studios-2025" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/tendencias-diseno-web-estudios-produccion-2025" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/tendencias-diseno-web-estudios-produccion-2025" />
   </url>
   <url>
     <loc>https://crixiumdigital.com/en/blog/web-design-conversions-music-services</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2025-04-20</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/web-design-conversions-music-services" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/diseno-web-conversiones-servicios-musicales" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/diseno-web-conversiones-servicios-musicales" />
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/en/blog/signs-website-losing-clients</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/signs-website-losing-clients" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/senales-sitio-web-pierde-clientes" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/senales-sitio-web-pierde-clientes" />
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/en/blog/website-vs-instagram-what-does-your-business-need</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/website-vs-instagram-what-does-your-business-need" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/pagina-web-vs-instagram-que-necesita-tu-negocio" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/pagina-web-vs-instagram-que-necesita-tu-negocio" />
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/en/blog/is-online-store-worth-it-guide-to-decide</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/is-online-store-worth-it-guide-to-decide" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/vale-la-pena-tienda-online-guia-para-decidir" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/vale-la-pena-tienda-online-guia-para-decidir" />
+  </url>
+  <url>
+    <loc>https://crixiumdigital.com/en/blog/how-much-does-professional-website-cost-2025</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://crixiumdigital.com/en/blog/how-much-does-professional-website-cost-2025" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://crixiumdigital.com/blog/cuanto-cuesta-pagina-web-profesional-colombia-2025" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://crixiumdigital.com/blog/cuanto-cuesta-pagina-web-profesional-colombia-2025" />
   </url>
 </urlset>

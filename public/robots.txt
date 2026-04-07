@@ -10,6 +10,10 @@ Disallow: /_next/
 Disallow: /node_modules/
 Disallow: /.git/
 
+# Excluir páginas de tags (contenido filtrado, no indexable)
+Disallow: /blog?tag=
+Disallow: /en/blog?tag=
+
 # Permitir específicamente el blog
 Allow: /blog/
 Allow: /en/blog/
