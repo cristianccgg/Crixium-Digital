@@ -1,4 +1,26 @@
 {
+  "redirects": [
+    {
+      "source": "/blog/essential-elements-music-company-website",
+      "destination": "/en/blog/essential-elements-music-company-website",
+      "permanent": true
+    },
+    {
+      "source": "/blog/professional-sound-identity-digital-presence",
+      "destination": "/en/blog/professional-sound-identity-digital-presence",
+      "permanent": true
+    },
+    {
+      "source": "/blog/web-design-conversions-music-services",
+      "destination": "/en/blog/web-design-conversions-music-services",
+      "permanent": true
+    },
+    {
+      "source": "/blog/web-design-trends-production-studios-2025",
+      "destination": "/en/blog/web-design-trends-production-studios-2025",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
