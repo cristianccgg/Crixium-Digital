@@ -7,6 +7,9 @@ import designo from "../../assets/web_projects/designo.webp";
 import clout from "../../assets/web_projects/clout.webp";
 import hoodLab from "../../assets/web_projects/hoodlab.webp";
 import FB from "../../assets/web_projects/FB.webp";
+import harvvest from "../../assets/web_projects/harvvest.app.webp";
+import tempest from "../../assets/web_projects/Tempest Digital - www.tempest-digital.io.webp";
+import hanahomes from "../../assets/web_projects/www.hanahomes.co.webp";
 import { useTranslation } from "react-i18next";
 
 const ProjectCard = ({
@@ -104,6 +107,9 @@ const FeaturedProjects = ({ ref }) => {
   const ciomTechStack = ["HTML", "CSS", "JavaScript"];
   const cloutTechStack = ["HTML", "TailwindCSS", "JavaScript"];
   const fbTechStack = ["Wordpress", "CSS", "JavaScript"];
+  const harvvestTechStack = ["React", "TailwindCSS", "Framer Motion"];
+  const tempestTechStack = ["React", "TailwindCSS", "GSAP"];
+  const hanahomesTechStack = ["React", "TailwindCSS", "JavaScript"];
 
   // Proyectos con traducciones para el título y descripción, pero techStack estático
   const projects = [
@@ -155,6 +161,27 @@ const FeaturedProjects = ({ ref }) => {
       techStack: fbTechStack,
       deployUrl: "https://fbmediadigital.com",
       imageUrl: FB,
+    },
+    {
+      title: t("projects.harvvest.title"),
+      description: t("projects.harvvest.description"),
+      techStack: harvvestTechStack,
+      deployUrl: "https://harvvest.app",
+      imageUrl: harvvest,
+    },
+    {
+      title: t("projects.tempest.title"),
+      description: t("projects.tempest.description"),
+      techStack: tempestTechStack,
+      deployUrl: "https://www.tempest-digital.io",
+      imageUrl: tempest,
+    },
+    {
+      title: t("projects.hanahomes.title"),
+      description: t("projects.hanahomes.description"),
+      techStack: hanahomesTechStack,
+      deployUrl: "https://www.hanahomes.co",
+      imageUrl: hanahomes,
     },
   ];
 

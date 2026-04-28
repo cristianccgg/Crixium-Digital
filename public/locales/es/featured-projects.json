@@ -34,6 +34,18 @@
     "fbmedia": {
       "title": "FB Media Digital",
       "description": "Ventas y agendas automatizadas con IA"
+    },
+    "harvvest": {
+      "title": "Harvvest",
+      "description": "Landing de conversión para una plataforma de monetización para creadores de contenido"
+    },
+    "tempest": {
+      "title": "Tempest Digital",
+      "description": "Sitio web inmersivo e interactivo para un estudio de tecnología creativa"
+    },
+    "hanahomes": {
+      "title": "Hana Homes",
+      "description": "Plataforma inmobiliaria orientada a la generación de leads y captura de solicitudes"
     }
   },
   "buttons": {

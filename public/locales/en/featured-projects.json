@@ -34,6 +34,18 @@
     "fbmedia": {
       "title": "FB Media Digital",
       "description": "Automated sales and scheduling with AI"
+    },
+    "harvvest": {
+      "title": "Harvvest",
+      "description": "Conversion-focused landing page for a content creator monetization platform"
+    },
+    "tempest": {
+      "title": "Tempest Digital",
+      "description": "Immersive and interactive website for a creative technology studio"
+    },
+    "hanahomes": {
+      "title": "Hana Homes",
+      "description": "Real estate platform focused on lead generation and offer request capture"
     }
   },
   "buttons": {
