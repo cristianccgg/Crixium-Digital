@@ -114,6 +114,27 @@ const FeaturedProjects = ({ ref }) => {
   // Proyectos con traducciones para el título y descripción, pero techStack estático
   const projects = [
     {
+      title: t("projects.harvvest.title"),
+      description: t("projects.harvvest.description"),
+      techStack: harvvestTechStack,
+      deployUrl: "https://harvvest.app",
+      imageUrl: harvvest,
+    },
+    {
+      title: t("projects.tempest.title"),
+      description: t("projects.tempest.description"),
+      techStack: tempestTechStack,
+      deployUrl: "https://www.tempest-digital.io",
+      imageUrl: tempest,
+    },
+    {
+      title: t("projects.hanahomes.title"),
+      description: t("projects.hanahomes.description"),
+      techStack: hanahomesTechStack,
+      deployUrl: "https://www.hanahomes.co",
+      imageUrl: hanahomes,
+    },
+    {
       title: t("projects.hoodlab.title"),
       description: t("projects.hoodlab.description"),
       techStack: hoodlabTechStack,
@@ -161,27 +182,6 @@ const FeaturedProjects = ({ ref }) => {
       techStack: fbTechStack,
       deployUrl: "https://fbmediadigital.com",
       imageUrl: FB,
-    },
-    {
-      title: t("projects.harvvest.title"),
-      description: t("projects.harvvest.description"),
-      techStack: harvvestTechStack,
-      deployUrl: "https://harvvest.app",
-      imageUrl: harvvest,
-    },
-    {
-      title: t("projects.tempest.title"),
-      description: t("projects.tempest.description"),
-      techStack: tempestTechStack,
-      deployUrl: "https://www.tempest-digital.io",
-      imageUrl: tempest,
-    },
-    {
-      title: t("projects.hanahomes.title"),
-      description: t("projects.hanahomes.description"),
-      techStack: hanahomesTechStack,
-      deployUrl: "https://www.hanahomes.co",
-      imageUrl: hanahomes,
     },
   ];
 
